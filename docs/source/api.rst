@@ -36,4 +36,3 @@ Utilities
     :template: module.rst
 
     pisces_geometry.utilities
-

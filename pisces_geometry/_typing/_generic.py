@@ -1,3 +1,3 @@
-from typing import List, Tuple, Union, Literal
+from typing import Literal
 
-BasisAlias = Literal['unit','covariant','contravariant']
+BasisAlias = Literal["unit", "covariant", "contravariant"]

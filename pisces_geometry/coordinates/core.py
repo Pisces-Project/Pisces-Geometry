@@ -8,33 +8,36 @@ custom coordinate systems that fall into a few standard types:
 2. **Orthogonal Coordinate Systems**: should be descended from :py:class:`OrthogonalCoordinateSystem`.
 """
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Literal, Callable, Sequence, Optional
+from typing import Any, Callable, Dict, List, Literal, Optional, Sequence
 
 import numpy as np
 import sympy as sp
 
-from pisces_geometry.coordinates.base import _CoordinateSystemBase, class_expression, _get_grid_spacing
-from pisces_geometry.differential_geometry import (
-    raise_index_orth,
-    lower_index_orth,
-    contract_index_with_metric_orthogonal,
-    ggrad_orth_covariant,
-    ggrad_orth_contravariant,
-    gdiv_orth_covariant,
-    gdiv_orth_contravariant,
-    compute_Dterm,
-    compute_Lterm,
-    compute_Lterm_orthogonal,
-    glap_orth
+from pisces_geometry.coordinates.base import (
+    _CoordinateSystemBase,
+    _get_grid_spacing,
+    class_expression,
 )
-from pisces_geometry.utilities.general import find_in_subclasses
+from pisces_geometry.differential_geometry import (
+    compute_Lterm_orthogonal,
+    contract_index_with_metric_orthogonal,
+    gdiv_orth_contravariant,
+    gdiv_orth_covariant,
+    ggrad_orth_contravariant,
+    ggrad_orth_covariant,
+    glap_orth,
+    lower_index_orth,
+    raise_index_orth,
+)
 
 
 class CurvilinearCoordinateSystem(_CoordinateSystemBase, ABC):
     """
     Base class for curvilinear coordinate systems.
     """
+
     pass
+
 
 class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
     """
@@ -76,11 +79,16 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
         Number of dimensions in the coordinate system. **Do not alter**.
 
     """
+
     # @@ CLASS FLAGS @@ #
     # CoordinateSystem flags are used to indicate to the metaclass whether
     # certain procedures should be executed on the class.
-    __is_abstract__: bool = True  # Marks this class as abstract - no symbolic processing (unusable)
-    __setup_point__: Literal['init', 'import'] = 'init'  # Determines when symbolic processing should occur.
+    __is_abstract__: bool = (
+        True  # Marks this class as abstract - no symbolic processing (unusable)
+    )
+    __setup_point__: Literal[
+        "init", "import"
+    ] = "init"  # Determines when symbolic processing should occur.
     __is_setup__: bool = False  # Used to check if the class has already been set up.
 
     # @@ CLASS ATTRIBUTES @@ #
@@ -90,7 +98,7 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
     __AXES__: List[str] = None
     """list of str: The axes (coordinate variables) in this coordinate system.
     This is one of the class-level attributes which is specified in all coordinate systems to determine
-    the names and symbols for the axes. The length of this attribute also determines how many dimensions 
+    the names and symbols for the axes. The length of this attribute also determines how many dimensions
     the coordinate system has.
     """
     __PARAMETERS__: Dict[str, Any] = dict()
@@ -104,10 +112,15 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
     # During either import or init, the class needs to build its symbolic attributes in order to
     # be usable. The class attributes and relevant class methods are defined in this section
     # of the class object.
-    __axes_symbols__: List[sp.Symbol] = None  # The symbolic representations of each axis.
-    __parameter_symbols__: Dict[str, sp.Symbol] = None  # The symbolic representation of each of the parameters.
+    __axes_symbols__: List[
+        sp.Symbol
+    ] = None  # The symbolic representations of each axis.
+    __parameter_symbols__: Dict[
+        str, sp.Symbol
+    ] = None  # The symbolic representation of each of the parameters.
     __class_expressions__: Dict[
-        str, Any] = {}  # The expressions that are generated for this class.
+        str, Any
+    ] = {}  # The expressions that are generated for this class.
     __NDIM__: int = None  # The number of dimensions that this coordinate system has.
 
     @classmethod
@@ -132,10 +145,17 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
         # Derive the metric, inverse metric, and the metric density. We call to the
         # __construct_metric_tensor_symbol__ and then take the inverse and the determinant of
         # the matrices.
-        cls.__class_expressions__['metric_tensor'] = cls.__construct_metric_tensor_symbol__(*cls.__axes_symbols__,
-                                                                                            **cls.__parameter_symbols__)
-        cls.__class_expressions__['inverse_metric_tensor'] = sp.Array([1/_element for _element in cls.__class_expressions__['metric_tensor']])
-        cls.__class_expressions__['metric_density'] = sp.sqrt(sp.prod(cls.__class_expressions__['metric_tensor']))
+        cls.__class_expressions__[
+            "metric_tensor"
+        ] = cls.__construct_metric_tensor_symbol__(
+            *cls.__axes_symbols__, **cls.__parameter_symbols__
+        )
+        cls.__class_expressions__["inverse_metric_tensor"] = sp.Array(
+            [1 / _element for _element in cls.__class_expressions__["metric_tensor"]]
+        )
+        cls.__class_expressions__["metric_density"] = sp.sqrt(
+            sp.prod(cls.__class_expressions__["metric_tensor"])
+        )
 
         # Any additional core expressions can be added here. The ones above can also be modified as
         # needed.
@@ -203,7 +223,6 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
         """
         return super().inverse_metric_tensor
 
-
     # @@ COORDINATE METHODS @@ #
     # These methods dictate the behavior of the coordinate system including how
     # coordinate conversions behave and how the coordinate system handles differential
@@ -241,7 +260,6 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
         """
         pass
 
-
     # @@ Conversion Functions @@ #
     # Perform conversions to / from cartesian coordinates.
     @abstractmethod
@@ -255,14 +273,16 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
     # @@ Mathematical Operations @@ #
     # These should only be changed in fundamental subclasses where
     # new mathematical approaches become available.
-    def raise_index(self,
-                    tensor_field: np.ndarray,
-                    index: int,
-                    rank: int,
-                    metric: np.ndarray = None,
-                    coordinate_grid: np.ndarray = None,
-                    fixed_axes: Dict[str, float] = None,
-                    **kwargs) -> np.ndarray:
+    def raise_index(
+        self,
+        tensor_field: np.ndarray,
+        index: int,
+        rank: int,
+        metric: np.ndarray = None,
+        coordinate_grid: np.ndarray = None,
+        fixed_axes: Dict[str, float] = None,
+        **kwargs,
+    ) -> np.ndarray:
         r"""
         Raise a single index of a tensor field using the metric of this coordinate system.
 
@@ -306,18 +326,21 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
         The index position to be raised is specified by `index`.
 
         """
-        metric = self.compute_metric_on_grid(coordinate_grid, inverse=False, fixed_axes=fixed_axes,
-                                                     value=metric)
+        metric = self.compute_metric_on_grid(
+            coordinate_grid, inverse=False, fixed_axes=fixed_axes, value=metric
+        )
         return raise_index_orth(tensor_field, index, rank, metric, **kwargs)
 
-    def lower_index(self,
-                    tensor_field: np.ndarray,
-                    index: int,
-                    rank: int,
-                    metric: np.ndarray = None,
-                    coordinate_grid: np.ndarray = None,
-                    fixed_axes: Dict[str, float] = None,
-                    **kwargs) -> np.ndarray:
+    def lower_index(
+        self,
+        tensor_field: np.ndarray,
+        index: int,
+        rank: int,
+        metric: np.ndarray = None,
+        coordinate_grid: np.ndarray = None,
+        fixed_axes: Dict[str, float] = None,
+        **kwargs,
+    ) -> np.ndarray:
         r"""
         Lower a single index of a tensor field using the metric of this coordinate system.
 
@@ -361,20 +384,24 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
         The index position to be raised is specified by `index`.
 
         """
-        metric = self.compute_metric_on_grid(coordinate_grid, inverse=False, fixed_axes=fixed_axes, value=metric)
+        metric = self.compute_metric_on_grid(
+            coordinate_grid, inverse=False, fixed_axes=fixed_axes, value=metric
+        )
         return lower_index_orth(tensor_field, index, rank, metric, **kwargs)
 
     # noinspection PyMethodOverriding
-    def adjust_tensor_signature(self,
-                                tensor_field: np.ndarray,
-                                indices: List[int],
-                                modes: List[Literal["upper", "lower"]],
-                                rank: int,
-                                metric: np.ndarray = None,
-                                coordinate_grid: np.ndarray = None,
-                                component_masks: Optional[List[np.ndarray]] = None,
-                                inplace: bool = False,
-                                fixed_axes: Dict[str, float] = None) -> np.ndarray:
+    def adjust_tensor_signature(
+        self,
+        tensor_field: np.ndarray,
+        indices: List[int],
+        modes: List[Literal["upper", "lower"]],
+        rank: int,
+        metric: np.ndarray = None,
+        coordinate_grid: np.ndarray = None,
+        component_masks: Optional[List[np.ndarray]] = None,
+        inplace: bool = False,
+        fixed_axes: Dict[str, float] = None,
+    ) -> np.ndarray:
         """
         Adjust the tensor signature by raising or lowering specified indices.
 
@@ -433,53 +460,56 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
         if component_masks and len(component_masks) != len(indices):
             raise ValueError("If masks are provided, must match length of indices.")
 
-        grid_shape = tensor_field.shape[:-rank]
-        tensor_shape = tensor_field.shape[-rank:]
-
         working_tensor = np.copy(tensor_field) if not inplace else tensor_field
         for i, (idx, mode) in enumerate(zip(indices, modes)):
-
             # Apply the element mask.
             mask = component_masks[i] if component_masks else slice(None)
-            metric = self.compute_metric_on_grid(coordinate_grid, inverse=False, fixed_axes=fixed_axes,
-                                                 value=metric)
-            current_metric = metric[..., mask] if isinstance(mask, np.ndarray) else metric
+            metric = self.compute_metric_on_grid(
+                coordinate_grid, inverse=False, fixed_axes=fixed_axes, value=metric
+            )
+            current_metric = (
+                metric[..., mask] if isinstance(mask, np.ndarray) else metric
+            )
             if mode == "lower":
                 pass
             elif mode == "upper":
-                current_metric = 1/current_metric
+                current_metric = 1 / current_metric
             else:
                 raise ValueError(f"Invalid mode '{mode}' for index {idx}")
 
-            working_tensor = contract_index_with_metric_orthogonal(working_tensor, current_metric, idx, rank)
+            working_tensor = contract_index_with_metric_orthogonal(
+                working_tensor, current_metric, idx, rank
+            )
 
         return working_tensor
 
-    @class_expression(name='Lterm')
+    @class_expression(name="Lterm")
     @classmethod
     def __compute_Lterm__(cls, *args, **kwargs):
         r"""
         Computes the D-term :math:`(1/\rho)\partial_\mu \rho` for use in
         computing the divergence numerically.
         """
-        _metric_density = cls.__class_expressions__['metric_density']
-        _metric_tensor = cls.__class_expressions__['metric_tensor']
+        _metric_density = cls.__class_expressions__["metric_density"]
+        _metric_tensor = cls.__class_expressions__["metric_tensor"]
         _axes = cls.__axes_symbols__
 
         return compute_Lterm_orthogonal(_metric_tensor, _metric_density, _axes)
 
-    def compute_gradient(self,
-                         scalar_field: np.ndarray,
-                         /,
-                         spacing: Sequence[int] = None,
-                         coordinate_grid: np.ndarray = None,
-                         derivative_field: np.ndarray = None,
-                         metric: np.ndarray = None,
-                         *,
-                         basis: Literal['covariant', 'contravariant'] = 'covariant',
-                         fixed_axes: Dict[str, float] = None,
-                         is_uniform: bool = False,
-                         **kwargs):
+    def compute_gradient(
+        self,
+        scalar_field: np.ndarray,
+        /,
+        spacing: Sequence[int] = None,
+        coordinate_grid: np.ndarray = None,
+        derivative_field: np.ndarray = None,
+        metric: np.ndarray = None,
+        *,
+        basis: Literal["covariant", "contravariant"] = "covariant",
+        fixed_axes: Dict[str, float] = None,
+        is_uniform: bool = False,
+        **kwargs,
+    ):
         r"""
         Compute the gradient of a scalar field in either covariant or contravariant basis.
 
@@ -534,7 +564,11 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
 
         # Determine the grid spacing if it is necessary (derivative field not provided). Either the
         # spacing has been provided or we need to get it from the coordinate grid.
-        if (derivative_field is None) and (spacing is None) and (coordinate_grid is None):
+        if (
+            (derivative_field is None)
+            and (spacing is None)
+            and (coordinate_grid is None)
+        ):
             raise ValueError()
         elif derivative_field is not None:
             # We have a derivative field which massively simplifies things because we no longer need
@@ -554,42 +588,49 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
         # The spacing or the derivative field is now available, we have everything we need
         # to at least compute the covariant case. For the contravariant case, we'll still need to
         # establish a metric.
-        if basis == 'covariant':
-            return ggrad_orth_covariant(scalar_field,
-                                        spacing=spacing,
-                                        derivative_field=derivative_field,
-                                        **kwargs)
-        if basis == 'contravariant':
+        if basis == "covariant":
+            return ggrad_orth_covariant(
+                scalar_field,
+                spacing=spacing,
+                derivative_field=derivative_field,
+                **kwargs,
+            )
+        if basis == "contravariant":
             # The contravariant approach will require an inverse metric to be established
             # on the coordinate grid. If we don't have it, then we need to build it from scratch
             # using the coordinate system internals.
-            inverse_metric = self.compute_metric_on_grid(coordinate_grid, inverse=True, fixed_axes=fixed_axes,
-                                                         value=metric)
+            inverse_metric = self.compute_metric_on_grid(
+                coordinate_grid, inverse=True, fixed_axes=fixed_axes, value=metric
+            )
 
             # Now the inverse metric is assuredly available and we can pass to the lower
             # level callable.
-            return ggrad_orth_contravariant(scalar_field,
-                                            spacing,
-                                            inverse_metric,
-                                            derivative_field=derivative_field,
-                                            **kwargs)
+            return ggrad_orth_contravariant(
+                scalar_field,
+                spacing,
+                inverse_metric,
+                derivative_field=derivative_field,
+                **kwargs,
+            )
         else:
             raise ValueError(f"Unknown basis {basis}.")
 
-    def compute_divergence(self,
-                           vector_field: np.ndarray,
-                           /,
-                           dterm_field: np.ndarray = None,
-                           coordinate_grid: np.ndarray = None,
-                           spacing: np.ndarray = None,
-                           metric: np.ndarray = None,
-                           derivative_field: np.ndarray = None,
-                           *,
-                           basis: str = 'contravariant',
-                           fixed_axes: Dict[str, float] = None,
-                           components: List[str] = None,
-                           is_uniform: bool = False,
-                           **kwargs):
+    def compute_divergence(
+        self,
+        vector_field: np.ndarray,
+        /,
+        dterm_field: np.ndarray = None,
+        coordinate_grid: np.ndarray = None,
+        spacing: np.ndarray = None,
+        metric: np.ndarray = None,
+        derivative_field: np.ndarray = None,
+        *,
+        basis: str = "contravariant",
+        fixed_axes: Dict[str, float] = None,
+        components: List[str] = None,
+        is_uniform: bool = False,
+        **kwargs,
+    ):
         r"""
         Compute the divergence of a vector field in a specified basis.
 
@@ -717,7 +758,11 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
 
         # Determine the grid spacing if it is necessary (derivative field not provided). Either the
         # spacing has been provided or we need to get it from the coordinate grid.
-        if (derivative_field is None) and (spacing is None) and (coordinate_grid is None):
+        if (
+            (derivative_field is None)
+            and (spacing is None)
+            and (coordinate_grid is None)
+        ):
             raise ValueError()
         elif derivative_field is not None:
             # We have a derivative field which massively simplifies things because we no longer need
@@ -734,52 +779,60 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
             spacing = _get_grid_spacing(coordinate_grid, is_uniform=is_uniform)
 
         # Compute the D-term fields if they are not already available. Validate the shape of the dterms.
-        dterm_field = self.compute_expression_on_grid('Dterm', coordinate_grid, fixed_axes=fixed_axes,
-                                                      value=dterm_field)
+        dterm_field = self.compute_expression_on_grid(
+            "Dterm", coordinate_grid, fixed_axes=fixed_axes, value=dterm_field
+        )
         if dterm_field.shape == (comp_ndim,) + vector_field.shape[:-1]:
             dterm_field = np.moveaxis(dterm_field, 0, -1)
 
         # The spacing or the derivative field is now available, we have everything we need
         # to at least compute the covariant case. For the contravariant case, we'll still need to
         # establish a metric.
-        if basis == 'contravariant':
+        if basis == "contravariant":
             # We can plug into the low level `gdiv_cl_contravariant` which doesn't need us
             # to provide a metric tensor because this is the "natural" basis.
-            return gdiv_orth_contravariant(vector_field,
-                                         dterm_field,
-                                         spacing=spacing,
-                                         derivative_field=derivative_field,
-                                         axis_connector=axis_connector, )
-        elif basis == 'covariant':
+            return gdiv_orth_contravariant(
+                vector_field,
+                dterm_field,
+                spacing=spacing,
+                derivative_field=derivative_field,
+                axis_connector=axis_connector,
+            )
+        elif basis == "covariant":
             # We do need to use the metric tensor in `gdiv_cl_covariant`, which may require
             # computing the metric tensor. We'll follow the same procedure as in compute_gradient to
             # establish the correct inverse metric tensor.
-            inverse_metric = self.compute_metric_on_grid(coordinate_grid, inverse=True, fixed_axes=fixed_axes,
-                                                         value=metric)
+            inverse_metric = self.compute_metric_on_grid(
+                coordinate_grid, inverse=True, fixed_axes=fixed_axes, value=metric
+            )
 
             # Hand off the computation to the covariant solver.
-            return gdiv_orth_covariant(vector_field,
-                                     dterm_field,
-                                     inverse_metric,
-                                     spacing=spacing,
-                                     derivative_field=None,
-                                     axis_connector=axis_connector)
+            return gdiv_orth_covariant(
+                vector_field,
+                dterm_field,
+                inverse_metric,
+                spacing=spacing,
+                derivative_field=None,
+                axis_connector=axis_connector,
+            )
 
         else:
             raise ValueError(f"Unknown basis {basis}.")
 
-    def compute_laplacian(self,
-                          scalar_field: np.ndarray,
-                          /,
-                          lterm_field: np.ndarray = None,
-                          coordinate_grid: np.ndarray = None,
-                          spacing: Sequence[float] = None,
-                          metric: np.ndarray = None,
-                          derivative_field: np.ndarray = None,
-                          second_derivative_field: np.ndarray = None,
-                          fixed_axes: Dict[str, float] = None,
-                          is_uniform: bool = False,
-                          **kwargs) -> np.ndarray:
+    def compute_laplacian(
+        self,
+        scalar_field: np.ndarray,
+        /,
+        lterm_field: np.ndarray = None,
+        coordinate_grid: np.ndarray = None,
+        spacing: Sequence[float] = None,
+        metric: np.ndarray = None,
+        derivative_field: np.ndarray = None,
+        second_derivative_field: np.ndarray = None,
+        fixed_axes: Dict[str, float] = None,
+        is_uniform: bool = False,
+        **kwargs,
+    ) -> np.ndarray:
         r"""
         Compute the Laplacian of a scalar field in the coordinate system.
 
@@ -879,8 +932,11 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
 
         # Determine the grid spacing if it is necessary (derivative field not provided). Either the
         # spacing has been provided or we need to get it from the coordinate grid.
-        if ((derivative_field is None) or (second_derivative_field is None)) and (spacing is None) and (
-                coordinate_grid is None):
+        if (
+            ((derivative_field is None) or (second_derivative_field is None))
+            and (spacing is None)
+            and (coordinate_grid is None)
+        ):
             raise ValueError()
         elif derivative_field is not None:
             # We have a derivative field which massively simplifies things because we no longer need
@@ -899,10 +955,14 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
         # Compute the inverse metric and check its shape. We are either given this as an argument or
         # the coordinate system will try to compute it from the coordinate grid. The output may be in
         # some set of odd array shapes that need to be corrected.
-        metric = self.compute_metric_on_grid(coordinate_grid, inverse=True, fixed_axes=fixed_axes,
-                                             value=metric)
+        metric = self.compute_metric_on_grid(
+            coordinate_grid, inverse=True, fixed_axes=fixed_axes, value=metric
+        )
         # Correct the possibly incorrect inverse_metric shapes.
-        if metric.shape == scalar_field.shape + (self.ndim, self.ndim,):
+        if metric.shape == scalar_field.shape + (
+            self.ndim,
+            self.ndim,
+        ):
             # The inverse metric was returned for the full coordinate system but we
             # only need the relevant grid axes (in BOTH indices).
             metric = metric[..., free_mask]
@@ -910,8 +970,9 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
         # Compute the L-term field and check its shape. We are either given this as an argument or
         # the coordinate system will try to compute it from the coordinate grid. The output may be in
         # some set of odd array shapes that need to be corrected.
-        lterm_field = self.compute_expression_on_grid('Lterm', coordinate_grid, fixed_axes=fixed_axes,
-                                                      value=lterm_field)
+        lterm_field = self.compute_expression_on_grid(
+            "Lterm", coordinate_grid, fixed_axes=fixed_axes, value=lterm_field
+        )
         # Correct the shape issues if they arise.
         if lterm_field.shape == (self.ndim,) + scalar_field.shape:
             lterm_field = np.moveaxis(lterm_field, 0, -1)[..., free_mask]
@@ -919,10 +980,12 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
             lterm_field = np.moveaxis(lterm_field, 0, -1)
 
         # Compute the Laplacian using the core differential geometry operator
-        return glap_orth(scalar_field,
-                       lterm_field,
-                       metric,
-                       spacing=spacing,
-                       derivative_field=derivative_field,
-                       second_derivative_field=second_derivative_field,
-                       **kwargs)
+        return glap_orth(
+            scalar_field,
+            lterm_field,
+            metric,
+            spacing=spacing,
+            derivative_field=derivative_field,
+            second_derivative_field=second_derivative_field,
+            **kwargs,
+        )

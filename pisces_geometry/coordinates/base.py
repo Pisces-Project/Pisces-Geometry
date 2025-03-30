@@ -5,36 +5,40 @@ The classes defined in this module are the progenitors of all coordinate systems
 """
 from abc import ABC, ABCMeta, abstractmethod
 from functools import wraps
-from typing import Any, Dict, List, Literal, Callable, Union, Sequence, Tuple, Optional
+from typing import Any, Callable, Dict, List, Literal, Optional, Sequence, Tuple, Union
 
 import numpy as np
 import sympy as sp
 
 from pisces_geometry.coordinates._exceptions import CoordinateClassException
 from pisces_geometry.differential_geometry import (
-    gdiv_cl_covariant,
-    gdiv_cl_contravariant,
-    ggrad_cl_contravariant,
-    raise_index,
-    lower_index,
-    contract_index_with_metric,
     compute_Dterm,
     compute_Lterm,
+    contract_index_with_metric,
+    gdiv_cl_contravariant,
+    gdiv_cl_covariant,
+    ggrad_cl_contravariant,
+    ggrad_cl_covariant,
     glap_cl,
-    ggrad_cl_covariant
+    lower_index,
+    raise_index,
 )
 from pisces_geometry.utilities.general import find_in_subclasses
 from pisces_geometry.utilities.logging import pg_log
 from pisces_geometry.utilities.symbolic import lambdify_expression
 
 
-def _get_grid_spacing(coordinate_grid: np.ndarray, is_uniform: bool = False) -> Sequence[Union[float, np.ndarray]]:
+def _get_grid_spacing(
+    coordinate_grid: np.ndarray, is_uniform: bool = False
+) -> Sequence[Union[float, np.ndarray]]:
     # Compute the spacing between grid elements. This is used in various mathematical routines
     # in the base class.
     grid_ndim = coordinate_grid.ndim - 1
     if is_uniform:
-        spacing = coordinate_grid[*list([1] * grid_ndim)][:] - coordinate_grid[*list([0] * grid_ndim)][
-                                                               :]
+        spacing = (
+            coordinate_grid[*list([1] * grid_ndim)][:]
+            - coordinate_grid[*list([0] * grid_ndim)][:]
+        )
     else:
         spacing = [np.diff(coordinate_grid, axis=_i) for _i in range(grid_ndim)]
 
@@ -77,7 +81,9 @@ def class_expression(name: str = None) -> classmethod:
         The decorator that adds the wrapper around the class expression.
         """
         if not isinstance(func, classmethod):
-            raise TypeError("The @class_expression decorator must be applied to a @classmethod.")
+            raise TypeError(
+                "The @class_expression decorator must be applied to a @classmethod."
+            )
 
         original_func = func.__func__  # Extract underlying function from classmethod
 
@@ -106,8 +112,8 @@ class _CoordinateMeta(ABCMeta):
 
         # Fetch the class flags from the class object. Based on these values, we then
         # make decisions about how to process the class during setup.
-        _cls_is_abstract = getattr(cls_object, '__is_abstract__', False)
-        _cls_setup_point = getattr(cls_object, '__setup_point__', 'init')
+        _cls_is_abstract = getattr(cls_object, "__is_abstract__", False)
+        _cls_setup_point = getattr(cls_object, "__setup_point__", "init")
 
         if _cls_is_abstract:
             # We do not process this class at all.
@@ -120,7 +126,7 @@ class _CoordinateMeta(ABCMeta):
 
         # Check if the class is supposed to be set up immediately or if we
         # delay.
-        if _cls_setup_point == 'import':
+        if _cls_setup_point == "import":
             # noinspection PyUnresolvedReferences
             cls_object.__setup_class__()
 
@@ -133,20 +139,28 @@ class _CoordinateMeta(ABCMeta):
         dimensions and ensuring that bounds and coordinates are all accurate.
         """
         # Check the new class for the required attributes that all classes should have.
-        __required_elements__ = ['__AXES__', '__PARAMETERS__',
-                                 '__axes_symbols__', '__parameter_symbols__', '__NDIM__']
+        __required_elements__ = [
+            "__AXES__",
+            "__PARAMETERS__",
+            "__axes_symbols__",
+            "__parameter_symbols__",
+            "__NDIM__",
+        ]
         for _re_ in __required_elements__:
             if not hasattr(cls, _re_):
                 raise CoordinateClassException(
                     f"Coordinate system {cls.__name__} does not define or inherit an expected "
-                    f"class attribute: `{_re_}`.")
+                    f"class attribute: `{_re_}`."
+                )
 
         # Ensure that we have specified axes and that they have the correct length.
         # The AXES_BOUNDS need to be validated to ensure that they have the correct
         # structure and only specify valid conventions for boundaries.
         if cls.__AXES__ is None:
-            raise CoordinateClassException(f"Coordinate system {cls.__name__} does not define a set of axes"
-                                           "using the `__AXES__` attribute.")
+            raise CoordinateClassException(
+                f"Coordinate system {cls.__name__} does not define a set of axes"
+                "using the `__AXES__` attribute."
+            )
 
         # Determine the number of dimensions from __AXES__ and ensure that __AXES_BOUNDS__ is
         # the same length as axes.
@@ -195,11 +209,16 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         Number of dimensions in the coordinate system. **Do not alter**.
 
     """
+
     # @@ CLASS FLAGS @@ #
     # CoordinateSystem flags are used to indicate to the metaclass whether
     # certain procedures should be executed on the class.
-    __is_abstract__: bool = True  # Marks this class as abstract - no symbolic processing (unusable)
-    __setup_point__: Literal['init', 'import'] = 'init'  # Determines when symbolic processing should occur.
+    __is_abstract__: bool = (
+        True  # Marks this class as abstract - no symbolic processing (unusable)
+    )
+    __setup_point__: Literal[
+        "init", "import"
+    ] = "init"  # Determines when symbolic processing should occur.
     __is_setup__: bool = False  # Used to check if the class has already been set up.
 
     # @@ CLASS ATTRIBUTES @@ #
@@ -209,7 +228,7 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
     __AXES__: List[str] = None
     """list of str: The axes (coordinate variables) in this coordinate system.
     This is one of the class-level attributes which is specified in all coordinate systems to determine
-    the names and symbols for the axes. The length of this attribute also determines how many dimensions 
+    the names and symbols for the axes. The length of this attribute also determines how many dimensions
     the coordinate system has.
     """
     __PARAMETERS__: Dict[str, Any] = dict()
@@ -223,10 +242,15 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
     # During either import or init, the class needs to build its symbolic attributes in order to
     # be usable. The class attributes and relevant class methods are defined in this section
     # of the class object.
-    __axes_symbols__: List[sp.Symbol] = None  # The symbolic representations of each axis.
-    __parameter_symbols__: Dict[str, sp.Symbol] = None  # The symbolic representation of each of the parameters.
+    __axes_symbols__: List[
+        sp.Symbol
+    ] = None  # The symbolic representations of each axis.
+    __parameter_symbols__: Dict[
+        str, sp.Symbol
+    ] = None  # The symbolic representation of each of the parameters.
     __class_expressions__: Dict[
-        str, Any] = {}  # The expressions that are generated for this class.
+        str, Any
+    ] = {}  # The expressions that are generated for this class.
     __NDIM__: int = None  # The number of dimensions that this coordinate system has.
 
     @classmethod
@@ -244,7 +268,9 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         # symbol and store in the correct class variable.
         cls.__axes_symbols__ = [sp.Symbol(_ax) for _ax in cls.__AXES__]
         cls.__parameter_symbols__ = {_pn: sp.Symbol(_pn) for _pn in cls.__PARAMETERS__}
-        pg_log.debug(f"Configured symbols for {cls.__name__}: {cls.__axes_symbols__} and {cls.__parameter_symbols__}.")
+        pg_log.debug(
+            f"Configured symbols for {cls.__name__}: {cls.__axes_symbols__} and {cls.__parameter_symbols__}."
+        )
 
     @classmethod
     def __construct_class_expressions__(cls):
@@ -264,7 +290,7 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         # begin the iteration through the class __mro__ to find objects
         # in the entire inheritance structure.
         seen = set()
-        for base in reversed(cls.__mro__): # reversed to ensure subclass -> baseclass
+        for base in reversed(cls.__mro__):  # reversed to ensure subclass -> baseclass
             # Check if we need to search this element of the __mro__. We only exit if we find
             # `object` because it's not going to have any worthwhile symbolics.
             if base is object:
@@ -279,11 +305,14 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
                 if (base, attr_name) in seen:
                     continue
                 if (not isinstance(method, classmethod)) and not (
-                        callable(method) and getattr(method, 'class_expression', False)):
+                    callable(method) and getattr(method, "class_expression", False)
+                ):
                     seen.add((base, attr_name))
                     continue
                 elif (isinstance(method, classmethod)) and not (
-                        callable(method.__func__) and getattr(method, 'class_expression', False)):
+                    callable(method.__func__)
+                    and getattr(method, "class_expression", False)
+                ):
                     seen.add((base, attr_name))
                     continue
                 seen.add((base, attr_name))
@@ -292,7 +321,7 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
                 # be registered. Everything is loaded on demand, so we just add the method to the
                 # expression dictionary and then (when loading) check it to see if it's loaded or not.
                 pg_log.debug(f"Registering {method} to {cls.__name__}.")
-                expression_name = getattr(method, 'expression_name', attr_name)
+                expression_name = getattr(method, "expression_name", attr_name)
                 cls.__class_expressions__[expression_name] = method
 
     @classmethod
@@ -317,10 +346,17 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         # Derive the metric, inverse metric, and the metric density. We call to the
         # __construct_metric_tensor_symbol__ and then take the inverse and the determinant of
         # the matrices.
-        cls.__class_expressions__['metric_tensor'] = cls.__construct_metric_tensor_symbol__(*cls.__axes_symbols__,
-                                                                                            **cls.__parameter_symbols__)
-        cls.__class_expressions__['inverse_metric_tensor'] = cls.__class_expressions__['metric_tensor'].inv()
-        cls.__class_expressions__['metric_density'] = sp.sqrt(cls.__class_expressions__['metric_tensor'].det())
+        cls.__class_expressions__[
+            "metric_tensor"
+        ] = cls.__construct_metric_tensor_symbol__(
+            *cls.__axes_symbols__, **cls.__parameter_symbols__
+        )
+        cls.__class_expressions__["inverse_metric_tensor"] = cls.__class_expressions__[
+            "metric_tensor"
+        ].inv()
+        cls.__class_expressions__["metric_density"] = sp.sqrt(
+            cls.__class_expressions__["metric_tensor"].det()
+        )
 
         # Any additional core expressions can be added here. The ones above can also be modified as
         # needed.
@@ -347,7 +383,8 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         pg_log.debug(f"Setting up coordinate system class: {cls.__name__}.")
         if cls.__is_abstract__:
             raise TypeError(
-                f"CoordinateSystem class {cls.__name__} is abstract and cannot be instantiated or constructed.")
+                f"CoordinateSystem class {cls.__name__} is abstract and cannot be instantiated or constructed."
+            )
 
         if cls.__is_setup__:
             return
@@ -359,7 +396,8 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         except Exception as e:
             raise CoordinateClassException(
                 f"Failed to setup the coordinate symbols for coordinate system class {cls.__name__} due to"
-                f" an error: {e}.") from e
+                f" an error: {e}."
+            ) from e
 
         # Construct the explicitly declared class expressions. These are class expressions which are
         # still registered in `__class_expressions__` but are constructed explicitly as part of class
@@ -370,7 +408,8 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         except Exception as e:
             raise CoordinateClassException(
                 f"Failed to setup the metric tensor for coordinate system class {cls.__name__} due to"
-                f" an error: {e}.") from e
+                f" an error: {e}."
+            ) from e
 
         # Identify the class expressions and register them in __class_expressions__.
         try:
@@ -378,7 +417,8 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         except Exception as e:
             raise CoordinateClassException(
                 f"Failed to setup derived class expressions for coordinate system class {cls.__name__} due to"
-                f" an error: {e}.") from e
+                f" an error: {e}."
+            ) from e
 
     # @@ INITIALIZATION PROCEDURES @@ #
     # Many method play into the initialization procedure. To ensure extensibility,
@@ -393,7 +433,8 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         for _parameter_name, _parameter_value in kwargs.items():
             if _parameter_name not in _parameters:
                 raise ValueError(
-                    f"Parameter `{_parameter_name}` is not a recognized parameter of the {self.__class__.__name__} coordinate system.")
+                    f"Parameter `{_parameter_name}` is not a recognized parameter of the {self.__class__.__name__} coordinate system."
+                )
 
             # The parameter name is valid, we just need to set the value.
             _parameters[_parameter_name] = _parameter_value
@@ -405,19 +446,26 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         Set up any special symbolic expressions or numerical instances.
         """
         # Setup the metric, inverse_metric, and the metric density at the instance level.
-        self.__expressions__['metric_tensor'] = self.substitute_expression(self.__class_expressions__['metric_tensor'])
-        self.__expressions__['inverse_metric_tensor'] = self.substitute_expression(
-            self.__class_expressions__['inverse_metric_tensor'])
-        self.__expressions__['metric_density'] = self.substitute_expression(
-            self.__class_expressions__['metric_density'])
+        self.__expressions__["metric_tensor"] = self.substitute_expression(
+            self.__class_expressions__["metric_tensor"]
+        )
+        self.__expressions__["inverse_metric_tensor"] = self.substitute_expression(
+            self.__class_expressions__["inverse_metric_tensor"]
+        )
+        self.__expressions__["metric_density"] = self.substitute_expression(
+            self.__class_expressions__["metric_density"]
+        )
 
         # Setup the numerical metric and other parameters.
-        self.__numerical_expressions__['metric_tensor'] = self.lambdify_expression(
-            self.__expressions__['metric_tensor'])
-        self.__numerical_expressions__['inverse_metric_tensor'] = self.lambdify_expression(
-            self.__expressions__['inverse_metric_tensor'])
-        self.__numerical_expressions__['metric_density'] = self.lambdify_expression(
-            self.__expressions__['metric_density'])
+        self.__numerical_expressions__["metric_tensor"] = self.lambdify_expression(
+            self.__expressions__["metric_tensor"]
+        )
+        self.__numerical_expressions__[
+            "inverse_metric_tensor"
+        ] = self.lambdify_expression(self.__expressions__["inverse_metric_tensor"])
+        self.__numerical_expressions__["metric_density"] = self.lambdify_expression(
+            self.__expressions__["metric_density"]
+        )
 
     def __init__(self, **kwargs):
         # -- Class Initialization -- #
@@ -470,7 +518,9 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         int
             The hash value of the instance.
         """
-        return hash((self.__class__.__name__, tuple(sorted(self.__parameters__.items()))))
+        return hash(
+            (self.__class__.__name__, tuple(sorted(self.__parameters__.items())))
+        )
 
     def __getitem__(self, index: int) -> str:
         """
@@ -609,7 +659,7 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         """
         The symbolic metric tensor for this coordinate system instance.
         """
-        return self.__class_expressions__['metric_tensor']
+        return self.__class_expressions__["metric_tensor"]
 
     @property
     def metric_tensor(self) -> Callable:
@@ -637,7 +687,7 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
             print(g_ij.shape)  # Output: (ndim, ndim)
 
         """
-        return self.__numerical_expressions__['metric_tensor']
+        return self.__numerical_expressions__["metric_tensor"]
 
     @property
     def inverse_metric_tensor(self) -> Callable:
@@ -664,7 +714,7 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
             print(g_inv.shape)  # Output: (ndim, ndim)
 
         """
-        return self.__numerical_expressions__['inverse_metric_tensor']
+        return self.__numerical_expressions__["inverse_metric_tensor"]
 
     @property
     def axes_symbols(self) -> List[sp.Symbol]:
@@ -753,16 +803,22 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         if expression_name in cls.__class_expressions__:
             _class_expr = cls.__class_expressions__[expression_name]
         else:
-            raise ValueError(f"Coordinate system {cls.__name__} doesn't have an expression '{expression_name}'.")
+            raise ValueError(
+                f"Coordinate system {cls.__name__} doesn't have an expression '{expression_name}'."
+            )
 
         # If the expression hasn't been loaded at the class level yet, we need to execute that
         # code to ensure that it does get loaded.
         if isinstance(_class_expr, classmethod):
             try:
-                pg_log.debug(f"Retrieving symbolic expression `{expression_name}` for class {cls.__name__}.")
+                pg_log.debug(
+                    f"Retrieving symbolic expression `{expression_name}` for class {cls.__name__}."
+                )
                 # Extract the class method and evaluate it to get the symbolic expression.
                 _class_expr_function = _class_expr.__func__  # The underlying callable.
-                _class_expr = _class_expr_function(cls, *cls.__axes_symbols__, **cls.__parameter_symbols__)
+                _class_expr = _class_expr_function(
+                    cls, *cls.__axes_symbols__, **cls.__parameter_symbols__
+                )
 
                 # Now simplify the expression.
                 _class_expr = sp.simplify(_class_expr)
@@ -772,7 +828,8 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
             except Exception as e:
                 raise CoordinateClassException(
                     f"Failed to evaluate class expression {expression_name} (linked to {_class_expr.__func__}) due to"
-                    f" an error: {e}. ") from e
+                    f" an error: {e}. "
+                ) from e
 
         # Now that the expression is certainly loaded, we can simply return the class-level expression.
         return _class_expr
@@ -867,14 +924,18 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         # We couldn't find it in the instance directory, now we try to fetch it
         # and perform a substitution.
         if expression_name in self.__class__.__class_expressions__:
-            _substituted_expression = self.substitute_expression(self.get_class_expression(expression_name))
+            _substituted_expression = self.substitute_expression(
+                self.get_class_expression(expression_name)
+            )
             self.__expressions__[expression_name] = _substituted_expression
             return _substituted_expression
 
-        raise ValueError(f"Coordinate system {self.__class__.__name__} doesn't have an expression '{expression_name}'.")
+        raise ValueError(
+            f"Coordinate system {self.__class__.__name__} doesn't have an expression '{expression_name}'."
+        )
 
     def set_expression(
-            self, expression_name: str, expression: sp.Basic, overwrite: bool = False
+        self, expression_name: str, expression: sp.Basic, overwrite: bool = False
     ):
         """
         Set a symbolic expression at the instance level.
@@ -909,8 +970,7 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
             The list of available class-level expressions.
         """
         return list(
-            set(self.__class_expressions__.keys())
-            | set(self.__expressions__.keys())
+            set(self.__class_expressions__.keys()) | set(self.__expressions__.keys())
         )
 
     def has_expression(self, expression_name: str) -> bool:
@@ -1025,7 +1085,9 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         Callable
             A callable numerical function.
         """
-        return lambdify_expression(expression, self.__axes_symbols__, self.__parameters__)
+        return lambdify_expression(
+            expression, self.__axes_symbols__, self.__parameters__
+        )
 
     def pprint(self) -> None:
         """
@@ -1125,7 +1187,9 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         # they can be made into a standardized array.
         _shapes = set(_a.shape for _a in args)
         if len(_shapes) != 1:
-            raise ValueError(f"Coordinates provided have incompatible shapes: {[_a.shape for _a in args]}.")
+            raise ValueError(
+                f"Coordinates provided have incompatible shapes: {[_a.shape for _a in args]}."
+            )
 
         # Now join them all together and return
         return np.stack(args, axis=-1)
@@ -1135,8 +1199,9 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
     # when dealing with things like incomplete tensor inputs and other common but
     # annoying issues that need to be managed.
     @classmethod
-    def get_free_fixed_axes(cls, grid_dimensions: int, fixed_axes: Dict[str, float] = None) -> Tuple[
-        List[str], List[str]]:
+    def get_free_fixed_axes(
+        cls, grid_dimensions: int, fixed_axes: Dict[str, float] = None
+    ) -> Tuple[List[str], List[str]]:
         """
         Determine the names of free and fixed axes based on the number of spatial dimensions
         and any axes that are held constant (fixed).
@@ -1177,7 +1242,9 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         return free_axes, list(fixed_axes.keys())
 
     @classmethod
-    def fill_coordinates(cls, coordinates: Sequence[Any], fixed_axes: Dict[str, float] = None) -> List[Any]:
+    def fill_coordinates(
+        cls, coordinates: Sequence[Any], fixed_axes: Dict[str, float] = None
+    ) -> List[Any]:
         """
         Fill in any missing coordinates in a list of coordinates using a set of fixed axes values.
 
@@ -1215,20 +1282,25 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         fixed_axes = fixed_axes if fixed_axes is not None else {}
         if any(_fa not in cls.__AXES__ for _fa in fixed_axes):
             raise ValueError(
-                f"Some axes in `fixed_axes` are not valid axes: {[_fa for _fa in fixed_axes if _fa not in cls.__AXES__]}.")
+                f"Some axes in `fixed_axes` are not valid axes: {[_fa for _fa in fixed_axes if _fa not in cls.__AXES__]}."
+            )
         if len(coordinates) + len(fixed_axes) != cls.__NDIM__:
             raise ValueError(
                 f"Could not fill in coordinates with `fixed axes`={fixed_axes}. The sum of free and fixed axes is not"
-                f" equal to the number of coordinate dimensions.")
+                f" equal to the number of coordinate dimensions."
+            )
 
         # Identify the free axes based on the provided fixed axes.
         free_axes, _ = cls.get_free_fixed_axes(len(coordinates), fixed_axes)
         return [
-            coordinates[free_axes.index(ax)] if ax in free_axes else fixed_axes[ax] for ax in cls.__AXES__
+            coordinates[free_axes.index(ax)] if ax in free_axes else fixed_axes[ax]
+            for ax in cls.__AXES__
         ]
 
     @classmethod
-    def fill_coordinate_grid(cls, coordinate_grid: np.ndarray, fixed_axes: Dict[str, float] = None) -> np.ndarray:
+    def fill_coordinate_grid(
+        cls, coordinate_grid: np.ndarray, fixed_axes: Dict[str, float] = None
+    ) -> np.ndarray:
         """
         Fill in a full coordinate grid of shape ``(..., NDIM)`` by inserting fixed axis values
         into a partial grid of shape ``(..., k)``, where ``k < NDIM``.
@@ -1278,7 +1350,9 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         return full_grid
 
     @classmethod
-    def get_axis_connector(cls, grid_axes: List[str], components: List[str]) -> List[int]:
+    def get_axis_connector(
+        cls, grid_axes: List[str], components: List[str]
+    ) -> List[int]:
         """
         Map component names to their indices in the grid_axes list.
 
@@ -1302,15 +1376,17 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         try:
             return [grid_axes.index(c) if c in grid_axes else None for c in components]
         except ValueError as e:
-            raise ValueError(f"Component {e.args[0].split()[-1]} not found in grid axes {grid_axes}.") from e
+            raise ValueError(
+                f"Component {e.args[0].split()[-1]} not found in grid axes {grid_axes}."
+            ) from e
 
     def compute_expression_on_coordinates(
-            self,
-            expression: str,
-            coordinates: Optional[List[Any]] = None,
-            /,
-            fixed_axes: Dict[str, float] = None,
-            value: Optional[np.ndarray] = None
+        self,
+        expression: str,
+        coordinates: Optional[List[Any]] = None,
+        /,
+        fixed_axes: Dict[str, float] = None,
+        value: Optional[np.ndarray] = None,
     ):
         """
         Evaluate a symbolic expression on the coordinate grid.
@@ -1341,19 +1417,21 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
             return value
 
         if coordinates is None:
-            raise ValueError("Must provide either `value` or `coordinates` for evaluation.")
+            raise ValueError(
+                "Must provide either `value` or `coordinates` for evaluation."
+            )
 
         _coordinates = self.fill_coordinates(coordinates, fixed_axes=fixed_axes)
         _expression = self.get_numeric_expression(expression)
         return _expression(*_coordinates)
 
     def compute_metric_on_coordinates(
-            self,
-            coordinates: Optional[Sequence[Any]] = None,
-            /,
-            inverse: bool = False,
-            fixed_axes: Dict[str, float] = None,
-            value: Optional[np.ndarray] = None
+        self,
+        coordinates: Optional[Sequence[Any]] = None,
+        /,
+        inverse: bool = False,
+        fixed_axes: Dict[str, float] = None,
+        value: Optional[np.ndarray] = None,
     ) -> np.ndarray:
         """
         Evaluate the (inverse) metric tensor at a set of coordinates, or return an explicitly provided value.
@@ -1383,18 +1461,24 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
             return value
 
         if coordinates is None:
-            raise ValueError("Must provide either `value` or `coordinates` for metric evaluation.")
+            raise ValueError(
+                "Must provide either `value` or `coordinates` for metric evaluation."
+            )
 
         _coordinates = self.fill_coordinates(coordinates, fixed_axes=fixed_axes)
-        return self.inverse_metric_tensor(*_coordinates) if inverse else self.metric_tensor(*_coordinates)
+        return (
+            self.inverse_metric_tensor(*_coordinates)
+            if inverse
+            else self.metric_tensor(*_coordinates)
+        )
 
     def compute_expression_on_grid(
-            self,
-            expression: str,
-            coordinate_grid: Optional[np.ndarray] = None,
-            /,
-            fixed_axes: Dict[str, float] = None,
-            value: Optional[np.ndarray] = None
+        self,
+        expression: str,
+        coordinate_grid: Optional[np.ndarray] = None,
+        /,
+        fixed_axes: Dict[str, float] = None,
+        value: Optional[np.ndarray] = None,
     ) -> np.ndarray:
         """
         Evaluate a symbolic expression over a full coordinate grid.
@@ -1425,15 +1509,17 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
             _coordinates = np.moveaxis(coordinate_grid, -1, 0)
         else:
             _coordinates = None
-        return self.compute_expression_on_coordinates(expression, _coordinates, fixed_axes=fixed_axes, value=value)
+        return self.compute_expression_on_coordinates(
+            expression, _coordinates, fixed_axes=fixed_axes, value=value
+        )
 
     def compute_metric_on_grid(
-            self,
-            coordinate_grid: Optional[np.ndarray] = None,
-            /,
-            inverse: bool = False,
-            fixed_axes: Dict[str, float] = None,
-            value: Optional[np.ndarray] = None
+        self,
+        coordinate_grid: Optional[np.ndarray] = None,
+        /,
+        inverse: bool = False,
+        fixed_axes: Dict[str, float] = None,
+        value: Optional[np.ndarray] = None,
     ) -> np.ndarray:
         """
         Evaluate the metric or inverse metric tensor over a full coordinate grid.
@@ -1464,19 +1550,23 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
             _coordinates = np.moveaxis(coordinate_grid, -1, 0)
         else:
             _coordinates = None
-        return self.compute_metric_on_coordinates(_coordinates, inverse=inverse, fixed_axes=fixed_axes, value=value)
+        return self.compute_metric_on_coordinates(
+            _coordinates, inverse=inverse, fixed_axes=fixed_axes, value=value
+        )
 
     # @@ Mathematical Operations @@ #
     # These should only be changed in fundamental subclasses where
     # new mathematical approaches become available.
-    def raise_index(self,
-                    tensor_field: np.ndarray,
-                    index: int,
-                    rank: int,
-                    inverse_metric: np.ndarray = None,
-                    coordinate_grid: np.ndarray = None,
-                    fixed_axes: Dict[str, float] = None,
-                    **kwargs) -> np.ndarray:
+    def raise_index(
+        self,
+        tensor_field: np.ndarray,
+        index: int,
+        rank: int,
+        inverse_metric: np.ndarray = None,
+        coordinate_grid: np.ndarray = None,
+        fixed_axes: Dict[str, float] = None,
+        **kwargs,
+    ) -> np.ndarray:
         r"""
         Raise a single index of a tensor field using the inverse metric of this coordinate system.
 
@@ -1575,18 +1665,21 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
             >>> _ = plt.colorbar(I,ax=ax[1])
             >>> plt.show()
         """
-        inverse_metric = self.compute_metric_on_grid(coordinate_grid, inverse=True, fixed_axes=fixed_axes,
-                                                     value=inverse_metric)
+        inverse_metric = self.compute_metric_on_grid(
+            coordinate_grid, inverse=True, fixed_axes=fixed_axes, value=inverse_metric
+        )
         return raise_index(tensor_field, index, rank, inverse_metric, **kwargs)
 
-    def lower_index(self,
-                    tensor_field: np.ndarray,
-                    index: int,
-                    rank: int,
-                    metric: np.ndarray = None,
-                    coordinate_grid: np.ndarray = None,
-                    fixed_axes: Dict[str, float] = None,
-                    **kwargs) -> np.ndarray:
+    def lower_index(
+        self,
+        tensor_field: np.ndarray,
+        index: int,
+        rank: int,
+        metric: np.ndarray = None,
+        coordinate_grid: np.ndarray = None,
+        fixed_axes: Dict[str, float] = None,
+        **kwargs,
+    ) -> np.ndarray:
         r"""
         Lower a single index of a tensor field using the metric of this coordinate system.
 
@@ -1685,20 +1778,24 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
             >>> _ = plt.colorbar(I,ax=ax[1])
             >>> plt.show()
         """
-        metric = self.compute_metric_on_grid(coordinate_grid, inverse=False, fixed_axes=fixed_axes, value=metric)
+        metric = self.compute_metric_on_grid(
+            coordinate_grid, inverse=False, fixed_axes=fixed_axes, value=metric
+        )
         return lower_index(tensor_field, index, rank, metric, **kwargs)
 
-    def adjust_tensor_signature(self,
-                                tensor_field: np.ndarray,
-                                indices: List[int],
-                                modes: List[Literal["upper", "lower"]],
-                                rank: int,
-                                metric: np.ndarray = None,
-                                inverse_metric: np.ndarray = None,
-                                coordinate_grid: np.ndarray = None,
-                                component_masks: Optional[List[np.ndarray]] = None,
-                                inplace: bool = False,
-                                fixed_axes: Dict[str, float] = None) -> np.ndarray:
+    def adjust_tensor_signature(
+        self,
+        tensor_field: np.ndarray,
+        indices: List[int],
+        modes: List[Literal["upper", "lower"]],
+        rank: int,
+        metric: np.ndarray = None,
+        inverse_metric: np.ndarray = None,
+        coordinate_grid: np.ndarray = None,
+        component_masks: Optional[List[np.ndarray]] = None,
+        inplace: bool = False,
+        fixed_axes: Dict[str, float] = None,
+    ) -> np.ndarray:
         """
         Adjust the tensor signature by raising or lowering specified indices.
 
@@ -1760,66 +1857,79 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         if component_masks and len(component_masks) != len(indices):
             raise ValueError("If masks are provided, must match length of indices.")
 
-        grid_shape = tensor_field.shape[:-rank]
-        tensor_shape = tensor_field.shape[-rank:]
-
         working_tensor = np.copy(tensor_field) if not inplace else tensor_field
         for i, (idx, mode) in enumerate(zip(indices, modes)):
             mask = component_masks[i] if component_masks else slice(None)
 
             if mode == "lower":
-                metric = self.compute_metric_on_grid(coordinate_grid, inverse=False, fixed_axes=fixed_axes,
-                                                     value=metric)
-                current_metric = metric[..., mask, :][..., :, mask] if isinstance(mask, np.ndarray) else metric
+                metric = self.compute_metric_on_grid(
+                    coordinate_grid, inverse=False, fixed_axes=fixed_axes, value=metric
+                )
+                current_metric = (
+                    metric[..., mask, :][..., :, mask]
+                    if isinstance(mask, np.ndarray)
+                    else metric
+                )
             elif mode == "upper":
-                inverse_metric = self.compute_metric_on_grid(coordinate_grid, inverse=True, fixed_axes=fixed_axes,
-                                                             value=inverse_metric)
-                current_metric = inverse_metric[..., mask, :][..., :, mask] if isinstance(mask,
-                                                                                          np.ndarray) else inverse_metric
+                inverse_metric = self.compute_metric_on_grid(
+                    coordinate_grid,
+                    inverse=True,
+                    fixed_axes=fixed_axes,
+                    value=inverse_metric,
+                )
+                current_metric = (
+                    inverse_metric[..., mask, :][..., :, mask]
+                    if isinstance(mask, np.ndarray)
+                    else inverse_metric
+                )
             else:
                 raise ValueError(f"Invalid mode '{mode}' for index {idx}")
 
-            working_tensor = contract_index_with_metric(working_tensor, current_metric, idx, rank)
+            working_tensor = contract_index_with_metric(
+                working_tensor, current_metric, idx, rank
+            )
 
         return working_tensor
 
-    @class_expression(name='Dterm')
+    @class_expression(name="Dterm")
     @classmethod
     def __compute_Dterm__(cls, *args, **kwargs):
         r"""
         Computes the D-term :math:`(1/\rho)\partial_\mu \rho` for use in
         computing the divergence numerically.
         """
-        _metric_density = cls.__class_expressions__['metric_density']
+        _metric_density = cls.__class_expressions__["metric_density"]
         _axes = cls.__axes_symbols__
 
         return compute_Dterm(_metric_density, _axes)
 
-    @class_expression(name='Lterm')
+    @class_expression(name="Lterm")
     @classmethod
     def __compute_Lterm__(cls, *args, **kwargs):
         r"""
         Computes the D-term :math:`(1/\rho)\partial_\mu \rho` for use in
         computing the divergence numerically.
         """
-        _metric_density = cls.__class_expressions__['metric_density']
-        _inverse_metric_tensor = cls.__class_expressions__['inverse_metric_tensor']
+        _metric_density = cls.__class_expressions__["metric_density"]
+        _inverse_metric_tensor = cls.__class_expressions__["inverse_metric_tensor"]
         _axes = cls.__axes_symbols__
 
         return compute_Lterm(_inverse_metric_tensor, _metric_density, _axes)
 
-    def compute_gradient(self,
-                         scalar_field: np.ndarray,
-                         /,
-                         spacing: Sequence[int] = None,
-                         coordinate_grid: np.ndarray = None,
-                         derivative_field: np.ndarray = None,
-                         inverse_metric: np.ndarray = None,
-                         *,
-                         basis: Literal['covariant', 'contravariant'] = 'covariant',
-                         fixed_axes: Dict[str, float] = None,
-                         is_uniform: bool = False,
-                         **kwargs):
+    def compute_gradient(
+        self,
+        scalar_field: np.ndarray,
+        /,
+        spacing: Sequence[int] = None,
+        coordinate_grid: np.ndarray = None,
+        derivative_field: np.ndarray = None,
+        inverse_metric: np.ndarray = None,
+        *,
+        basis: Literal["covariant", "contravariant"] = "covariant",
+        fixed_axes: Dict[str, float] = None,
+        is_uniform: bool = False,
+        **kwargs,
+    ):
         r"""
         Compute the gradient of a scalar field in either covariant or contravariant basis.
 
@@ -1919,7 +2029,11 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
 
         # Determine the grid spacing if it is necessary (derivative field not provided). Either the
         # spacing has been provided or we need to get it from the coordinate grid.
-        if (derivative_field is None) and (spacing is None) and (coordinate_grid is None):
+        if (
+            (derivative_field is None)
+            and (spacing is None)
+            and (coordinate_grid is None)
+        ):
             raise ValueError()
         elif derivative_field is not None:
             # We have a derivative field which massively simplifies things because we no longer need
@@ -1939,42 +2053,52 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         # The spacing or the derivative field is now available, we have everything we need
         # to at least compute the covariant case. For the contravariant case, we'll still need to
         # establish a metric.
-        if basis == 'covariant':
-            return ggrad_cl_covariant(scalar_field,
-                                      spacing=spacing,
-                                      derivative_field=derivative_field,
-                                      **kwargs)
-        if basis == 'contravariant':
+        if basis == "covariant":
+            return ggrad_cl_covariant(
+                scalar_field,
+                spacing=spacing,
+                derivative_field=derivative_field,
+                **kwargs,
+            )
+        if basis == "contravariant":
             # The contravariant approach will require an inverse metric to be established
             # on the coordinate grid. If we don't have it, then we need to build it from scratch
             # using the coordinate system internals.
-            inverse_metric = self.compute_metric_on_grid(coordinate_grid, inverse=True, fixed_axes=fixed_axes,
-                                                         value=inverse_metric)
+            inverse_metric = self.compute_metric_on_grid(
+                coordinate_grid,
+                inverse=True,
+                fixed_axes=fixed_axes,
+                value=inverse_metric,
+            )
 
             # Now the inverse metric is assuredly available and we can pass to the lower
             # level callable.
-            return ggrad_cl_contravariant(scalar_field,
-                                          spacing,
-                                          inverse_metric,
-                                          derivative_field=derivative_field,
-                                          **kwargs)
+            return ggrad_cl_contravariant(
+                scalar_field,
+                spacing,
+                inverse_metric,
+                derivative_field=derivative_field,
+                **kwargs,
+            )
         else:
             raise ValueError(f"Unknown basis {basis}.")
 
-    def compute_divergence(self,
-                           vector_field: np.ndarray,
-                           /,
-                           dterm_field: np.ndarray = None,
-                           coordinate_grid: np.ndarray = None,
-                           spacing: np.ndarray = None,
-                           inverse_metric: np.ndarray = None,
-                           derivative_field: np.ndarray = None,
-                           *,
-                           basis: str = 'contravariant',
-                           fixed_axes: Dict[str, float] = None,
-                           components: List[str] = None,
-                           is_uniform: bool = False,
-                           **kwargs):
+    def compute_divergence(
+        self,
+        vector_field: np.ndarray,
+        /,
+        dterm_field: np.ndarray = None,
+        coordinate_grid: np.ndarray = None,
+        spacing: np.ndarray = None,
+        inverse_metric: np.ndarray = None,
+        derivative_field: np.ndarray = None,
+        *,
+        basis: str = "contravariant",
+        fixed_axes: Dict[str, float] = None,
+        components: List[str] = None,
+        is_uniform: bool = False,
+        **kwargs,
+    ):
         r"""
         Compute the divergence of a vector field in a specified basis.
 
@@ -2149,7 +2273,11 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
 
         # Determine the grid spacing if it is necessary (derivative field not provided). Either the
         # spacing has been provided or we need to get it from the coordinate grid.
-        if (derivative_field is None) and (spacing is None) and (coordinate_grid is None):
+        if (
+            (derivative_field is None)
+            and (spacing is None)
+            and (coordinate_grid is None)
+        ):
             raise ValueError()
         elif derivative_field is not None:
             # We have a derivative field which massively simplifies things because we no longer need
@@ -2166,52 +2294,63 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
             spacing = _get_grid_spacing(coordinate_grid, is_uniform=is_uniform)
 
         # Compute the D-term fields if they are not already available. Validate the shape of the dterms.
-        dterm_field = self.compute_expression_on_grid('Dterm', coordinate_grid, fixed_axes=fixed_axes,
-                                                      value=dterm_field)
+        dterm_field = self.compute_expression_on_grid(
+            "Dterm", coordinate_grid, fixed_axes=fixed_axes, value=dterm_field
+        )
         if dterm_field.shape == (comp_ndim,) + vector_field.shape[:-1]:
             dterm_field = np.moveaxis(dterm_field, 0, -1)
 
         # The spacing or the derivative field is now available, we have everything we need
         # to at least compute the covariant case. For the contravariant case, we'll still need to
         # establish a metric.
-        if basis == 'contravariant':
+        if basis == "contravariant":
             # We can plug into the low level `gdiv_cl_contravariant` which doesn't need us
             # to provide a metric tensor because this is the "natural" basis.
-            return gdiv_cl_contravariant(vector_field,
-                                         dterm_field,
-                                         spacing=spacing,
-                                         derivative_field=derivative_field,
-                                         axis_connector=axis_connector, )
-        elif basis == 'covariant':
+            return gdiv_cl_contravariant(
+                vector_field,
+                dterm_field,
+                spacing=spacing,
+                derivative_field=derivative_field,
+                axis_connector=axis_connector,
+            )
+        elif basis == "covariant":
             # We do need to use the metric tensor in `gdiv_cl_covariant`, which may require
             # computing the metric tensor. We'll follow the same procedure as in compute_gradient to
             # establish the correct inverse metric tensor.
-            inverse_metric = self.compute_metric_on_grid(coordinate_grid, inverse=True, fixed_axes=fixed_axes,
-                                                         value=inverse_metric)
+            inverse_metric = self.compute_metric_on_grid(
+                coordinate_grid,
+                inverse=True,
+                fixed_axes=fixed_axes,
+                value=inverse_metric,
+            )
 
             # Hand off the computation to the covariant solver.
-            return gdiv_cl_covariant(vector_field,
-                                     dterm_field,
-                                     inverse_metric,
-                                     spacing=spacing,
-                                     derivative_field=None,
-                                     axis_connector=axis_connector)
+            return gdiv_cl_covariant(
+                vector_field,
+                dterm_field,
+                inverse_metric,
+                spacing=spacing,
+                derivative_field=None,
+                axis_connector=axis_connector,
+            )
 
         else:
             raise ValueError(f"Unknown basis {basis}.")
 
-    def compute_laplacian(self,
-                          scalar_field: np.ndarray,
-                          /,
-                          lterm_field: np.ndarray = None,
-                          coordinate_grid: np.ndarray = None,
-                          spacing: Sequence[float] = None,
-                          inverse_metric: np.ndarray = None,
-                          derivative_field: np.ndarray = None,
-                          second_derivative_field: np.ndarray = None,
-                          fixed_axes: Dict[str, float] = None,
-                          is_uniform: bool = False,
-                          **kwargs) -> np.ndarray:
+    def compute_laplacian(
+        self,
+        scalar_field: np.ndarray,
+        /,
+        lterm_field: np.ndarray = None,
+        coordinate_grid: np.ndarray = None,
+        spacing: Sequence[float] = None,
+        inverse_metric: np.ndarray = None,
+        derivative_field: np.ndarray = None,
+        second_derivative_field: np.ndarray = None,
+        fixed_axes: Dict[str, float] = None,
+        is_uniform: bool = False,
+        **kwargs,
+    ) -> np.ndarray:
         r"""
         Compute the Laplacian of a scalar field in the coordinate system.
 
@@ -2353,8 +2492,11 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
 
         # Determine the grid spacing if it is necessary (derivative field not provided). Either the
         # spacing has been provided or we need to get it from the coordinate grid.
-        if ((derivative_field is None) or (second_derivative_field is None)) and (spacing is None) and (
-                coordinate_grid is None):
+        if (
+            ((derivative_field is None) or (second_derivative_field is None))
+            and (spacing is None)
+            and (coordinate_grid is None)
+        ):
             raise ValueError()
         elif derivative_field is not None:
             # We have a derivative field which massively simplifies things because we no longer need
@@ -2373,10 +2515,14 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         # Compute the inverse metric and check its shape. We are either given this as an argument or
         # the coordinate system will try to compute it from the coordinate grid. The output may be in
         # some set of odd array shapes that need to be corrected.
-        inverse_metric = self.compute_metric_on_grid(coordinate_grid, inverse=True, fixed_axes=fixed_axes,
-                                                     value=inverse_metric)
+        inverse_metric = self.compute_metric_on_grid(
+            coordinate_grid, inverse=True, fixed_axes=fixed_axes, value=inverse_metric
+        )
         # Correct the possibly incorrect inverse_metric shapes.
-        if inverse_metric.shape == scalar_field.shape + (self.ndim, self.ndim,):
+        if inverse_metric.shape == scalar_field.shape + (
+            self.ndim,
+            self.ndim,
+        ):
             # The inverse metric was returned for the full coordinate system but we
             # only need the relevant grid axes (in BOTH indices).
             inverse_metric = inverse_metric[..., :, free_mask][..., free_mask, :]
@@ -2384,8 +2530,9 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         # Compute the L-term field and check its shape. We are either given this as an argument or
         # the coordinate system will try to compute it from the coordinate grid. The output may be in
         # some set of odd array shapes that need to be corrected.
-        lterm_field = self.compute_expression_on_grid('Lterm', coordinate_grid, fixed_axes=fixed_axes,
-                                                      value=lterm_field)
+        lterm_field = self.compute_expression_on_grid(
+            "Lterm", coordinate_grid, fixed_axes=fixed_axes, value=lterm_field
+        )
         # Correct the shape issues if they arise.
         if lterm_field.shape == (self.ndim,) + scalar_field.shape:
             lterm_field = np.moveaxis(lterm_field, 0, -1)[..., free_mask]
@@ -2393,13 +2540,15 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
             lterm_field = np.moveaxis(lterm_field, 0, -1)
 
         # Compute the Laplacian using the core differential geometry operator
-        return glap_cl(scalar_field,
-                       lterm_field,
-                       inverse_metric,
-                       spacing=spacing,
-                       derivative_field=derivative_field,
-                       second_derivative_field=second_derivative_field,
-                       **kwargs)
+        return glap_cl(
+            scalar_field,
+            lterm_field,
+            inverse_metric,
+            spacing=spacing,
+            derivative_field=derivative_field,
+            second_derivative_field=second_derivative_field,
+            **kwargs,
+        )
 
     # @@ IO Operations @@ #
     def _to_hdf5(self, group_obj):

@@ -22,11 +22,14 @@ Key Features
 - Support for metric density, L-terms, and D-terms in non-Cartesian systems
 """
 import string
-from typing import Sequence, Any
+from typing import Any, Sequence
+
 import numpy as np
 import sympy as sp
-from sympy.tensor.array import tensorcontraction, tensorproduct, permutedims
+from sympy.tensor.array import permutedims, tensorcontraction, tensorproduct
+
 from pisces_geometry._typing._generic import BasisAlias
+
 
 def invert_metric(metric: sp.Matrix) -> sp.Matrix:
     r"""
@@ -76,6 +79,7 @@ def invert_metric(metric: sp.Matrix) -> sp.Matrix:
     """
     return metric.inv()
 
+
 def compute_metric_density(metric: sp.Matrix) -> sp.Basic:
     r"""
     Compute the metric density function :math:`\sqrt{{\rm Det}(g)}`.
@@ -111,6 +115,7 @@ def compute_metric_density(metric: sp.Matrix) -> sp.Basic:
 
     """
     return sp.simplify(sp.sqrt(metric.det()))
+
 
 def compute_Dterm(metric_density: sp.Basic, axes: Sequence[sp.Symbol]) -> sp.Array:
     r"""
@@ -162,11 +167,18 @@ def compute_Dterm(metric_density: sp.Basic, axes: Sequence[sp.Symbol]) -> sp.Arr
     [2/r, 1/tan(theta), 0]
     """
     # For each axis, compute the differential of the metric density with the specific axes.
-    _derivatives = sp.Array([sp.simplify(sp.diff(metric_density, __symb__) / metric_density)
-                             for __symb__ in axes])
+    _derivatives = sp.Array(
+        [
+            sp.simplify(sp.diff(metric_density, __symb__) / metric_density)
+            for __symb__ in axes
+        ]
+    )
     return _derivatives
 
-def compute_Lterm(inverse_metric: sp.Matrix, metric_density: Any, axes: Sequence[sp.Symbol]) -> sp.Matrix:
+
+def compute_Lterm(
+    inverse_metric: sp.Matrix, metric_density: Any, axes: Sequence[sp.Symbol]
+) -> sp.Matrix:
     r"""
     Compute the **L-term** components for a particular coordinate system from the metric density and the metric.
 
@@ -260,7 +272,10 @@ def compute_Lterm(inverse_metric: sp.Matrix, metric_density: Any, axes: Sequence
 
     return sp.Array(L_terms)
 
-def compute_Lterm_orthogonal(metric: sp.Array, metric_density: Any, axes: Sequence[sp.Symbol]) -> sp.Matrix:
+
+def compute_Lterm_orthogonal(
+    metric: sp.Array, metric_density: Any, axes: Sequence[sp.Symbol]
+) -> sp.Matrix:
     r"""
     Compute the **L-term** components for a particular (orthogonal) coordinate system from the metric density and the metric.
 
@@ -359,10 +374,11 @@ def compute_Lterm_orthogonal(metric: sp.Array, metric_density: Any, axes: Sequen
 
     return sp.Array(L_terms)
 
+
 def raise_index(
-        tensor: sp.Array,
-        inverse_metric: sp.Matrix,
-        axis: int,
+    tensor: sp.Array,
+    inverse_metric: sp.Matrix,
+    axis: int,
 ) -> sp.Array:
     r"""
     Raise a single index of a generic tensor using the provided inverse metric. Mathematically,
@@ -419,7 +435,7 @@ def raise_index(
     # Construct index labels for each of the axes of the
     # tensor.
     index_labels = list(string.ascii_lowercase[:ndim])
-    metric_labels = ('A', index_labels[axis])  # g^{A i}
+    metric_labels = ("A", index_labels[axis])  # g^{A i}
     result_labels = list(index_labels)
     result_labels[axis] = metric_labels[0]  # replace i with A
 
@@ -431,11 +447,12 @@ def raise_index(
 
     return result
 
+
 # noinspection DuplicatedCode
 def lower_index(
-        tensor: sp.Array,
-        metric: sp.Matrix,
-        axis: int,
+    tensor: sp.Array,
+    metric: sp.Matrix,
+    axis: int,
 ) -> sp.Array:
     r"""
     Lower a single index of a generic tensor using the provided inverse metric. Mathematically,
@@ -493,7 +510,7 @@ def lower_index(
     # Construct index labels for each of the axes of the
     # tensor.
     index_labels = list(string.ascii_lowercase[:ndim])
-    metric_labels = ('A', index_labels[axis])  # g^{A i}
+    metric_labels = ("A", index_labels[axis])  # g^{A i}
     result_labels = list(index_labels)
     result_labels[axis] = metric_labels[0]  # replace i with A
 
@@ -505,11 +522,12 @@ def lower_index(
 
     return result
 
+
 def compute_gradient(
-        scalar_field: sp.Basic,
-        coordinate_axes: Sequence[sp.Symbol],
-        basis: BasisAlias = 'covariant',
-        inverse_metric: sp.Matrix = None,
+    scalar_field: sp.Basic,
+    coordinate_axes: Sequence[sp.Symbol],
+    basis: BasisAlias = "covariant",
+    inverse_metric: sp.Matrix = None,
 ) -> sp.Array:
     r"""
     Compute the symbolic gradient of a scalar field :math:`\phi` in either covariant or contravariant basis.
@@ -566,27 +584,30 @@ def compute_gradient(
 
     """
     # Begin by computing each of the relevant derivatives of the scalar field.
-    _field_derivatives_ = sp.Array([
-        sp.diff(scalar_field, __axis_symbol__) for __axis_symbol__ in coordinate_axes
-    ])
+    _field_derivatives_ = sp.Array(
+        [sp.diff(scalar_field, __axis_symbol__) for __axis_symbol__ in coordinate_axes]
+    )
 
     # If contravariant basis is requested, raise the index using the inverse metric.
-    if basis == 'contravariant':
+    if basis == "contravariant":
         if inverse_metric is None:
-            raise ValueError("An inverse_metric is required for contravariant gradient computation.")
+            raise ValueError(
+                "An inverse_metric is required for contravariant gradient computation."
+            )
         _field_derivatives_ = raise_index(_field_derivatives_, inverse_metric, axis=0)
-    elif basis != 'covariant':
+    elif basis != "covariant":
         raise ValueError("`basis` must be either 'covariant' or 'contravariant'.")
 
     return _field_derivatives_
 
+
 def compute_divergence(
-        vector_field: sp.Array,
-        coordinate_axes: Sequence[sp.Symbol],
-        d_term: sp.Array = None,
-        basis: BasisAlias = 'contravariant',
-        inverse_metric: sp.Matrix = None,
-        metric_density: sp.Basic = None,
+    vector_field: sp.Array,
+    coordinate_axes: Sequence[sp.Symbol],
+    d_term: sp.Array = None,
+    basis: BasisAlias = "contravariant",
+    inverse_metric: sp.Matrix = None,
+    metric_density: sp.Basic = None,
 ) -> sp.Basic:
     r"""
     Compute the divergence :math:`\nabla \cdot {\bf F}` of a vector field symbolically.
@@ -656,7 +677,9 @@ def compute_divergence(
     # and that the necessary components are derived to proceed with the computation.
     ndim = len(coordinate_axes)
     if vector_field.shape != (ndim,):
-        raise ValueError(f"Expected vector field of shape ({ndim},), got {vector_field.shape}")
+        raise ValueError(
+            f"Expected vector field of shape ({ndim},), got {vector_field.shape}"
+        )
 
     # check the d-term. We may need to construct it and then we need to ensure that
     # it has the intended shape.
@@ -670,11 +693,13 @@ def compute_divergence(
 
     # Ensure that the vector field is correctly cast in the contravariant basis so that
     # we can perform the necessary operations. If it is not, then we need to raise the index.
-    if basis == 'covariant':
+    if basis == "covariant":
         if inverse_metric is None:
-            raise ValueError("inverse_metric is required to raise a covariant vector field.")
+            raise ValueError(
+                "inverse_metric is required to raise a covariant vector field."
+            )
         vector_field = raise_index(vector_field, inverse_metric, axis=0)
-    elif basis != 'contravariant':
+    elif basis != "contravariant":
         raise ValueError("`basis` must be either 'covariant' or 'contravariant'.")
 
     # Perform the sums to get the desired behavior.
@@ -685,12 +710,13 @@ def compute_divergence(
 
     return sp.simplify(divergence)
 
+
 def compute_laplacian(
-        scalar_field: sp.Basic,
-        coordinate_axes: Sequence[sp.Symbol],
-        inverse_metric: sp.Matrix,
-        l_term: sp.Array = None,
-        metric_density: sp.Basic = None,
+    scalar_field: sp.Basic,
+    coordinate_axes: Sequence[sp.Symbol],
+    inverse_metric: sp.Matrix,
+    l_term: sp.Array = None,
+    metric_density: sp.Basic = None,
 ) -> sp.Basic:
     r"""
     Compute the Laplacian :math:`\nabla^2 \phi` of a scalar field in curvilinear coordinates.
@@ -799,26 +825,33 @@ def compute_laplacian(
     if l_term is None:
         # We need to derive the d_term.
         if (metric_density is None) or (inverse_metric is None):
-            raise ValueError("Either `l_term` or `metric_density` and `inverse_metric` must be provided.")
+            raise ValueError(
+                "Either `l_term` or `metric_density` and `inverse_metric` must be provided."
+            )
         l_term = compute_Lterm(inverse_metric, metric_density, coordinate_axes)
     if l_term.shape != (ndim,):
         raise ValueError(f"Expected l_term of shape ({ndim},), got {l_term.shape}")
 
     # Step 2: Construct the Laplacian
     # ∇²φ = L^μ ∂_μ φ + g^{μν} ∂²_{μν} φ
-    gradient_terms = [l_term[i] * sp.diff(scalar_field, coordinate_axes[i]) for i in range(ndim)]
+    gradient_terms = [
+        l_term[i] * sp.diff(scalar_field, coordinate_axes[i]) for i in range(ndim)
+    ]
     second_deriv_terms = [
-        inverse_metric[i, j] * sp.diff(scalar_field, coordinate_axes[i], coordinate_axes[j])
-        for i in range(ndim) for j in range(ndim)
+        inverse_metric[i, j]
+        * sp.diff(scalar_field, coordinate_axes[i], coordinate_axes[j])
+        for i in range(ndim)
+        for j in range(ndim)
     ]
     laplacian = sum(gradient_terms) + sum(second_deriv_terms)
     return sp.simplify(laplacian)
 
+
 def get_gradient_dependence(
-        scalar_field_dependence: Sequence[sp.Symbol],
-        coordinate_axes: Sequence[sp.Symbol],
-        basis: BasisAlias = 'covariant',
-        inverse_metric: sp.Matrix = None,
+    scalar_field_dependence: Sequence[sp.Symbol],
+    coordinate_axes: Sequence[sp.Symbol],
+    basis: BasisAlias = "covariant",
+    inverse_metric: sp.Matrix = None,
 ) -> np.ndarray:
     r"""
     Determine the symbolic variable dependencies of each component of the gradient of a scalar field.
@@ -887,12 +920,13 @@ def get_gradient_dependence(
             dependencies[i] = set() if not syms else syms
     return dependencies
 
+
 def get_divergence_dependence(
-        vector_field_dependence: Sequence[Sequence[sp.Symbol]],
-        d_term: Sequence[sp.Basic],
-        coordinate_axes: Sequence[sp.Symbol],
-        inverse_metric: sp.Matrix = None,
-        basis: BasisAlias = 'contravariant',
+    vector_field_dependence: Sequence[Sequence[sp.Symbol]],
+    d_term: Sequence[sp.Basic],
+    coordinate_axes: Sequence[sp.Symbol],
+    inverse_metric: sp.Matrix = None,
+    basis: BasisAlias = "contravariant",
 ):
     r"""
     Determine the symbolic variable dependencies of the divergence of a vector field.
@@ -936,19 +970,13 @@ def get_divergence_dependence(
     # Construct the vector field from the dependence arrays. Depending on the behavior, we need
     # to be a little bit careful about how different types are managed.
     _vector_field_generator = []
-    for i,element in enumerate(vector_field_dependence):
+    for i, element in enumerate(vector_field_dependence):
         if isinstance(element, Sequence):
-            _vector_field_generator.append(
-                sp.Function(f"V{i}")(*element)
-            )
+            _vector_field_generator.append(sp.Function(f"V{i}")(*element))
         elif isinstance(element, sp.Symbol):
-            _vector_field_generator.append(
-                sp.Function(f"V{i}")(element)
-            )
+            _vector_field_generator.append(sp.Function(f"V{i}")(element))
         elif isinstance(element, sp.Basic):
-            _vector_field_generator.append(
-                element
-            )
+            _vector_field_generator.append(element)
         else:
             pass
 
@@ -968,12 +996,13 @@ def get_divergence_dependence(
     syms = simplified.free_symbols
     return set() if not syms else syms
 
+
 def get_laplacian_dependence(
-        scalar_field_dependence: Sequence[sp.Symbol],
-        coordinate_axes: Sequence[sp.Symbol],
-        inverse_metric: sp.Matrix,
-        l_term: Sequence[sp.Basic] = None,
-        metric_density: sp.Basic = None,
+    scalar_field_dependence: Sequence[sp.Symbol],
+    coordinate_axes: Sequence[sp.Symbol],
+    inverse_metric: sp.Matrix,
+    l_term: Sequence[sp.Basic] = None,
+    metric_density: sp.Basic = None,
 ):
     r"""
     Determine the symbolic variable dependencies of the Laplacian of a scalar field.

@@ -3,18 +3,20 @@ Utilities for managing grids.
 """
 import numpy as np
 
-def _get_coordinate_parameters(bounding_box,cell_size, grid_type: str = 'cell'):
+
+def _get_coordinate_parameters(bounding_box, cell_size, grid_type: str = "cell"):
     """
     Same as `get_coordinate_parameters`, but ignores all checks.
     """
     # Compute start and end coordinates
-    offset = (cell_size / 2) if grid_type == 'cell' else 0
+    offset = (cell_size / 2) if grid_type == "cell" else 0
     start = bounding_box[0, :] + offset
     end = bounding_box[1, :] + offset
 
     return tuple(zip(start, end, cell_size))
 
-def get_coordinate_parameters(bounding_box, cell_size, grid_type: str = 'cell'):
+
+def get_coordinate_parameters(bounding_box, cell_size, grid_type: str = "cell"):
     """
     Computes coordinate slice parameters for a structured grid.
 
@@ -45,11 +47,12 @@ def get_coordinate_parameters(bounding_box, cell_size, grid_type: str = 'cell'):
     cell_size = np.asarray(cell_size, dtype=float)
 
     if bounding_box.shape != (2, len(cell_size)):
-        raise ValueError(f"Bounding box shape {bounding_box.shape} does not match cell size length {len(cell_size)}.")
+        raise ValueError(
+            f"Bounding box shape {bounding_box.shape} does not match cell size length {len(cell_size)}."
+        )
 
-    if grid_type not in {'cell', 'edge'}:
+    if grid_type not in {"cell", "edge"}:
         raise ValueError("grid_type must be either 'cell' or 'edge'.")
 
     # Compute start and end coordinates
     return _get_coordinate_parameters(bounding_box, cell_size, grid_type)
-

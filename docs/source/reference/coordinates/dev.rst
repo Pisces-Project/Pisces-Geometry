@@ -354,4 +354,3 @@ Coordinate systems in Pisces-Geometry are fully extensible Python classes. You a
 - Integrations with other Pisces modules.
 
 These methods will have full access to the symbolic structure of the system — including parameters, symbolic axes, metric tensors, and coordinate transformations.
-

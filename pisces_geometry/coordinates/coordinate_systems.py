@@ -4,10 +4,14 @@ User-facing coordinate systems in Pisces-Geometry.
 This module contains all the standard coordinate systems that might be of interest for various
 use cases.
 """
-from pisces_geometry.coordinates.base import class_expression, _CoordinateSystemBase
-from pisces_geometry.coordinates.core import OrthogonalCoordinateSystem, CurvilinearCoordinateSystem
-import sympy as sp
 import numpy as np
+import sympy as sp
+
+from pisces_geometry.coordinates.core import (
+    CurvilinearCoordinateSystem,
+    OrthogonalCoordinateSystem,
+)
+
 
 class CartesianCoordinateSystem1D(OrthogonalCoordinateSystem):
     r"""
@@ -34,12 +38,12 @@ class CartesianCoordinateSystem1D(OrthogonalCoordinateSystem):
     +----------+-------------------------+
     """
     __is_abstract__ = False
-    __setup_point__ = 'init'
-    __AXES__ = ['x']
+    __setup_point__ = "init"
+    __AXES__ = ["x"]
     __PARAMETERS__ = {}
 
     @staticmethod
-    def __construct_metric_tensor_symbol__(x,**kwargs):
+    def __construct_metric_tensor_symbol__(x, **kwargs):
         return sp.Array([1])
 
     def _convert_cartesian_to_native(self, x):
@@ -47,6 +51,7 @@ class CartesianCoordinateSystem1D(OrthogonalCoordinateSystem):
 
     def _convert_native_to_cartesian(self, x):
         return x
+
 
 class CartesianCoordinateSystem2D(OrthogonalCoordinateSystem):
     r"""
@@ -108,20 +113,20 @@ class CartesianCoordinateSystem2D(OrthogonalCoordinateSystem):
         >>> plt.show()
     """
     __is_abstract__ = False
-    __setup_point__ = 'init'
-    __AXES__ = ['x','y']
+    __setup_point__ = "init"
+    __AXES__ = ["x", "y"]
     __PARAMETERS__ = {}
 
-
     @staticmethod
-    def __construct_metric_tensor_symbol__(x,y,**kwargs):
-        return sp.Array([1,1])
+    def __construct_metric_tensor_symbol__(x, y, **kwargs):
+        return sp.Array([1, 1])
 
-    def _convert_cartesian_to_native(self, x,y):
-        return x,y
+    def _convert_cartesian_to_native(self, x, y):
+        return x, y
 
-    def _convert_native_to_cartesian(self, x,y):
-        return x,y
+    def _convert_native_to_cartesian(self, x, y):
+        return x, y
+
 
 class CartesianCoordinateSystem3D(OrthogonalCoordinateSystem):
     r"""
@@ -184,20 +189,20 @@ class CartesianCoordinateSystem3D(OrthogonalCoordinateSystem):
 
     """
     __is_abstract__ = False
-    __setup_point__ = 'init'
-    __AXES__ = ['x','y','z']
+    __setup_point__ = "init"
+    __AXES__ = ["x", "y", "z"]
     __PARAMETERS__ = {}
 
-
     @staticmethod
-    def __construct_metric_tensor_symbol__(x,y,z,**kwargs):
-        return sp.Array([1,1,1])
+    def __construct_metric_tensor_symbol__(x, y, z, **kwargs):
+        return sp.Array([1, 1, 1])
 
-    def _convert_cartesian_to_native(self, x,y,z):
-        return x,y
+    def _convert_cartesian_to_native(self, x, y, z):
+        return x, y
 
-    def _convert_native_to_cartesian(self, x,y,z):
-        return x,y
+    def _convert_native_to_cartesian(self, x, y, z):
+        return x, y
+
 
 class SphericalCoordinateSystem(OrthogonalCoordinateSystem):
     r"""
@@ -279,28 +284,28 @@ class SphericalCoordinateSystem(OrthogonalCoordinateSystem):
         >>> plt.show()
     """
     __is_abstract__ = False
-    __setup_point__ = 'init'
-    __AXES__ = ['r','theta','phi']
+    __setup_point__ = "init"
+    __AXES__ = ["r", "theta", "phi"]
     __PARAMETERS__ = {}
 
     @staticmethod
-    def __construct_metric_tensor_symbol__(r,theta,phi,**kwargs):
-        return sp.Array([1,r**2,(r*sp.sin(theta))**2])
+    def __construct_metric_tensor_symbol__(r, theta, phi, **kwargs):
+        return sp.Array([1, r**2, (r * sp.sin(theta)) ** 2])
 
     def _convert_cartesian_to_native(self, x, y, z):
         r = np.sqrt(x**2 + y**2 + z**2)
         theta = np.arccos(z / r)
         phi = np.arctan2(y, x)
 
-        return r,theta,phi
-
+        return r, theta, phi
 
     def _convert_native_to_cartesian(self, r, theta, phi):
         x = r * np.sin(theta) * np.cos(phi)
         y = r * np.sin(theta) * np.sin(phi)
         z = r * np.cos(theta)
 
-        return x,y,z
+        return x, y, z
+
 
 class PolarCoordinateSystem(OrthogonalCoordinateSystem):
     r"""
@@ -375,23 +380,24 @@ class PolarCoordinateSystem(OrthogonalCoordinateSystem):
         >>> plt.show()
         """
     __is_abstract__ = False
-    __setup_point__ = 'init'
-    __AXES__ = ['r','theta']
+    __setup_point__ = "init"
+    __AXES__ = ["r", "theta"]
     __PARAMETERS__ = {}
 
     @staticmethod
-    def __construct_metric_tensor_symbol__(r,theta,**kwargs):
-        return sp.Array([1,r**2])
+    def __construct_metric_tensor_symbol__(r, theta, **kwargs):
+        return sp.Array([1, r**2])
 
     def _convert_native_to_cartesian(self, r, theta):
         x = r * np.cos(theta)
         y = r * np.sin(theta)
         return x, y
 
-    def _convert_cartesian_to_native(self, x,y):
+    def _convert_cartesian_to_native(self, x, y):
         r = np.sqrt(x**2 + y**2)
         theta = np.arctan2(y, x)
         return r, theta
+
 
 class CylindricalCoordinateSystem(OrthogonalCoordinateSystem):
     r"""
@@ -475,22 +481,24 @@ class CylindricalCoordinateSystem(OrthogonalCoordinateSystem):
         >>> plt.show()
         """
     __is_abstract__ = False
-    __setup_point__ = 'init'
-    __AXES__ = ['rho','phi','z']
+    __setup_point__ = "init"
+    __AXES__ = ["rho", "phi", "z"]
     __PARAMETERS__ = {}
 
-    def _convert_native_to_cartesian(self, rho,phi,z):
+    def _convert_native_to_cartesian(self, rho, phi, z):
         x = rho * np.cos(phi)
         y = rho * np.sin(phi)
         return x, y, z
-    def _convert_cartesian_to_native(self, x,y,z):
+
+    def _convert_cartesian_to_native(self, x, y, z):
         rho = np.sqrt(x**2 + y**2)
         phi = np.arctan2(y, x)
         return rho, phi, z
 
     @staticmethod
-    def __construct_metric_tensor_symbol__(r,theta,phi,**kwargs):
-        return sp.Array([1,r**2,1])
+    def __construct_metric_tensor_symbol__(r, theta, phi, **kwargs):
+        return sp.Array([1, r**2, 1])
+
 
 class OblateSpheroidalCoordinateSystem(OrthogonalCoordinateSystem):
     r"""
@@ -584,19 +592,19 @@ class OblateSpheroidalCoordinateSystem(OrthogonalCoordinateSystem):
 
     """
     __is_abstract__ = False
-    __setup_point__ = 'init'
-    __AXES__ = ['mu','nu','phi']
-    __PARAMETERS__ = {'a': 1.0}
+    __setup_point__ = "init"
+    __AXES__ = ["mu", "nu", "phi"]
+    __PARAMETERS__ = {"a": 1.0}
 
-    def _convert_native_to_cartesian(self, mu,nu,phi):
-        a = self.parameters['a']
+    def _convert_native_to_cartesian(self, mu, nu, phi):
+        a = self.parameters["a"]
         x = a * np.cosh(mu) * np.cos(nu) * np.cos(phi)
         y = a * np.cosh(mu) * np.cos(nu) * np.sin(phi)
         z = a * np.sinh(mu) * np.sin(nu)
         return x, y, z
 
-    def _convert_cartesian_to_native(self, x,y,z):
-        a = self.parameters['a']
+    def _convert_cartesian_to_native(self, x, y, z):
+        a = self.parameters["a"]
         rho = np.sqrt(x**2 + y**2)
         d1_2, d2_2 = (rho + a) ** 2 + z**2, (rho - a) ** 2 + z**2
         mu = np.arccosh((np.sqrt(d1_2) + np.sqrt(d2_2)) / (2 * a))
@@ -605,10 +613,15 @@ class OblateSpheroidalCoordinateSystem(OrthogonalCoordinateSystem):
         return mu, nu, phi
 
     @staticmethod
-    def __construct_metric_tensor_symbol__(mu,nu,phi,a=1.0):
-        return sp.Array([(a * sp.sqrt(sp.sinh(mu) ** 2 + sp.sin(nu) ** 2))**2,
-                         (a * sp.sqrt(sp.sinh(mu) ** 2 + sp.sin(nu) ** 2))**2,
-                         (a * sp.cosh(mu) * sp.cos(nu))**2])
+    def __construct_metric_tensor_symbol__(mu, nu, phi, a=1.0):
+        return sp.Array(
+            [
+                (a * sp.sqrt(sp.sinh(mu) ** 2 + sp.sin(nu) ** 2)) ** 2,
+                (a * sp.sqrt(sp.sinh(mu) ** 2 + sp.sin(nu) ** 2)) ** 2,
+                (a * sp.cosh(mu) * sp.cos(nu)) ** 2,
+            ]
+        )
+
 
 class ProlateSpheroidalCoordinateSystem(OrthogonalCoordinateSystem):
     r"""
@@ -700,19 +713,19 @@ class ProlateSpheroidalCoordinateSystem(OrthogonalCoordinateSystem):
         >>> plt.show()
     """
     __is_abstract__ = False
-    __setup_point__ = 'init'
-    __AXES__ = ['mu','nu','phi']
-    __PARAMETERS__ = {'a': 1.0}
+    __setup_point__ = "init"
+    __AXES__ = ["mu", "nu", "phi"]
+    __PARAMETERS__ = {"a": 1.0}
 
-    def _convert_native_to_cartesian(self,mu,nu,phi):
-        a = self.parameters['a']
+    def _convert_native_to_cartesian(self, mu, nu, phi):
+        a = self.parameters["a"]
         x = a * np.sinh(mu) * np.sin(nu) * np.cos(phi)
         y = a * np.sinh(mu) * np.sin(nu) * np.sin(phi)
         z = a * np.cosh(mu) * np.cos(nu)
         return x, y, z
 
-    def _convert_cartesian_to_native(self, x,y,z):
-        a = self.parameters['a']
+    def _convert_cartesian_to_native(self, x, y, z):
+        a = self.parameters["a"]
         rho = np.sqrt(x**2 + y**2)
         d1_2, d2_2 = (rho) ** 2 + (z + a) ** 2, (rho) ** 2 + (z - a) ** 2
         mu = np.arccosh((np.sqrt(d1_2) + np.sqrt(d2_2)) / (2 * a))
@@ -721,10 +734,15 @@ class ProlateSpheroidalCoordinateSystem(OrthogonalCoordinateSystem):
         return mu, nu, phi
 
     @staticmethod
-    def __construct_metric_tensor_symbol__(mu,nu,phi,a=1.0):
-        return sp.Array([(a * sp.sqrt(sp.sinh(mu) ** 2 + sp.sin(nu) ** 2))**2,
-                         (a * sp.sqrt(sp.sinh(mu) ** 2 + sp.sin(nu) ** 2))**2,
-                         (a * sp.sinh(mu) * sp.sin(nu))**2])
+    def __construct_metric_tensor_symbol__(mu, nu, phi, a=1.0):
+        return sp.Array(
+            [
+                (a * sp.sqrt(sp.sinh(mu) ** 2 + sp.sin(nu) ** 2)) ** 2,
+                (a * sp.sqrt(sp.sinh(mu) ** 2 + sp.sin(nu) ** 2)) ** 2,
+                (a * sp.sinh(mu) * sp.sin(nu)) ** 2,
+            ]
+        )
+
 
 class EllipticCylindricalCoordinateSystem(OrthogonalCoordinateSystem):
     r"""
@@ -763,25 +781,33 @@ class EllipticCylindricalCoordinateSystem(OrthogonalCoordinateSystem):
     """
 
     __is_abstract__ = False
-    __setup_point__ = 'init'
-    __AXES__ = ['mu', 'nu', 'z']
-    __PARAMETERS__ = {'a': 1.0}
+    __setup_point__ = "init"
+    __AXES__ = ["mu", "nu", "z"]
+    __PARAMETERS__ = {"a": 1.0}
 
     @staticmethod
     def __construct_metric_tensor_symbol__(mu, nu, z, a=1.0):
-        h = a * sp.sqrt(sp.sinh(mu)**2 + sp.sin(nu)**2)
+        h = a * sp.sqrt(sp.sinh(mu) ** 2 + sp.sin(nu) ** 2)
         return sp.Array([h**2, h**2, 1])
 
     def _convert_native_to_cartesian(self, mu, nu, z):
-        a = self.__parameters__['a']
+        a = self.__parameters__["a"]
         x = a * np.cosh(mu) * np.cos(nu)
         y = a * np.sinh(mu) * np.sin(nu)
         return x, y, z
 
     def _convert_cartesian_to_native(self, x, y, z):
-        a = self.__parameters__['a']
-        cosh_mu = np.sqrt((x / a)**2 + (y / a)**2 +
-                          np.sqrt(((x / a)**2 + (y / a)**2)**2 - (4 * x**2 * y**2) / a**4)) / 2
+        a = self.__parameters__["a"]
+        cosh_mu = (
+            np.sqrt(
+                (x / a) ** 2
+                + (y / a) ** 2
+                + np.sqrt(
+                    ((x / a) ** 2 + (y / a) ** 2) ** 2 - (4 * x**2 * y**2) / a**4
+                )
+            )
+            / 2
+        )
         sinh_mu = np.sqrt(cosh_mu**2 - 1)
         mu = np.arccosh(cosh_mu)
         tan_nu = y / (a * sinh_mu)
@@ -789,119 +815,140 @@ class EllipticCylindricalCoordinateSystem(OrthogonalCoordinateSystem):
         nu = np.arctan2(tan_nu, cos_nu)
         return mu, nu, z
 
+
 class OblateHomoeoidalCoordinateSystem(CurvilinearCoordinateSystem):
     __is_abstract__ = False
-    __setup_point__ = 'init'
-    __AXES__ = ['xi','theta','phi']
-    __PARAMETERS__ = {'ecc': 0.0}
+    __setup_point__ = "init"
+    __AXES__ = ["xi", "theta", "phi"]
+    __PARAMETERS__ = {"ecc": 0.0}
 
-    def _setup_parameters(self,**kwargs):
+    def _setup_parameters(self, **kwargs):
         # Start by creating a carbon-copy of the default parameters.
         _params = super()._setup_parameters(**kwargs)
 
         # Create the scale factor attribute as well.
-        _params['scale'] = 1/np.sqrt(1-_params['ecc']**2)
+        _params["scale"] = 1 / np.sqrt(1 - _params["ecc"] ** 2)
 
         return _params
 
     @staticmethod
-    def __construct_metric_tensor_symbol__(xi,theta,phi,ecc=0.0):
-        st, ct = sp.sin(theta), sp.cos(theta)
-        omega = sp.sqrt(1-(ecc*st)**2)
+    def __construct_metric_tensor_symbol__(xi, theta, phi, ecc=0.0):
+        st = sp.sin(theta)
+        omega = sp.sqrt(1 - (ecc * st) ** 2)
         domega_dtheta = sp.diff(omega, theta)
 
-        return sp.Matrix([[1/omega**2                  ,(-xi*domega_dtheta)/omega**3                     , 0],
-                          [(-xi*domega_dtheta)/omega**3, ((xi**2)*(omega**2 + domega_dtheta**2))/omega**4, 0],
-                          [0                           ,0                                                , (xi*st/omega)**2]])
+        return sp.Matrix(
+            [
+                [1 / omega**2, (-xi * domega_dtheta) / omega**3, 0],
+                [
+                    (-xi * domega_dtheta) / omega**3,
+                    ((xi**2) * (omega**2 + domega_dtheta**2)) / omega**4,
+                    0,
+                ],
+                [0, 0, (xi * st / omega) ** 2],
+            ]
+        )
 
     @staticmethod
-    def __construct_inverse_metric_tensor_symbol__(xi,theta,phi,ecc=0.0):
+    def __construct_inverse_metric_tensor_symbol__(xi, theta, phi, ecc=0.0):
         st, ct = sp.sin(theta), sp.cos(theta)
-        omega = sp.sqrt(1-(ecc*st)**2)
-        domega_dtheta = (st*ct)/omega
+        omega = sp.sqrt(1 - (ecc * st) ** 2)
+        domega_dtheta = (st * ct) / omega
 
-        return sp.Matrix([[omega**2+domega_dtheta**2   ,(omega*domega_dtheta)/xi, 0                  ],
-                          [(omega*domega_dtheta)/xi    , (omega/xi)**2          , 0                  ],
-                          [0                           ,0                       , (omega/(st*xi))**2]])
-
+        return sp.Matrix(
+            [
+                [omega**2 + domega_dtheta**2, (omega * domega_dtheta) / xi, 0],
+                [(omega * domega_dtheta) / xi, (omega / xi) ** 2, 0],
+                [0, 0, (omega / (st * xi)) ** 2],
+            ]
+        )
 
     def _convert_native_to_cartesian(self, xi, theta, phi):
         # Fetch the numerical conversion function.
-        ecc = self.__parameters__['ecc']
+        ecc = self.__parameters__["ecc"]
         _st, _ct, _cp, _sp = np.sin(theta), np.cos(theta), np.cos(phi), np.sin(phi)
-        _omega = np.sqrt(1-(ecc*_st)**2)
+        _omega = np.sqrt(1 - (ecc * _st) ** 2)
         # COMPUTE inversion
         x = xi * _st * _cp / _omega
         y = xi * _st * _sp / _omega
         z = xi * _ct / _omega
         return x, y, z
 
-    def _convert_cartesian_to_native(self, x,y,z):
-        scale = self.__parameters__['scale']
-        xi = np.sqrt(
-            (x/scale) ** 2 + (y/scale) ** 2 + z ** 2
-        )
+    def _convert_cartesian_to_native(self, x, y, z):
+        scale = self.__parameters__["scale"]
+        xi = np.sqrt((x / scale) ** 2 + (y / scale) ** 2 + z**2)
         r = np.sqrt(x**2 + y**2 + z**2)
         theta = np.arccos(z / r)
         phi = np.arctan2(y, x)
         return xi, theta, phi
+
 
 class ProlateHomoeoidalCoordinateSystem(CurvilinearCoordinateSystem):
     __is_abstract__ = False
-    __setup_point__ = 'init'
-    __AXES__ = ['xi','theta','phi']
-    __PARAMETERS__ = {'ecc': 0.0}
+    __setup_point__ = "init"
+    __AXES__ = ["xi", "theta", "phi"]
+    __PARAMETERS__ = {"ecc": 0.0}
 
-    def _setup_parameters(self,**kwargs):
+    def _setup_parameters(self, **kwargs):
         # Start by creating a carbon-copy of the default parameters.
         _params = super()._setup_parameters(**kwargs)
 
         # Create the scale factor attribute as well.
-        _params['scale'] = np.sqrt(1-_params['ecc']**2)
+        _params["scale"] = np.sqrt(1 - _params["ecc"] ** 2)
 
         return _params
 
     @staticmethod
-    def __construct_metric_tensor_symbol__(xi,theta,phi,ecc=0.0):
+    def __construct_metric_tensor_symbol__(xi, theta, phi, ecc=0.0):
         st, ct = sp.sin(theta), sp.cos(theta)
-        omega = sp.sqrt(1-(ecc*ct)**2)
+        omega = sp.sqrt(1 - (ecc * ct) ** 2)
         domega_dtheta = sp.diff(omega, theta)
 
-        return sp.Matrix([[1/omega**2                  ,(-xi*domega_dtheta)/omega**3                     , 0],
-                          [(-xi*domega_dtheta)/omega**3, ((xi**2)*(omega**2 + domega_dtheta**2))/omega**4, 0],
-                          [0                           ,0                                                , (xi*st/omega)**2]])
+        return sp.Matrix(
+            [
+                [1 / omega**2, (-xi * domega_dtheta) / omega**3, 0],
+                [
+                    (-xi * domega_dtheta) / omega**3,
+                    ((xi**2) * (omega**2 + domega_dtheta**2)) / omega**4,
+                    0,
+                ],
+                [0, 0, (xi * st / omega) ** 2],
+            ]
+        )
 
     @staticmethod
-    def __construct_inverse_metric_tensor_symbol__(xi,theta,phi,ecc=0.0):
+    def __construct_inverse_metric_tensor_symbol__(xi, theta, phi, ecc=0.0):
         st, ct = sp.sin(theta), sp.cos(theta)
-        omega = sp.sqrt(1-(ecc*ct)**2)
-        domega_dtheta = (st*ct)/omega
+        omega = sp.sqrt(1 - (ecc * ct) ** 2)
+        domega_dtheta = (st * ct) / omega
 
-        return sp.Matrix([[omega**2+domega_dtheta**2   ,(omega*domega_dtheta)/xi, 0                  ],
-                          [(omega*domega_dtheta)/xi    , (omega/xi)**2          , 0                  ],
-                          [0                           ,0                       , (omega/(st*xi))**2]])
-
+        return sp.Matrix(
+            [
+                [omega**2 + domega_dtheta**2, (omega * domega_dtheta) / xi, 0],
+                [(omega * domega_dtheta) / xi, (omega / xi) ** 2, 0],
+                [0, 0, (omega / (st * xi)) ** 2],
+            ]
+        )
 
     def _convert_native_to_cartesian(self, xi, theta, phi):
         # Fetch the numerical conversion function.
-        ecc = self.__parameters__['ecc']
+        ecc = self.__parameters__["ecc"]
         _st, _ct, _cp, _sp = np.sin(theta), np.cos(theta), np.cos(phi), np.sin(phi)
-        _omega = np.sqrt(1-(ecc*_ct)**2)
+        _omega = np.sqrt(1 - (ecc * _ct) ** 2)
         # COMPUTE inversion
         x = xi * _st * _cp / _omega
         y = xi * _st * _sp / _omega
         z = xi * _ct / _omega
         return x, y, z
 
-    def _convert_cartesian_to_native(self, x,y,z):
-        scale = self.__parameters__['scale']
-        xi = np.sqrt(
-            x ** 2 + y ** 2 + (z/scale) ** 2
-        )
+    def _convert_cartesian_to_native(self, x, y, z):
+        scale = self.__parameters__["scale"]
+        xi = np.sqrt(x**2 + y**2 + (z / scale) ** 2)
         r = np.sqrt(x**2 + y**2 + z**2)
         theta = np.arccos(z / r)
         phi = np.arctan2(y, x)
         return xi, theta, phi
+
 
 class ConicCoordinateSystem(OrthogonalCoordinateSystem):
     r"""
@@ -930,22 +977,23 @@ class ConicCoordinateSystem(OrthogonalCoordinateSystem):
     """
 
     __is_abstract__ = False
-    __setup_point__ = 'init'
-    __AXES__ = ['mu', 'nu', 'phi']
-    __PARAMETERS__ = {'a': 1.0}
+    __setup_point__ = "init"
+    __AXES__ = ["mu", "nu", "phi"]
+    __PARAMETERS__ = {"a": 1.0}
 
     @staticmethod
     def __construct_metric_tensor_symbol__(mu, nu, phi, a=1.0):
-        denom = (sp.cos(mu) - sp.cos(nu))
+        denom = sp.cos(mu) - sp.cos(nu)
         r = a * sp.sin(mu) * sp.sin(nu) / denom
-        z = a * sp.sin(mu + nu) / denom
-        h_mu = a * sp.sqrt(1 - sp.cos(mu)**2) * sp.sqrt(1 - sp.cos(nu)**2) / denom**2
+        h_mu = (
+            a * sp.sqrt(1 - sp.cos(mu) ** 2) * sp.sqrt(1 - sp.cos(nu) ** 2) / denom**2
+        )
         h_nu = h_mu
         h_phi = r
         return sp.Array([h_mu**2, h_nu**2, h_phi**2])
 
     def _convert_native_to_cartesian(self, mu, nu, phi):
-        a = self.__parameters__['a']
+        a = self.__parameters__["a"]
         denom = np.cos(mu) - np.cos(nu)
         r = a * np.sin(mu) * np.sin(nu) / denom
         z = a * np.sin(mu + nu) / denom
@@ -954,11 +1002,6 @@ class ConicCoordinateSystem(OrthogonalCoordinateSystem):
         return x, y, z
 
     def _convert_cartesian_to_native(self, x, y, z):
-        raise NotImplementedError("Inverse transformation for conic coordinates is not trivial and currently not implemented.")
-
-if __name__ == '__main__':
-    import matplotlib.pyplot as plt
-    from pisces_geometry.differential_geometry import compute_gradient
-
-    u = ProlateHomoeoidalCoordinateSystem(ecc=0.0)
-    print(u.get_expression('Dterm'))
+        raise NotImplementedError(
+            "Inverse transformation for conic coordinates is not trivial and currently not implemented."
+        )

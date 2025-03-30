@@ -12,7 +12,10 @@ from typing import Sequence, Union
 
 import numpy as np
 
-from pisces_geometry.differential_geometry.tensor_utilities import raise_index_orth, raise_index
+from pisces_geometry.differential_geometry.tensor_utilities import (
+    raise_index,
+    raise_index_orth,
+)
 
 
 # ------------------------------------------ #
@@ -23,12 +26,12 @@ from pisces_geometry.differential_geometry.tensor_utilities import raise_index_o
 # Extended coordinate system types (beyond curvilinear / orthogonal) might require more sophisticated machinery
 # to be added to this section.
 def ggrad_cl_covariant_component(
-        scalar_field: np.ndarray,
-        component: int,
-        /,
-        spacing: Union[float, np.ndarray] = None,
-        derivative_field: np.ndarray = None,
-        **kwargs,
+    scalar_field: np.ndarray,
+    component: int,
+    /,
+    spacing: Union[float, np.ndarray] = None,
+    derivative_field: np.ndarray = None,
+    **kwargs,
 ):
     r"""
     Compute the covariant gradient component :math:`\partial_\mu \phi` for a scalar field along one axis (:math:`\mu`).
@@ -82,25 +85,31 @@ def ggrad_cl_covariant_component(
     """
     # Compute the actual gradient.
     if (derivative_field is None) and (spacing is None):
-        raise ValueError("Either ``spacing`` or ``derivative_field`` must be specified.")
+        raise ValueError(
+            "Either ``spacing`` or ``derivative_field`` must be specified."
+        )
     if derivative_field is None:
         # This requires a reshape because there is only one axis.
-        return np.gradient(scalar_field, spacing, axis=component, **kwargs).reshape((*scalar_field.shape, 1))
+        return np.gradient(scalar_field, spacing, axis=component, **kwargs).reshape(
+            (*scalar_field.shape, 1)
+        )
     else:
         # Check that the derivative field has to correct shape.
         if derivative_field != scalar_field.shape + (1,):
             raise ValueError(
-                f"Derivative field should have shape {scalar_field.shape} + ({1},) but has shape {derivative_field.shape}.")
+                f"Derivative field should have shape {scalar_field.shape} + ({1},) but has shape {derivative_field.shape}."
+            )
 
         return derivative_field
 
+
 def ggrad_orth_covariant_component(
-        scalar_field: np.ndarray,
-        component: int,
-        /,
-        spacing: Union[float, np.ndarray] = None,
-        derivative_field: np.ndarray = None,
-        **kwargs,
+    scalar_field: np.ndarray,
+    component: int,
+    /,
+    spacing: Union[float, np.ndarray] = None,
+    derivative_field: np.ndarray = None,
+    **kwargs,
 ):
     r"""
     Compute the covariant gradient component :math:`\partial_\mu \phi` for a scalar field along one axis (:math:`\mu`) in orthogonal coordinates.
@@ -156,12 +165,21 @@ def ggrad_orth_covariant_component(
     This function is a direct alias for :py:func:`ggrad_cl_covariant_component`.
 
     """
-    return ggrad_cl_covariant_component(scalar_field, component, spacing=spacing, derivative_field=derivative_field, **kwargs)
+    return ggrad_cl_covariant_component(
+        scalar_field,
+        component,
+        spacing=spacing,
+        derivative_field=derivative_field,
+        **kwargs,
+    )
 
-def ggrad_cl_covariant(scalar_field: np.ndarray,
-                       spacing: Sequence[Union[float, np.ndarray]] = None,
-                       derivative_field: np.ndarray = None,
-                       **kwargs) -> np.ndarray:
+
+def ggrad_cl_covariant(
+    scalar_field: np.ndarray,
+    spacing: Sequence[Union[float, np.ndarray]] = None,
+    derivative_field: np.ndarray = None,
+    **kwargs,
+) -> np.ndarray:
     r"""
     Compute the covariant gradient :math:`\partial_\mu \phi` of a scalar field (:math:`\phi`).
 
@@ -202,33 +220,44 @@ def ggrad_cl_covariant(scalar_field: np.ndarray,
 
     # Compute the actual gradient.
     if (derivative_field is None) and (spacing is None):
-        raise ValueError("Either ``spacing`` or ``derivative_field`` must be specified.")
+        raise ValueError(
+            "Either ``spacing`` or ``derivative_field`` must be specified."
+        )
     if derivative_field is None:
         # Check that the spacing has the correct shape.
         if len(spacing) != free_dimensions:
-            raise ValueError(f"`spacing` did not match the number of grid axes ({len(spacing)},{free_dimensions}).")
+            raise ValueError(
+                f"`spacing` did not match the number of grid axes ({len(spacing)},{free_dimensions})."
+            )
 
         # Compute the derivatives.
         if len(axes) > 1:
             # These can be automatically stacked without reshaping.
-            return np.stack(np.gradient(scalar_field, *spacing, axis=axes, **kwargs), axis=-1)
+            return np.stack(
+                np.gradient(scalar_field, *spacing, axis=axes, **kwargs), axis=-1
+            )
         else:
             # This requires a reshape because there is only one axis.
-            return np.gradient(scalar_field, *spacing, axis=axes, **kwargs).reshape((*scalar_field.shape, 1))
+            return np.gradient(scalar_field, *spacing, axis=axes, **kwargs).reshape(
+                (*scalar_field.shape, 1)
+            )
     else:
         # Check that the derivative field has to correct shape.
         if derivative_field != scalar_field.shape + (free_dimensions,):
             raise ValueError(
-                f"Derivative field should have shape {scalar_field.shape} + ({free_dimensions},) but has shape {derivative_field.shape}.")
+                f"Derivative field should have shape {scalar_field.shape} + ({free_dimensions},) but has shape {derivative_field.shape}."
+            )
 
         return derivative_field
 
 
-def ggrad_cl_contravariant(scalar_field: np.ndarray,
-                           spacing: Sequence[Union[float, np.ndarray]],
-                           inverse_metric: np.ndarray,
-                           derivative_field: np.ndarray = None,
-                           **kwargs):
+def ggrad_cl_contravariant(
+    scalar_field: np.ndarray,
+    spacing: Sequence[Union[float, np.ndarray]],
+    inverse_metric: np.ndarray,
+    derivative_field: np.ndarray = None,
+    **kwargs,
+):
     r"""
     Compute the contravariant gradient :math:`g^{\nu \mu} \partial_\mu \phi` of a scalar field (:math:`\phi`).
 
@@ -273,7 +302,9 @@ def ggrad_cl_contravariant(scalar_field: np.ndarray,
 
     """
     # Start by computing the covariant gradient.
-    _gradient_field = ggrad_cl_covariant(scalar_field, spacing, derivative_field, **kwargs)
+    _gradient_field = ggrad_cl_covariant(
+        scalar_field, spacing, derivative_field, **kwargs
+    )
 
     # Start performing the raising computation. We first ensure
     # that the metric has a valid shape and then proceed with the rest
@@ -281,10 +312,13 @@ def ggrad_cl_contravariant(scalar_field: np.ndarray,
     _gradient_field = raise_index(_gradient_field, 0, 1, inverse_metric, inplace=True)
     return _gradient_field
 
-def ggrad_orth_covariant(scalar_field: np.ndarray,
-                         spacing: Sequence[Union[float, np.ndarray]] = None,
-                         derivative_field: np.ndarray = None,
-                         **kwargs) -> np.ndarray:
+
+def ggrad_orth_covariant(
+    scalar_field: np.ndarray,
+    spacing: Sequence[Union[float, np.ndarray]] = None,
+    derivative_field: np.ndarray = None,
+    **kwargs,
+) -> np.ndarray:
     r"""
     Compute the covariant gradient :math:`\partial_\mu \phi` of a scalar field (:math:`\phi`) in orthogonal coordinates.
 
@@ -322,14 +356,18 @@ def ggrad_orth_covariant(scalar_field: np.ndarray,
     -----
     This function is a direct alias for :py:func:`ggrad_cl_covariant`.
     """
-    return ggrad_cl_covariant(scalar_field,spacing=spacing,derivative_field=derivative_field,**kwargs)
+    return ggrad_cl_covariant(
+        scalar_field, spacing=spacing, derivative_field=derivative_field, **kwargs
+    )
 
 
-def ggrad_orth_contravariant(scalar_field: np.ndarray,
-                             spacing: Sequence[Union[float, np.ndarray]],
-                             inverse_metric: np.ndarray,
-                             derivative_field: np.ndarray = None,
-                             **kwargs):
+def ggrad_orth_contravariant(
+    scalar_field: np.ndarray,
+    spacing: Sequence[Union[float, np.ndarray]],
+    inverse_metric: np.ndarray,
+    derivative_field: np.ndarray = None,
+    **kwargs,
+):
     r"""
     Compute the contravariant gradient :math:`g^{\nu \mu} \partial_\mu \phi` of a scalar field (:math:`\phi`) in orthogonal coordinates.
 
@@ -385,12 +423,16 @@ def ggrad_orth_contravariant(scalar_field: np.ndarray,
 
     """
     # Start by computing the covariant gradient.
-    _gradient_field = ggrad_orth_covariant(scalar_field, spacing, derivative_field, **kwargs)
+    _gradient_field = ggrad_orth_covariant(
+        scalar_field, spacing, derivative_field, **kwargs
+    )
 
     # Start performing the raising computation. We first ensure
     # that the metric has a valid shape and then proceed with the rest
     # of the computation.
-    _gradient_field = raise_index_orth(_gradient_field, 0, 1, inverse_metric, inplace=True)
+    _gradient_field = raise_index_orth(
+        _gradient_field, 0, 1, inverse_metric, inplace=True
+    )
     return _gradient_field
 
 
@@ -401,12 +443,14 @@ def ggrad_orth_contravariant(scalar_field: np.ndarray,
 # in different coordinate systems and / or different bases.
 # Extended coordinate system types (beyond curvilinear / orthogonal) might require more sophisticated machinery
 # to be added to this section.
-def gdiv_cl_contravariant(vector_field: np.ndarray,
-                          dterm_field: np.ndarray,
-                          spacing: Sequence[Union[float, np.ndarray]] = None,
-                          derivative_field: np.ndarray = None,
-                          axis_connector: Sequence[int] = None,
-                          **kwargs):
+def gdiv_cl_contravariant(
+    vector_field: np.ndarray,
+    dterm_field: np.ndarray,
+    spacing: Sequence[Union[float, np.ndarray]] = None,
+    derivative_field: np.ndarray = None,
+    axis_connector: Sequence[int] = None,
+    **kwargs,
+):
     r"""
     Compute the divergence of a contravariant vector field in a curvilinear coordinate system.
 
@@ -480,11 +524,14 @@ def gdiv_cl_contravariant(vector_field: np.ndarray,
     # Check and coerce the Dterm field.
     if dterm_field.shape != vector_field.shape:
         raise ValueError(
-            f"Dterm and vector fields must have the same shape. Had {dterm_field.shape} and {vector_field.shape}.")
+            f"Dterm and vector fields must have the same shape. Had {dterm_field.shape} and {vector_field.shape}."
+        )
 
     # Compute the derivative term if it is not already available.
     if (derivative_field is None) and (spacing is None):
-        raise ValueError("Either ``spacing`` or ``derivative_field`` must be specified.")
+        raise ValueError(
+            "Either ``spacing`` or ``derivative_field`` must be specified."
+        )
     if derivative_field is None:
         # We will compute the derivative field using np.gradient in a sequence. We need to ensure
         # that the axes are connected properly and that spacing has the correct shape.
@@ -492,23 +539,37 @@ def gdiv_cl_contravariant(vector_field: np.ndarray,
             raise ValueError(
                 f"The `vector_field` has {num_grid_axes} grid axes and {num_comp_axes} components, which are not equal.\n"
                 "To allow an incomplete vector field, you must provide ``axis_connector`` to specify the correspondence between"
-                "grid axis and components.")
+                "grid axis and components."
+            )
         elif (num_grid_axes != num_comp_axes) and (axis_connector is not None):
             # Check that the axis connector is legitimate for the computation.
             if len(axis_connector) != num_comp_axes:
-                raise ValueError("Not all component axes were specified in the axis connector.")
+                raise ValueError(
+                    "Not all component axes were specified in the axis connector."
+                )
         else:
             axis_connector = np.arange(num_comp_axes)
 
         # Ensure that spacing has the correct length.
         if len(spacing) != num_grid_axes:
-            raise ValueError("`spacing` must match the number of vector field components.")
+            raise ValueError(
+                "`spacing` must match the number of vector field components."
+            )
 
         # Now we can actually compute the derivatives.
-        derivative_field = np.stack([
-            np.gradient(vector_field[..., __comp_index__], spacing[__comp_index__], axis=__grid_index__, **kwargs)
-            for __comp_index__, __grid_index__ in enumerate(axis_connector) if __grid_index__ is not None
-        ], axis=-1)
+        derivative_field = np.stack(
+            [
+                np.gradient(
+                    vector_field[..., __comp_index__],
+                    spacing[__comp_index__],
+                    axis=__grid_index__,
+                    **kwargs,
+                )
+                for __comp_index__, __grid_index__ in enumerate(axis_connector)
+                if __grid_index__ is not None
+            ],
+            axis=-1,
+        )
     else:
         # The derivative field is provided, we just need to ensure that it has exactly the correct number
         # of non-degenerate axes necessary.
@@ -519,7 +580,8 @@ def gdiv_cl_contravariant(vector_field: np.ndarray,
         if derivative_field.shape != vector_field.shape[:-1] + (non_degenerate_axes,):
             raise ValueError(
                 "Based on the number of components in `vector_field` and the `axis_connector`, derivative field"
-                f"should only have {non_degenerate_axes} components.")
+                f"should only have {non_degenerate_axes} components."
+            )
 
     # Construct the two independent terms of the divergence.
     _div_term_1 = np.sum(dterm_field * vector_field, axis=-1)
@@ -527,13 +589,15 @@ def gdiv_cl_contravariant(vector_field: np.ndarray,
     return _div_term_1 + _div_term_2
 
 
-def gdiv_cl_covariant(vector_field: np.ndarray,
-                      dterm_field: np.ndarray,
-                      inverse_metric: np.ndarray,
-                      spacing: Sequence[Union[float, np.ndarray]] = None,
-                      derivative_field: np.ndarray = None,
-                      axis_connector: Sequence[int] = None,
-                      **kwargs):
+def gdiv_cl_covariant(
+    vector_field: np.ndarray,
+    dterm_field: np.ndarray,
+    inverse_metric: np.ndarray,
+    spacing: Sequence[Union[float, np.ndarray]] = None,
+    derivative_field: np.ndarray = None,
+    axis_connector: Sequence[int] = None,
+    **kwargs,
+):
     """
     Compute the divergence of a covariant vector field in a curvilinear coordinate system.
 
@@ -581,22 +645,29 @@ def gdiv_cl_covariant(vector_field: np.ndarray,
     """
     # Begin by converting the vector field from the covariant to the contravariant
     # basis so that computations can be fed to the gdiv_cl_contravariant function.
-    _contra_vector_field = raise_index(vector_field, 0, 1, inverse_metric, inplace=False)
+    _contra_vector_field = raise_index(
+        vector_field, 0, 1, inverse_metric, inplace=False
+    )
 
     # Pass the contravariant vector field into the gdiv_cl_contravariant method.
-    return gdiv_cl_contravariant(_contra_vector_field,
-                                 dterm_field,
-                                 spacing=spacing,
-                                 derivative_field=derivative_field,
-                                 axis_connector=axis_connector,
-                                 **kwargs)
+    return gdiv_cl_contravariant(
+        _contra_vector_field,
+        dterm_field,
+        spacing=spacing,
+        derivative_field=derivative_field,
+        axis_connector=axis_connector,
+        **kwargs,
+    )
 
-def gdiv_orth_contravariant(vector_field: np.ndarray,
-                          dterm_field: np.ndarray,
-                          spacing: Sequence[Union[float, np.ndarray]] = None,
-                          derivative_field: np.ndarray = None,
-                          axis_connector: Sequence[int] = None,
-                          **kwargs):
+
+def gdiv_orth_contravariant(
+    vector_field: np.ndarray,
+    dterm_field: np.ndarray,
+    spacing: Sequence[Union[float, np.ndarray]] = None,
+    derivative_field: np.ndarray = None,
+    axis_connector: Sequence[int] = None,
+    **kwargs,
+):
     r"""
     Compute the divergence of a contravariant vector field in an orthogonal coordinate system.
 
@@ -650,16 +721,25 @@ def gdiv_orth_contravariant(vector_field: np.ndarray,
         The scalar divergence field of shape ``(...,)``.
 
     """
-    return gdiv_cl_contravariant(vector_field,dterm_field,spacing=spacing,derivative_field=derivative_field,axis_connector=axis_connector,**kwargs)
+    return gdiv_cl_contravariant(
+        vector_field,
+        dterm_field,
+        spacing=spacing,
+        derivative_field=derivative_field,
+        axis_connector=axis_connector,
+        **kwargs,
+    )
 
 
-def gdiv_orth_covariant(vector_field: np.ndarray,
-                      dterm_field: np.ndarray,
-                      inverse_metric: np.ndarray,
-                      spacing: Sequence[Union[float, np.ndarray]] = None,
-                      derivative_field: np.ndarray = None,
-                      axis_connector: Sequence[int] = None,
-                      **kwargs):
+def gdiv_orth_covariant(
+    vector_field: np.ndarray,
+    dterm_field: np.ndarray,
+    inverse_metric: np.ndarray,
+    spacing: Sequence[Union[float, np.ndarray]] = None,
+    derivative_field: np.ndarray = None,
+    axis_connector: Sequence[int] = None,
+    **kwargs,
+):
     """
     Compute the divergence of a covariant vector field in an orthogonal coordinate system.
 
@@ -696,28 +776,33 @@ def gdiv_orth_covariant(vector_field: np.ndarray,
     """
     # Begin by converting the vector field from the covariant to the contravariant
     # basis so that computations can be fed to the gdiv_cl_contravariant function.
-    _contra_vector_field = raise_index_orth(vector_field, 0, 1, inverse_metric, inplace=False)
+    _contra_vector_field = raise_index_orth(
+        vector_field, 0, 1, inverse_metric, inplace=False
+    )
 
     # Pass the contravariant vector field into the gdiv_cl_contravariant method.
-    return gdiv_cl_contravariant(_contra_vector_field,
-                                 dterm_field,
-                                 spacing=spacing,
-                                 derivative_field=derivative_field,
-                                 axis_connector=axis_connector,
-                                 **kwargs)
+    return gdiv_cl_contravariant(
+        _contra_vector_field,
+        dterm_field,
+        spacing=spacing,
+        derivative_field=derivative_field,
+        axis_connector=axis_connector,
+        **kwargs,
+    )
+
 
 # ------------------------------------- #
 # Laplacian Computation Functions       #
 # ------------------------------------- #
 # The Laplacian is computed in terms of the L-term and the derivatives of the scalar field.
 def glap_cl(
-        scalar_field: np.ndarray,
-        lterm_field: np.ndarray,
-        inv_metric: np.ndarray,
-        spacing: Sequence[Union[float, np.ndarray]] = None,
-        derivative_field: np.ndarray = None,
-        second_derivative_field: np.ndarray = None,
-        **kwargs
+    scalar_field: np.ndarray,
+    lterm_field: np.ndarray,
+    inv_metric: np.ndarray,
+    spacing: Sequence[Union[float, np.ndarray]] = None,
+    derivative_field: np.ndarray = None,
+    second_derivative_field: np.ndarray = None,
+    **kwargs,
 ) -> np.ndarray:
     r"""
     Compute the Laplacian of a scalar field in a curvilinear coordinate system.
@@ -818,31 +903,39 @@ def glap_cl(
     # we can take.
     if lterm_field.shape != scalar_field.shape + (scalar_field.ndim,):
         raise ValueError(
-            f"L-term field must have shape (grid_shape, ndim) [in this case {grid_shape + (scalar_field.ndim,)}], but had shape {lterm_field.shape}.")
+            f"L-term field must have shape (grid_shape, ndim) [in this case {grid_shape + (scalar_field.ndim,)}], but had shape {lterm_field.shape}."
+        )
 
     # Construct the first order derivative field from the input data.
     # These are just the grid component gradients of the field.
     if (derivative_field is None) and (spacing is None):
-        raise ValueError("Either ``spacing`` or ``derivative_field`` must be specified.")
+        raise ValueError(
+            "Either ``spacing`` or ``derivative_field`` must be specified."
+        )
     elif derivative_field is not None:
         # The derivative field is provided. We just need to validate that it has the correct
         # shape.
         if derivative_field.shape != scalar_field.shape + (scalar_field.ndim,):
             raise ValueError(
-                f"Derivative field had shape {derivative_field.shape} but was expected to have shape {grid_shape + (scalar_field.ndim,)}.")
+                f"Derivative field had shape {derivative_field.shape} but was expected to have shape {grid_shape + (scalar_field.ndim,)}."
+            )
     else:
         # We need to compute the derivative field using the spacing array.
-        if len(spacing) != scalar_field.ndim: raise ValueError(f"`spacing` must match the number of grid dimensions.")
+        if len(spacing) != scalar_field.ndim:
+            raise ValueError("`spacing` must match the number of grid dimensions.")
 
         # Compute the first derivative field.
         axes = np.arange(scalar_field.ndim)
         if len(spacing) > 1:
             # These can be automatically stacked without reshaping.
-            derivative_field = np.stack(np.gradient(scalar_field, *spacing, axis=axes, **kwargs), axis=-1)
+            derivative_field = np.stack(
+                np.gradient(scalar_field, *spacing, axis=axes, **kwargs), axis=-1
+            )
         else:
             # This requires a reshape because there is only one axis.
-            derivative_field = np.gradient(scalar_field, *spacing, axis=axes, **kwargs).reshape(
-                (*scalar_field.shape, 1))
+            derivative_field = np.gradient(
+                scalar_field, *spacing, axis=axes, **kwargs
+            ).reshape((*scalar_field.shape, 1))
 
     # Construct the second derivative grid from the first derivatives.
     _sdf_expected_shape = scalar_field.shape + (scalar_field.ndim, scalar_field.ndim)
@@ -851,35 +944,42 @@ def glap_cl(
         # behaves the way we expect it to.
         if second_derivative_field.shape != _sdf_expected_shape:
             raise ValueError(
-                f"Expected `second_derivative_field` to have shape {_sdf_expected_shape} not {derivative_field.shape}.")
+                f"Expected `second_derivative_field` to have shape {_sdf_expected_shape} not {derivative_field.shape}."
+            )
     elif spacing is None:
-        raise ValueError("Either ``spacing`` or `second_derivative_field`` must be specified.")
+        raise ValueError(
+            "Either ``spacing`` or `second_derivative_field`` must be specified."
+        )
     else:
         # Compute the second derivatives.
         second_derivative_field = np.zeros(_sdf_expected_shape)
         for i in range(scalar_field.ndim):
             for j in range(scalar_field.ndim):
-                second_derivative_field[..., i, j] = np.gradient(derivative_field[..., i], spacing[j], axis=j, **kwargs)
+                second_derivative_field[..., i, j] = np.gradient(
+                    derivative_field[..., i], spacing[j], axis=j, **kwargs
+                )
 
     # Now contract against the metric to form the standardized value.
 
     if inv_metric.shape != second_derivative_field.shape:
         raise ValueError(
-            f"Shape mismatch between `inv_metric` and `second_derivative_field`: {inv_metric.shape} != {second_derivative_field.shape}.")
+            f"Shape mismatch between `inv_metric` and `second_derivative_field`: {inv_metric.shape} != {second_derivative_field.shape}."
+        )
 
     _laplacian_term_2 = np.sum(inv_metric * second_derivative_field, axis=(-1, -2))
     _laplacian_term_1 = np.sum(lterm_field * derivative_field, axis=-1)
 
     return _laplacian_term_1 + _laplacian_term_2
 
+
 def glap_orth(
-        scalar_field: np.ndarray,
-        lterm_field: np.ndarray,
-        inv_metric: np.ndarray,
-        spacing: Sequence[Union[float, np.ndarray]] = None,
-        derivative_field: np.ndarray = None,
-        second_derivative_field: np.ndarray = None,
-        **kwargs
+    scalar_field: np.ndarray,
+    lterm_field: np.ndarray,
+    inv_metric: np.ndarray,
+    spacing: Sequence[Union[float, np.ndarray]] = None,
+    derivative_field: np.ndarray = None,
+    second_derivative_field: np.ndarray = None,
+    **kwargs,
 ) -> np.ndarray:
     r"""
     Compute the Laplacian of a scalar field in an orthogonal coordinate system.
@@ -981,31 +1081,39 @@ def glap_orth(
     # we can take.
     if lterm_field.shape != scalar_field.shape + (scalar_field.ndim,):
         raise ValueError(
-            f"L-term field must have shape (grid_shape, ndim) [in this case {grid_shape + (scalar_field.ndim,)}], but had shape {lterm_field.shape}.")
+            f"L-term field must have shape (grid_shape, ndim) [in this case {grid_shape + (scalar_field.ndim,)}], but had shape {lterm_field.shape}."
+        )
 
     # Construct the first order derivative field from the input data.
     # These are just the grid component gradients of the field.
     if (derivative_field is None) and (spacing is None):
-        raise ValueError("Either ``spacing`` or ``derivative_field`` must be specified.")
+        raise ValueError(
+            "Either ``spacing`` or ``derivative_field`` must be specified."
+        )
     elif derivative_field is not None:
         # The derivative field is provided. We just need to validate that it has the correct
         # shape.
         if derivative_field.shape != scalar_field.shape + (scalar_field.ndim,):
             raise ValueError(
-                f"Derivative field had shape {derivative_field.shape} but was expected to have shape {grid_shape + (scalar_field.ndim,)}.")
+                f"Derivative field had shape {derivative_field.shape} but was expected to have shape {grid_shape + (scalar_field.ndim,)}."
+            )
     else:
         # We need to compute the derivative field using the spacing array.
-        if len(spacing) != scalar_field.ndim: raise ValueError(f"`spacing` must match the number of grid dimensions.")
+        if len(spacing) != scalar_field.ndim:
+            raise ValueError("`spacing` must match the number of grid dimensions.")
 
         # Compute the first derivative field.
         axes = np.arange(scalar_field.ndim)
         if len(spacing) > 1:
             # These can be automatically stacked without reshaping.
-            derivative_field = np.stack(np.gradient(scalar_field, *spacing, axis=axes, **kwargs), axis=-1)
+            derivative_field = np.stack(
+                np.gradient(scalar_field, *spacing, axis=axes, **kwargs), axis=-1
+            )
         else:
             # This requires a reshape because there is only one axis.
-            derivative_field = np.gradient(scalar_field, *spacing, axis=axes, **kwargs).reshape(
-                (*scalar_field.shape, 1))
+            derivative_field = np.gradient(
+                scalar_field, *spacing, axis=axes, **kwargs
+            ).reshape((*scalar_field.shape, 1))
 
     # Construct the second derivative grid from the first derivatives.
     _sdf_expected_shape = scalar_field.shape + (scalar_field.ndim,)
@@ -1014,19 +1122,25 @@ def glap_orth(
         # behaves the way we expect it to.
         if second_derivative_field.shape != _sdf_expected_shape:
             raise ValueError(
-                f"Expected `second_derivative_field` to have shape {_sdf_expected_shape} not {derivative_field.shape}.")
+                f"Expected `second_derivative_field` to have shape {_sdf_expected_shape} not {derivative_field.shape}."
+            )
     elif spacing is None:
-        raise ValueError("Either ``spacing`` or `second_derivative_field`` must be specified.")
+        raise ValueError(
+            "Either ``spacing`` or `second_derivative_field`` must be specified."
+        )
     else:
         # Compute the second derivatives.
         second_derivative_field = np.zeros(_sdf_expected_shape)
         for i in range(scalar_field.ndim):
-            second_derivative_field[..., i] = np.gradient(derivative_field[..., i], spacing[i], axis=i, **kwargs)
+            second_derivative_field[..., i] = np.gradient(
+                derivative_field[..., i], spacing[i], axis=i, **kwargs
+            )
 
     # Now contract against the metric to form the standardized value.
     if inv_metric.shape != second_derivative_field.shape:
         raise ValueError(
-            f"Shape mismatch between `inv_metric` and `second_derivative_field`: {inv_metric.shape} != {second_derivative_field.shape}.")
+            f"Shape mismatch between `inv_metric` and `second_derivative_field`: {inv_metric.shape} != {second_derivative_field.shape}."
+        )
 
     _laplacian_term_2 = np.sum(inv_metric * second_derivative_field, axis=-1)
     _laplacian_term_1 = np.sum(lterm_field * derivative_field, axis=-1)

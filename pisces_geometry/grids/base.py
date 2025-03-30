@@ -2,9 +2,9 @@
 Core grid structures for Pisces-Geometry. All user facing grid classes are descended
 from parent classes in this module.
 """
-from abc import abstractmethod, ABC
+from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import TYPE_CHECKING, Union, Optional, Tuple, List, Sequence, Any, Iterator
+from typing import TYPE_CHECKING, Any, Iterator, List, Optional, Sequence, Tuple, Union
 
 import numpy as np
 
@@ -39,7 +39,9 @@ class _BaseGrid(ABC):
     # @@ Initialization Procedures @@ #
     # These initialization procedures may be overwritten in subclasses
     # to specialize the behavior of the grid.
-    def __set_coordinate_system__(self, coordinate_system: '_CoordinateSystemBase', *args, **kwargs):
+    def __set_coordinate_system__(
+        self, coordinate_system: "_CoordinateSystemBase", *args, **kwargs
+    ):
         """
         Assign the coordinate system to the grid.
 
@@ -60,7 +62,7 @@ class _BaseGrid(ABC):
         GridInitializationError
             If the coordinate system is invalid or incompatible.
         """
-        self.__cs__: '_CoordinateSystemBase' = coordinate_system
+        self.__cs__: "_CoordinateSystemBase" = coordinate_system
 
     def __set_grid_domain__(self, *args, **kwargs):
         """
@@ -103,10 +105,7 @@ class _BaseGrid(ABC):
         self.__ghost_bbox__ = None
         self.__ghost_dd__ = None
 
-    def __init__(self,
-                 coordinate_system: '_CoordinateSystemBase',
-                 *args,
-                 **kwargs):
+    def __init__(self, coordinate_system: "_CoordinateSystemBase", *args, **kwargs):
         """
         Initialize the _BaseGrid object with a coordinate system and optional parameters.
 
@@ -132,17 +131,23 @@ class _BaseGrid(ABC):
         try:
             self.__set_coordinate_system__(coordinate_system, *args, **kwargs)
         except Exception as e:
-            raise GridInitializationError(f"Failed to set up coordinate system for grid: {e}") from e
+            raise GridInitializationError(
+                f"Failed to set up coordinate system for grid: {e}"
+            ) from e
 
         try:
             self.__set_grid_domain__(*args, **kwargs)
         except Exception as e:
-            raise GridInitializationError(f"Failed to set up domain for grid: {e}") from e
+            raise GridInitializationError(
+                f"Failed to set up domain for grid: {e}"
+            ) from e
 
         try:
             self.__set_grid_boundary__(*args, **kwargs)
         except Exception as e:
-            raise GridInitializationError(f"Failed to set up boundary for grid: {e}") from e
+            raise GridInitializationError(
+                f"Failed to set up boundary for grid: {e}"
+            ) from e
 
         # Run the __post_init__ method afterward.
         self.__post_init__()
@@ -154,7 +159,7 @@ class _BaseGrid(ABC):
     # Properties should not be altered but may be added to in
     # various scenarios.
     @property
-    def coordinate_system(self) -> '_CoordinateSystemBase':
+    def coordinate_system(self) -> "_CoordinateSystemBase":
         """Returns the coordinate system used by the grid."""
         return self.__cs__
 
@@ -244,8 +249,10 @@ class _BaseGrid(ABC):
         """
         Unambiguous string representation of the grid object.
         """
-        return (f"<{self.__class__.__name__} | "
-                f"ndim={self.ndim}, shape={self.shape}, bbox={self.bbox}>")
+        return (
+            f"<{self.__class__.__name__} | "
+            f"ndim={self.ndim}, shape={self.shape}, bbox={self.bbox}>"
+        )
 
     def __str__(self) -> str:
         """
@@ -275,7 +282,12 @@ class _BaseGrid(ABC):
         """
         return self.get_coordinates(index)
 
-    def __call__(self, index: Union[int, Tuple[int, ...]], axes: Sequence[str] = None, include_ghosts: bool = False):
+    def __call__(
+        self,
+        index: Union[int, Tuple[int, ...]],
+        axes: Sequence[str] = None,
+        include_ghosts: bool = False,
+    ):
         """
         Alias for :py:meth:`__getitem__`. Enables `grid(index)` syntax.
         """
@@ -335,7 +347,9 @@ class _BaseGrid(ABC):
         if not self.__chunking__:
             raise TypeError(f"{self.__class__.__name__} does not support chunking.")
 
-    def __get_axes_count_and_mask__(self, axes: List[str] = None) -> Tuple[int, np.ndarray]:
+    def __get_axes_count_and_mask__(
+        self, axes: List[str] = None
+    ) -> Tuple[int, np.ndarray]:
         """
         Return the number of selected axes and a boolean mask array indicating which axes are selected.
 
@@ -355,10 +369,11 @@ class _BaseGrid(ABC):
             axes = self.axes
         return len(axes), self.coordinate_system.build_axes_mask(axes)
 
-    def validate_chunks_(self,
-                         chunks: Sequence[Union[int, Tuple[int, int], slice]],
-                         axes: Optional[List[str]] = None
-                         ) -> Tuple[Tuple[int, int], ...]:
+    def validate_chunks_(
+        self,
+        chunks: Sequence[Union[int, Tuple[int, int], slice]],
+        axes: Optional[List[str]] = None,
+    ) -> Tuple[Tuple[int, int], ...]:
         """
         Validate and normalize a chunk specification along given axes.
 
@@ -405,25 +420,35 @@ class _BaseGrid(ABC):
         for chunk, axis_index in zip(chunks, np.arange(self.ndim)[axes_mask]):
             # Normalize to (start, stop, step)
             if isinstance(chunk, int):
-                cstart, cstop, cstep = chunk, chunk + 1, 1
+                cstart, cstop = chunk, chunk + 1
             elif isinstance(chunk, tuple):
                 if len(chunk) != 2:
-                    raise TypeError(f"Chunk tuple {chunk} must be of length 2 (start, stop).")
+                    raise TypeError(
+                        f"Chunk tuple {chunk} must be of length 2 (start, stop)."
+                    )
                 cstart, cstop = chunk
             elif isinstance(chunk, slice):
                 if slice.step not in [None, 1]:
                     raise TypeError(f"Chunk slice {chunk} must be of step 1.")
 
                 cstart = chunk.start if chunk.start is not None else 0
-                cstop = chunk.stop if chunk.stop is not None else self.__cdd__[axis_index]
+                cstop = (
+                    chunk.stop if chunk.stop is not None else self.__cdd__[axis_index]
+                )
             else:
-                raise TypeError(f"Invalid chunk type for axis {axis_index}: {type(chunk)}")
+                raise TypeError(
+                    f"Invalid chunk type for axis {axis_index}: {type(chunk)}"
+                )
 
             # Validate bounds and structure
             if cstart < 0:
-                raise IndexError(f"Chunk start ({cstart}) cannot be negative for axis {axis_index}.")
+                raise IndexError(
+                    f"Chunk start ({cstart}) cannot be negative for axis {axis_index}."
+                )
             if cstop < cstart:
-                raise IndexError(f"Chunk stop ({cstop}) cannot be less than start ({cstart}) for axis {axis_index}.")
+                raise IndexError(
+                    f"Chunk stop ({cstop}) cannot be less than start ({cstart}) for axis {axis_index}."
+                )
             if cstop > self.__cdd__[axis_index]:
                 raise IndexError(
                     f"Chunk stop ({cstop}) exceeds available number of chunks "
@@ -434,9 +459,10 @@ class _BaseGrid(ABC):
 
         return tuple(_validated_chunks)
 
-    def iter_chunks(self,
-                    axes: Optional[List[str]] = None,
-                    ) -> Iterator[Tuple[int, ...]]:
+    def iter_chunks(
+        self,
+        axes: Optional[List[str]] = None,
+    ) -> Iterator[Tuple[int, ...]]:
         """
         Create an iterator over all the chunk index tuples in the grid.
 
@@ -469,10 +495,10 @@ class _BaseGrid(ABC):
     # These methods are required to be implemented in all subclasses
     # and should maintain the same core functionality across.
     def get_slice_from_chunks(
-            self,
-            chunks: Sequence[Union[int, Tuple[int, int], slice]],
-            axes: Optional[List[str]] = None,
-            include_ghosts: bool = False
+        self,
+        chunks: Sequence[Union[int, Tuple[int, int], slice]],
+        axes: Optional[List[str]] = None,
+        include_ghosts: bool = False,
     ) -> Tuple[slice, ...]:
         """
         Convert a chunk specification to a tuple of slices in data space.
@@ -510,7 +536,9 @@ class _BaseGrid(ABC):
         chunks = self.validate_chunks_(chunks, axes=axes)
 
         slices = []
-        for (chunk_start, chunk_stop), axis_id in zip(chunks, np.arange(self.ndim)[axes_mask]):
+        for (chunk_start, chunk_stop), axis_id in zip(
+            chunks, np.arange(self.ndim)[axes_mask]
+        ):
             # Get the size of each chunk in this axis
             chunk_size = self.__chunk_size__[axis_id]
 
@@ -520,8 +548,14 @@ class _BaseGrid(ABC):
 
             if include_ghosts:
                 # Extend the slice based on ghost zones — but only if we're not on a boundary
-                ghost_start = self.__ghost_zones__[0, axis_id] if chunk_start != 0 else 0
-                ghost_end = self.__ghost_zones__[1, axis_id] if chunk_stop != self.__cdd__[axis_id] else 0
+                ghost_start = (
+                    self.__ghost_zones__[0, axis_id] if chunk_start != 0 else 0
+                )
+                ghost_end = (
+                    self.__ghost_zones__[1, axis_id]
+                    if chunk_stop != self.__cdd__[axis_id]
+                    else 0
+                )
                 start_idx += ghost_start
                 stop_idx += ghost_start + ghost_end
             else:
@@ -533,10 +567,12 @@ class _BaseGrid(ABC):
 
         return tuple(slices)
 
-    def get_coordinate_grid(self,
-                            chunks: Sequence[Union[int, Tuple[int, int], slice]] = None,
-                            axes: Sequence[str] = None,
-                            include_ghosts: bool = False) -> List[np.ndarray]:
+    def get_coordinate_grid(
+        self,
+        chunks: Sequence[Union[int, Tuple[int, int], slice]] = None,
+        axes: Sequence[str] = None,
+        include_ghosts: bool = False,
+    ) -> List[np.ndarray]:
         """
         Return a full coordinate grid (meshgrid-style) over the specified chunk region and axes.
 
@@ -575,15 +611,20 @@ class _BaseGrid(ABC):
         -----
         This is really just an alias for :py:func:`get_coordinates` which are then pushed through :py:func:`numpy.meshgrid`.
         """
-        return np.meshgrid(*
-                           self.get_coordinate_arrays(chunks=chunks, axes=axes, include_ghosts=include_ghosts),
-                           indexing='ij')
+        return np.meshgrid(
+            *self.get_coordinate_arrays(
+                chunks=chunks, axes=axes, include_ghosts=include_ghosts
+            ),
+            indexing="ij",
+        )
 
     @abstractmethod
-    def get_coordinates(self,
-                        index: Union[int, Tuple[int, ...]],
-                        axes: Sequence[str] = None,
-                        include_ghosts: bool = False) -> Sequence[float]:
+    def get_coordinates(
+        self,
+        index: Union[int, Tuple[int, ...]],
+        axes: Sequence[str] = None,
+        include_ghosts: bool = False,
+    ) -> Sequence[float]:
         """
         Return the physical coordinates at a specific index in the grid.
 
@@ -620,10 +661,12 @@ class _BaseGrid(ABC):
         pass
 
     @abstractmethod
-    def get_coordinate_arrays(self,
-                              chunks: Tuple[Union[int, Tuple[int, int], slice]] = None,
-                              axes: Sequence[str] = None,
-                              include_ghosts: bool = False) -> Tuple[np.ndarray]:
+    def get_coordinate_arrays(
+        self,
+        chunks: Tuple[Union[int, Tuple[int, int], slice]] = None,
+        axes: Sequence[str] = None,
+        include_ghosts: bool = False,
+    ) -> Tuple[np.ndarray]:
         """
         Return the individual coordinate arrays for the grid over the specified chunks and axes.
 
@@ -703,7 +746,6 @@ class _BaseGrid(ABC):
 
 
 class GenericGrid(_BaseGrid):
-
     # @@ Initialization Procedures @@ #
     # These initialization procedures may be overwritten in subclasses
     # to specialize the behavior of the grid.
@@ -729,43 +771,61 @@ class GenericGrid(_BaseGrid):
         if len(_coordinates_) != self.__cs__.ndim:
             raise GridInitializationError(
                 f"Coordinate system {self.__cs__} has {self.__cs__.ndim} dimensions but only {len(_coordinates_)} were "
-                "provided.")
-        self.__coordinate_arrays__ = tuple(_coordinates_)  # Ensure each array is 1D and strictly increasing
+                "provided."
+            )
+        self.__coordinate_arrays__ = tuple(
+            _coordinates_
+        )  # Ensure each array is 1D and strictly increasing
         for i, arr in enumerate(_coordinates_):
             arr = np.asarray(arr)
             if arr.ndim != 1:
-                raise GridInitializationError(f"Coordinate array for axis {i} must be 1-dimensional.")
+                raise GridInitializationError(
+                    f"Coordinate array for axis {i} must be 1-dimensional."
+                )
             if not np.all(np.diff(arr) > 0):
-                raise GridInitializationError(f"Coordinate array for axis {i} must be strictly increasing.")
+                raise GridInitializationError(
+                    f"Coordinate array for axis {i} must be strictly increasing."
+                )
 
         self.__coordinate_arrays__ = tuple(np.asarray(arr) for arr in _coordinates_)
 
         # Now use the coordinate arrays to compute the bounding box. This requires calling out
         # to the ghost_zones a little bit early and validating them. The domain dimensions are computed
         # from the length of each of the coordinate arrays.
-        _ghost_zones = np.asarray(kwargs.get('ghost_zones', np.zeros((2, self.ndim))))
+        _ghost_zones = np.asarray(kwargs.get("ghost_zones", np.zeros((2, self.ndim))))
         if _ghost_zones.shape == (self.ndim, 2):
             _ghost_zones = np.moveaxis(_ghost_zones, 0, -1)
             self.__ghost_zones__ = _ghost_zones
         if _ghost_zones.shape == (2, self.ndim):
             self.__ghost_zones__ = _ghost_zones
         else:
-            raise ValueError(f"`ghost_zones` is not a valid shape. Expected (2,{self.ndim}), got {_ghost_zones.shape}.")
+            raise ValueError(
+                f"`ghost_zones` is not a valid shape. Expected (2,{self.ndim}), got {_ghost_zones.shape}."
+            )
 
         # With the ghost zones set up, we are now in a position to correctly manage the
         # bounding box and the domain dimensions.
         _ghost_zones_per_axis = np.sum(self.__ghost_zones__, axis=0)
         self.__bbox__ = BoundingBox(
-            [[self.__coordinate_arrays__[_idim][_ghost_zones[0, _idim]],
-              self.__coordinate_arrays__[_idim][-(_ghost_zones[1, _idim] + 1)]] for _idim in range(self.ndim)]
+            [
+                [
+                    self.__coordinate_arrays__[_idim][_ghost_zones[0, _idim]],
+                    self.__coordinate_arrays__[_idim][-(_ghost_zones[1, _idim] + 1)],
+                ]
+                for _idim in range(self.ndim)
+            ]
         )
-        self.__dd__ = DomainDimensions([self.__coordinate_arrays__[_idim].size - _ghost_zones_per_axis[_idim]
-                                        for _idim in range(self.ndim)])
+        self.__dd__ = DomainDimensions(
+            [
+                self.__coordinate_arrays__[_idim].size - _ghost_zones_per_axis[_idim]
+                for _idim in range(self.ndim)
+            ]
+        )
 
         # Manage chunking behaviors. This needs to ensure that the chunk size is set,
         # figure out if chunking is even enabled, and then additionally determine if the
         # chunks equally divide the shape of the domain (after ghost zones!).
-        _chunk_size_ = kwargs.get('chunk_size', None)
+        _chunk_size_ = kwargs.get("chunk_size", None)
         if _chunk_size_ is None:
             self.__chunking__ = False
         else:
@@ -773,15 +833,20 @@ class GenericGrid(_BaseGrid):
             _chunk_size_ = np.asarray(_chunk_size_).ravel()
             if len(_chunk_size_) != self.ndim:
                 raise ValueError(
-                    f"'chunk_size' had {len(_chunk_size_)} dimensions but grid was {self.ndim} dimensions.")
+                    f"'chunk_size' had {len(_chunk_size_)} dimensions but grid was {self.ndim} dimensions."
+                )
 
             elif ~np.all(self.__dd__ % _chunk_size_ == 0):
-                raise ValueError(f"'chunk_size' ({_chunk_size_}) must equally divide the grid (shape = {self.dd}).")
+                raise ValueError(
+                    f"'chunk_size' ({_chunk_size_}) must equally divide the grid (shape = {self.dd})."
+                )
 
             self.__chunking__: bool = True
 
         if self.__chunking__:
-            self.__chunk_size__: Optional[DomainDimensions] = DomainDimensions(_chunk_size_)
+            self.__chunk_size__: Optional[DomainDimensions] = DomainDimensions(
+                _chunk_size_
+            )
             self.__cdd__: Optional[DomainDimensions] = self.dd // self.__chunk_size__
 
     def __set_grid_boundary__(self, *args, **kwargs):
@@ -803,26 +868,31 @@ class GenericGrid(_BaseGrid):
         # simply set the __ghost_dd__ and the __ghost_bbox__. These are actually the "natural" bbox and
         # ddims given how the grid was specified.
         self.__ghost_bbox__ = BoundingBox(
-            [[self.__coordinate_arrays__[_idim][0],
-              self.__coordinate_arrays__[_idim][-1]] for _idim in range(self.ndim)]
+            [
+                [
+                    self.__coordinate_arrays__[_idim][0],
+                    self.__coordinate_arrays__[_idim][-1],
+                ]
+                for _idim in range(self.ndim)
+            ]
         )
-        self.__ghost_dd__ = DomainDimensions([self.__coordinate_arrays__[_idim].size
-                                              for _idim in range(self.ndim)])
+        self.__ghost_dd__ = DomainDimensions(
+            [self.__coordinate_arrays__[_idim].size for _idim in range(self.ndim)]
+        )
 
-    def __init__(self,
-                 coordinate_system: '_CoordinateSystemBase',
-                 coordinates: Sequence[np.ndarray],
-                 /,
-                 ghost_zones: Optional[Sequence[Sequence[float]]] = None,
-                 chunk_size: Optional[Sequence[int]] = None,
-                 *args,
-                 **kwargs):
+    def __init__(
+        self,
+        coordinate_system: "_CoordinateSystemBase",
+        coordinates: Sequence[np.ndarray],
+        /,
+        ghost_zones: Optional[Sequence[Sequence[float]]] = None,
+        chunk_size: Optional[Sequence[int]] = None,
+        *args,
+        **kwargs,
+    ):
         args = [coordinates, *args]
-        kwargs = {'ghost_zones': ghost_zones,
-                  'chunk_size': chunk_size,
-                  **kwargs}
-        super().__init__(coordinate_system,
-                         *args, **kwargs)
+        kwargs = {"ghost_zones": ghost_zones, "chunk_size": chunk_size, **kwargs}
+        super().__init__(coordinate_system, *args, **kwargs)
 
     # @@ Dunder Methods @@ #
     # These should not be altered in any subclasses to
@@ -875,10 +945,12 @@ class GenericGrid(_BaseGrid):
     # @@ Core Functionality @@ #
     # These methods are required to be implemented in all subclasses
     # and should maintain the same core functionality across.
-    def get_coordinates(self,
-                        index: Union[int, Tuple[int, ...]],
-                        axes: Sequence[str] = None,
-                        include_ghosts: bool = False) -> Sequence[float]:
+    def get_coordinates(
+        self,
+        index: Union[int, Tuple[int, ...]],
+        axes: Sequence[str] = None,
+        include_ghosts: bool = False,
+    ) -> Sequence[float]:
         """
         Return the physical coordinates at a specific index in the grid.
 
@@ -919,26 +991,34 @@ class GenericGrid(_BaseGrid):
 
         # check that the number of indices actually matches the number of axes we have
         # present. If not, we need to raise an error.
-        if not hasattr(index, '__len__'):
+        if not hasattr(index, "__len__"):
             index = (index,)
         if len(axes) != len(index):
-            raise ValueError(f"Index has length {len(index)}, but only {len(axes)} axes were specified.")
+            raise ValueError(
+                f"Index has length {len(index)}, but only {len(axes)} axes were specified."
+            )
 
         # Convert the indices as needed to accommodate the ghost zones.
         if not include_ghosts:
-            index = [idx + self.__ghost_zones__[0, axi] for idx, axi in zip(index, axes_indices)]
+            index = [
+                idx + self.__ghost_zones__[0, axi]
+                for idx, axi in zip(index, axes_indices)
+            ]
 
         try:
             return [
-                self.__coordinate_arrays__[axi][idx] for axi, idx in zip(axes_indices, index)
+                self.__coordinate_arrays__[axi][idx]
+                for axi, idx in zip(axes_indices, index)
             ]
         except IndexError:
             raise ValueError(f"Index out of range: {index}")
 
-    def get_coordinate_arrays(self,
-                              chunks: Tuple[Union[int, Tuple[int, int], slice], ...] = None,
-                              axes: Sequence[str] = None,
-                              include_ghosts: bool = False) -> Tuple[Any, ...]:
+    def get_coordinate_arrays(
+        self,
+        chunks: Tuple[Union[int, Tuple[int, int], slice], ...] = None,
+        axes: Sequence[str] = None,
+        include_ghosts: bool = False,
+    ) -> Tuple[Any, ...]:
         """
         Return the individual coordinate arrays for the grid over the specified chunks and axes.
 
@@ -988,20 +1068,26 @@ class GenericGrid(_BaseGrid):
             if include_ghosts:
                 slices = [slice(0, self.dd[i] + 1) for i in axes_indices]
             else:
-                slices = [slice(self.ghost_zones[0, i], self.dd[i] + 1 - self.ghost_zones[1, i]) for i in axes_indices]
+                slices = [
+                    slice(
+                        self.ghost_zones[0, i], self.dd[i] + 1 - self.ghost_zones[1, i]
+                    )
+                    for i in axes_indices
+                ]
         else:
-            slices = self.get_slice_from_chunks(chunks, axes=axes, include_ghosts=include_ghosts)
+            slices = self.get_slice_from_chunks(
+                chunks, axes=axes, include_ghosts=include_ghosts
+            )
 
         # Collect the slices and return the arrays.
-        return tuple([
-            self.__coordinate_arrays__[i][_s] for i, _s in zip(axes_indices, slices)
-        ])
+        return tuple(
+            [self.__coordinate_arrays__[i][_s] for i, _s in zip(axes_indices, slices)]
+        )
 
     # @@ IO Methods @@ #
-    def to_hdf5(self,
-                filename: str,
-                group_name: Optional[str] = None,
-                overwrite: bool = False):
+    def to_hdf5(
+        self, filename: str, group_name: Optional[str] = None, overwrite: bool = False
+    ):
         """
         Save the grid to an HDF5 file.
 
@@ -1015,6 +1101,7 @@ class GenericGrid(_BaseGrid):
             Whether to overwrite existing data. If False, raises an error when attempting to overwrite.
         """
         import h5py
+
         filename = Path(filename)
 
         # Handle file existence and overwrite logic
@@ -1027,14 +1114,14 @@ class GenericGrid(_BaseGrid):
             elif overwrite and group_name is None:
                 # Overwrite the entire file
                 filename.unlink()
-                with h5py.File(filename, 'w'):
+                with h5py.File(filename, "w"):
                     pass
         else:
-            with h5py.File(filename, 'w'):
+            with h5py.File(filename, "w"):
                 pass
 
         # Open the file in append mode to add data
-        with h5py.File(filename, 'a') as f:
+        with h5py.File(filename, "a") as f:
             if group_name is None:
                 group = f
             else:
@@ -1051,13 +1138,14 @@ class GenericGrid(_BaseGrid):
                     group = f.create_group(group_name)
 
             # Store metadata
-            group.attrs['ndim'] = self.ndim
-            group.attrs['axes'] = np.string_(self.axes)
-            group.attrs['chunking'] = self.chunking
-            group.attrs['ghost_zones'] = self.ghost_zones
-            group.attrs['coordinate_system'] = str(self.coordinate_system.__class__.__name__)
+            group.attrs["axes"] = np.string_(self.axes)
+            group.attrs["chunking"] = self.chunking
+            group.attrs["ghost_zones"] = self.ghost_zones
+            group.attrs["coordinate_system"] = str(
+                self.coordinate_system.__class__.__name__
+            )
             if self.chunking:
-                group.attrs['chunk_size'] = self.chunk_size
+                group.attrs["chunk_size"] = self.chunk_size
 
             # Save coordinate arrays
             coord_group = group.require_group("coordinates")
@@ -1081,31 +1169,38 @@ class GenericGrid(_BaseGrid):
             If the file or group does not exist, or the data is malformed.
         """
         import h5py
+
         filename = Path(filename)
 
         if not filename.exists():
             raise IOError(f"HDF5 file '{filename}' does not exist.")
 
-        with h5py.File(filename, 'r') as f:
+        with h5py.File(filename, "r") as f:
             # Select the group to read from
             if group_name is None:
                 group = f
             elif group_name in f:
                 group = f[group_name]
             else:
-                raise IOError(f"Group '{group_name}' not found in HDF5 file '{filename}'.")
+                raise IOError(
+                    f"Group '{group_name}' not found in HDF5 file '{filename}'."
+                )
 
             # Load and validate metadata
-            ndim = group.attrs['ndim']
-            axes = [s.decode() if isinstance(s, bytes) else str(s) for s in group.attrs['axes']]
-            ghost_zones = np.array(group.attrs['ghost_zones'])
-            chunking = bool(group.attrs.get('chunking', False))
-            chunk_size = group.attrs['chunk_size'] if chunking else None
+            axes = [
+                s.decode() if isinstance(s, bytes) else str(s)
+                for s in group.attrs["axes"]
+            ]
+            ghost_zones = np.array(group.attrs["ghost_zones"])
+            chunking = bool(group.attrs.get("chunking", False))
+            chunk_size = group.attrs["chunk_size"] if chunking else None
 
             # Load coordinate arrays
-            coord_group = group.get('coordinates', None)
+            coord_group = group.get("coordinates", None)
             if coord_group is None:
-                raise IOError(f"No 'coordinates' group found in '{group_name or 'root'}'.")
+                raise IOError(
+                    f"No 'coordinates' group found in '{group_name or 'root'}'."
+                )
 
             coordinate_arrays = []
             for axis_name in axes:
@@ -1118,15 +1213,27 @@ class GenericGrid(_BaseGrid):
             self.coordinate_system,  # assumes CS is already set
             coordinate_arrays,
             ghost_zones=ghost_zones,
-            chunk_size=chunk_size
+            chunk_size=chunk_size,
         )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     from pisces_geometry.coordinates.coordinate_systems import SphericalCoordinateSystem
 
     x, y, z = np.linspace(0, 1, 6), np.linspace(0, 1, 6), np.linspace(0, 1, 6)
     u = SphericalCoordinateSystem()
-    g = GenericGrid(u, [x, y, z], ghost_zones=[[0, 0], [0, 0, ], [0, 0]], chunk_size=(2, 2, 2))
+    g = GenericGrid(
+        u,
+        [x, y, z],
+        ghost_zones=[
+            [0, 0],
+            [
+                0,
+                0,
+            ],
+            [0, 0],
+        ],
+        chunk_size=(2, 2, 2),
+    )
     for chunk_id in g.iter_chunks():
         print(chunk_id)

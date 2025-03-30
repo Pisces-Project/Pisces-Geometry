@@ -1,15 +1,18 @@
 """
 Utility functions for interacting with ``sympy``.
 """
-import sympy as sp
+from typing import Any, Callable, Dict, List, Union
+
 import numpy as np
-from typing import List, Dict, Any, Union, Callable
-from pisces_geometry.utilities.logging import pg_params, pg_log
+import sympy as sp
+
+from pisces_geometry.utilities.logging import pg_log, pg_params
+
 
 def lambdify_expression(
     expression: Union[str, sp.Basic],
     axes: List[sp.Symbol],
-    parameters: Dict[str, Any] = None
+    parameters: Dict[str, Any] = None,
 ) -> Callable:
     r"""
     Convert a `Sympy <https://docs.sympy.org/latest/index.html>`_ expression (scalar, Matrix, or N-dimensional Array) or a string
@@ -135,7 +138,7 @@ def _lambdify_scalar(bound_expr: sp.Basic, axes: List[sp.Symbol]) -> Callable:
     # Determine the ops count so that we can determine if we are interested
     # in trying to check for .is_constant or if that will be too taxing.
     __ops_count__ = sp.count_ops(bound_expr, visual=False)
-    __will_check_flag__ = __ops_count__ <= pg_params['skip_constant_checks']
+    __will_check_flag__ = __ops_count__ <= pg_params["skip_constant_checks"]
 
     if __will_check_flag__:
         # Handle constant expressions
@@ -157,7 +160,9 @@ def _lambdify_scalar(bound_expr: sp.Basic, axes: List[sp.Symbol]) -> Callable:
             return _constant_function
     else:
         # We don't perform the bound_expr check.
-        pg_log.debug("Skipping .is_constant check for bound expression: %s.",bound_expr)
+        pg_log.debug(
+            "Skipping .is_constant check for bound expression: %s.", bound_expr
+        )
         pass
 
     # If non-constant, do a normal lambdify
@@ -172,7 +177,9 @@ def _lambdify_scalar(bound_expr: sp.Basic, axes: List[sp.Symbol]) -> Callable:
     return func
 
 
-def _lambdify_matrix(mat_expr: sp.MatrixBase, axes: List[sp.Symbol], parameters: Dict[str, Any]) -> Callable:
+def _lambdify_matrix(
+    mat_expr: sp.MatrixBase, axes: List[sp.Symbol], parameters: Dict[str, Any]
+) -> Callable:
     """
     Recursively lambdify each element of a :py:class:`sympy.matrices.Matrix` (2D).
     Return a function that, given arrays for the axes, returns a
@@ -219,7 +226,9 @@ def _lambdify_matrix(mat_expr: sp.MatrixBase, axes: List[sp.Symbol], parameters:
     return matrix_func
 
 
-def _lambdify_ndarray(nd_expr: sp.NDimArray, axes: List[sp.Symbol], parameters: Dict[str, Any]) -> Callable:
+def _lambdify_ndarray(
+    nd_expr: sp.NDimArray, axes: List[sp.Symbol], parameters: Dict[str, Any]
+) -> Callable:
     """
     Recursively lambdify each element of a sympy N-dimensional array.
     Return a function that, given arrays for the axes, returns a
@@ -257,7 +266,9 @@ def _lambdify_ndarray(nd_expr: sp.NDimArray, axes: List[sp.Symbol], parameters: 
             # So let's build a big list of flattened arrays:
 
             flattened_arrays = [a for a in arr.flat]
-            stacked = np.stack(flattened_arrays, axis=-1)  # shape (N, <number of elements>)
+            stacked = np.stack(
+                flattened_arrays, axis=-1
+            )  # shape (N, <number of elements>)
             # Now reshape to (N, *original_nd_shape)
             final_nd = stacked.reshape((stacked.shape[0],) + shape)
             return final_nd.astype(float)

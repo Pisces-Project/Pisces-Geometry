@@ -5,7 +5,6 @@ This module provides general-purpose utilities for dynamic class discovery and o
 
 
 """
-import sys
 from typing import Type, TypeVar
 
 _T = TypeVar("_T")
