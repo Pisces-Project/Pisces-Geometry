@@ -16,12 +16,14 @@ Pisces-Geometry is designed around **curvilinear, Euclidean coordinate systems**
 - Raising/lowering indices, computing gradients, divergence, Laplacians, and Jacobians.
 - Conversion to and from Cartesian coordinates (you provide the mapping).
 
-At the heart of the Pisces-Geometry coordinate handling infrastructure is the :py:class:`~pisces_geometry.coordinates.base.CoordinateSystemBase`,
-which corresponds to a **generic, curvilinear coordinate system**. There are also a few subclasses of :py:class:`~pisces_geometry.coordinates.base.CoordinateSystemBase`
+At the heart of the Pisces-Geometry coordinate handling infrastructure is the :py:class:`~.coordinates.base._CoordinateSystemBase`,
+which corresponds to a **generic, curvilinear coordinate system**. There are also a few subclasses of :py:class:`~coordinates.base._CoordinateSystemBase`
 already built into the infrastructure corresponding to various simplifying cases:
 
-1. :py:class:`~pisces_geometry.coordinates.base._OrthogonalCoordinateSystemBase`: provides support for orthogonal coordinates
+1. :py:class:`~coordinates.core.OrthogonalCoordinateSystem`: provides support for orthogonal coordinates
    which allow for a simplification of the logic necessary for curvilinear coordinates.
+2. :py:class:`~coordinates.core.CurvilinearCoordinateSystem`: is simply an alias for the ``_CoordinateSystemBase``,
+   but isn't private and therefore exposes its documentation. This is the class which should be subclassed when building extensions.
 
 **Limitations**:
 
@@ -89,11 +91,11 @@ Subclass Structure
 When defining a new coordinate system in Pisces-Geometry, the first and most important decision is which base class
 to inherit from. Pisces provides two primary options:
 
-1. :py:class:`~pisces_geometry.coordinates.base.CoordinateSystemBase`
+1. :py:class:`~coordinates.core.CurvilinearCoordinateSystem`
    This class should be used when building general curvilinear coordinate systems. If your metric tensor includes off-diagonal
    elements (i.e., the system is not orthogonal), this is the appropriate choice. It provides full flexibility and
    requires you to define both the metric and inverse metric explicitly.
-2. :py:class:`~pisces_geometry.coordinates.base._OrthogonalCoordinateSystemBase`
+2. :py:class:`~coordinates.core.OrthogonalCoordinateSystem`
    This class is a specialized version of CoordinateSystemBase that simplifies implementation for orthogonal coordinate
    systems — those with diagonal metric tensors. When using this base class, you only need to define the scale factors (diagonal elements of the metric tensor),
    the inverse metric is computed automatically, and tensor algebra operations are more efficient due to diagonal simplifications.
@@ -105,13 +107,13 @@ Use the following table as a guide:
 +----------------------------------------+------------------------------------------------------------------------------+
 | Your Coordinate System Is...           |                              Subclass From...                                |
 +========================================+==============================================================================+
-| Orthogonal (e.g., cylindrical, polar)  |:py:class:`~pisces_geometry.coordinates.base._OrthogonalCoordinateSystemBase` |
+| Orthogonal (e.g., cylindrical, polar)  |:py:class:`~coordinates.core.OrthogonalCoordinateSystem`                      |
 +----------------------------------------+------------------------------------------------------------------------------+
-|Has off-diagonal metric terms           |:py:class:`~pisces_geometry.coordinates.base.CoordinateSystemBase`            |
+| Has off-diagonal metric terms          |:py:class:`~coordinates.core.CurvilinearCoordinateSystem`                     |
 +----------------------------------------+------------------------------------------------------------------------------+
-| Requires full control over tensors     |:py:class:`~pisces_geometry.coordinates.base.CoordinateSystemBase`            |
+| Requires full control over tensors     |:py:class:`~coordinates.core.CurvilinearCoordinateSystem`                     |
 +----------------------------------------+------------------------------------------------------------------------------+
-| Has a diagonal metric and is 2D/3D     |:py:class:`~pisces_geometry.coordinates.base._OrthogonalCoordinateSystemBase` |
+| Has a diagonal metric and is 2D/3D     |:py:class:`~coordinates.core.OrthogonalCoordinateSystem`                      |
 +----------------------------------------+------------------------------------------------------------------------------+
 
 In either case, your subclass will need to define the symbolic metric tensor and the coordinate transformation logic.
@@ -151,7 +153,7 @@ implementation:
 
 .. code-block:: python
 
-    class SphericalCoordinateSystem(_OrthogonalCoordinateSystemBase):
+    class SphericalCoordinateSystem(OrthogonalCoordinateSystem):
         __is_abstract__ = False
         __setup_point__ = 'init'
         __AXES__ = ['r','theta','phi']
@@ -239,7 +241,8 @@ If you are subclassing from :py:class:~pisces_geometry.coordinates.base.Coordina
 - ``@staticmethod def __construct_metric_tensor_symbol__(*args, **kwargs) -> sp.Matrix``
 - ``@staticmethod def __construct_inverse_metric_tensor_symbol__(*args, **kwargs) -> sp.Matrix``
 
-If you subclass from :py:class:`~pisces_geometry.coordinates.base._OrthogonalCoordinateSystemBase`, you only need to define
+
+If you subclass from :py:class:`~coordinates.core.OrthogonalCoordinateSystem`, you only need to define
 the diagonal elements of the metric tensor — that is, the scale factors squared. The inverse metric will be computed automatically as ``1 / g[i]``.
 
 You must implement:
@@ -264,7 +267,7 @@ They should return a full SymPy matrix representing the metric tensor (or its in
 
     Once a user instantiates the class, the ``__class_metric_tensor__`` has its parameters substituted for the true
     values of the parameters to create the ``__metric_tensor_expression__`` attribute. This is then converted to a numerical
-    function which is accessible by :py:attr:`~pisces_geometry.coordinates.base.CoordinateSystemBase.metric_tensor`.
+    function which is accessible by :py:attr:`~coordinates.core.CurvilinearCoordinateSystem.metric_tensor`.
 
 **Example**:
 
@@ -319,7 +322,7 @@ Class Expressions
 In many coordinate systems, it's helpful to define reusable symbolic expressions — like Jacobians, divergence terms,
 or scale factors. Pisces-Geometry provides a decorator-based mechanism to define these as **class expressions**.
 
-To define a class expression, decorate a ``classmethod`` using ``@class_expression`` (:py:func:`~pisces_geometry.coordinates.base.class_expression`).
+To define a class expression, decorate a ``classmethod`` using ``@class_expression`` (:py:func:`~coordinates.base.class_expression`).
 
 **Example**:
 

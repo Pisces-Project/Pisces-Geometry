@@ -1,135 +1,172 @@
 .. _theory:
-=========================
-Geometric Theory Overview
-=========================
+===============================
+Curvilinear Coordinate Systems
+===============================
 
-In the context of the Pisces-Geometry package, a **coordinate system** refers to a coordinate system covering Euclidean
-space. In such a coordinate system, each point :math:`p` in :math:`\mathbb{R}^N` is described uniquely by a set of **coordinate functions**
-:math:`x^i: \mathbb{R}^N \to \mathbb{R}` such that the **coordinate map**
+In the `Pisces Project <https://www.github.com/Pisces-Project/Pisces>`_, every physical model you can generate is backed
+up by a specific coordinate system defined here in Pisces-Geometry. These coordinate systems play a critical role in determining
+the behavior of various operations and are a necessary step towards doing physics in these exotic coordinate systems. In this
+guide, we'll introduce the theory of coordinate systems in a manner akin to that seen in the study of `differential geometry <https://en.wikipedia.org/wiki/Differential_geometry>`_.
+
+What is a Curvilinear Coordinate System?
+----------------------------------------
+
+A **curvilinear coordinate system** is a system of coordinates in which the coordinate lines may be curved rather than
+straight. These systems generalize Cartesian coordinates to accommodate more complex geometries and symmetries,
+making them especially useful in physics, engineering, and geometry.
+
+Unlike Cartesian coordinates where each basis direction is constant and orthonormal, in a curvilinear system:
+
+- The basis vectors **change direction and magnitude** as you move through space.
+- The **coordinate curves** (the paths traced out by holding all but one coordinate constant) are generally curved.
+- The **metric tensor** varies spatially and encodes the local geometry of the space.
+
+Mathematically, we describe a curvilinear system by a **coordinate map**:
 
 .. math::
 
-    {\bf x} := (x^1(p),\ldots,x^N(p))
+   \mathbf{x} = \mathbf{x}(q^1, q^2, \dots, q^n)
 
-is a bijective map from :math:`\mathbb{R}^N \to \mathbb{R}^N`.
+This map transforms from curvilinear coordinates :math:`(q^1, q^2, \dots, q^n)` to Cartesian space :math:`\mathbf{x} \in \mathbb{R}^n`.
+The coordinate curves are traced by holding all but one :math:` q^i ` constant and letting :math:`q^i` vary.
+
+The **tangent vectors** to these curves form the **coordinate basis**:
+
+.. math::
+
+   \mathbf{e}_i = \frac{\partial \mathbf{x}}{\partial q^i}
+
+These basis vectors vary across space and are generally **not unit vectors** and **not orthogonal**. Their inner products define the components of the **metric tensor**:
+
+.. math::
+
+   g_{ij} = \mathbf{e}_i \cdot \mathbf{e}_j
+
+This tensor captures how distances, angles, and volumes behave locally in the curvilinear space.
+
+
+Defining a Coordinate System
+----------------------------
+
+A coordinate system in Pisces-Geometry is defined by a smooth, invertible mapping from a set of curvilinear coordinates to Cartesian space:
+
+.. math::
+
+   \mathbf{x} = \mathbf{x}(q^1, q^2, \dots, q^n)
+
+This **coordinate map** takes a point in the curvilinear domain, expressed in coordinates :math:`(q^1, q^2, \dots, q^n)`,
+and assigns it a position vector :math:`\mathbf{x} \in \mathbb{R}^n`.
+
+From this mapping, we define the **coordinate basis vectors** (also called the **tangent basis**) by taking partial derivatives
+of :math:`\mathbf{x}` with respect to each coordinate:
+
+.. math::
+
+   \mathbf{e}_i = \frac{\partial \mathbf{x}}{\partial q^i}
+
+These vectors span the **tangent space** at each point and vary smoothly across the domain. They are generally neither orthogonal nor normalized.
 
 .. note::
 
-    We intend to eventually expand the code base to be operable for general relativistic operations which would require
-    loosening the restriction of Euclidean space.
+    More formally, we state that for any point :math:`p \in \mathbb{R}^N`, there is a tangent space :math:`T_p \mathbb{R}^N` which
+    is a vector space composed of all of the tangent vectors to all of the curves passing through :math:`p`. This can be made more
+    rigorous in the context of differentiable manifolds (see `Tangent Spaces <https://en.wikipedia.org/wiki/Tangent_space>`_) and leads
+    to the notion of the `Tangent Bundle <https://en.wikipedia.org/wiki/Tangent_bundle>`_.
 
-Basis Vectors, Lame Coefficients, and the Metric
-------------------------------------------------
+As is the case for **all vector spaces**, the space of all **linear maps** :math:`f: T_p \mathbb{R}^N \to \mathbb{R}` also forms
+a vector space called the `dual space <https://en.wikipedia.org/wiki/Dual_space>`_ denoted :math:`T^\star_p \mathbb{R}^N`. It is a
+special result that for Euclidean space, the **dual space** is equivalent to the Euclidean space itself (seen as a vector space). We therefore
+inherit two Euclidean vector spaces at each point in space:
 
-Each point in the Euclidean space can be described abstractly by a vector :math:`{\bf r}` pointing to its position. In `orthogonal
-coordinate systems <https://en.wikipedia.org/wiki/Orthogonal_coordinates>`_
-(the class of coordinates treated in Pisces-Geometry), we define a **local-basis** at each point :math:`p \in \mathbb{R}^N` as
+1. The **tangent space** (:math:`T_p\mathbb{R}^N`) which contains **contravariant vectors** :math:`V \in T_p M` which are
+   expressed in terms of a contravariant basis:
 
-.. math::
+   .. math::
 
-    {\bf e}_i = \frac{\partial {\bf r}}{\partial x^i}.
+        \forall V \in T_p \mathbb{R}^N, \exists V^\mu \; \text{s.t.}\; V = V^\mu {\bf e}_\mu.
 
-It is a fact that these basis vectors span :math:`\mathbb{R}^N` as a vector space and form a valid, orthogonal. The `dual space <https://en.wikipedia.org/wiki/Dual_space>`_
-to :math:`\mathbb{R}^N` is (as a special property of Euclidean space) also :math:`\mathbb{R}^N`. Likewise, the **local-basis**
-induces a **local dual basis** (also called the contravariant basis) at each point such that
+2. The **cotangent space** (:math:`T_p^\star \mathbb{R}^N`) which contains **covariant vectors** :math:`V \in T_p^\star M` which
+   are expressed in terms of a covariant basis:
 
-.. math::
+   .. math::
 
-    {\bf e}^i({\bf e}_j) = \delta_j^i.
+        \forall V \in T^\star_p \mathbb{R}^N, \exists V_\mu \; \text{s.t.}\; V = V_\mu {\bf e}^\mu.
 
-Now, since :math:`\mathbb{R}^N` is an `inner product space <https://en.wikipedia.org/wiki/Inner_product_space>`_, the action of
-a contravariant vector is well defined:
+   where :math:`{\bf e}^\mu` are the **induced dual basis** such that :math:`{\bf e}^\mu ({\bf e}_\nu) = \delta_\nu^\mu`.
 
-.. math::
-
-    {\bf e}^i({\bf e}_j) = \left<{\bf e}^i,{\bf e}_j\right>.
-
-Because the basis is orthogonal, this holds in almost all cases; however, the local basis is not necessarily a unit basis
-and therefore
+To relate the tangent and cotangent spaces, we define the **metric tensor**: a symmetric, bilinear form that provides an
+inner product on the tangent space. At each point :math:`p \in \mathbb{R}^N`, the metric is a map:
 
 .. math::
 
-    \left<{\bf e}^i,{\bf e}_i\right> = |{\bf e}^i||{\bf e}_i| = 1
+   g_p : T_p \mathbb{R}^N \times T_p \mathbb{R}^N \to \mathbb{R}
 
-We therefore define the **Lame-Coefficients** of the coordinate system as
+which satisfies:
 
-.. math::
+- Symmetry: :math:`g_p(\mathbf{u}, \mathbf{v}) = g_p(\mathbf{v}, \mathbf{u})`
+- Bilinearity: linear in each argument
+- Positive-definiteness (in Euclidean space): :math:`g_p(\mathbf{v}, \mathbf{v}) > 0` for all non-zero :math:`\mathbf{v}`
 
-    h_i({\bf r}) = |{\bf e}_i|.
-
-In which case, the contravariant basis vectors are
-
-.. math::
-
-    {\bf e}^i = \frac{1}{h_i^2} {\bf e}_i = \frac{1}{h_i} \hat{\bf e}_i.
-
-We therefore have the foundations of the coordinate system in terms of the **local-basis** and the **covariant / contravariant**
-vectors.
-
-The Metric Tensor
-+++++++++++++++++
-
-In any coordinate system, the **metric tensor** describes the relationship between physical distance and changes in the
-coordinate functions. Thus, for a coordinate system :math:`(x^1,x^2,\ldots,x^N)`, there is a metric tensor :math:`g_{\mu \nu}`
-with the property that
+In a coordinate basis :math:`\{ \mathbf{e}_\mu \}`, the metric components are given by:
 
 .. math::
 
-    ds^2 = g_{\mu \nu} dx^{\mu} dx^{\nu},
+   g_{\mu\nu} = g(\mathbf{e}_\mu, \mathbf{e}_\nu) = \mathbf{e}_\mu \cdot \mathbf{e}_\nu
 
-In a Euclidean space, the metric is defined as
+These components form the **metric tensor** :math:`g_{\mu\nu}`, which plays a central role in geometry and analysis.
 
-.. math::
+The metric allows us to map vectors to covectors (and vice versa), effectively bridging the tangent and cotangent spaces.
+This process is known as **raising and lowering indices**.
 
-    g_{\mu \nu} = {\bf e}_\mu \cdot {\bf e}_{\nu},
-
-which immediately furnishes the fact that :math:`g_{\mu \nu}` is symmetric and diagonal in orthogonal coordinates. Likewise,
-we have previously established that
+Given a contravariant vector :math:`V^\mu`, we define its covariant form as:
 
 .. math::
 
-    {\bf e}_{\mu} \cdot {\bf e}_{\mu} = g_{\mu\mu} = h_\mu^2.
+   V_\nu = g_{\nu\mu} V^\mu
 
-Thus, the **differential behavior** of a coordinate system is uniquely dictated by the metric tensor.
-
-Differential Geometry
----------------------
-
-One of the critical aspects of doing physics in a generic coordinate system is resolving the meaning of differential operations
-like the **gradient**, **divergence**, or **laplacian**. In Pisces-Geometry, knowledge of the coordinate system's metric is
-used directly to perform these operations.
-
-In any coordinate system, the gradient of a function :math:`f: \mathbb{R}^N \to \mathbb{R}` should be a vector with the property
-that
+Similarly, given a covariant vector :math:`\omega_\mu`, its contravariant form is:
 
 .. math::
 
-    \nabla f \cdot d{\bf r} = df = \partial_i f dx^i.
+   \omega^\mu = g^{\mu\nu} \omega_\nu
 
-Now,
-
-.. math::
-
-    d{\bf r} = dx^i \partial_i {\bf r} = dx^i {\bf e}_i,
-
-so
+where :math:`g^{\mu\nu}` is the **inverse metric tensor**, satisfying:
 
 .. math::
 
-    \nabla f \cdot d{\bf r} = (\nabla_j f)(dx^i) {\bf e^j}\cdot{\bf e_i} = \nabla_i f \; dx^i = \partial_i f dx^i,
+   g^{\mu\alpha} g_{\alpha\nu} = \delta^\mu_\nu
 
-thus,
+These operations allow for seamless transformation between the vector and dual-vector representations and are central to
+defining geometric operations like gradients, divergences, and Laplacians in curvilinear coordinates.
 
-.. math::
+.. note::
 
-    \nabla_i f = \partial_i f \implies \nabla f = \boxed{{\bf e}^i \partial_i}.
+   In Pisces-Geometry, the metric is represented as a tensor field defined by the coordinate system. This enables differential
+   operators and field transformations to be expressed in a coordinate-aware and mathematically rigorous way.
 
-Similarly,
 
-.. math::
+Vectors, Tensors, and Beyond
+----------------------------
 
-    \begin{aligned}
-    \nabla \cdot {\bf F} &= \frac{1}{J} \partial_k \left[JF_k\right]\\
-    \nabla \times {\bf F} &= \frac{{\bf e}_k}{J} \epsilon_{ijk} \partial_i F^j\\
-    \nabla^2 \phi &=  \frac{1}{J} \partial_k \left[\frac{J}{h_k^2} \partial_k \phi\right].
-    \end{aligned}
+- What is a field on the coordinate system? What is a tensor
+  as a map from the dual and tangent spaces, etc.
+
+
+Calculations in Curvilinear Coordinates
+---------------------------------------
+
+- Why does calculus differ between coordinate systems?
+- What coordinate agnostic operations matter in physics?
+
+Displacements, Areas, and Volumes
+''''''''''''''''''''''''''''''''''
+
+- Define the volume, area, and line infinitesmals.
+
+Basic Operations
+''''''''''''''''
+
+- Gradient
+- Divergence
+- Curl
+- Laplacian

@@ -16,7 +16,7 @@ import sys
 import matplotlib  # noqa: F401
 
 sys.path.insert(0, os.path.abspath("../.."))
-
+sys.path.insert(0, os.path.abspath("../../pisces_geometry"))
 # -- Project information -----------------------------------------------------
 
 project = "Pisces-Geometry"
@@ -72,6 +72,8 @@ intersphinx_mapping = {
     "yt": ("https://yt-project.org/doc/", None),
     "astropy": ("https://docs.astropy.org/en/stable/", None),
     "sympy": ("https://docs.sympy.org/latest/", None),
+    "unyt": ("https://unyt.readthedocs.io/en/latest/", None),
+    "h5py": ("https://docs.h5py.org/en/latest/", None),
 }
 
 napoleon_use_param = True

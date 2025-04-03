@@ -4,21 +4,21 @@ from parent classes in this module.
 """
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Iterator, List, Optional, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, Iterator, List, Optional, Sequence, Tuple, Union
 
 import numpy as np
+from coordinates.base import _CoordinateSystemBase
+from tqdm.auto import tqdm
 
 from pisces_geometry.grids._exceptions import GridInitializationError
 from pisces_geometry.grids._typing import BoundingBox, DomainDimensions
-
-if TYPE_CHECKING:
-    from coordinates.base import _CoordinateSystemBase
+from pisces_geometry.utilities.logging import pg_log
 
 
 # noinspection PyTypeChecker
 class _BaseGrid(ABC):
     """
-    Base class for representing a structured grid in a given coordinate system.
+    Generic coordinate grid base class from which all Pisces-Geometry grid subclasses are descended.
 
     This class serves as the foundational abstraction for all grid types used in Pisces Geometry.
     It handles setup and storage of coordinate systems, domain dimensions, bounding boxes, boundary
@@ -26,6 +26,7 @@ class _BaseGrid(ABC):
     spacing behavior, and field interactions.
 
     Subclasses should override the initialization methods to define specific behavior for:
+
     - Setting up the coordinate system
     - Defining the domain and shape of the grid
     - Configuring boundaries and ghost cells
@@ -38,7 +39,9 @@ class _BaseGrid(ABC):
 
     # @@ Initialization Procedures @@ #
     # These initialization procedures may be overwritten in subclasses
-    # to specialize the behavior of the grid.
+    # to specialize the behavior of the grid. Ensure that all the REQUIRED
+    # attributes are set in the initialization methods, otherwise unintended behavior
+    # may arise.
     def __set_coordinate_system__(
         self, coordinate_system: "_CoordinateSystemBase", *args, **kwargs
     ):
@@ -62,6 +65,8 @@ class _BaseGrid(ABC):
         GridInitializationError
             If the coordinate system is invalid or incompatible.
         """
+        # Default implementation is to simply assign self.__cs__ to the input
+        # coordinate system.
         self.__cs__: "_CoordinateSystemBase" = coordinate_system
 
     def __set_grid_domain__(self, *args, **kwargs):
@@ -77,11 +82,18 @@ class _BaseGrid(ABC):
            a valid ``DomainDimensions`` instance with shape ``(NDIM,)``.
         - ``self.__chunking__``: boolean flag indicating if chunking is allowed.
         - ``self.__chunk_size__``: The DomainDimensions for a single chunk of the grid.
+        - ``self.__cdd__``: The number of chunks in each dimension of the domain.
+
+        If ``__chunking__`` is false, then the various chunk-related variables can
+        remain as ``None``.
 
         Should be overridden in subclasses to support specific grid shape logic.
         """
+        # Standard domain variables (must set always).
         self.__bbox__: BoundingBox = None
         self.__dd__: DomainDimensions = None
+
+        # Chunking domain variables. (relevant if chunking is turned on).
         self.__chunking__: bool = False
         self.__chunk_size__: DomainDimensions = None
         self.__cdd__: DomainDimensions = None
@@ -151,70 +163,151 @@ class _BaseGrid(ABC):
 
         # Run the __post_init__ method afterward.
         self.__post_init__()
+        pg_log.debug("Initialized grid %s on coordinate system %s.", self, self.__cs__)
 
     def __post_init__(self):
+        """
+        __post_init__ can be used to configure any additional aspects of the subclass after
+        the rest of the __initialization__ procedure has been performed.
+        """
         pass
 
-    # @@ Properties @@ #
-    # Properties should not be altered but may be added to in
-    # various scenarios.
+    # @@ Grid Properties @@ #
+    # Subclasses can (and often should) add additional properties; however,
+    # existing properties should be consistent in behavior (return type, meaning, etc.) with
+    # superclasses and sibling classes to ensure that the use experiences
+    # are conserved.
     @property
     def coordinate_system(self) -> "_CoordinateSystemBase":
-        """Returns the coordinate system used by the grid."""
+        """
+        The coordinate system (e.g. a subclass of :py:class:`~coordinates.core.OrthogonalCoordinateSystem`) which
+        underlies this grid.
+
+        The coordinate system determines which axes are available in the grid (:py:attr:`axes`) and also determines
+        how various differential procedures are performed in this grid structure.
+        """
         return self.__cs__
 
     @property
     def bbox(self) -> BoundingBox:
-        """Returns the physical bounding box of the grid (excluding ghost cells)."""
+        """
+        The physical bounding box of the grid (excluding ghost zones).
+
+        This defines the actual spatial extent of the active computational domain
+        using the physical coordinates derived from the coordinate arrays.
+
+        Returns
+        -------
+        numpy.ndarray
+            A ``(2, ndim)`` array representing ``[lower_corner, upper_corner]`` in physical space.
+        """
         return self.__bbox__
 
     @property
     def dd(self) -> DomainDimensions:
-        """Returns the grid dimensions (excluding ghost cells)."""
+        """
+        The shape of the active grid (excluding ghost cells), expressed in grid points.
+
+        This defines the number of grid points along each axis, not counting ghost zones.
+
+        Returns
+        -------
+         numpy.ndarray
+            A tuple-like object specifying the number of grid points per axis.
+        """
         return self.__dd__
 
     @property
     def ndim(self) -> int:
-        """Returns the number of dimensions of the grid."""
+        """
+        The number of spatial dimensions in the grid.
+
+        This is inferred from the associated coordinate system's number of dimensions.
+
+        Returns
+        -------
+        int
+            The number of dimensions in the grid.
+        """
         return self.__cs__.ndim
 
     @property
     def axes(self) -> List[str]:
-        """Returns the names of the axes in the coordinate system."""
+        """
+        The names of the coordinate axes in this grid.
+
+        These are inherited from the coordinate system and may include labels like
+        ``["x", "y", "z"]`` or curvilinear variants like ``["r", "theta", "phi"]``.
+
+        Returns
+        -------
+        list of str
+            A list of axis names.
+        """
         return self.__cs__.axes
 
     @property
     def shape(self) -> Sequence[int]:
-        """Returns the grid shape (i.e., number of points per axis, excluding ghost cells)."""
+        """
+        The shape of the grid (excluding ghost cells), as a tuple of point counts.
+
+        This is an alias for :attr:`dd` and provides compatibility with numpy-like APIs.
+
+        Returns
+        -------
+        tuple of int
+            The number of grid points along each axis.
+        """
         return self.dd
 
     @property
     def gbbox(self) -> BoundingBox:
-        """Returns the bounding box including ghost regions."""
+        """
+        The full bounding box of the grid, including ghost regions.
+
+        This includes additional layers of ghost cells on each boundary
+        as specified by the grid’s ghost zone configuration.
+
+        Returns
+        -------
+        BoundingBox
+            A (2, ndim) array specifying [lower_corner, upper_corner] with ghost zones included.
+        """
         return self.__ghost_bbox__
 
     @property
     def gdd(self) -> DomainDimensions:
-        """Returns the grid dimensions including ghost cells."""
+        """
+        The full grid dimensions, including ghost cells.
+
+        This represents the shape of the full buffer or storage array needed
+        to hold all values including stencil padding.
+
+        Returns
+        -------
+        DomainDimensions
+            Grid dimensions including ghost zones.
+        """
         return self.__ghost_dd__
 
     @property
     def chunk_size(self) -> DomainDimensions:
         """
-        Return the size of a single chunk along each axis.
+        The size of each chunk along every axis, if chunking is enabled.
 
-        This property is only valid if chunking is enabled for the grid. It specifies
-        the number of grid points per chunk along each dimension, excluding ghost zones.
+        Chunking divides the grid into smaller subdomains (chunks) for
+        more efficient memory management or parallelization. Each chunk has
+        this shape (excluding ghost cells).
 
         Returns
         -------
         DomainDimensions
-            The size of a single chunk along each axis.
+            Size of a single chunk along each axis.
 
         Raises
         ------
         GridInitializationError
-            If chunking is not enabled on the grid.
+            If chunking is not enabled for this grid.
         """
         if self.__chunking__:
             return self.__chunk_size__
@@ -224,27 +317,39 @@ class _BaseGrid(ABC):
     @property
     def chunking(self) -> bool:
         """
-        Indicates whether chunking is enabled on this grid.
+        Whether chunking is enabled for this grid.
 
-        Chunking refers to the division of the grid into smaller, regularly-shaped
-        subdomains (chunks), which can be useful for memory-efficient computations
-        or parallel processing.
+        When enabled, the domain is partitioned into regularly sized blocks (chunks),
+        each potentially processable in isolation.
 
         Returns
         -------
         bool
-            True if the grid supports chunking, False otherwise.
+            True if chunking is active; False otherwise.
         """
         return self.__chunking__
 
     @property
     def ghost_zones(self) -> np.ndarray:
-        """Returns the number of ghost cells on each side: shape (2, ndim)."""
+        """
+        Number of ghost cells on either side of each axis.
+
+        Ghost zones are extra layers of points added beyond the physical domain
+        to facilitate finite-difference stencils or boundary conditions.
+
+        Returns
+        -------
+        np.ndarray
+            A (2, ndim) array where the first row is the number of ghost cells
+            on the "left" (lower) side of each axis, and the second row is for the "right" (upper) side.
+        """
         return self.__ghost_zones__
 
     # @@ Dunder Methods @@ #
-    # These should not be altered in any subclasses to
-    # ensure behavioral consistency.
+    # Subclasses should NOT ALTER these methods in order to ensure that
+    # all grid subclasses behave (more or less) the same way. Alterations can
+    # be made in instances where it is necessary to do so in the interest of preserving
+    # the inherited behavior correctly; however, this should be done very cautiously.
     def __repr__(self) -> str:
         """
         Unambiguous string representation of the grid object.
@@ -330,8 +435,9 @@ class _BaseGrid(ABC):
         return iter(np.ndindex(*self.shape))
 
     # @@ Utility Functions @@ #
-    # These are built-in utility functions to help reduce the clutter of
-    # some other methods. They can be added to / modified as needed.
+    # Utility functions which are included in the grid base class in order to
+    # improve readability. These can be added to and modified as necessary to
+    # produce the desired behavior.
     def __check_chunking__(self):
         """
         Raises an error if chunking is not enabled on this grid.
@@ -345,7 +451,9 @@ class _BaseGrid(ABC):
             If chunking is not enabled on the grid.
         """
         if not self.__chunking__:
-            raise TypeError(f"{self.__class__.__name__} does not support chunking.")
+            raise TypeError(
+                f"Instance {self} of {self.__class__.__name__} does not support chunking."
+            )
 
     def __get_axes_count_and_mask__(
         self, axes: List[str] = None
@@ -369,7 +477,7 @@ class _BaseGrid(ABC):
             axes = self.axes
         return len(axes), self.coordinate_system.build_axes_mask(axes)
 
-    def validate_chunks_(
+    def validate_chunks(
         self,
         chunks: Sequence[Union[int, Tuple[int, int], slice]],
         axes: Optional[List[str]] = None,
@@ -462,6 +570,8 @@ class _BaseGrid(ABC):
     def iter_chunks(
         self,
         axes: Optional[List[str]] = None,
+        use_tqdm: bool = False,
+        **tqdm_kwargs,
     ) -> Iterator[Tuple[int, ...]]:
         """
         Create an iterator over all the chunk index tuples in the grid.
@@ -470,6 +580,10 @@ class _BaseGrid(ABC):
         ----------
         axes : list of str, optional
             List of axes to iterate over. If None, all axes are used.
+        use_tqdm : bool, default=False
+            Whether to wrap the iterator in a tqdm progress bar.
+        **tqdm_kwargs : dict
+            Additional keyword arguments passed to tqdm (e.g., desc="Sweeping chunks").
 
         Yields
         ------
@@ -488,8 +602,12 @@ class _BaseGrid(ABC):
         axes_indices = [self.coordinate_system.axes_string_to_index(ax) for ax in axes]
         chunk_counts = [self.__cdd__[i] for i in axes_indices]
 
-        for chunk_index in np.ndindex(*chunk_counts):
-            yield chunk_index
+        iterator = np.ndindex(*chunk_counts)
+        if use_tqdm:
+            total = np.prod(chunk_counts)
+            iterator = tqdm(iterator, total=total, **tqdm_kwargs)
+
+        yield from iterator
 
     # @@ Core Functionality @@ #
     # These methods are required to be implemented in all subclasses
@@ -533,7 +651,7 @@ class _BaseGrid(ABC):
             If the chunk specification is invalid.
         """
         naxes, axes_mask = self.__get_axes_count_and_mask__(axes=axes)
-        chunks = self.validate_chunks_(chunks, axes=axes)
+        chunks = self.validate_chunks(chunks, axes=axes)
 
         slices = []
         for (chunk_start, chunk_stop), axis_id in zip(
@@ -618,6 +736,106 @@ class _BaseGrid(ABC):
             indexing="ij",
         )
 
+    def evalf(
+        self,
+        func: Callable,
+        /,
+        axes: Sequence[str] = None,
+        fixed_axes: Dict[str, float] = None,
+        include_ghosts: bool = False,
+        chunks: Sequence[Union[int, Tuple[int, int], slice]] = None,
+        **kwargs: Any,
+    ) -> np.ndarray:
+        """
+        Evaluate a function over the grid’s coordinate mesh.
+
+        This method evaluates a scalar- or tensor-valued function over the specified region
+        of the grid and returns the resulting array.
+
+        Parameters
+        ----------
+        func : callable
+            A function accepting coordinate arrays (e.g., ``func(x, y)`` or ``func(r, theta, phi)``),
+            broadcasted via :py:func:`numpy.meshgrid`, and returning a scalar or array value. By default,
+            all of the axes are passed to ``func``. To evaluate ``func`` over only specific axes, specify the
+            ``axes`` argument.
+
+            .. note::
+
+                By default, if ``axes`` has (for example) 2 axes, then the function should take 2 arguments. If it
+                takes more arguments (corresponding to the other axes not in ``axes``), the values for those arguments
+                should be specified in ``fixed_axes``.
+
+            The function must take the axes arrays in order.
+
+        axes : list of str, optional
+            The axes over which to evaluate the function. If None, all axes are used.
+        fixed_axes : dict of str to float, optional
+            If `axes` is provided, axes listed in `fixed_axes` are passed to the function as scalars.
+            These axes must not overlap with `axes`.
+        include_ghosts : bool, default=False
+            Whether to include ghost zones in the coordinate arrays.
+        chunks : sequence of int, tuple, or slice, optional
+            If provided, restricts evaluation to the specified chunked region.
+        **kwargs : dict
+            Additional keyword arguments passed to the function being evaluated.
+
+        Returns
+        -------
+        np.ndarray
+            The evaluated result of `func` broadcast across the grid's mesh.
+        """
+        all_axes = self.axes
+        fixed_axes = fixed_axes or {}
+
+        if axes is None:
+            if fixed_axes:
+                raise ValueError(
+                    "Cannot specify fixed_axes when evaluating over all axes."
+                )
+            axes = all_axes
+        else:
+            invalid_axes = [ax for ax in axes if ax not in all_axes]
+            if invalid_axes:
+                raise ValueError(
+                    f"Invalid axes: {invalid_axes}. Valid axes: {all_axes}"
+                )
+
+            invalid_fixed = [ax for ax in fixed_axes if ax not in all_axes]
+            if invalid_fixed:
+                raise ValueError(
+                    f"Invalid fixed_axes: {invalid_fixed}. Valid axes: {all_axes}"
+                )
+
+            overlapping = set(axes) & set(fixed_axes)
+            if overlapping:
+                raise ValueError(
+                    f"Axes {overlapping} cannot appear in both `axes` and `fixed_axes`."
+                )
+
+        # Get coordinate mesh for selected axes
+        mesh = self.get_coordinate_grid(
+            chunks=chunks,
+            axes=axes,
+            include_ghosts=include_ghosts,
+        )
+
+        # Build function arguments in the order of all_axes
+        coord_args = []
+        mesh_index = 0
+        for ax in all_axes:
+            if ax in axes:
+                coord_args.append(mesh[mesh_index])
+                mesh_index += 1
+            elif ax in fixed_axes:
+                coord_args.append(fixed_axes[ax])
+
+        # Evaluate and return
+        return func(*coord_args, **kwargs)
+
+    # @@ Abstract Functionality @@ #
+    # These abstract methods MUST be implemented in all
+    # subclasses.
     @abstractmethod
     def get_coordinates(
         self,
@@ -705,6 +923,37 @@ class _BaseGrid(ABC):
         """
         pass
 
+    @abstractmethod
+    def extract_subgrid(
+        self,
+        chunks: Sequence[Union[int, Tuple[int, int], slice]],
+        axes: Optional[Sequence[str]] = None,
+        include_ghosts: bool = True,
+    ) -> "GenericGrid":
+        """
+        Extract a subgrid (subdomain) from this grid based on chunk specification.
+
+        Parameters
+        ----------
+        chunks : sequence of int, tuple, or slice
+            Specification of the region to extract in chunk units. Each element can be:
+            - int: selects a single chunk
+            - tuple: (start, stop) range of chunks
+            - slice: standard slice object
+
+        axes : list of str, optional
+            The axes to which the chunk specification applies. If None, applies to all axes.
+
+        include_ghosts : bool, default=True
+            Whether to include ghost cells in the extracted subgrid.
+
+        Returns
+        -------
+        GenericGrid
+            A new subgrid over the specified chunked region.
+        """
+        pass
+
     # @@ IO Methods @@ #
     @abstractmethod
     def to_hdf5(self, filename: str, group_name: Optional[str] = None):
@@ -746,9 +995,51 @@ class _BaseGrid(ABC):
 
 
 class GenericGrid(_BaseGrid):
+    r"""
+    Generic coordinate grid with arbitrary, non-uniform spacing.
+
+    The :py:class:`GenericGrid` class represents a general-purpose structured grid in which
+    the coordinate values along each axis are explicitly specified via user-provided
+    1D arrays. This allows for arbitrarily non-uniform grids, such as those used in
+    mapped or curvilinear coordinate systems.
+
+    When initializing the class, the ``coordinates`` argument takes a set of :math:`N` arrays of increasing
+    coordinate values :math:`x_i^k`. The grid is then constructed as the Cartesian product of these :math:`N` arrays:
+
+    .. math::
+
+        G_{ijk...} = (x_1^i,x_2^j,\ldots)
+
+    .. important::
+
+        The :py:class:`GenericGrid` is not the most memory efficient grid structure, but still performs much better than
+        storing an entire grid in memory. For :math:`N` axes with :math:`n_i` coordinates in each axis, the :py:class:`GenericGrid`
+        stores :math:`N` 1D arrays with each of the coordinates, for a total of
+
+        .. math::
+
+            S = \sum_i n_i
+
+        total floats. The grid itself has
+
+        .. math::
+
+            S_{\rm grid} = N \prod_i n_i.
+
+    Notes
+    -----
+
+    - The coordinate arrays provided during initialization must be strictly increasing
+      and one-dimensional.
+    - Chunking is optional but can be useful for parallel processing or out-of-core computations.
+    - This class supports serialization to and from HDF5 using :py:meth:`to_hdf5` and  :py:meth:`from_hdf5`.
+    """
+
     # @@ Initialization Procedures @@ #
     # These initialization procedures may be overwritten in subclasses
-    # to specialize the behavior of the grid.
+    # to specialize the behavior of the grid. Ensure that all the REQUIRED
+    # attributes are set in the initialization methods, otherwise unintended behavior
+    # may arise.
     def __set_grid_domain__(self, *args, **kwargs):
         """
         Configure the shape and physical bounding box of the domain.
@@ -792,7 +1083,12 @@ class GenericGrid(_BaseGrid):
         # Now use the coordinate arrays to compute the bounding box. This requires calling out
         # to the ghost_zones a little bit early and validating them. The domain dimensions are computed
         # from the length of each of the coordinate arrays.
-        _ghost_zones = np.asarray(kwargs.get("ghost_zones", np.zeros((2, self.ndim))))
+        _ghost_zones = kwargs.get("ghost_zones", None)
+        _ghost_zones = (
+            np.array(_ghost_zones, dtype=int)
+            if _ghost_zones is not None
+            else np.zeros((2, self.ndim), dtype=int)
+        )
         if _ghost_zones.shape == (self.ndim, 2):
             _ghost_zones = np.moveaxis(_ghost_zones, 0, -1)
             self.__ghost_zones__ = _ghost_zones
@@ -1084,6 +1380,36 @@ class GenericGrid(_BaseGrid):
             [self.__coordinate_arrays__[i][_s] for i, _s in zip(axes_indices, slices)]
         )
 
+    def extract_subgrid(
+        self,
+        chunks: Sequence[Union[int, Tuple[int, int], slice]],
+        **kwargs,
+    ) -> "GenericGrid":
+        """
+        Extract a subgrid (subdomain) from this grid based on chunk specification.
+
+        Parameters
+        ----------
+        chunks : sequence of int, tuple, or slice
+            Specification of the region to extract in chunk units. Each element can be:
+            - int: selects a single chunk
+            - tuple: (start, stop) range of chunks
+            - slice: standard slice object
+
+        Returns
+        -------
+        GenericGrid
+            A new subgrid over the specified chunked region.
+        """
+        # Get slice ranges for data extraction
+        slices = self.get_slice_from_chunks(chunks)
+        new_coords = tuple(
+            arr[sl] for arr, sl in zip(self.__coordinate_arrays__, slices)
+        )
+
+        # Construct the new grid
+        return GenericGrid(self.coordinate_system, new_coords, **kwargs)
+
     # @@ IO Methods @@ #
     def to_hdf5(
         self, filename: str, group_name: Optional[str] = None, overwrite: bool = False
@@ -1102,26 +1428,36 @@ class GenericGrid(_BaseGrid):
         """
         import h5py
 
+        # Ensure that the filename is a Path object and then check for existence and overwrite violations.
+        # These are only relevant at this stage if a particular group has not yet been specified.
         filename = Path(filename)
-
-        # Handle file existence and overwrite logic
         if filename.exists():
-            if not overwrite and group_name is None:
+            # Check if there are overwrite issues and then delete it if it is
+            # relevant to do so.
+            if (not overwrite) and (group_name is None):
+                # We can't overwrite and there is data. Raise an error.
                 raise IOError(
                     f"File '{filename}' already exists and overwrite=False. "
                     "To store data in a specific group, provide `group_name`."
                 )
             elif overwrite and group_name is None:
-                # Overwrite the entire file
+                # We are writing to the core dir and overwrite is true.
+                # delete the entire file and rebuild it.
                 filename.unlink()
                 with h5py.File(filename, "w"):
                     pass
         else:
+            # The file didn't already exist, we simply create it and then
+            # let it close again so that we can reopen it in the next phase.
             with h5py.File(filename, "w"):
                 pass
 
-        # Open the file in append mode to add data
+        # Now that the file has been opened at least once and looks clean, we can
+        # proceed with the actual write process. This will involve first checking
+        # if there are overwrite violations when ``group_name`` is actually specified. Then
+        # we can proceed with actually writing the data.
         with h5py.File(filename, "a") as f:
+            # Start checking for overwrite violations and the group information.
             if group_name is None:
                 group = f
             else:
@@ -1137,103 +1473,94 @@ class GenericGrid(_BaseGrid):
                 else:
                     group = f.create_group(group_name)
 
-            # Store metadata
-            group.attrs["axes"] = np.string_(self.axes)
+            # The group has been identified and the overwrite status has
+            # been handled. We now store the grid's metadata in the hdf5 file.
+            # To load again, we need the coordinate arrays, the chunk size, and the
+            # ghost zones. We write a bit more information that this in case anyone needs
+            # to manually inspect the files and wants information.
+            #
+            # Write the basic metadata for the axes, chunking, chunk size, etc.
+            group.attrs["axes"] = list(self.axes)
             group.attrs["chunking"] = self.chunking
-            group.attrs["ghost_zones"] = self.ghost_zones
-            group.attrs["coordinate_system"] = str(
-                self.coordinate_system.__class__.__name__
-            )
+            group.attrs["grid_shape"] = list(self.shape)
+            group.attrs["bbox"] = np.asarray(self.bbox, dtype=float)
+            group.attrs["coordinate_system"] = self.coordinate_system.__class__.__name__
+
             if self.chunking:
                 group.attrs["chunk_size"] = self.chunk_size
 
-            # Save coordinate arrays
-            coord_group = group.require_group("coordinates")
-            for axis_name, arr in zip(self.axes, self.__coordinate_arrays__):
-                coord_group.create_dataset(axis_name, data=arr)
+            # Write out the number of ghost zones in the
+            # grid structure.
+            group.attrs["ghost_zones"] = np.asarray(self.ghost_zones, dtype=int)
 
-    def from_hdf5(self, filename: str, group_name: Optional[str] = None):
-        """
-        Load the grid from an HDF5 file.
+            # Save the coordinate axes to the hdf5 file in datasets.
+            try:
+                coord_group = group.require_group("coordinates")
+                for axis_name, arr in zip(self.axes, self.__coordinate_arrays__):
+                    coord_group.create_dataset(axis_name, data=arr)
+            except Exception as e:
+                raise IOError(f"Failed to write the coordinate arrays to disk: {e}")
 
-        Parameters
-        ----------
-        filename : str
-            The path to the HDF5 file.
-        group_name : str, optional
-            The name of the group from which to load the grid. If None, loads from the root.
+        # Finally, the coordinate system itself must now be saved to disk. We leave
+        # the context manager to ensure that everything flushes correctly.
+        if group_name is None:
+            cgroup_name = "coord_systm"
+        else:
+            cgroup_name = group_name + "/coord_systm"
+        self.coordinate_system.to_hdf5(filename, cgroup_name, overwrite=overwrite)
 
-        Raises
-        ------
-        IOError
-            If the file or group does not exist, or the data is malformed.
-        """
+    @classmethod
+    def from_hdf5(cls, filename: str, group_name: Optional[str] = None):
         import h5py
 
+        # Ensure existence of the hdf5 file before attempting to
+        # load data from it.
         filename = Path(filename)
-
         if not filename.exists():
             raise IOError(f"HDF5 file '{filename}' does not exist.")
 
+        # Open the hdf5 file in read mode and start parsing the
+        # data from it.
         with h5py.File(filename, "r") as f:
-            # Select the group to read from
+            # Navigate to the appropriate group
+            group = f[group_name] if group_name else f
+
+            # Load metadata attributes
+            chunk_size = group.attrs.get("chunk_size", None)
+            ghost_zones = group.attrs.get("ghost_zones", None)
+
+            # Check that coordinate datasets are present
+            if "coordinates" not in group:
+                raise IOError(f"No 'coordinates' group found in '{group.name}'.")
+
+            coord_group = group["coordinates"]
+            coord_arrays = {key: coord_group[key][...] for key in coord_group.keys()}
+
+            # Load the coordinate system object
             if group_name is None:
-                group = f
-            elif group_name in f:
-                group = f[group_name]
+                cgroup_name = "coord_systm"
             else:
+                cgroup_name = group_name + "/coord_systm"
+            coordinate_system = _CoordinateSystemBase.from_hdf5(
+                filename, group_name=cgroup_name
+            )
+
+            # Ensure that coordinates are ordered to match the coordinate system axes
+            try:
+                ordered_coord_arrays = [
+                    coord_arrays[axis][...] for axis in coordinate_system.axes
+                ]
+            except KeyError as e:
+                missing = e.args[0]
                 raise IOError(
-                    f"Group '{group_name}' not found in HDF5 file '{filename}'."
-                )
+                    f"Missing coordinate array for axis '{missing}' required by coordinate system '{coordinate_system}'."
+                ) from e
 
-            # Load and validate metadata
-            axes = [
-                s.decode() if isinstance(s, bytes) else str(s)
-                for s in group.attrs["axes"]
-            ]
-            ghost_zones = np.array(group.attrs["ghost_zones"])
-            chunking = bool(group.attrs.get("chunking", False))
-            chunk_size = group.attrs["chunk_size"] if chunking else None
+            print(ordered_coord_arrays)
 
-            # Load coordinate arrays
-            coord_group = group.get("coordinates", None)
-            if coord_group is None:
-                raise IOError(
-                    f"No 'coordinates' group found in '{group_name or 'root'}'."
-                )
-
-            coordinate_arrays = []
-            for axis_name in axes:
-                if axis_name not in coord_group:
-                    raise IOError(f"Missing coordinate array for axis '{axis_name}'.")
-                coordinate_arrays.append(np.array(coord_group[axis_name]))
-
-        # Rebuild the grid
-        self.__init__(
-            self.coordinate_system,  # assumes CS is already set
-            coordinate_arrays,
-            ghost_zones=ghost_zones,
+        return cls(
+            coordinate_system,
+            ordered_coord_arrays,
             chunk_size=chunk_size,
+            ghost_zones=ghost_zones,
         )
-
-
-if __name__ == "__main__":
-    from pisces_geometry.coordinates.coordinate_systems import SphericalCoordinateSystem
-
-    x, y, z = np.linspace(0, 1, 6), np.linspace(0, 1, 6), np.linspace(0, 1, 6)
-    u = SphericalCoordinateSystem()
-    g = GenericGrid(
-        u,
-        [x, y, z],
-        ghost_zones=[
-            [0, 0],
-            [
-                0,
-                0,
-            ],
-            [0, 0],
-        ],
-        chunk_size=(2, 2, 2),
-    )
-    for chunk_id in g.iter_chunks():
-        print(chunk_id)

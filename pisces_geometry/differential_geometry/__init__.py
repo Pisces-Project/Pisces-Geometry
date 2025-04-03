@@ -37,7 +37,8 @@ __all__ = [
     "gdiv_orth_covariant",
     "gdiv_orth_contravariant",
     "glap_orth",
-    "compute_Lterm_orthogonal",
+    "get_raising_dependence",
+    "get_lowering_dependence",
 ]
 
 from pisces_geometry.differential_geometry.operators import (
@@ -60,11 +61,12 @@ from pisces_geometry.differential_geometry.symbolic import (
     compute_gradient,
     compute_laplacian,
     compute_Lterm,
-    compute_Lterm_orthogonal,
     compute_metric_density,
     get_divergence_dependence,
     get_gradient_dependence,
     get_laplacian_dependence,
+    get_lowering_dependence,
+    get_raising_dependence,
     lower_index,
     raise_index,
 )

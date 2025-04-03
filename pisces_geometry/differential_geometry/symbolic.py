@@ -9,41 +9,37 @@ These operations are essential in symbolic tensor calculus, particularly
 in the context of differential geometry, general relativity, and
 coordinate transformations in physics and applied mathematics.
 
-These functions are largely integrated into Pisces-Geometry in their ability to distinguish
-the dependence of particular operations and by constructing specialized functions like the D and L terms.
-
-Key Features
-------------
-
-- Raise or lower tensor indices using metric or inverse metric tensors
-- Compute symbolic gradient, divergence, and Laplacian operators
-- Automatically determine variable dependencies for geometric quantities
-- Support for covariant and contravariant bases
-- Support for metric density, L-terms, and D-terms in non-Cartesian systems
+These functions are integrated into Pisces-Geometry for advanced handling
+of geometry dependencies, such as computing specialized D- and L-terms.
 """
-import string
-from typing import Any, Sequence
+from typing import Sequence, Union
 
 import numpy as np
 import sympy as sp
+from numpy._typing import ArrayLike
 from sympy.tensor.array import permutedims, tensorcontraction, tensorproduct
 
 from pisces_geometry._typing._generic import BasisAlias
 
 
-def invert_metric(metric: sp.Matrix) -> sp.Matrix:
+# ====================================== #
+# METRIC MANIPULATION FUNCTIONS          #
+# ====================================== #
+def invert_metric(metric: Union[sp.Matrix, sp.Array]) -> sp.Matrix:
     r"""
     Compute the inverse of the metric :math:`g_{\mu \nu}`.
 
     Parameters
     ----------
-    metric: :py:class:`~sympy.matrices.dense.MutableDenseMatrix`
-        The metric to invert.
+    metric: :py:class:`~sympy.matrices.dense.dense.MutableDenseMatrix` or :py:class:`~sympy.tensor.array.MutableDenseNDimArray`
+        The metric to invert. If the metric is provided as a full matrix, it will be returned
+        as a full matrix. If it is provided as a single array (1D), it is assumed to be a diagonal
+        metric and the returned inverse is also diagnonal and returned as an array.
 
 
     Returns
     -------
-    :py:class:`~sympy.matrices.dense.MutableDenseMatrix`
+    :py:class:`~sympy.matrices.dense.dense.MutableDenseMatrix` or :py:class:`~sympy.tensor.array.MutableDenseNDimArray`
         The inverted metric.
 
     See Also
@@ -76,45 +72,113 @@ def invert_metric(metric: sp.Matrix) -> sp.Matrix:
         >>> print(invert_metric(metric))
         Matrix([[1, 0, 0], [0, r**(-2), 0], [0, 0, 1/(r**2*sin(theta)**2)]])
 
-    """
-    return metric.inv()
-
-
-def compute_metric_density(metric: sp.Matrix) -> sp.Basic:
-    r"""
-    Compute the metric density function :math:`\sqrt{{\rm Det}(g)}`.
-
-    Parameters
-    ----------
-    metric: :py:class:`~sympy.matrices.dense.MutableDenseMatrix`
-        The metric tensor (:math:`g_{\mu \nu}`) of which to compute the metric density
-        field.
-
-    Returns
-    -------
-    :py:class:`~sympy.core.basic.Basic`
-        The metric density function.
-
-    Examples
-    --------
-    For the spherical metric,
+    We can also invert a metric which is diagonal by simply pushing through
+    the diagonal values as an array:
 
     .. code-block:: python
 
-        >>> from pisces_geometry.differential_geometry.symbolic import compute_metric_density
+        >>> from pisces_geometry.differential_geometry.symbolic import invert_metric
         >>> import sympy as sp
         >>>
-        >>> # Construct the symbols and the metric that need to be converted to a metric density function.
-        >>> r = sp.Symbol('r',positive=True)
-        >>> theta,phi = sp.symbols("theta, phi")
-        >>> metric = sp.Matrix([[1,0,0],[0,r**2,0],[0,0,(r**2*sp.sin(theta)**2)]])
+        >>> # Construct the symbols and the metric to
+        >>> # pass into the function.
+        >>> r,theta,phi = sp.symbols('r,theta,phi')
+        >>> metric = sp.Array([1,r**2,(r*sp.sin(theta))**2])
         >>>
-        >>> # Now compute the metric density function.
-        >>> print(compute_metric_density(metric))
-        r**2*sqrt(sin(theta)**2)
-
+        >>> # Now compute the inverse metric.
+        >>> print(invert_metric(metric))
+        [1, r**(-2), 1/(r**2*sin(theta)**2)]
     """
-    return sp.simplify(sp.sqrt(metric.det()))
+    try:
+        if len(metric.shape) == 1:
+            return sp.Array([1 / _i for _i in metric])
+        else:
+            return metric.inv()
+    except Exception as e:
+        raise ValueError(
+            f"Failed to invert metric due to an error at the Sympy level: {e}"
+        )
+
+
+def compute_metric_density(metric: Union[sp.Matrix, sp.Array]) -> sp.Basic:
+    r"""
+    Compute the metric density function :math:`\sqrt{\det(g)}`.
+
+    This function supports two forms of the metric:
+
+    1. A full ``(n, n)`` Sympy Matrix representing a general metric :math:`g_{\mu\nu}`.
+    2. A 1D Sympy Array representing the diagonal entries of an orthogonal metric, i.e.
+       :math:`g_{\mu\mu}` with no off-diagonal terms.
+
+    Parameters
+    ----------
+    metric: :py:class:`~sympy.matrices.dense.MutableDenseMatrix` or :py:class:`~sympy.tensor.array.MutableDenseNDimArray`
+        The metric to invert. If the metric is provided as a full matrix, it will be returned
+        as a full matrix. If it is provided as a single array (1D), it is assumed to be a diagonal
+        metric and the returned inverse is also diagnonal and returned as an array.
+
+    Returns
+    -------
+    ~sympy.core.basic.Basic
+        The metric density, :math:`\sqrt{\det(g)}`.
+
+    See Also
+    --------
+    invert_metric : Invert a general or orthogonal metric
+    compute_Dterm : Compute geometric D-terms
+    compute_Lterm : Compute geometric L-terms
+
+    Examples
+    --------
+    **Full (n x n) metric** for spherical coordinates:
+
+    .. code-block:: python
+
+        >>> import sympy as sp
+        >>> from pisces_geometry.differential_geometry.symbolic import compute_metric_density
+
+        >>> r = sp.Symbol('r', positive=True)
+        >>> theta = sp.Symbol('theta', positive=True)
+        >>> metric_full = sp.Matrix([
+        ...     [1, 0, 0],
+        ...     [0, r**2, 0],
+        ...     [0, 0, (r*sp.sin(theta))**2]
+        ... ])
+        >>> compute_metric_density(metric_full)
+        r**2*Abs(sin(theta))
+
+    **Orthogonal diagonal** metric as a 1D array:
+
+    .. code-block:: python
+
+        >>> import sympy as sp
+        >>> from pisces_geometry.differential_geometry.symbolic import compute_metric_density
+
+        >>> r = sp.Symbol('r', positive=True)
+        >>> theta = sp.Symbol('theta', positive=True)
+        >>> # For the same spherical metric, but only diagonal entries:
+        >>> metric_diag = sp.Array([1, r**2, (r*sp.sin(theta))**2])
+        >>> compute_metric_density(metric_diag)
+        r**2*Abs(sin(theta))
+    """
+    # Check the dimensionality to decide how to compute det(g).
+    shape = metric.shape
+    if len(shape) == 1:
+        # 1D array -> interpret as diagonal of an orthogonal metric
+        # So det(g) = product(diagonal_entries).
+        det_g = sp.prod(metric[i] for i in range(shape[0]))
+    elif len(shape) == 2:
+        # Full (n x n) matrix -> compute determinant directly
+        if shape[0] != shape[1]:
+            raise ValueError(f"Expected a square matrix for metric, got shape {shape}.")
+        det_g = metric.det()
+    else:
+        raise ValueError(
+            f"Expected either a 1D diagonal array or a 2D square matrix for metric, got shape {shape}."
+        )
+
+    # Metric density = sqrt(det(g))
+    return sp.simplify(sp.sqrt(det_g))
 
 
 def compute_Dterm(metric_density: sp.Basic, axes: Sequence[sp.Symbol]) -> sp.Array:
@@ -139,7 +203,7 @@ def compute_Dterm(metric_density: sp.Basic, axes: Sequence[sp.Symbol]) -> sp.Arr
     Parameters
     ----------
     metric_density: :py:class:`~sympy.core.basic.Basic`
-        The metric density function :math:`\sqrt{{\bf Det} \; g}`.
+        The metric density function :math:`\sqrt{{\rm Det} \; g}`.
     axes: list of :py:class:`~sympy.core.symbol.Symbol`
         The coordinate axes symbols on which to compute the D-terms. There will be ``len(axes)`` resulting
         elements in the output array each corresponding to the :math:`D_{x^i}` component of the D-terms.
@@ -177,357 +241,344 @@ def compute_Dterm(metric_density: sp.Basic, axes: Sequence[sp.Symbol]) -> sp.Arr
 
 
 def compute_Lterm(
-    inverse_metric: sp.Matrix, metric_density: Any, axes: Sequence[sp.Symbol]
-) -> sp.Matrix:
+    inverse_metric: Union[sp.Matrix, sp.Array],
+    metric_density: sp.Basic,
+    axes: Sequence[sp.Symbol],
+) -> sp.Array:
     r"""
-    Compute the **L-term** components for a particular coordinate system from the metric density and the metric.
+    Compute the **L-term** components for a general or orthogonal coordinate system from
+    the metric density :math:`\rho` and the inverse metric :math:`g^{\mu\nu}`.
 
-    In a general, curvilinear coordinate system, the Laplacian is
-
-    .. math::
-
-        \nabla^2 \phi = \frac{1}{\rho}\partial_\mu\left(\rho g^{\mu\nu} \partial_\nu \phi\right) = L^\mu \partial_\mu \phi + g^{\mu\nu}\partial^2_{\mu\nu}\phi.
-
-    The coefficients on the first term are called the **L-term** coefficients and defined as
+    The Laplacian in curvilinear coordinates can be written as:
 
     .. math::
 
-        L^\nu = \frac{1}{\rho} \partial_\mu \left(\rho g^{\mu\nu}\right).
+        \nabla^2 \phi \;=\;
+            \frac{1}{\rho} \,\partial_\mu\!\Bigl(\rho\, g^{\mu\nu}\,\partial_\nu \phi\Bigr)
+        \;=\;
+            L^\nu \,\partial_\nu \phi \;+\; g^{\mu\nu}\,\partial^2_{\mu\nu} \phi,
+
+    where the **L-term** is:
+
+    .. math::
+
+        L^\nu \;=\; \frac{1}{\rho}\,\partial_\mu\,\bigl(\rho\,g^{\mu\nu}\bigr).
+
+    **Usage**:
+
+    - If ``inverse_metric`` is a full :math:`(n{\times}n)` matrix, the standard formula for
+      :math:`\partial_\mu(\rho\,g^{\mu\nu})` is used (summing over :math:`\mu`).
+    - If ``inverse_metric`` is a 1D array of length :math:`n`, we assume an **orthogonal** system,
+      and use the diagonal simplification:
+
+      .. math::
+
+          L^\nu \;=\;\frac{1}{\rho}\,\partial_\nu\!\Bigl(\rho\,g^{\nu\nu}\Bigr).
 
     Parameters
     ----------
-    inverse_metric: :py:class:`~sympy.matrices.dense.MutableDenseMatrix`
-        The inverse metric :math:`g^{\mu\nu}`, with shape (mu, nu).
-    metric_density: :py:class:`~sympy.core.basic.Basic`
-        The metric density function :math:`\rho`, typically :math:`\sqrt{\det g}`.
-    axes : list of :py:class:`~sympy.core.symbol.Symbol`
-        The coordinate axes :math:`x^\mu`, used for partial derivatives.
+    inverse_metric : ~sympy.matrices.dense.MutableDenseMatrix or ~sympy.tensor.array.MutableDenseNDimArray
+        Either a full inverse metric :math:`g^{\mu\nu}` (shape ``(n, n)``) or a 1D diagonal
+        array of shape ``(n,)`` for orthogonal coordinates.
+    metric_density : ~sympy.core.basic.Basic
+        The metric density :math:`\rho = \sqrt{\det g}`.
+    axes : list of ~sympy.core.symbol.Symbol
+        The coordinate variables, :math:`x^\mu`.
 
     Returns
     -------
-    :py:class:`~sympy.tensor.array.MutableDenseNDimArray`
+    ~sympy.tensor.array.MutableDenseNDimArray
         A 1D array of L-term components :math:`L^\nu`.
 
     See Also
     --------
-    compute_Dterm
-    compute_metric_density
+    compute_Dterm : D-term used in divergence
+    compute_metric_density : For obtaining :math:`\rho`
 
     Examples
     --------
-    In spherical coordinates, the metric takes the form
+    **1) Full Inverse Metric**
 
-    .. math::
+    Spherical coordinates, with
+    :math:`g_{\mu\nu} = \mathrm{diag}\bigl(1,\;r^2,\;r^2\,\sin^2\theta\bigr)`:
 
-        g_{\mu\nu} = \begin{bmatrix}1&0&0\\0&r^2&0\\0&0&r^2\sin^2\theta\end{bmatrix},
+    .. code-block:: python
 
-    so the inverse metric is simply
+        >>> import sympy as sp
+        >>> from pisces_geometry.differential_geometry.symbolic import compute_Lterm
+        >>> r, theta, phi = sp.symbols('r theta phi')
+        >>> rho = r**2*sp.sin(theta)  # metric density
+        >>> g_inv = sp.Matrix([       # full inverse metric
+        ...     [1,     0,                   0],
+        ...     [0, 1/r**2,                0],
+        ...     [0,     0, 1/(r**2*sp.sin(theta)**2)]
+        ... ])
+        >>> L = compute_Lterm(g_inv, rho, [r,theta,phi])
+        >>> L
+        [2/r, 1/(r**2*tan(theta)), 0]
 
-    .. math::
+    **2) Orthogonal (Diagonal) Inverse Metric**
 
-        g^{\mu\nu} = \begin{bmatrix}1&0&0\\0&r^{-2}&0\\0&0&r^{-2}\sin^{-2}\theta\end{bmatrix},
+    Provide just the diagonal as a 1D array:
 
-    and the resulting L-terms are
+    .. code-block:: python
 
-    .. math::
-
-        L_\nu = \frac{1}{\rho} \partial_\mu \left(\rho g^{\mu\nu}\right) = \frac{1}{\rho} \partial_\nu \left(\rho g^{\nu\nu}\right).
-
-    Thus,
-
-    .. math::
-
-        \begin{aligned}
-        L_r &=2/r\\
-        L_\theta &= \frac{1}{r^2\tan\theta}\\
-        L_\phi &= 0.
-        \end{aligned}
-
-    To see this computationally,
-
-    >>> from pisces_geometry.differential_geometry.symbolic import compute_Lterm
-    >>> import sympy as sp
-    >>> r,theta,phi = sp.symbols('r,theta,phi')
-    >>> metric_density = r**2 * sp.sin(theta)
-    >>> inv_metric = sp.Matrix([[1,0,0],[0,r**2,0],[0,0,1/(r**2*sp.sin(theta)**2)]]).inv()
-    >>> print(compute_Lterm(inv_metric, metric_density, axes=[r,theta,phi]))
-    [2/r, 1/(r**2*tan(theta)), 0]
+        >>> g_inv_diag = sp.Array([1, 1/r**2, 1/(r**2*sp.sin(theta)**2)])
+        >>> L_orth = compute_Lterm(g_inv_diag, rho, [r,theta,phi])
+        >>> L_orth
+        [2/r, 1/(r**2*tan(theta)), 0]
     """
-    # Ensure the metric inverse is the correct shape. It can have any nu shape but
-    # must have the same mu shape as the number of axes specified.
-    if inverse_metric.shape[0] != len(axes):
+    # Validate that we have as many axes as expected.
+    ndim = len(axes)
+
+    shape = inverse_metric.shape
+    if len(shape) == 2:
+        # Full (ndim x ndim) inverse metric
+        if shape[0] != ndim or shape[1] != ndim:
+            raise ValueError(
+                f"Inverse metric shape {shape} does not match {ndim} coordinate axes."
+            )
+        L_terms = []
+        # L^nu = (1 / rho) * sum_{mu}( d/dx^mu [rho * g^{mu,nu}] )
+        for nu in range(ndim):
+            term_sum = sum(
+                sp.diff(metric_density * inverse_metric[mu, nu], axes[mu])
+                for mu in range(ndim)
+            )
+            L_nu = sp.simplify(term_sum / metric_density)
+            L_terms.append(L_nu)
+        return sp.Array(L_terms)
+
+    elif len(shape) == 1:
+        # 1D => orthogonal diagonal metric
+        if shape[0] != ndim:
+            raise ValueError(
+                f"Orthogonal inverse metric length {shape[0]} does not match {ndim} axes."
+            )
+        L_terms = []
+        # L^nu = (1 / rho) * d/dx^nu [rho * g^{nu,nu}]
+        for nu in range(ndim):
+            expr = metric_density * inverse_metric[nu]
+            dexpr = sp.diff(expr, axes[nu])
+            L_nu = sp.simplify(dexpr / metric_density)
+            L_terms.append(L_nu)
+        return sp.Array(L_terms)
+
+    else:
         raise ValueError(
-            f"Incompatible shapes: inverse_metric has {inverse_metric.shape[0]} rows, "
-            f"but {len(axes)} axes were provided. They must match."
+            "Expected inverse_metric to be either (ndim x ndim) or (ndim,), "
+            f"but got shape {shape}."
         )
-
-    L_terms = []
-    for nu in range(inverse_metric.shape[1]):
-        term_sum = sum(
-            sp.diff(metric_density * inverse_metric[mu, nu], axes[mu])
-            for mu in range(inverse_metric.shape[0])
-        )
-        L_nu = sp.simplify(term_sum / metric_density)
-        L_terms.append(L_nu)
-
-    return sp.Array(L_terms)
-
-
-def compute_Lterm_orthogonal(
-    metric: sp.Array, metric_density: Any, axes: Sequence[sp.Symbol]
-) -> sp.Matrix:
-    r"""
-    Compute the **L-term** components for a particular (orthogonal) coordinate system from the metric density and the metric.
-
-    In a general, curvilinear coordinate system, the Laplacian is
-
-    .. math::
-
-        \nabla^2 \phi = \frac{1}{\rho}\partial_\mu\left(\rho g^{\mu\nu} \partial_\nu \phi\right) = L^\mu \partial_\mu \phi + g^{\mu\nu}\partial^2_{\mu\nu}\phi.
-
-    The coefficients on the first term are called the **L-term** coefficients and defined as
-
-    .. math::
-
-        L^\nu = \frac{1}{\rho} \partial_\mu \left(\rho g^{\mu\nu}\right).
-
-    In the special case of a fully **diagonal** metric tensor, this is simply
-
-    .. math::
-
-        L^\nu = \frac{1}{\rho} \partial_\nu \left(\frac{\rho}{g_{\mu\nu}} \right).
-
-    Parameters
-    ----------
-    metric: :py:class:`~sympy.tensor.array.MutableDenseNDimArray`
-        The inverse metric :math:`g^{\mu}`, with shape ``(mu,)``.
-    metric_density: :py:class:`~sympy.core.basic.Basic`
-        The metric density function :math:`\rho`, typically :math:`\sqrt{\det g}`.
-    axes : list of :py:class:`~sympy.core.symbol.Symbol`
-        The coordinate axes :math:`x^\mu`, used for partial derivatives.
-
-    Returns
-    -------
-    :py:class:`~sympy.tensor.array.MutableDenseNDimArray`
-        A 1D array of L-term components :math:`L^\nu`.
-
-    See Also
-    --------
-    compute_Dterm
-    compute_Lterm
-    compute_metric_density
-
-    Examples
-    --------
-    In spherical coordinates, the metric takes the form
-
-    .. math::
-
-        g_{\mu\nu} = \begin{bmatrix}1&0&0\\0&r^2&0\\0&0&r^2\sin^2\theta\end{bmatrix},
-
-    so the inverse metric is simply
-
-    .. math::
-
-        g^{\mu\nu} = \begin{bmatrix}1&0&0\\0&r^{-2}&0\\0&0&r^{-2}\sin^{-2}\theta\end{bmatrix},
-
-    and the resulting L-terms are
-
-    .. math::
-
-        L_\nu = \frac{1}{\rho} \partial_\mu \left(\rho g^{\mu\nu}\right) = \frac{1}{\rho} \partial_\nu \left(\rho g^{\nu\nu}\right).
-
-    Thus,
-
-    .. math::
-
-        \begin{aligned}
-        L_r &=2/r\\
-        L_\theta &= \frac{1}{r^2\tan\theta}\\
-        L_\phi &= 0.
-        \end{aligned}
-
-    To see this computationally,
-
-    >>> from pisces_geometry.differential_geometry.symbolic import compute_Lterm
-    >>> import sympy as sp
-    >>> r,theta,phi = sp.symbols('r,theta,phi')
-    >>> metric_density = r**2 * sp.sin(theta)
-    >>> inv_metric = sp.Matrix([[1,0,0],[0,r**2,0],[0,0,1/(r**2*sp.sin(theta)**2)]]).inv()
-    >>> print(compute_Lterm(inv_metric, metric_density, axes=[r,theta,phi]))
-    [2/r, 1/(r**2*tan(theta)), 0]
-    """
-    # Ensure the metric inverse is the correct shape. It can have any nu shape but
-    # must have the same mu shape as the number of axes specified.
-    if metric.shape[0] != len(axes):
-        raise ValueError(
-            f"Incompatible shapes: inverse_metric has {metric.shape[0]} rows, "
-            f"but {len(axes)} axes were provided. They must match."
-        )
-
-    # Generate the L-terms in order.
-    L_terms = []
-    for nu in range(metric.shape[0]):
-        term = sp.diff(metric_density / metric[nu], axes[nu])
-        L_nu = sp.simplify(term / metric_density)
-        L_terms.append(L_nu)
-
-    return sp.Array(L_terms)
 
 
 def raise_index(
     tensor: sp.Array,
-    inverse_metric: sp.Matrix,
+    inverse_metric: Union[sp.Matrix, sp.Array],
     axis: int,
 ) -> sp.Array:
     r"""
-    Raise a single index of a generic tensor using the provided inverse metric. Mathematically,
-    this is the tensor contraction
+     Raise a single index of a tensor using the provided inverse metric.
 
-    .. math::
+     This function supports:
+     - A **full** inverse metric :math:`g^{\mu\nu}` (shape ``(n,n)``).
+     - A **diagonal** inverse metric (1D array of length ``n``) for orthogonal coordinates.
 
-        T^{\ldots\mu\ldots}_{\ldots} = T^{\ldots}_{\ldots \nu\ldots} g^{\mu \nu}.
+     **General Formula** (when `inverse_metric` is a full matrix):
+     .. math::
+         T^{\ldots\mu\ldots} \;=\; T_{\ldots\nu\ldots}\; g^{\mu\nu},
 
-    Parameters
-    ----------
-    tensor:  :py:class:`~sympy.tensor.array.MutableDenseNDimArray`
-        A symbolic tensor of any rank.
-    inverse_metric : :py:class:`~sympy.matrices.dense.MutableDenseMatrix`
-        The inverse metric tensor :math:`g^{\mu\nu}` used to raise the index.
-    axis : int
-        The axis (index position) of the tensor to raise.
+     **Orthogonal Diagonal Case** (1D array):
+     .. math::
+         T^{\ldots\mu\ldots} \;=\; T_{\ldots\mu\ldots} \;\times\; g^{\mu\mu}.
 
-    Returns
-    -------
-    :py:class:`~sympy.tensor.array.MutableDenseNDimArray`
-        A new tensor with the specified index raised.
+     Parameters
+     ----------
+     tensor :~sympy.tensor.array.MutableDenseNDimArray
+         A symbolic tensor of arbitrary rank.
+     inverse_metric :~sympy.matrices.dense.MutableDenseMatrix or~sympy.tensor.array.MutableDenseNDimArray
+         Either a full inverse metric :math:`g^{\mu\nu}` (shape ``(n, n)``) or a 1D diagonal
+         array of shape ``(n,)`` for orthogonal coordinates.
+     axis : int
+         The index position to raise.
 
-    See Also
-    --------
-    lower_index
+     Returns
+     -------
+    ~sympy.tensor.array.MutableDenseNDimArray
+         A new tensor with the specified index raised.
 
-    Examples
-    --------
-    The following example shows the raising of a generic tensor in polar coordinates:
+     See Also
+     --------
+     lower_index
 
-    .. code-block:: python
+     Examples
+     --------
+     1) **Full matrix** usage:
 
-        >>> # import the necessary functions.
-        >>> import sympy as sp
-        >>>
-        >>> # Construct the symbols, the inverse metric,
-        >>> # and the tensor.
-        >>> r, theta = sp.symbols('r theta')
-        >>> ginv = sp.Matrix([[1, 0], [0, 1/r**2]])
-        >>> T = sp.Array([[sp.Function("T0")(r, theta), sp.Function("T1")(r, theta)],
-        ...                            [sp.Function("T2")(r, theta), sp.Function("T3")(r, theta)]])
-        >>>
-        >>> # Raise the index.
-        >>> raise_index(T, ginv, axis=1)
-        [[T0(r, theta), T1(r, theta)/r**2], [T2(r, theta), T3(r, theta)/r**2]]
+     .. code-block:: python
+
+         >>> import sympy as sp
+         >>> from pisces_geometry.differential_geometry.symbolic import raise_index
+         >>>
+         >>> r, theta = sp.symbols('r theta', positive=True)
+         >>> # Inverse metric for polar coords
+         >>> ginv = sp.Matrix([[1, 0], [0, 1/r**2]])
+         >>> # Rank-2 tensor
+         >>> T = sp.Array([
+         ...     [sp.Function("T0")(r, theta), sp.Function("T1")(r, theta)],
+         ...     [sp.Function("T2")(r, theta), sp.Function("T3")(r, theta)]
+         ... ])
+         >>>
+         >>> raise_index(T, ginv, axis=1)
+         [[T0(r, theta), T1(r, theta)/r**2], [T2(r, theta), T3(r, theta)/r**2]]
+
+     2) **Orthogonal diagonal** usage (just multiply each slice):
+
+     .. code-block:: python
+
+         >>> # Suppose inverse_metric is [1, 1/r^2]
+         >>> ginv_diag = sp.Array([1, 1/r**2])
+         >>> raise_index(T, ginv_diag, axis=1)
+         [[T0(r, theta), T1(r, theta)/r**2], [T2(r, theta), T3(r, theta)/r**2]]
     """
-    # Validate that the tensor field is a valid tensor field
-    # and that the axis is within the number of available dimensions.
     ndim = tensor.rank()
     if not (0 <= axis < ndim):
-        raise ValueError(f"Axis {axis} out of bounds for tensor of rank {ndim}.")
+        raise ValueError(f"Axis {axis} out of bounds for a tensor of rank {ndim}.")
 
-    # Construct index labels for each of the axes of the
-    # tensor.
-    index_labels = list(string.ascii_lowercase[:ndim])
-    metric_labels = ("A", index_labels[axis])  # g^{A i}
-    result_labels = list(index_labels)
-    result_labels[axis] = metric_labels[0]  # replace i with A
+    shape = inverse_metric.shape
+    if len(shape) == 2:
+        # Full (n x n) approach
+        # Standard tensor contraction approach
+        tp = tensorproduct(inverse_metric, tensor)  # shape (ndim, ndim, ...)
+        contracted = tensorcontraction(tp, (1, axis + 2))
+        # Permute to place the new index in position 'axis'
+        perm = list(range(1, axis + 1)) + [0] + list(range(axis + 1, ndim))
+        return permutedims(contracted, perm)
 
-    # Compute tensor product and contract over shared index
-    tp = tensorproduct(inverse_metric, tensor)  # shape: (ndim, ndim, ...)
-    contracted = tensorcontraction(tp, (1, axis + 2))
-    perm = list(range(1, axis + 1)) + [0] + list(range(axis + 1, ndim))
-    result = permutedims(contracted, perm)
+    elif len(shape) == 1:
+        # 1D => orthogonal diagonal approach
+        new_tensor = sp.MutableDenseNDimArray(tensor)
+        if tensor.shape[axis] > inverse_metric.shape[0]:
+            raise ValueError(
+                f"Tensor index {axis} has {tensor.shape[axis]} elements. Cannot contract with metric of length {inverse_metric.shape[0]}."
+            )
 
-    return result
+        for i in range(tensor.shape[axis]):
+            idx = [slice(None)] * ndim
+            idx[axis] = i
+            new_tensor[tuple(idx)] *= inverse_metric[i]
+        return new_tensor
+
+    else:
+        raise ValueError(
+            f"inverse_metric shape {shape} not understood. "
+            "Must be 2D (square) or 1D (diagonal)."
+        )
 
 
-# noinspection DuplicatedCode
 def lower_index(
     tensor: sp.Array,
-    metric: sp.Matrix,
+    metric: Union[sp.Matrix, sp.Array],
     axis: int,
 ) -> sp.Array:
     r"""
-    Lower a single index of a generic tensor using the provided inverse metric. Mathematically,
-    this is the tensor contraction
+     Lower a single index of a tensor using the provided metric.
 
-    .. math::
+     This function supports:
+     - A **full** metric :math:`g_{\mu\nu}` (shape ``(n,n)``).
+     - A **diagonal** metric (1D array of length ``n``) for orthogonal coordinates.
 
-        T^{\ldots\mu\ldots}_{\ldots}g_{\mu \nu} = T^{\ldots}_{\ldots \nu\ldots}.
+     **General Formula** (when `metric` is a full matrix):
+     .. math::
+         T_{\ldots\nu\ldots} \;=\; T^{\ldots\mu\ldots}\; g_{\mu\nu},
 
-    Parameters
-    ----------
-    tensor:  :py:class:`~sympy.tensor.array.MutableDenseNDimArray`
-        A symbolic tensor of any rank.
-    metric : :py:class:`~sympy.matrices.dense.MutableDenseMatrix`
-        The metric tensor :math:`g_{\mu\nu}` used to lower the index.
-    axis : int
-        The axis (index position) of the tensor to lower.
+     **Orthogonal Diagonal Case** (1D array):
+     .. math::
+         T_{\ldots\mu\ldots} \;=\; T^{\ldots\mu\ldots} \;\times\; g_{\mu\mu}.
 
-    Returns
-    -------
-    :py:class:`~sympy.tensor.array.MutableDenseNDimArray`
-        A new tensor with the specified index lower.
+     Parameters
+     ----------
+     tensor :~sympy.tensor.array.MutableDenseNDimArray
+         A symbolic tensor of arbitrary rank.
+     metric :~sympy.matrices.dense.MutableDenseMatrix or~sympy.tensor.array.MutableDenseNDimArray
+         The metric used to lower the index. Either a full ``(n x n)`` matrix or a 1D array of length ``n``.
+     axis : int
+         The index position to lower.
 
-    See Also
-    --------
-    raise_index
+     Returns
+     -------
+    ~sympy.tensor.array.MutableDenseNDimArray
+         A new tensor with the specified index lowered.
 
-    Examples
-    --------
-    The following example shows the raising of a generic tensor in polar coordinates:
+     See Also
+     --------
+     raise_index
 
-    .. code-block:: python
+     Examples
+     --------
+     1) **Full matrix** usage:
 
-        >>> # import the necessary functions.
-        >>> import sympy as sp
-        >>>
-        >>> # Construct the symbols, the inverse metric,
-        >>> # and the tensor.
-        >>> r, theta = sp.symbols('r theta')
-        >>> g = sp.Matrix([[1, 0], [0, r**2]])
-        >>> T = sp.Array([[sp.Function("T0")(r, theta), sp.Function("T1")(r, theta)],
-        ...                            [sp.Function("T2")(r, theta), sp.Function("T3")(r, theta)]])
-        >>>
-        >>> # Raise the index.
-        >>> lower_index(T, g, axis=1)
-        [[T0(r, theta), r**2*T1(r, theta)], [T2(r, theta), r**2*T3(r, theta)]]
+     .. code-block:: python
 
+         >>> import sympy as sp
+         >>> from pisces_geometry.differential_geometry.symbolic import lower_index
+         >>>
+         >>> r, theta = sp.symbols('r theta', positive=True)
+         >>> # Metric for polar coords
+         >>> g = sp.Matrix([[1, 0], [0, r**2]])
+         >>> # Rank-2 tensor
+         >>> T = sp.Array([
+         ...     [sp.Function("T0")(r, theta), sp.Function("T1")(r, theta)],
+         ...     [sp.Function("T2")(r, theta), sp.Function("T3")(r, theta)]
+         ... ])
+         >>>
+         >>> lower_index(T, g, axis=1)
+         [[T0(r, theta), r^2*T1(r, theta)],
+          [T2(r, theta), r^2*T3(r, theta)]]
+
+     2) **Orthogonal diagonal** usage (just multiply each slice):
+
+     .. code-block:: python
+
+         >>> g_diag = sp.Array([1, r**2])
+         >>> lower_index(T, g_diag, axis=1)
+         [[T0(r, theta), r^2*T1(r, theta)],
+          [T2(r, theta), r^2*T3(r, theta)]]
     """
-    # Validate that the tensor field is a valid tensor field
-    # and that the axis is within the number of available dimensions.
     ndim = tensor.rank()
     if not (0 <= axis < ndim):
-        raise ValueError(f"Axis {axis} out of bounds for tensor of rank {ndim}.")
+        raise ValueError(f"Axis {axis} out of bounds for a tensor of rank {ndim}.")
 
-    # Construct index labels for each of the axes of the
-    # tensor.
-    index_labels = list(string.ascii_lowercase[:ndim])
-    metric_labels = ("A", index_labels[axis])  # g^{A i}
-    result_labels = list(index_labels)
-    result_labels[axis] = metric_labels[0]  # replace i with A
+    shape = metric.shape
+    if len(shape) == 2:
+        # Full (n x n) approach
+        # Standard tensor contraction approach
+        tp = tensorproduct(metric, tensor)  # shape: (ndim, ndim, ...)
+        contracted = tensorcontraction(tp, (1, axis + 2))
+        # Permute to place the new index in position 'axis'
+        perm = list(range(1, axis + 1)) + [0] + list(range(axis + 1, ndim))
+        return permutedims(contracted, perm)
 
-    # Compute tensor product and contract over shared index
-    tp = tensorproduct(metric, tensor)  # shape: (ndim, ndim, ...)
-    contracted = tensorcontraction(tp, (1, axis + 2))
-    perm = list(range(1, axis + 1)) + [0] + list(range(axis + 1, ndim))
-    result = permutedims(contracted, perm)
+    elif len(shape) == 1:
+        # 1D => orthogonal diagonal approach
+        new_tensor = sp.MutableDenseNDimArray(tensor)
+        for i in range(tensor.shape[axis]):
+            idx = [slice(None)] * ndim
+            idx[axis] = i
+            new_tensor[tuple(idx)] *= metric[i]
+        return new_tensor
 
-    return result
+    else:
+        raise ValueError(
+            f"metric shape {shape} not understood. "
+            "Must be 2D (square) or 1D (diagonal)."
+        )
 
 
 def compute_gradient(
     scalar_field: sp.Basic,
     coordinate_axes: Sequence[sp.Symbol],
     basis: BasisAlias = "covariant",
-    inverse_metric: sp.Matrix = None,
+    inverse_metric: Union[sp.Matrix, sp.Array] = None,
 ) -> sp.Array:
     r"""
     Compute the symbolic gradient of a scalar field :math:`\phi` in either covariant or contravariant basis.
@@ -548,8 +599,9 @@ def compute_gradient(
             if ``basis != 'covariant'``, the index must be raised and the ``inverse_metric`` will be used
             for contraction. If ``inverse_metric`` is not specified, an error results.
 
-    inverse_metric : :py:class:`~sympy.matrices.dense.MutableDenseMatrix`, optional
-        The inverse metric :math:`g^{\mu\nu}` used to raise the index if ``basis='contravariant'``.
+    inverse_metric : ~sympy.matrices.dense.MutableDenseMatrix or ~sympy.tensor.array.MutableDenseNDimArray
+        Either a full inverse metric :math:`g^{\mu\nu}` (shape ``(n, n)``) or a 1D diagonal
+        array of shape ``(n,)`` for orthogonal coordinates.
 
     Returns
     -------
@@ -606,7 +658,7 @@ def compute_divergence(
     coordinate_axes: Sequence[sp.Symbol],
     d_term: sp.Array = None,
     basis: BasisAlias = "contravariant",
-    inverse_metric: sp.Matrix = None,
+    inverse_metric: Union[sp.Matrix, sp.Array] = None,
     metric_density: sp.Basic = None,
 ) -> sp.Basic:
     r"""
@@ -630,8 +682,9 @@ def compute_divergence(
         The D-term components, used to account for the geometry (can be derived from metric_density).
     basis : {'covariant', 'contravariant'}, optional
         The basis in which the input vector field is expressed. Defaults to 'contravariant'.
-    inverse_metric : :py:class:`~sympy.matrices.dense.MutableDenseMatrix`, optional
-        The inverse metric :math:`g^{\mu\nu}` to raise indices if `basis='covariant'`.
+    inverse_metric : ~sympy.matrices.dense.MutableDenseMatrix or ~sympy.tensor.array.MutableDenseNDimArray
+        Either a full inverse metric :math:`g^{\mu\nu}` (shape ``(n, n)``) or a 1D diagonal
+        array of shape ``(n,)`` for orthogonal coordinates.
     metric_density : :py:class:`~sympy.core.basic.Basic`, optional
         The metric density :math:`\rho`, used to compute the D-term if it is not provided.
 
@@ -719,139 +772,343 @@ def compute_laplacian(
     metric_density: sp.Basic = None,
 ) -> sp.Basic:
     r"""
-    Compute the Laplacian :math:`\nabla^2 \phi` of a scalar field in curvilinear coordinates.
+    Compute the Laplacian :math:`\nabla^2 \phi` of a scalar field in general or orthogonal curvilinear coordinates.
 
-    In general curvilinear coordinates, the Laplacian of a scalar field :math:`\phi` takes the form
-
-    .. math::
-
-        \nabla^2\phi = \nabla \cdot \nabla \phi = \frac{1}{\rho} \partial_\mu \left( \rho g^{\mu \nu} \partial_\nu \phi \right),
-
-    where :math:`\rho = \sqrt{\det g}` is the metric density, and :math:`g^{\mu \nu}` is the inverse metric.
-
-    This function computes the symbolic expression for this Laplacian. Internally, it expands the divergence term into:
+    In a general coordinate system, the Laplacian of a scalar field :math:`\phi` can be expressed as:
 
     .. math::
 
-        \nabla^2\phi = L^\nu \partial_\nu \phi + g^{\mu\nu} \partial^2_{\mu\nu} \phi,
+        \nabla^2 \phi = \frac{1}{\rho} \,\partial_\mu \bigl(\rho \,g^{\mu\nu}\,\partial_\nu \phi\bigr)
+                     = L^\nu \,\partial_\nu \phi \;+\; g^{\mu\nu}\,\partial^2_{\mu\nu}\phi,
 
-    where the **L-term** is defined as
+    where :math:`\rho` is the metric density :math:`\sqrt{\det g}` and :math:`g^{\mu\nu}` is the inverse metric.
+    The **L-term** is defined by:
 
     .. math::
 
-        L^\nu = \frac{1}{\rho} \partial_\mu \left( \rho g^{\mu \nu} \right).
+        L^\nu = \frac{1}{\rho} \,\partial_\mu \bigl(\rho \,g^{\mu\nu}\bigr).
 
-    You may either pass the ``l_term`` explicitly if it is precomputed, or let this function compute it automatically by providing the ``metric_density`` and ``inverse_metric``.
+    **Usage**:
+
+    - If ``inverse_metric`` is a full :math:`(n \times n)` matrix, a fully general coordinate system is assumed.
+    - If ``inverse_metric`` is a 1D array of length :math:`n`, an orthogonal system is assumed (the array contains the diagonal
+      elements :math:`g^{\mu\mu}`).
 
     Parameters
     ----------
-    scalar_field : :py:class:`~sympy.core.basic.Basic`
-        The scalar field :math:`\phi` whose Laplacian is to be computed.
+    scalar_field : ~sympy.core.basic.Basic
+        The scalar field :math:`\phi` whose Laplacian is computed.
+    coordinate_axes : list of ~sympy.core.symbol.Symbol
+        The coordinate variables :math:`x^\mu` with respect to which differentiation occurs.
+    inverse_metric : ~sympy.matrices.dense.MutableDenseMatrix or ~sympy.tensor.array.MutableDenseNDimArray
+        Either a full inverse metric :math:`g^{\mu\nu}` (shape ``(n, n)``) or a 1D diagonal
+        array of shape ``(n,)`` for orthogonal coordinates.
 
-    coordinate_axes : list of :py:class:`~sympy.core.symbol.Symbol`
-        The coordinate variables with respect to which differentiation occurs. This should be in order (matching
-        the ordering in ``l_term`` or ``metric_density``) which each element containing the symbol for that particular
-        axis of the coordinate system.
-
-    inverse_metric : :py:class:`~sympy.matrices.dense.MutableDenseMatrix`
-        The inverse metric tensor :math:`g^{\mu \nu}`, used in both the second derivative term
-        and to compute the L-terms if not provided. This should be an ``(ndim,ndim)`` array where ``ndim`` is the
-        number of ``coordinate_axes``.
-
-    l_term : :py:class:`~sympy.tensor.array.MutableDenseNDimArray`, optional
-        Precomputed L-term array :math:`L^\nu`. If this is provided, the function will skip
-        computing L-terms using `metric_density`.
-
-    metric_density : :py:class:`~sympy.core.basic.Basic`, optional
-        The metric density :math:`\rho = \sqrt{\det g}`. This is only required if ``l_term`` is not given,
-        as it is used to compute the L-terms.
+    l_term : ~sympy.tensor.array.MutableDenseNDimArray, optional
+        Precomputed L-terms :math:`L^\nu`. If not provided, these will be derived from ``metric_density`` and ``inverse_metric``.
+    metric_density : ~sympy.core.basic.Basic, optional
+        The metric density :math:`\rho = \sqrt{\det g}`. Required if ``l_term`` is not given.
 
     Returns
     -------
-    :py:class:`~sympy.core.basic.Basic`
-        The symbolic expression for the Laplacian of the scalar field.
+    ~sympy.core.basic.Basic
+        The scalar Laplacian :math:`\nabla^2 \phi`.
 
     See Also
     --------
-    compute_divergence : Symbolic divergence of a vector field in curvilinear coordinates.
-    compute_gradient : Symbolic gradient of a scalar field in different bases.
+    compute_Lterm : Compute the L-term from :math:`\rho` and :math:`g^{\mu\nu}`.
+    compute_metric_density : For computing :math:`\rho`.
+    compute_divergence : The divergence in curvilinear coordinates.
 
     Examples
     --------
-    Compute the Laplacian of the scalar field :math:`\phi(r,\theta) = r^2 \sin(\theta)` in spherical coordinates.
+    **1) Full Inverse Metric (Spherical)**
 
-    Analytically, the spherical Laplacian will be
+    .. code-block:: python
 
-    .. math::
+        >>> import sympy as sp
+        >>> from pisces_geometry.differential_geometry.symbolic import compute_laplacian, compute_metric_density
+        >>>
+        >>> r, theta, phi = sp.symbols('r theta phi')
+        >>> scalar = r**2 * sp.sin(theta)
+        >>>
+        >>> # Full inverse metric for spherical coordinates
+        >>> g_inv = sp.Matrix([
+        ...     [1, 0, 0],
+        ...     [0, 1/r**2, 0],
+        ...     [0, 0, 1/(r**2 * sp.sin(theta)**2)]
+        ... ])
+        >>> # Metric density
+        >>> rho = compute_metric_density(sp.Matrix([
+        ...     [1,      0, 0],
+        ...     [0, r**2, 0],
+        ...     [0,      0, (r*sp.sin(theta))**2]
+        ... ]))
+        >>>
+        >>> # Compute Laplacian
+        >>> lap = compute_laplacian(scalar, [r, theta, phi], g_inv, metric_density=rho)
+        >>> lap
+        4*sin(theta) + 1/sin(theta)
 
-        \nabla^2\phi = 6\sin(\theta) + \frac{\cos^2\theta - \sin^2\theta}{\sin \theta} = 4\sin(\theta) + \rm{csc}(\theta)
+    **2) Orthogonal Inverse Metric (Diagonal Only)**
 
-    Computationally, we can obtain the same result with the following code:
+    .. code-block:: python
 
-    >>> import sympy as sp
-    >>> from pisces_geometry.differential_geometry.symbolic import (
-    ...     compute_laplacian, compute_Lterm
-    ... )
-    >>>
-    >>> # Coordinates
-    >>> r, theta, phi = sp.symbols('r theta phi', positive=True)
-    >>> coords = [r, theta, phi]
-    >>>
-    >>> # Define scalar field: φ(r,θ) = r² * sin(θ)
-    >>> phi_field = r**2 * sp.sin(theta)
-    >>>
-    >>> # Inverse metric for spherical coordinates
-    >>> g_inv = sp.Matrix([
-    ...     [1, 0, 0],
-    ...     [0, 1/r**2, 0],
-    ...     [0, 0, 1/(r**2 * sp.sin(theta)**2)]
-    ... ])
-    >>>
-    >>> # Metric density
-    >>> metric_density = r**2 * sp.sin(theta)
-    >>>
-    >>> # Compute Laplacian with automatic L-term computation
-    >>> compute_laplacian(phi_field, coords, g_inv, metric_density=metric_density)
-    4*sin(theta) + 1/sin(theta)
-
+        >>> # Provide just the diagonal of g^{\mu\nu} for an orthogonal system
+        >>> g_inv_diag = sp.Array([1, 1/r**2, 1/(r**2*sp.sin(theta)**2)])
+        >>> # Same metric_density as above
+        >>> lap_ortho = compute_laplacian(scalar, [r, theta, phi], g_inv_diag, metric_density=rho)
+        >>> lap_ortho
+        4*sin(theta) + 1/sin(theta)
     """
-
-    # Validation steps. Ensure that the vector field has the correct number of dimensions
-    # and that the necessary components are derived to proceed with the computation.
+    # Determine the number of dimensions in the coordinate
+    # system and start ensuring that the L-terms are available and
+    # accounted for.
     ndim = len(coordinate_axes)
 
-    # check the l-term. We may need to construct it and then we need to ensure that
-    # it has the intended shape.
+    # Build the L-terms.
     if l_term is None:
-        # We need to derive the d_term.
         if (metric_density is None) or (inverse_metric is None):
             raise ValueError(
                 "Either `l_term` or `metric_density` and `inverse_metric` must be provided."
             )
         l_term = compute_Lterm(inverse_metric, metric_density, coordinate_axes)
+
     if l_term.shape != (ndim,):
         raise ValueError(f"Expected l_term of shape ({ndim},), got {l_term.shape}")
 
-    # Step 2: Construct the Laplacian
-    # ∇²φ = L^μ ∂_μ φ + g^{μν} ∂²_{μν} φ
+    # Build up the Laplacian: ∇²φ = L^μ ∂_μ φ + g^{μν} ∂²_{μν} φ
     gradient_terms = [
         l_term[i] * sp.diff(scalar_field, coordinate_axes[i]) for i in range(ndim)
     ]
-    second_deriv_terms = [
-        inverse_metric[i, j]
-        * sp.diff(scalar_field, coordinate_axes[i], coordinate_axes[j])
-        for i in range(ndim)
-        for j in range(ndim)
-    ]
-    laplacian = sum(gradient_terms) + sum(second_deriv_terms)
-    return sp.simplify(laplacian)
+
+    # Distinguish between diagonal or full inverse metric
+    shape = inverse_metric.shape
+    if len(shape) == 1:
+        # Diagonal -> orthogonal
+        second_deriv_terms = [
+            inverse_metric[i]
+            * sp.diff(scalar_field, coordinate_axes[i], coordinate_axes[i])
+            for i in range(ndim)
+        ]
+    elif len(shape) == 2:
+        # Full metric
+        second_deriv_terms = [
+            inverse_metric[i, j]
+            * sp.diff(scalar_field, coordinate_axes[i], coordinate_axes[j])
+            for i in range(ndim)
+            for j in range(ndim)
+        ]
+    else:
+        raise ValueError("Inverse metric must be either 1D (orthogonal) or 2D (full).")
+
+    return sp.simplify(sum(gradient_terms) + sum(second_deriv_terms))
+
+
+def _is_data_leaf(element) -> bool:
+    """
+    Determines if an element should be treated as a data leaf (not part of the array structure).
+
+    Acceptable leaves:
+    - A SymPy expression or symbol
+    - A tuple/list of symbols or expressions (e.g., [r, theta])
+    """
+    if isinstance(element, (sp.Basic, sp.Symbol, str, int)):
+        return True
+    if isinstance(element, Sequence) and not isinstance(element, str):
+        return any(
+            all(isinstance(sub, _t) for sub in element)
+            for _t in (sp.Symbol, sp.Basic, str, int)
+        )
+    return False
+
+
+def _construct_tensor_dependence(
+    tensor_field_dependence: ArrayLike,
+) -> sp.MutableDenseNDimArray:
+    """
+    Recursively construct a symbolic tensor from a nested structure of dependencies.
+
+    Each element in the input structure is interpreted as the argument(s) to a unique
+    symbolic function (e.g., Vec0(r), Vec1(theta), Vec2(r,theta)).
+
+    Parameters
+    ----------
+    tensor_field_dependence : ArrayLike
+        A nested structure (list, tuple, or array) where each leaf node contains either:
+        - a symbol,
+        - a SymPy expression, or
+        - a list/tuple of symbols or expressions
+
+    Returns
+    -------
+    sympy.tensor.array.MutableDenseNDimArray
+        A symbolic tensor of the same shape as the input, filled with symbolic functions.
+
+    Example
+    -------
+    >>> r, theta = sp.symbols("r theta")
+    >>> deps = [[r], [theta], [r, theta]]
+    >>> _construct_tensor_dependence(deps)
+    [Vec0(r), Vec1(theta), Vec2(r, theta)]
+    """
+    flat_functions = []
+
+    def walk(subtree, level=0):
+        # Base case: it's a data leaf, construct function
+        if _is_data_leaf(subtree):
+            i = len(flat_functions)
+            func = sp.Function(f"Vec{i}")
+            if isinstance(subtree, Sequence) and not isinstance(subtree, str):
+                args = subtree
+            elif isinstance(subtree, str):
+                args = (subtree,)
+            elif isinstance(subtree, int):
+                flat_functions.append(0 * sp.Symbol(f"C{i}"))
+                return
+            else:
+                args = (subtree,)
+            flat_functions.append(func(*args))
+            return
+
+        # Ensure all elements are the same length at this level
+        if not isinstance(subtree, Sequence) or isinstance(subtree, str):
+            raise TypeError(f"Invalid non-leaf element: {subtree}")
+
+        if level == len(shape):
+            shape.append(len(subtree))  # only add size at this depth
+
+        for item in subtree:
+            walk(item, level + 1)
+
+    shape = []
+    walk(tensor_field_dependence)
+    return sp.MutableDenseNDimArray(flat_functions, shape=shape)
+
+
+def get_raising_dependence(
+    tensor_field_dependence: ArrayLike,
+    inverse_metric: Union[sp.Matrix, sp.Array],
+    axis: int = 0,
+) -> np.ndarray:
+    """
+    Determine the symbolic variable dependencies of a raised tensor field.
+
+    This function constructs a symbolic tensor based on a nested dependency structure,
+    raises the specified index, and returns the set of free symbols on which each
+    resulting component depends.
+
+    Parameters
+    ----------
+    tensor_field_dependence : ArrayLike
+        A nested structure of tensor component dependencies. Each element should be:
+        - a symbol,
+        - a SymPy expression, or
+        - a tuple/list of symbols or expressions representing arguments to the function.
+    inverse_metric : sympy.Matrix or sympy.Array
+        The inverse metric used to raise the tensor index. Must be either full (2D) or diagonal (1D).
+    axis : int, optional
+        The axis to raise. Defaults to 0.
+
+    Returns
+    -------
+    np.ndarray
+        An array of the same shape as the tensor, where each entry is:
+        - a `set` of symbols that the component depends on, or
+        - `0` if the component is identically zero.
+
+    Example
+    -------
+    >>> r, theta = sp.symbols("r theta")
+    >>> deps = [[r], [theta]]
+    >>> ginv = sp.Matrix([[1, 0], [0, 1/r**2]])
+    >>> get_raising_dependence(deps, ginv, axis=0)
+    array([{r}, {theta, r}], dtype=object)
+
+    """
+    # Construct the symbolic tensor
+    try:
+        tensor_field_dependence = _construct_tensor_dependence(tensor_field_dependence)
+    except Exception as e:
+        raise ValueError(f"Failed to construct a tensor dependence matrix: {e}")
+
+    # Raise the specified index
+    tensor_field = raise_index(tensor_field_dependence, inverse_metric, axis=axis)
+
+    # Analyze dependence of each component
+    out = np.empty_like(tensor_field, dtype=object)
+
+    for i in np.ndindex(*tensor_field.shape):
+        expr = tensor_field[i]
+        s_expr = sp.simplify(expr)
+        out[i] = 0 if s_expr == 0 else s_expr.free_symbols
+    return out
+
+
+def get_lowering_dependence(
+    tensor_field_dependence: ArrayLike,
+    metric: Union[sp.Matrix, sp.Array],
+    axis: int = 0,
+) -> np.ndarray:
+    """
+    Determine the symbolic variable dependencies of a raised tensor field.
+
+    This function constructs a symbolic tensor based on a nested dependency structure,
+    raises the specified index, and returns the set of free symbols on which each
+    resulting component depends.
+
+    Parameters
+    ----------
+    tensor_field_dependence : ArrayLike
+        A nested structure of tensor component dependencies. Each element should be:
+        - a symbol,
+        - a SymPy expression, or
+        - a tuple/list of symbols or expressions representing arguments to the function.
+    metric : sympy.Matrix or sympy.Array
+        The inverse metric used to raise the tensor index. Must be either full (2D) or diagonal (1D).
+    axis : int, optional
+        The axis to raise. Defaults to 0.
+
+    Returns
+    -------
+    np.ndarray
+        An array of the same shape as the tensor, where each entry is:
+        - a `set` of symbols that the component depends on, or
+        - `0` if the component is identically zero.
+
+    Example
+    -------
+    >>> r, theta = sp.symbols("r theta")
+    >>> deps = [[r], [theta]]
+    >>> ginv = sp.Matrix([[1, 0], [0, 1/r**2]])
+    >>> get_raising_dependence(deps, ginv, axis=0)
+    array([{r}, {theta, r}], dtype=object)
+
+    """
+    # Construct the symbolic tensor
+    try:
+        tensor_field_dependence = _construct_tensor_dependence(tensor_field_dependence)
+    except Exception as e:
+        raise ValueError(f"Failed to construct a tensor dependence matrix: {e}")
+
+    # Raise the specified index
+    tensor_field = lower_index(tensor_field_dependence, metric, axis=axis)
+
+    # Analyze dependence of each component
+    out = np.empty_like(tensor_field, dtype=object)
+
+    for i in np.ndindex(*tensor_field.shape):
+        expr = tensor_field[i]
+        s_expr = sp.simplify(expr)
+        out[i] = 0 if s_expr == 0 else s_expr.free_symbols
+    return out
 
 
 def get_gradient_dependence(
     scalar_field_dependence: Sequence[sp.Symbol],
     coordinate_axes: Sequence[sp.Symbol],
     basis: BasisAlias = "covariant",
-    inverse_metric: sp.Matrix = None,
+    inverse_metric: Union[sp.Matrix, sp.Array] = None,
 ) -> np.ndarray:
     r"""
     Determine the symbolic variable dependencies of each component of the gradient of a scalar field.
@@ -869,12 +1126,13 @@ def get_gradient_dependence(
     basis : {'covariant', 'contravariant'}, optional
         The basis in which to compute the gradient. Defaults to 'covariant'. If metric manipulations are required to ensure
         that the basis is the one specified, additional dependencies will appear.
-    inverse_metric : :py:class:`~sympy.matrices.dense.MutableDenseMatrix`, optional
-        The inverse metric used to raise indices if `basis='contravariant'`.
+    inverse_metric : ~sympy.matrices.dense.MutableDenseMatrix or ~sympy.tensor.array.MutableDenseNDimArray
+        Either a full inverse metric :math:`g^{\mu\nu}` (shape ``(n, n)``) or a 1D diagonal
+        array of shape ``(n,)`` for orthogonal coordinates.
 
     Returns
     -------
-    :py:class:`numpy.ndarray`
+    numpy.ndarray
         An array (of shape ``(len(coordinate_axes),)``) containing the symbolic dependence of each component of the gradient.
         Each element of the array is either:
 
@@ -903,29 +1161,27 @@ def get_gradient_dependence(
         >>> array([{theta, r}, {theta, r}, 0], dtype=object)
 
     """
-    scalar_field = sp.Function("T")(*scalar_field_dependence)
-    gradient = compute_gradient(
-        scalar_field=scalar_field,
-        coordinate_axes=coordinate_axes,
-        basis=basis,
-        inverse_metric=inverse_metric,
+    # Build the field
+    scalar_field = sp.Function("Scalar")(*scalar_field_dependence)
+
+    # Compute gradient
+    grad = compute_gradient(
+        scalar_field, coordinate_axes, basis=basis, inverse_metric=inverse_metric
     )
-    dependencies = np.empty_like(gradient, dtype=object)
-    for i, expr in enumerate(gradient):
-        simplified = sp.simplify(expr)
-        if simplified == 0:
-            dependencies[i] = 0
-        else:
-            syms = simplified.free_symbols
-            dependencies[i] = set() if not syms else syms
-    return dependencies
+
+    # Collect symbolic dependencies
+    out = np.empty_like(grad, dtype=object)
+    for i, expr in enumerate(grad):
+        s_expr = sp.simplify(expr)
+        out[i] = 0 if s_expr == 0 else s_expr.free_symbols
+    return out
 
 
 def get_divergence_dependence(
     vector_field_dependence: Sequence[Sequence[sp.Symbol]],
     d_term: Sequence[sp.Basic],
     coordinate_axes: Sequence[sp.Symbol],
-    inverse_metric: sp.Matrix = None,
+    inverse_metric: Union[sp.Matrix, sp.Array] = None,
     basis: BasisAlias = "contravariant",
 ):
     r"""
@@ -939,8 +1195,9 @@ def get_divergence_dependence(
         Precomputed D-term components. Must match the length of `coordinate_axes`.
     coordinate_axes : list of :py:class:`~sympy.core.symbol.Symbol`
         The coordinate variables with respect to which the divergence is computed.
-    inverse_metric : :py:class:`~sympy.matrices.dense.MutableDenseMatrix`, optional
-        The inverse metric used to raise the vector field if it's in covariant form.
+    inverse_metric : ~sympy.matrices.dense.MutableDenseMatrix or ~sympy.tensor.array.MutableDenseNDimArray
+        Either a full inverse metric :math:`g^{\mu\nu}` (shape ``(n, n)``) or a 1D diagonal
+        array of shape ``(n,)`` for orthogonal coordinates.
     basis : {'covariant', 'contravariant'}, optional
         Basis in which the vector field is defined. Defaults to 'contravariant'.
 
@@ -969,38 +1226,38 @@ def get_divergence_dependence(
     """
     # Construct the vector field from the dependence arrays. Depending on the behavior, we need
     # to be a little bit careful about how different types are managed.
-    _vector_field_generator = []
-    for i, element in enumerate(vector_field_dependence):
-        if isinstance(element, Sequence):
-            _vector_field_generator.append(sp.Function(f"V{i}")(*element))
-        elif isinstance(element, sp.Symbol):
-            _vector_field_generator.append(sp.Function(f"V{i}")(element))
-        elif isinstance(element, sp.Basic):
-            _vector_field_generator.append(element)
+    # Reconstruct symbolic vector field from the per-component dependencies
+    vec = []
+    for i, deps in enumerate(vector_field_dependence):
+        if isinstance(deps, (list, tuple)):  # e.g. [r, theta]
+            vec.append(sp.Function(f"Vec{i}")(*deps))
+        elif isinstance(deps, sp.Symbol):
+            vec.append(sp.Function(f"Vec{i}")(deps))
+        elif isinstance(deps, sp.Basic):
+            vec.append(deps)
         else:
-            pass
+            raise TypeError(f"Cannot interpret {deps} for vector-field dependence.")
+    vector_field = sp.Array(vec)
 
-    vector_field = sp.tensor.Array(_vector_field_generator)
+    # Compute divergence
 
-    d_term = sp.tensor.Array(d_term)
-    divergence = compute_divergence(
+    div_expr = compute_divergence(
         vector_field=vector_field,
         coordinate_axes=coordinate_axes,
-        d_term=d_term,
-        inverse_metric=inverse_metric,
+        d_term=sp.Array(d_term),
         basis=basis,
+        inverse_metric=inverse_metric,
     )
-    simplified = sp.simplify(divergence)
-    if simplified == 0:
-        return 0
-    syms = simplified.free_symbols
-    return set() if not syms else syms
+
+    # Simplify and get free symbols
+    s_expr = sp.simplify(div_expr)
+    return 0 if s_expr == 0 else s_expr.free_symbols
 
 
 def get_laplacian_dependence(
     scalar_field_dependence: Sequence[sp.Symbol],
     coordinate_axes: Sequence[sp.Symbol],
-    inverse_metric: sp.Matrix,
+    inverse_metric: Union[sp.Matrix, sp.Array],
     l_term: Sequence[sp.Basic] = None,
     metric_density: sp.Basic = None,
 ):
@@ -1013,8 +1270,9 @@ def get_laplacian_dependence(
         The variables on which the scalar field depends.
     coordinate_axes : list of :py:class:`~sympy.core.symbol.Symbol`
         The coordinate axes used for computing the Laplacian.
-    inverse_metric : :py:class:`~sympy.matrices.dense.MutableDenseMatrix`
-        The inverse metric tensor used in the Laplacian computation.
+    inverse_metric : ~sympy.matrices.dense.MutableDenseMatrix or ~sympy.tensor.array.MutableDenseNDimArray
+        Either a full inverse metric :math:`g^{\mu\nu}` (shape ``(n, n)``) or a 1D diagonal
+        array of shape ``(n,)`` for orthogonal coordinates.
     l_term : list of :py:class:`~sympy.core.basic.Basic`, optional
         Precomputed L-term components. If not provided, will be derived from `metric_density`.
     metric_density : :py:class:`~sympy.core.basic.Basic`, optional
@@ -1051,16 +1309,17 @@ def get_laplacian_dependence(
     >>> get_laplacian_dependence([r, theta], [r, theta, phi], ginv, metric_density=metric_density)
     set([r, theta])
     """
-    scalar_field = sp.Function("T")(*scalar_field_dependence)
-    laplacian = compute_laplacian(
+    # Build the scalar field
+    scalar_field = sp.Function("Scalar")(*scalar_field_dependence)
+
+    lap_expr = compute_laplacian(
         scalar_field=scalar_field,
         coordinate_axes=coordinate_axes,
         inverse_metric=inverse_metric,
         l_term=l_term,
         metric_density=metric_density,
     )
-    simplified = sp.simplify(laplacian)
-    if simplified == 0:
-        return 0
-    syms = simplified.free_symbols
-    return set() if not syms else syms
+
+    # Simplify and get free symbols
+    s_expr = sp.simplify(lap_expr)
+    return 0 if s_expr == 0 else s_expr.free_symbols

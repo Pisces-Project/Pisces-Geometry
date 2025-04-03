@@ -3,36 +3,44 @@
 API
 ===
 
-On this page, you can find complete API documentation for all of the elements of Pisces-Geometry.
+This page contains the complete API documentation for all public components of the Pisces-Geometry library.
+
 
 Core Modules
 -------------------
+These modules provide the primary interface for interacting with coordinate systems, structured grids, and data fields.
+Most users will work directly with these components.
+
 
 .. autosummary::
     :toctree: _as_gen
     :recursive:
     :template: module.rst
 
-    pisces_geometry.coordinates
-    pisces_geometry.grids
+    coordinates
+    grids
+    fields
 
 Mathematical Modules
 --------------------
+These modules implement core mathematical operations—such as differential geometry—that extend Pisces-Geometry to support physical modeling and symbolic computation.
+
 
 .. autosummary::
     :toctree: _as_gen
     :recursive:
     :template: module.rst
 
-    pisces_geometry.differential_geometry
+    differential_geometry
 
 
-Utilities
----------
+Developer Utilities
+-------------------
+These are internal utility modules used throughout the codebase. While not typically needed for everyday use, they are helpful for contributors and advanced users.
 
 .. autosummary::
     :toctree: _as_gen
     :recursive:
     :template: module.rst
 
-    pisces_geometry.utilities
+    utilities

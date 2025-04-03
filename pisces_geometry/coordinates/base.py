@@ -1,14 +1,25 @@
 """
-Coordinate system base class module.
+Base classes and metaclass infrastructure for defining coordinate systems in Pisces-Geometry.
 
-The classes defined in this module are the progenitors of all coordinate systems in Pisces_Geometry.
+This module provides the foundational machinery for all coordinate system definitions. It includes:
+
+- ``_CoordinateSystemBase``: the abstract base class for coordinate systems, supporting symbolic and numerical operations,
+- ``_CoordinateMeta``: a metaclass that handles automatic symbolic construction and validation of coordinate classes,
+- :py:func:`class_expression`: a decorator to mark symbolic methods that are evaluated on demand.
+
+Coordinate systems built on this foundation can define custom metric tensors, symbolic expressions, and conversions
+to/from Cartesian coordinates. These systems support tensor calculus operations such as gradients, divergences, and
+Laplacians, all respecting the underlying geometry.
 """
 from abc import ABC, ABCMeta, abstractmethod
 from functools import wraps
+from pathlib import Path
 from typing import Any, Callable, Dict, List, Literal, Optional, Sequence, Tuple, Union
 
 import numpy as np
+import sympy
 import sympy as sp
+from numpy._typing import ArrayLike
 
 from pisces_geometry.coordinates._exceptions import CoordinateClassException
 from pisces_geometry.differential_geometry import (
@@ -17,32 +28,29 @@ from pisces_geometry.differential_geometry import (
     contract_index_with_metric,
     gdiv_cl_contravariant,
     gdiv_cl_covariant,
+    get_divergence_dependence,
+    get_gradient_dependence,
+    get_laplacian_dependence,
+    get_lowering_dependence,
+    get_raising_dependence,
     ggrad_cl_contravariant,
     ggrad_cl_covariant,
     glap_cl,
     lower_index,
     raise_index,
 )
-from pisces_geometry.utilities.general import find_in_subclasses
+from pisces_geometry.utilities.arrays import get_grid_spacing
 from pisces_geometry.utilities.logging import pg_log
 from pisces_geometry.utilities.symbolic import lambdify_expression
 
+_ExpressionType = Union[
+    sp.Symbol, sp.Expr, sp.Matrix, sp.MutableDenseMatrix, sp.MutableDenseNDimArray
+]
 
-def _get_grid_spacing(
-    coordinate_grid: np.ndarray, is_uniform: bool = False
-) -> Sequence[Union[float, np.ndarray]]:
-    # Compute the spacing between grid elements. This is used in various mathematical routines
-    # in the base class.
-    grid_ndim = coordinate_grid.ndim - 1
-    if is_uniform:
-        spacing = (
-            coordinate_grid[*list([1] * grid_ndim)][:]
-            - coordinate_grid[*list([0] * grid_ndim)][:]
-        )
-    else:
-        spacing = [np.diff(coordinate_grid, axis=_i) for _i in range(grid_ndim)]
-
-    return spacing
+# Construct the buffer.
+DEFAULT_COORDINATE_REGISTRY: Dict[str, Any] = {}
+""" dict of str, Any: The default registry containing all initialized coordinate system classes.
+"""
 
 
 # noinspection PyTypeChecker
@@ -123,6 +131,9 @@ class _CoordinateMeta(ABCMeta):
         # actually performed at init time because it is a very quick function call.
         # noinspection PyTypeChecker
         mcs.validate_coordinate_system_class(cls_object)
+
+        # Add the class to the registry.
+        DEFAULT_COORDINATE_REGISTRY[cls_object.__name__] = cls_object
 
         # Check if the class is supposed to be set up immediately or if we
         # delay.
@@ -468,6 +479,31 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         )
 
     def __init__(self, **kwargs):
+        """
+        Initialize a coordinate system instance with specific parameter values.
+
+        This constructor sets up the symbolic and numerical infrastructure for the coordinate system
+        by performing the following steps:
+
+        1. If the class has not already been set up, trigger symbolic construction of metric tensors,
+           symbols, and expressions.
+        2. Validate and store user-provided parameter values, overriding class defaults.
+        3. Substitute parameter values into symbolic expressions to produce instance-specific forms.
+        4. Lambdify key expressions (metric tensor, inverse metric, metric density) for numerical evaluation.
+
+        Parameters
+        ----------
+        **kwargs : dict
+            Keyword arguments specifying values for coordinate system parameters. Each key should match
+            a parameter name defined in ``__PARAMETERS__``. Any unspecified parameters will use the class-defined
+            default values.
+
+        Raises
+        ------
+        ValueError
+            If a provided parameter name is not defined in the coordinate system.
+
+        """
         # -- Class Initialization -- #
         # For coordinate systems with setup flags for 'init', it is necessary to process
         # symbolics at this point if the class is not initialized.
@@ -723,6 +759,24 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         """
         return self.__class__.__axes_symbols__[:]
 
+    @property
+    def parameter_symbols(self):
+        """
+        Get the symbolic representations of the coordinate system parameters.
+
+        Returns
+        -------
+        dict of str, ~sympy.core.symbol.Symbol
+            A dictionary mapping parameter names to their corresponding SymPy symbols.
+            These symbols are used in all symbolic expressions defined by the coordinate system.
+
+        Notes
+        -----
+        - The returned dictionary is a copy, so modifying it will not affect the internal state.
+        - These symbols are created during class setup and correspond to keys in `self.parameters`.
+        """
+        return self.__parameter_symbols__.copy()
+
     # @@ COORDINATE METHODS @@ #
     # These methods dictate the behavior of the coordinate system including how
     # coordinate conversions behave and how the coordinate system handles differential
@@ -777,7 +831,7 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
     # @@ EXPRESSION METHODS @@ #
     # These methods allow the user to interact with derived, symbolic, and numeric expressions.
     @classmethod
-    def get_class_expression(cls, expression_name: str) -> Any:
+    def get_class_expression(cls, expression_name: str) -> _ExpressionType:
         """
         Retrieve a derived expression for this coordinate system by name. The returned expression will include
         symbolic representations for all the axes as well as the parameters.
@@ -863,7 +917,7 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         """
         return expression_name in cls.__class_expressions__
 
-    def get_expression(self, expression_name: str) -> sp.Basic:
+    def get_expression(self, expression_name: str) -> _ExpressionType:
         """
         Retrieves an instance-specific symbolic expression.
 
@@ -1153,7 +1207,7 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         """
         return self.__AXES__.index(axes_string)
 
-    def build_axes_mask(self, axes: List[str]) -> np.ndarray:
+    def build_axes_mask(self, axes: Sequence[str]) -> np.ndarray:
         r"""
         Construct a boolean mask array indicating which axes are in ``axes``.
 
@@ -2048,7 +2102,7 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
             # The coordinate grid is not none, which means we need to get the spacing from
             # the coordinate grid.
 
-            spacing = _get_grid_spacing(coordinate_grid, is_uniform=is_uniform)
+            spacing = get_grid_spacing(coordinate_grid, is_uniform=is_uniform)
 
         # The spacing or the derivative field is now available, we have everything we need
         # to at least compute the covariant case. For the contravariant case, we'll still need to
@@ -2291,7 +2345,7 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         elif coordinate_grid is not None:
             # The coordinate grid is not none, which means we need to get the spacing from
             # the coordinate grid.
-            spacing = _get_grid_spacing(coordinate_grid, is_uniform=is_uniform)
+            spacing = get_grid_spacing(coordinate_grid, is_uniform=is_uniform)
 
         # Compute the D-term fields if they are not already available. Validate the shape of the dterms.
         dterm_field = self.compute_expression_on_grid(
@@ -2510,7 +2564,7 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
         elif coordinate_grid is not None:
             # The coordinate grid is not none, which means we need to get the spacing from
             # the coordinate grid.
-            spacing = _get_grid_spacing(coordinate_grid, is_uniform=is_uniform)
+            spacing = get_grid_spacing(coordinate_grid, is_uniform=is_uniform)
 
         # Compute the inverse metric and check its shape. We are either given this as an argument or
         # the coordinate system will try to compute it from the coordinate grid. The output may be in
@@ -2550,59 +2604,310 @@ class _CoordinateSystemBase(ABC, metaclass=_CoordinateMeta):
             **kwargs,
         )
 
-    # @@ IO Operations @@ #
-    def _to_hdf5(self, group_obj):
-        r"""
-        Save configuration to HDF5 format.
-
-        Parameters
-        ----------
-        group_obj : h5py.Group
-            An open HDF5 group to write to.
+    def get_raise_dependence(
+        self,
+        tensor_field_dependence: ArrayLike,
+        axis: int = 0,
+    ) -> np.ndarray:
         """
-        import json
-
-        group_obj.attrs["class_name"] = self.__class__.__name__
-
-        # Save each kwarg individually as an attribute
-        for key, value in self.parameters.items():
-            if isinstance(value, (int, float, str)):
-                group_obj.attrs[key] = value
-            else:
-                group_obj.attrs[key] = json.dumps(value)  # serialize complex data
-
-    # noinspection PyCallingNonCallable
-    @classmethod
-    def _from_hdf5(cls, group_obj):
-        r"""
-        Load configuration from HDF5 format.
+        Determine the symbolic dependence of the tensor field components after raising an index.
 
         Parameters
         ----------
-        group_obj : h5py.Group
-            An open HDF5 group to read from.
+        tensor_field_dependence : array-like
+            Symbolic structure of the tensor field. Each leaf may be a sympy expression, symbol,
+            or a sequence of symbols indicating dependencies.
+        axis : int, optional
+            Axis along which the index should be raised. Defaults to 0.
 
         Returns
         -------
-        CoordinateSystem
-            An instance of the loaded coordinate system.
+        numpy.ndarray
+            An array of the same shape as the input, where each element is either 0
+            (if the component is identically zero) or a set of free symbols.
+        """
+        return get_raising_dependence(
+            tensor_field_dependence=tensor_field_dependence,
+            inverse_metric=self.get_expression("inverse_metric_tensor"),
+            axis=axis,
+        )
+
+    def get_lower_dependence(
+        self,
+        tensor_field_dependence: ArrayLike,
+        axis: int = 0,
+    ) -> np.ndarray:
+        """
+        Determine the symbolic dependence of the tensor field components after lowering an index.
+
+        Parameters
+        ----------
+        tensor_field_dependence : array-like
+            Symbolic structure of the tensor field. Each leaf may be a sympy expression, symbol,
+            or a sequence of symbols indicating dependencies.
+        axis : int, optional
+            Axis along which the index should be lowered. Defaults to 0.
+
+        Returns
+        -------
+        numpy.ndarray
+            An array of the same shape as the input, where each element is either 0
+            (if the component is identically zero) or a set of free symbols.
+        """
+        return get_lowering_dependence(
+            tensor_field_dependence=tensor_field_dependence,
+            metric=self.get_expression("metric_tensor"),
+            axis=axis,
+        )
+
+    def get_gradient_dependence(
+        self,
+        scalar_field_dependence: Sequence[sp.Symbol],
+        basis: Literal["covariant", "contravariant"] = "covariant",
+    ) -> np.ndarray:
+        """
+        Determine which coordinate axes each component of the gradient depends on.
+
+        Parameters
+        ----------
+        scalar_field_dependence : list of sympy.Symbol
+            Symbols on which the scalar field depends.
+        basis : {'covariant', 'contravariant'}, optional
+            Which basis to compute the gradient in. Default is 'covariant'.
+
+        Returns
+        -------
+        numpy.ndarray
+            Array of sets (or 0) indicating the dependence of each gradient component.
+
+        Examples
+        --------
+        Let's examine the gradient dependence of a spherical coordinate system.
+
+        >>> from pisces_geometry.coordinates import OblateHomoeoidalCoordinateSystem
+        >>> u = OblateHomoeoidalCoordinateSystem(ecc=0.5)
+        >>> print(u.get_gradient_dependence(['xi']))
+        [{xi} 0 0]
+        >>> print(u.get_gradient_dependence(['xi'],basis='contravariant'))
+        [{xi, theta} {xi, theta} 0]
+        """
+        try:
+            return get_gradient_dependence(
+                scalar_field_dependence,
+                self.axes_symbols,
+                basis=basis,
+                inverse_metric=self.get_expression("inverse_metric_tensor")
+                if basis == "contravariant"
+                else None,
+            )
+        except Exception as e:
+            raise ValueError(
+                f"Failed to compute gradient dependence due to an error: {e}"
+            )
+
+    def get_divergence_dependence(
+        self,
+        vector_field_dependence: Sequence[Sequence[sp.Symbol]],
+        basis: Literal["covariant", "contravariant"] = "contravariant",
+    ) -> Union[set, int]:
+        """
+        Determine which coordinate axes the divergence of a vector field depends on.
+
+        Parameters
+        ----------
+        vector_field_dependence : list of list of sympy.Symbol
+            Variables each vector component depends on.
+        basis : {'covariant', 'contravariant'}, optional
+            The basis in which the vector field is expressed. Default is 'contravariant'.
+
+        Returns
+        -------
+        set or 0
+            Set of dependent symbols, or 0 if divergence is identically zero.
+
+        Examples
+        --------
+        Let's examine the gradient dependence of a spherical coordinate system.
+
+        >>> from pisces_geometry.coordinates import OblateHomoeoidalCoordinateSystem
+        >>> u = OblateHomoeoidalCoordinateSystem(ecc=0.5)
+        >>> print(u.get_divergence_dependence([['xi'],[0],[0]]))
+        {theta, xi}
+        >>> print(u.get_divergence_dependence([['xi'],[0],[0]],basis='contravariant'))
+        {theta, xi}
+
+        """
+        # noinspection PyTypeChecker
+        dterms = list(self.get_expression("Dterm"))
+        return get_divergence_dependence(
+            vector_field_dependence,
+            dterms,
+            self.axes_symbols,
+            inverse_metric=self.get_expression("inverse_metric_tensor")
+            if basis == "covariant"
+            else None,
+            basis=basis,
+        )
+
+    def get_laplacian_dependence(
+        self, scalar_field_dependence: Sequence[sp.Symbol]
+    ) -> Union[set, int]:
+        """
+        Determine which coordinate axes the Laplacian of a scalar field depends on.
+
+        Parameters
+        ----------
+        scalar_field_dependence : list of sympy.Symbol
+            Variables on which the scalar field depends.
+
+        Returns
+        -------
+        set or 0
+            Set of dependent symbols, or 0 if Laplacian is identically zero.
+        """
+        return get_laplacian_dependence(
+            scalar_field_dependence,
+            self.axes_symbols,
+            self.get_expression("inverse_metric_tensor"),
+            l_term=sp.Array(self.get_expression("Lterm")),
+            metric_density=self.get_class_expression("metric_density"),
+        )
+
+    # @@ IO Operations @@ #
+    def to_hdf5(
+        self,
+        filename: Union[str, Path],
+        group_name: str = None,
+        overwrite: bool = False,
+    ):
+        r"""
+        Save this coordinate system to HDF5.
+
+        Parameters
+        ----------
+        filename : str
+            The path to the output HDF5 file.
+        group_name : str, optional
+            The name of the group in which to store the grid data. If None, data is stored at the root level.
+        overwrite : bool, default=False
+            Whether to overwrite existing data. If False, raises an error when attempting to overwrite.
         """
         import json
 
-        data = {
-            "class_name": group_obj.attrs["class_name"],
-        }
+        import h5py
 
-        # Load kwargs, deserializing complex data as needed
-        kwargs = {}
-        for key, value in group_obj.attrs.items():
-            if key != "class_name":
-                try:
-                    kwargs[key] = json.loads(value)  # try to parse complex JSON data
-                except (TypeError, json.JSONDecodeError):
-                    kwargs[key] = value  # simple data types remain as is
+        # Ensure that the filename is a Path object and then check for existence and overwrite violations.
+        # These are only relevant at this stage if a particular group has not yet been specified.
+        filename = Path(filename)
+        if filename.exists():
+            # Check if there are overwrite issues and then delete it if it is
+            # relevant to do so.
+            if (not overwrite) and (group_name is None):
+                # We can't overwrite and there is data. Raise an error.
+                raise IOError(
+                    f"File '{filename}' already exists and overwrite=False. "
+                    "To store data in a specific group, provide `group_name`."
+                )
+            elif overwrite and group_name is None:
+                # We are writing to the core dir and overwrite is true.
+                # delete the entire file and rebuild it.
+                filename.unlink()
+                with h5py.File(filename, "w"):
+                    pass
+        else:
+            # The file didn't already exist, we simply create it and then
+            # let it close again so that we can reopen it in the next phase.
+            with h5py.File(filename, "w"):
+                pass
 
-        data["kwargs"] = kwargs
+        # Now that the file has been opened at least once and looks clean, we can
+        # proceed with the actual write process. This will involve first checking
+        # if there are overwrite violations when ``group_name`` is actually specified. Then
+        # we can proceed with actually writing the data.
+        with h5py.File(filename, "r+") as f:
+            # Start checking for overwrite violations and the group information.
+            if group_name is None:
+                group = f
+            else:
+                # If the group exists, handle overwrite flag
+                if group_name in f:
+                    if overwrite:
+                        del f[group_name]
+                        group = f.create_group(group_name)
+                    else:
+                        raise IOError(
+                            f"Group '{group_name}' already exists in '{filename}' and overwrite=False."
+                        )
+                else:
+                    group = f.create_group(group_name)
 
-        _cls = find_in_subclasses(_CoordinateSystemBase, data["class_name"])
-        return _cls(**data["kwargs"])
+            # Now start writing the core data to the disk. The coordinate system
+            # MUST have the class name and then any optional parameters.
+            group.attrs["class_name"] = str(self.__class__.__name__)
+
+            # Save each kwarg individually as an attribute
+            for key, value in self.parameters.items():
+                if key in self.__PARAMETERS__:
+                    if isinstance(value, (int, float, str)):
+                        group.attrs[key] = value
+                    else:
+                        group.attrs[key] = json.dumps(value)  # serialize complex data
+
+    # noinspection PyCallingNonCallable
+    @classmethod
+    def from_hdf5(cls, filename: Union[str, Path], group_name: str = None):
+        r"""
+        Save this coordinate system to HDF5.
+
+        Parameters
+        ----------
+        filename : str
+            The path to the output HDF5 file.
+        group_name : str, optional
+            The name of the group in which to store the grid data. If None, data is stored at the root level.
+        """
+        import json
+
+        import h5py
+
+        # Ensure that we have a connection to the file and that we can
+        # actually open it in hdf5.
+        filename = Path(filename)
+        if not filename.exists():
+            raise IOError(f"File '{filename}' does not exist.")
+
+        # Now open the hdf5 file and look for the group name.
+        with h5py.File(filename, "r") as f:
+            # Identify the data storage group.
+            if group_name is None:
+                group = f
+            else:
+                if group_name in f:
+                    group = f[group_name]
+                else:
+                    raise IOError(
+                        f"Group '{group_name}' does not exist in '{filename}'."
+                    )
+
+            # Now load the class name from the group.
+            __class_name__ = group.attrs["class_name"]
+
+            # Load kwargs, deserializing complex data as needed
+            kwargs = {}
+            for key, value in group.attrs.items():
+                if key != "class_name":
+                    try:
+                        kwargs[key] = json.loads(
+                            value
+                        )  # try to parse complex JSON data
+                    except (TypeError, json.JSONDecodeError):
+                        kwargs[key] = value  # simple data types remain as is
+
+        try:
+            _cls = DEFAULT_COORDINATE_REGISTRY[__class_name__]
+        except KeyError:
+            raise IOError(
+                f"Failed to find the coordinate system class {__class_name__}. Ensure you have imported any"
+                " relevant coordinate system modules."
+            )
+        return _cls(**kwargs)

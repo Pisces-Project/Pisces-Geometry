@@ -1,10 +1,14 @@
 """
-General utilities for Pisces.
+General-purpose utilities for Pisces-Geometry.
 
-This module provides general-purpose utilities for dynamic class discovery and other reusable functionality.
+This module provides reusable helper functions for dynamic introspection and
+class discovery used throughout the Pisces-Geometry codebase.
 
+These utilities support internal mechanisms like automatic subclass resolution,
+runtime configuration, and flexible API design.
 
 """
+
 from typing import Type, TypeVar
 
 _T = TypeVar("_T")
@@ -54,7 +58,11 @@ def find_in_subclasses(base_class: Type[_T], class_name: str) -> Type[_T]:
     <class 'general.SubClass2'>
 
     """
+    print(base_class.__subclasses__(), base_class.__name__)
     for subclass in base_class.__subclasses__():
+        print(subclass.__name__)
+        if subclass.__name__ == class_name:
+            return subclass
         if subclass.__name__ == class_name:
             return subclass
         try:

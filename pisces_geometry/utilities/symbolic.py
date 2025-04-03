@@ -1,5 +1,5 @@
 """
-Utility functions for interacting with ``sympy``.
+Utility functions for interacting with :py:mod:`sympy`.
 """
 from typing import Any, Callable, Dict, List, Union
 

@@ -13,13 +13,9 @@ from typing import Any, Callable, Dict, List, Literal, Optional, Sequence
 import numpy as np
 import sympy as sp
 
-from pisces_geometry.coordinates.base import (
-    _CoordinateSystemBase,
-    _get_grid_spacing,
-    class_expression,
-)
+from pisces_geometry.coordinates.base import _CoordinateSystemBase, class_expression
 from pisces_geometry.differential_geometry import (
-    compute_Lterm_orthogonal,
+    compute_Lterm,
     contract_index_with_metric_orthogonal,
     gdiv_orth_contravariant,
     gdiv_orth_covariant,
@@ -29,11 +25,46 @@ from pisces_geometry.differential_geometry import (
     lower_index_orth,
     raise_index_orth,
 )
+from pisces_geometry.utilities.arrays import get_grid_spacing
 
 
 class CurvilinearCoordinateSystem(_CoordinateSystemBase, ABC):
     """
-    Base class for curvilinear coordinate systems.
+    Base class for general curvilinear coordinate systems.
+
+    This class provides the foundational interface for coordinate systems in which the axes may be
+    curved or non-uniform but are not necessarily orthogonal. Unlike `OrthogonalCoordinateSystem`,
+    the metric tensor for a `CurvilinearCoordinateSystem` may contain off-diagonal components,
+    allowing it to support a broader range of geometries including skewed, stretched, or sheared
+    coordinate systems.
+
+    Subclasses must define the coordinate axes and parameters using the ``__AXES__`` and ``__PARAMETERS__``
+    class attributes, and must implement the ``__construct_metric_tensor_symbol__`` method to return
+    the full symbolic metric tensor (including both diagonal and off-diagonal elements).
+
+    Symbolic processing is triggered either lazily upon instantiation or eagerly at import time,
+    depending on the ``__setup_point__`` attribute. Most systems should default to lazy initialization
+    (``"init"``) for improved performance and reduced import time.
+
+    Features
+    --------
+
+    - Symbolic representation and evaluation of the full (non-diagonal) metric tensor
+    - Placeholder for extension to general differential geometry operations (gradient, divergence, etc.)
+    - Support for user-defined coordinate systems with custom metric behavior
+    - Encodes system axes, parameters, and symbolic processing hooks for downstream utilities
+
+    Notes
+    -----
+    This class provides minimal functionality on its own, as it is intended to be subclassed
+    by users creating general curvilinear systems. Users must implement custom logic for
+    differential geometry operations unless handled externally.
+
+    See Also
+    --------
+
+    OrthogonalCoordinateSystem : Specialized base class for systems with diagonal metrics.
+    _CoordinateSystemBase : Internal base class that defines the shared core logic.
     """
 
     pass
@@ -41,43 +72,35 @@ class CurvilinearCoordinateSystem(_CoordinateSystemBase, ABC):
 
 class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
     """
-    # TODO
+    Base class for orthogonal curvilinear coordinate systems.
 
-    Attributes
-    ----------
-    __is_abstract__ : bool
-        Indicates whether the class is abstract (not directly instantiable). For developers subclassing this class, this
-        flag should be set to ``False`` if the coordinate system is actually intended for use. Behind the scenes, this flag
-        is checked by the metaclass to ensure that it does not attempt to validate or create symbols for abstract classes.
-    __setup_point__ : 'init' or 'import'
-        Determines when the class should perform symbolic processing. If ``import``, then the class will create its symbols
-        and its metric function as soon as the class is loaded (the metaclass performs this). If ``'init'``, then the symbolic
-        processing is delayed until a user instantiates the class for the first time.
+    This class provides the foundational symbolic and numerical machinery for defining and working
+    with orthogonal coordinate systems—those in which the metric tensor is diagonal and basis vectors
+    are mutually perpendicular. It supports automatic symbolic generation of differential geometry
+    operators such as the gradient, divergence, and Laplacian, as well as index manipulation utilities
+    for raising and lowering tensor components.
 
-        .. admonition:: Developer Standard
+    Subclasses should define the coordinate axes and parameter set via the ``__AXES__`` and ``__PARAMETERS__``
+    class attributes, and must implement the ``__construct_metric_tensor_symbol__`` method to specify
+    the diagonal components of the metric tensor symbolically.
 
-            In general, there is no reason to use anything other than ``__setup_point__ = 'init'``. Using ``'import'`` can
-            significantly slow down the loading process because it requires processing many coordinate systems which may not
-            end up getting used at all.
+    Coordinate systems may be initialized lazily (at instance creation) or eagerly (at import time) depending
+    on the ``__setup_point__`` class attribute. Most systems should use lazy setup for performance.
 
-    __is_setup__ : bool
-        Tracks whether the class has been set up. **This should not be changed**.
-    __AXES__ : :py:class:`list` of str
-        A list of the coordinate system's axes. These are then used to create the symbolic versions of the axes which
-        are used in expressions. Subclasses should fill ``__AXES__`` with the intended list of axes in the intended axis
-        order.
-    __PARAMETERS__ : :py:class:`dict` of str, float
-        Dictionary of system parameters with default values. Each entry should be the name of the parameter and each value
-        should correspond to the default value. These are then provided by the user as ``**kwargs`` during ``__init__``.
-    __axes_symbols__ : :py:class:`list` of :py:class:`~sympy.core.symbol.Symbol`
-        Symbolic representations of each coordinate axis. **Do not alter**.
-    __parameter_symbols__ : :py:class:`dict` of str, :py:class:`~sympy.core.symbol.Symbol`
-        Symbolic representations of parameters in the system. **Do not alter**.
-    __class_expressions__ : dict
-        Dictionary of symbolic expressions associated with the system. **Do not alter**.
-    __NDIM__ : int
-        Number of dimensions in the coordinate system. **Do not alter**.
+    Features
+    --------
 
+    - Symbolic and numeric computation of metric, inverse metric, and metric density
+    - Raising and lowering of tensor indices using orthogonal metric contractions
+    - Computation of gradient, divergence, and Laplacian in both covariant and contravariant bases
+    - Automatic handling of coordinate slices via `fixed_axes`
+    - Support for symbolic dependence analysis for field operations
+
+
+    Notes
+    -----
+    This class assumes that the metric tensor is diagonal, as is true for all orthogonal systems.
+    Mixed metric components (i.e., :math:`g_{ij}` for :math:`i \\ne j`) are assumed to be zero.
     """
 
     # @@ CLASS FLAGS @@ #
@@ -494,7 +517,7 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
         _metric_tensor = cls.__class_expressions__["metric_tensor"]
         _axes = cls.__axes_symbols__
 
-        return compute_Lterm_orthogonal(_metric_tensor, _metric_density, _axes)
+        return compute_Lterm(_metric_tensor, _metric_density, _axes)
 
     def compute_gradient(
         self,
@@ -583,7 +606,7 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
             # The coordinate grid is not none, which means we need to get the spacing from
             # the coordinate grid.
 
-            spacing = _get_grid_spacing(coordinate_grid, is_uniform=is_uniform)
+            spacing = get_grid_spacing(coordinate_grid, is_uniform=is_uniform)
 
         # The spacing or the derivative field is now available, we have everything we need
         # to at least compute the covariant case. For the contravariant case, we'll still need to
@@ -776,7 +799,7 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
         elif coordinate_grid is not None:
             # The coordinate grid is not none, which means we need to get the spacing from
             # the coordinate grid.
-            spacing = _get_grid_spacing(coordinate_grid, is_uniform=is_uniform)
+            spacing = get_grid_spacing(coordinate_grid, is_uniform=is_uniform)
 
         # Compute the D-term fields if they are not already available. Validate the shape of the dterms.
         dterm_field = self.compute_expression_on_grid(
@@ -950,7 +973,7 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
         elif coordinate_grid is not None:
             # The coordinate grid is not none, which means we need to get the spacing from
             # the coordinate grid.
-            spacing = _get_grid_spacing(coordinate_grid, is_uniform=is_uniform)
+            spacing = get_grid_spacing(coordinate_grid, is_uniform=is_uniform)
 
         # Compute the inverse metric and check its shape. We are either given this as an argument or
         # the coordinate system will try to compute it from the coordinate grid. The output may be in

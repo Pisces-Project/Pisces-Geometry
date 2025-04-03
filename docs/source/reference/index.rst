@@ -38,8 +38,9 @@ various components of Pisces-Geometry.
 Coordinate Systems
 ++++++++++++++++++
 
-Coordinate systems form the backbone of Pisces-Geometry and are the most useful class to interact with. These guides will
-familiarize you with how to interact with them and how to write custom ones.
+Coordinate systems define the geometry of space in Pisces-Geometry. These documents walk through how coordinate systems
+are structured, how they support differential operations, and how users can implement custom coordinate systems tailored
+to their own physical domains. Whether you're using built-in systems or designing your own, this is the place to start.
 
 .. toctree::
     :titlesonly:
@@ -51,5 +52,27 @@ familiarize you with how to interact with them and how to write custom ones.
 Grids
 ++++++++++++++++++
 
-Coordinate systems form the backbone of Pisces-Geometry and are the most useful class to interact with. These guides will
-familiarize you with how to interact with them and how to write custom ones.
+Grids are discrete representations of space built on top of coordinate systems. This section explains the different types
+of grids supported by Pisces-Geometry, how they are constructed, and how they interact with coordinate systems. You’ll also
+find guidance for building custom grids for advanced use cases.
+
+.. toctree::
+    :titlesonly:
+    :glob:
+
+    ./grids/grids_overview
+    ./grids/grids_developer
+
+Fields
+++++++++++++++++++
+
+Fields are the primary data structures for storing values over grids—scalars, vectors, tensors, and beyond.
+These guides cover how to create, manipulate, and operate on fields in a coordinate-aware way. You'll learn how fields
+support broadcasting, NumPy compatibility, and differential operators like gradients and divergences.
+
+.. toctree::
+    :titlesonly:
+    :glob:
+
+    ./fields/fields_overview
+    ./fields/fields_developer

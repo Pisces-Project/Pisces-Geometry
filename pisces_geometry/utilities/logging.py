@@ -4,14 +4,7 @@ Logging utilities.
 import logging
 import sys
 
-# Define the PG parameters for logging.
-pg_params = {
-    "disable_logger": False,
-    "logger_level": logging.DEBUG,
-    "skip_constant_checks": 5,
-}
-""" dict: Logging parameters for Pisces-Geometry.
-"""
+from pisces_geometry.utilities.config import pg_params
 
 # Set up the logger with the correct formatting and
 # format.
