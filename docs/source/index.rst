@@ -5,7 +5,7 @@
 PyMetric
 ===============
 
-|isort| |black| |Pre-Commit| |docformatter| |NUMPSTYLE| |COMMIT| |CONTRIBUTORS| |docs|
+|isort| |black| |Pre-Commit| |docformatter| |NUMPSTYLE| |Commits| |CONTRIBUTORS| |docs| |Tests| |PyPi|
 
 .. raw:: html
 
@@ -148,11 +148,21 @@ Indices and Tables
 * :ref:`search` – Search the documentation
 
 
-.. |yt-project| image:: https://img.shields.io/static/v1?label="works%20with"&message="yt"&color="blueviolet"
-   :target: https://yt-project.org
-
 .. |docs| image:: https://img.shields.io/badge/docs-latest-brightgreen
-   :target: https://eliza-diggins.github.io/Pisces
+   :target: https://eliza-diggins.github.io/pisces/build/html/index.html
+
+.. |Pre-Commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
+   :target: https://pre-commit.com/
+
+.. |Xenon| image:: https://img.shields.io/badge/Xenon-enabled-red
+   :target: https://xenon.readthedocs.io/en/latest/
+
+.. |Tests| image:: https://github.com/Pisces-Project/PyMetric/actions/workflows/run_tests.yml/badge.svg
+
+.. |Contributors| image:: https://img.shields.io/github/contributors/Pisces-Project/PyMetric
+   :target: https://github.com/Eliza-Diggins/pisces/graphs/contributors
+
+.. |Commits| image:: https://img.shields.io/github/last-commit/Pisces-Project/PyMetric
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000
    :target: https://github.com/psf/black
@@ -160,17 +170,13 @@ Indices and Tables
 .. |isort| image:: https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336
    :target: https://pycqa.github.io/isort/
 
-.. |Pre-Commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
-   :target: https://github.com/pre-commit/pre-commit
-   :alt: pre-commit
-
-.. |CONTRIBUTORS| image:: https://img.shields.io/github/contributors/Pisces-Project/Pisces-Geometry
-    :target: https://github.com/eliza-diggins/Pisces/graphs/contributors
-
-.. |COMMIT| image:: https://img.shields.io/github/last-commit/Pisces-Project/Pisces-Geometry
-
 .. |NUMPSTYLE| image:: https://img.shields.io/badge/%20style-numpy-459db9
     :target: https://numpydoc.readthedocs.io/en/latest/format.html
 
 .. |docformatter| image:: https://img.shields.io/badge/%20formatter-docformatter-fedcba
     :target: https://github.com/PyCQA/docformatter
+
+.. |License| image:: https://img.shields.io/pypi/l/pymetric-lib
+.. |Wheel| image:: https://img.shields.io/pypi/wheel/pymetric-lib
+.. |PyVersion| image:: https://img.shields.io/pypi/pyversions/pymetric-lib
+.. |PyPi| image:: https://img.shields.io/pypi/v/pymetric-lib

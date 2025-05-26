@@ -12,7 +12,7 @@ PyMetric
 +-------------------+----------------------------------------------------------+
 | **GitHub**        | |Contributors| |Commits| |Tests|                         |
 +-------------------+----------------------------------------------------------+
-| **PyPi**          | Coming Soon                                              |
+| **PyPi**          | |PyPi| |PyVersion| |Wheel| |License|                     |
 +-------------------+----------------------------------------------------------+
 
 PyMetric began as the backend for the `Pisces project <https://github.com/Pisces-Project/Pisces>`_ and has grown
@@ -28,14 +28,13 @@ PyMetric requires Python 3.9 or newer. To install the most recent stable version
 
 .. code-block:: shell
 
-    $ pip install pymetric
+    $ pip install pymetric-lib
 
 The active development version can be obtained with
 
 .. code-block:: shell
 
     $ pip install git+https://github.com/Pisces-Project/PyMetric
-
 
 Dependencies
 ------------
@@ -48,6 +47,12 @@ PyMetric depends on several packages, which will be installed automatically:
 - `h5py <http://www.h5py.org>`_: HDF5 file interaction
 - `tqdm <https://tqdm.github.io>`_: Progress bars
 - `sympy <https://docs.sympy.org/latest/index.html>`_: Symbolic mathematics.
+
+In addition to the standard versions of the codebase, there are a few special dependency versions
+of the code.
+
+- ``pymetric-lib[docs]`` will install all of the relevant Sphinx dependencies.
+- ``pymetric-lib[test]`` will install all of the dependencies for running the testing suite.
 
 Development
 -----------
@@ -91,3 +96,8 @@ If you use PyMetric for academic work, please include a statement in your public
 
 .. |docformatter| image:: https://img.shields.io/badge/%20formatter-docformatter-fedcba
     :target: https://github.com/PyCQA/docformatter
+
+.. |License| image:: https://img.shields.io/pypi/l/pymetric-lib
+.. |Wheel| image:: https://img.shields.io/pypi/wheel/pymetric-lib
+.. |PyVersion| image:: https://img.shields.io/pypi/pyversions/pymetric-lib
+.. |PyPi| image:: https://img.shields.io/pypi/v/pymetric-lib

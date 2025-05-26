@@ -24,7 +24,7 @@ Python library:
 
 .. code-block:: bash
 
-   $ pip install pymetric
+   $ pip install pymetric-lib
 
 If you prefer the bleeding edge, install directly from source:
 
