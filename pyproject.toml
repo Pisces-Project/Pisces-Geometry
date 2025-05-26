@@ -85,7 +85,7 @@ test = [
 # Tools                              #
 # ================================== #
 [tool.setuptools]
-packages = ["pymetric"]
+packages = { find = { include = ["pymetric*"] } }
 include-package-data = true
 
 [tool.setuptools_scm]
