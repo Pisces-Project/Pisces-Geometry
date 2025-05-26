@@ -411,7 +411,7 @@ underlying grid's :meth:`~grids.base.GridBase.construct_domain_interpolator`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 5.950 seconds)
+   **Total running time of the script:** (0 minutes 5.902 seconds)
 
 
 .. _sphx_glr_download_auto_examples_c_fields_plot_nfw_symmetry_break.py:
