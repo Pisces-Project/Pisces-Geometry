@@ -178,7 +178,7 @@ def test_dense_laplacian_cartesian_scalar():
     Fterm = np.zeros(F.shape + (2,))
     inverse_metric = np.ones(F.shape + (2,))
 
-    lap = dop.dense_scalar_laplacian(F, Fterm, inverse_metric, 0, *[x, y])
+    lap = dop.dense_scalar_laplacian(F, Fterm, inverse_metric, 0, 2, *[x, y])
     np.testing.assert_allclose(lap, 4.0)
 
 

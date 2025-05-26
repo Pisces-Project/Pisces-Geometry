@@ -139,6 +139,7 @@ def test_buffer_constructors(buffer_class, method, tmp_path_factory):
     factory = getattr(buffer_class, method)
     expected_value = dict(zeros=0.0, ones=1.0, full=3.14, empty=None)[method]
     kwargs = {"dtype": dtype}
+    args = []
 
     if method == "full":
         kwargs["fill_value"] = 3.14
@@ -146,10 +147,12 @@ def test_buffer_constructors(buffer_class, method, tmp_path_factory):
     # Add HDF5-specific args to ensure we are
     # able to build correctly.
     if buffer_class is HDF5Buffer:
+        args = [
+            os.path.join(tempdir, f"{method}_{buffer_class.__name__}.h5"),
+            f"buffer_from_{method}",
+        ]
         kwargs.update(
             {
-                "file": os.path.join(tempdir, f"{method}_{buffer_class.__name__}.h5"),
-                "name": f"buffer_from_{method}",
                 "create_file": True,
             }
         )
@@ -157,7 +160,7 @@ def test_buffer_constructors(buffer_class, method, tmp_path_factory):
     # START TEST: Begin by loading in the buffer,
     # then check the shape, dtype, etc. Finally we check
     # the value.
-    buffer = factory(shape, **kwargs)
+    buffer = factory(shape, *args, **kwargs)
 
     # Basic checks
     assert buffer.shape == shape
@@ -192,6 +195,7 @@ def test_buffer_constructors_units(buffer_class, method, tmp_path_factory):
         method
     ]
     kwargs = {"dtype": dtype, "units": u}
+    args = []
 
     if method == "full":
         kwargs["fill_value"] = 3.14
@@ -199,10 +203,12 @@ def test_buffer_constructors_units(buffer_class, method, tmp_path_factory):
     # Add HDF5-specific args to ensure we are
     # able to build correctly.
     if buffer_class is HDF5Buffer:
+        args = [
+            os.path.join(tempdir, f"{method}_{buffer_class.__name__}.h5"),
+            f"buffer_from_{method}",
+        ]
         kwargs.update(
             {
-                "file": os.path.join(tempdir, f"{method}_{buffer_class.__name__}.h5"),
-                "name": f"buffer_from_{method}",
                 "create_file": True,
             }
         )
@@ -210,7 +216,7 @@ def test_buffer_constructors_units(buffer_class, method, tmp_path_factory):
     # START TEST: Begin by loading in the buffer,
     # then check the shape, dtype, etc. Finally we check
     # the value.
-    buffer = factory(shape, **kwargs)
+    buffer = factory(shape, *args, **kwargs)
 
     # Basic checks
     assert buffer.shape == shape
