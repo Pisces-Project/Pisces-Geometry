@@ -16,7 +16,7 @@ build-backend = "setuptools.build_meta"
 # ================================== #
 # Configuration for the project details.
 [project]
-name = "pymetric"
+name = "pymetric-lib"
 dynamic = ["version"]
 description = "A high-performance library for structured differential geometry and physical field manipulation."
 authors = [
