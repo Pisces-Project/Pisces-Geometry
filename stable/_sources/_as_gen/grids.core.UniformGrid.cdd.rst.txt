@@ -1,6 +1,0 @@
-grids.core.UniformGrid.cdd
-==========================
-
-.. currentmodule:: grids.core
-
-.. autoproperty:: UniformGrid.cdd

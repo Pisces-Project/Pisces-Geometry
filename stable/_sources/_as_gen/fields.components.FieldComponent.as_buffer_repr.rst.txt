@@ -1,6 +1,0 @@
-fields.components.FieldComponent.as\_buffer\_repr
-=================================================
-
-.. currentmodule:: fields.components
-
-.. automethod:: FieldComponent.as_buffer_repr

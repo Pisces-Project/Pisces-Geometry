@@ -1,6 +1,0 @@
-grids.core.GenericGrid.chunk\_size
-==================================
-
-.. currentmodule:: grids.core
-
-.. autoproperty:: GenericGrid.chunk_size

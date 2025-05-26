@@ -1,6 +1,0 @@
-grids.base.GridBase.\_\_init\_\_
-================================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.__init__

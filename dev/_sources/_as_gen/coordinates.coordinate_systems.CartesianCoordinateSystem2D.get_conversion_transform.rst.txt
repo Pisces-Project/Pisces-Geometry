@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.CartesianCoordinateSystem2D.get\_conversion\_transform
-======================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: CartesianCoordinateSystem2D.get_conversion_transform

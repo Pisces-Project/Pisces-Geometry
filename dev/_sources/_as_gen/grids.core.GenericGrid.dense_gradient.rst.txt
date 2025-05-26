@@ -1,6 +1,0 @@
-grids.core.GenericGrid.dense\_gradient
-======================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.dense_gradient

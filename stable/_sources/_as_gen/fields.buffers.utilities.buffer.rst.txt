@@ -1,6 +1,0 @@
-fields.buffers.utilities.buffer
-===============================
-
-.. currentmodule:: fields.buffers.utilities
-
-.. autofunction:: buffer

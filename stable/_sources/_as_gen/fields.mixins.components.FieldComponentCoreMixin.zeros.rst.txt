@@ -1,6 +1,0 @@
-fields.mixins.components.FieldComponentCoreMixin.zeros
-======================================================
-
-.. currentmodule:: fields.mixins.components
-
-.. automethod:: FieldComponentCoreMixin.zeros

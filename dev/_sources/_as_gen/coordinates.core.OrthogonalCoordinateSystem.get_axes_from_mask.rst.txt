@@ -1,6 +1,0 @@
-coordinates.core.OrthogonalCoordinateSystem.get\_axes\_from\_mask
-=================================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: OrthogonalCoordinateSystem.get_axes_from_mask

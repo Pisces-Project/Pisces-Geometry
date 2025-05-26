@@ -1,6 +1,0 @@
-fields.base.SparseField.grid
-============================
-
-.. currentmodule:: fields.base
-
-.. autoproperty:: SparseField.grid

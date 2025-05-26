@@ -1,6 +1,0 @@
-fields.components.FieldComponent.ones\_like
-===========================================
-
-.. currentmodule:: fields.components
-
-.. automethod:: FieldComponent.ones_like

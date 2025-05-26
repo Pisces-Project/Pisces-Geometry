@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.OblateSpheroidalCoordinateSystem.get\_free\_fixed
-=================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: OblateSpheroidalCoordinateSystem.get_free_fixed

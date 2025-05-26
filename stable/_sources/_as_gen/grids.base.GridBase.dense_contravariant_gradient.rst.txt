@@ -1,6 +1,0 @@
-grids.base.GridBase.dense\_contravariant\_gradient
-==================================================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.dense_contravariant_gradient

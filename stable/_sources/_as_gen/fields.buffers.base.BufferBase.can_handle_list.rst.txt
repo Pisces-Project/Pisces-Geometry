@@ -1,6 +1,0 @@
-fields.buffers.base.BufferBase.can\_handle\_list
-================================================
-
-.. currentmodule:: fields.buffers.base
-
-.. automethod:: BufferBase.can_handle_list

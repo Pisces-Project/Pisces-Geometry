@@ -1,6 +1,0 @@
-grids.core.UniformGrid.iter\_chunk\_slices
-==========================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: UniformGrid.iter_chunk_slices

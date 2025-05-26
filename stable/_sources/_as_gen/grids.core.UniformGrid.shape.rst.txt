@@ -1,6 +1,0 @@
-grids.core.UniformGrid.shape
-============================
-
-.. currentmodule:: grids.core
-
-.. autoproperty:: UniformGrid.shape

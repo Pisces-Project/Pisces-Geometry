@@ -1,6 +1,0 @@
-fields.mixins.base.DTensorFieldCoreMixin.\_\_init\_\_
-=====================================================
-
-.. currentmodule:: fields.mixins.base
-
-.. automethod:: DTensorFieldCoreMixin.__init__

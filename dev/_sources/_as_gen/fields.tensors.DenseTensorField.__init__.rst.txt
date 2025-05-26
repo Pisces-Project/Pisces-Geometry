@@ -1,6 +1,0 @@
-fields.tensors.DenseTensorField.\_\_init\_\_
-============================================
-
-.. currentmodule:: fields.tensors
-
-.. automethod:: DenseTensorField.__init__

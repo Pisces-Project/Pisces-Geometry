@@ -1,6 +1,0 @@
-coordinates.core.OrthogonalCoordinateSystem.lambdify\_expression
-================================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: OrthogonalCoordinateSystem.lambdify_expression

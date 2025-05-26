@@ -1,6 +1,0 @@
-fields.components.FieldComponent.full\_like
-===========================================
-
-.. currentmodule:: fields.components
-
-.. automethod:: FieldComponent.full_like

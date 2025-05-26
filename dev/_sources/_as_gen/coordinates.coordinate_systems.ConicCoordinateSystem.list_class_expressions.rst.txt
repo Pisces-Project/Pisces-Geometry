@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.ConicCoordinateSystem.list\_class\_expressions
-==============================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: ConicCoordinateSystem.list_class_expressions

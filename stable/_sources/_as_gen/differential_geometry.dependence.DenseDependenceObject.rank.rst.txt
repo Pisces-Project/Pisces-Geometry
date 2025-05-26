@@ -1,6 +1,0 @@
-differential\_geometry.dependence.DenseDependenceObject.rank
-============================================================
-
-.. currentmodule:: differential_geometry.dependence
-
-.. autoproperty:: DenseDependenceObject.rank

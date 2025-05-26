@@ -1,6 +1,0 @@
-fields.base.DenseField.ones\_like
-=================================
-
-.. currentmodule:: fields.base
-
-.. automethod:: DenseField.ones_like

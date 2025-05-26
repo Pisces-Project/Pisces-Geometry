@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.ConicCoordinateSystem.to\_hdf5
-==============================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: ConicCoordinateSystem.to_hdf5

@@ -1,6 +1,0 @@
-differential\_geometry.dense\_utils.infer\_metric\_type
-=======================================================
-
-.. currentmodule:: differential_geometry.dense_utils
-
-.. autofunction:: infer_metric_type

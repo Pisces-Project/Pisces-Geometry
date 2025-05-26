@@ -1,6 +1,0 @@
-coordinates.mixins.core.CoordinateSystemAxesMixin.insert\_fixed\_axes
-=====================================================================
-
-.. currentmodule:: coordinates.mixins.core
-
-.. automethod:: CoordinateSystemAxesMixin.insert_fixed_axes

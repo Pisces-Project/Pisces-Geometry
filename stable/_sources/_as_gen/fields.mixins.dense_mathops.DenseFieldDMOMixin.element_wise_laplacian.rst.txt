@@ -1,6 +1,0 @@
-fields.mixins.dense\_mathops.DenseFieldDMOMixin.element\_wise\_laplacian
-========================================================================
-
-.. currentmodule:: fields.mixins.dense_mathops
-
-.. automethod:: DenseFieldDMOMixin.element_wise_laplacian

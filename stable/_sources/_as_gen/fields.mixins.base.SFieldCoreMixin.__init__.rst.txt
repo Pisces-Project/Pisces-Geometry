@@ -1,6 +1,0 @@
-fields.mixins.base.SFieldCoreMixin.\_\_init\_\_
-===============================================
-
-.. currentmodule:: fields.mixins.base
-
-.. automethod:: SFieldCoreMixin.__init__

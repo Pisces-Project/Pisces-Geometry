@@ -1,6 +1,0 @@
-grids.mixins.mathops.DenseMathOpsMixin.dense\_element\_wise\_partial\_derivatives
-=================================================================================
-
-.. currentmodule:: grids.mixins.mathops
-
-.. automethod:: DenseMathOpsMixin.dense_element_wise_partial_derivatives

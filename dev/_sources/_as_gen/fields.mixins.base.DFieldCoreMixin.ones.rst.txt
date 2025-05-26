@@ -1,6 +1,0 @@
-fields.mixins.base.DFieldCoreMixin.ones
-=======================================
-
-.. currentmodule:: fields.mixins.base
-
-.. automethod:: DFieldCoreMixin.ones

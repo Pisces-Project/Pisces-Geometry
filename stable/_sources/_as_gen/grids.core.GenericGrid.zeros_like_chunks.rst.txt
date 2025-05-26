@@ -1,6 +1,0 @@
-grids.core.GenericGrid.zeros\_like\_chunks
-==========================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.zeros_like_chunks

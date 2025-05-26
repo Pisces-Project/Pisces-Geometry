@@ -1,6 +1,0 @@
-coordinates.mixins.core.CoordinateSystemCoreMixin.pprint
-========================================================
-
-.. currentmodule:: coordinates.mixins.core
-
-.. automethod:: CoordinateSystemCoreMixin.pprint

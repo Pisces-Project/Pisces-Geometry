@@ -1,6 +1,0 @@
-fields.buffers.base.BufferBase.squeeze
-======================================
-
-.. currentmodule:: fields.buffers.base
-
-.. automethod:: BufferBase.squeeze

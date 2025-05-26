@@ -1,6 +1,0 @@
-fields.tensors.DenseTensorField.element\_wise\_laplacian
-========================================================
-
-.. currentmodule:: fields.tensors
-
-.. automethod:: DenseTensorField.element_wise_laplacian

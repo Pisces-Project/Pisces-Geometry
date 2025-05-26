@@ -1,6 +1,0 @@
-differential\_geometry.dependence.OperatorsMixin.element\_wise\_gradient
-========================================================================
-
-.. currentmodule:: differential_geometry.dependence
-
-.. automethod:: OperatorsMixin.element_wise_gradient

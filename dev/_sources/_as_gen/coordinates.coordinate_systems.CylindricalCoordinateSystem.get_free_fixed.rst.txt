@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.CylindricalCoordinateSystem.get\_free\_fixed
-============================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: CylindricalCoordinateSystem.get_free_fixed

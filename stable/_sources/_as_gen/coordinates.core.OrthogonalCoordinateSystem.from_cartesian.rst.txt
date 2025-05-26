@@ -1,6 +1,0 @@
-coordinates.core.OrthogonalCoordinateSystem.from\_cartesian
-===========================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: OrthogonalCoordinateSystem.from_cartesian

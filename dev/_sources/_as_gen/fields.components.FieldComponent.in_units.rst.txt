@@ -1,6 +1,0 @@
-fields.components.FieldComponent.in\_units
-==========================================
-
-.. currentmodule:: fields.components
-
-.. automethod:: FieldComponent.in_units

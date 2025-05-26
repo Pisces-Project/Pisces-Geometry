@@ -1,6 +1,0 @@
-fields.tensors.DenseTensorField.naxes
-=====================================
-
-.. currentmodule:: fields.tensors
-
-.. autoproperty:: DenseTensorField.naxes

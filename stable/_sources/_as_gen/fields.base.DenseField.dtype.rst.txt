@@ -1,6 +1,0 @@
-fields.base.DenseField.dtype
-============================
-
-.. currentmodule:: fields.base
-
-.. autoproperty:: DenseField.dtype

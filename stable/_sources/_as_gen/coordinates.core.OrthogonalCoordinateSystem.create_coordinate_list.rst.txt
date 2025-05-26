@@ -1,6 +1,0 @@
-coordinates.core.OrthogonalCoordinateSystem.create\_coordinate\_list
-====================================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: OrthogonalCoordinateSystem.create_coordinate_list

@@ -1,6 +1,0 @@
-coordinates.mixins.core.CoordinateSystemAxesMixin.get\_axes\_from\_mask
-=======================================================================
-
-.. currentmodule:: coordinates.mixins.core
-
-.. automethod:: CoordinateSystemAxesMixin.get_axes_from_mask

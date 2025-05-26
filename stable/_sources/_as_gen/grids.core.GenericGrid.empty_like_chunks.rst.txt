@@ -1,6 +1,0 @@
-grids.core.GenericGrid.empty\_like\_chunks
-==========================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.empty_like_chunks

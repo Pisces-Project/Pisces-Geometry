@@ -1,6 +1,0 @@
-coordinates.mixins.mathops.CoordinateSystemMathMixin.\_\_init\_\_
-=================================================================
-
-.. currentmodule:: coordinates.mixins.mathops
-
-.. automethod:: CoordinateSystemMathMixin.__init__

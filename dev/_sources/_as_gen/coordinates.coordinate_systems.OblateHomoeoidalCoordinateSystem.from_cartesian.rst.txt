@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.OblateHomoeoidalCoordinateSystem.from\_cartesian
-================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: OblateHomoeoidalCoordinateSystem.from_cartesian

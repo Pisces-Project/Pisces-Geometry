@@ -1,6 +1,0 @@
-differential\_geometry.symbolic.compute\_tensor\_laplacian
-==========================================================
-
-.. currentmodule:: differential_geometry.symbolic
-
-.. autofunction:: compute_tensor_laplacian

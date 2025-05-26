@@ -1,6 +1,0 @@
-coordinates.core.CurvilinearCoordinateSystem.is\_axes\_superset
-===============================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: CurvilinearCoordinateSystem.is_axes_superset

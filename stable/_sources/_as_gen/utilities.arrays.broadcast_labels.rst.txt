@@ -1,6 +1,0 @@
-utilities.arrays.broadcast\_labels
-==================================
-
-.. currentmodule:: utilities.arrays
-
-.. autofunction:: broadcast_labels

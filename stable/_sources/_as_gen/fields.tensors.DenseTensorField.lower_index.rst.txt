@@ -1,6 +1,0 @@
-fields.tensors.DenseTensorField.lower\_index
-============================================
-
-.. currentmodule:: fields.tensors
-
-.. automethod:: DenseTensorField.lower_index

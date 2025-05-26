@@ -1,6 +1,0 @@
-fields.tensors.DenseTensorField.gradient
-========================================
-
-.. currentmodule:: fields.tensors
-
-.. automethod:: DenseTensorField.gradient

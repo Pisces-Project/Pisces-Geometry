@@ -1,6 +1,0 @@
-coordinates.mixins.core.CoordinateSystemCoreMixin.\_\_init\_\_
-==============================================================
-
-.. currentmodule:: coordinates.mixins.core
-
-.. automethod:: CoordinateSystemCoreMixin.__init__

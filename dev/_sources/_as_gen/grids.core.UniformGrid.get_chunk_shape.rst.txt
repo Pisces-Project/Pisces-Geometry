@@ -1,6 +1,0 @@
-grids.core.UniformGrid.get\_chunk\_shape
-========================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: UniformGrid.get_chunk_shape

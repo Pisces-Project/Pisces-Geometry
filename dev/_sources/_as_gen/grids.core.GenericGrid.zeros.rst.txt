@@ -1,6 +1,0 @@
-grids.core.GenericGrid.zeros
-============================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.zeros

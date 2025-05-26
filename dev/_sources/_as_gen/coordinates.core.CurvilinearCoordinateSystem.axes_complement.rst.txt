@@ -1,6 +1,0 @@
-coordinates.core.CurvilinearCoordinateSystem.axes\_complement
-=============================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: CurvilinearCoordinateSystem.axes_complement

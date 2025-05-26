@@ -1,6 +1,0 @@
-grids.mixins.core.GridUtilsMixin.show
-=====================================
-
-.. currentmodule:: grids.mixins.core
-
-.. automethod:: GridUtilsMixin.show

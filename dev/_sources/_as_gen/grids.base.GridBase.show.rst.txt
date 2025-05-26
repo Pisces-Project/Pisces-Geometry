@@ -1,6 +1,0 @@
-grids.base.GridBase.show
-========================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.show

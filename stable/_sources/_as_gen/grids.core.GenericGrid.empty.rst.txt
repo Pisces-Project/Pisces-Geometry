@@ -1,6 +1,0 @@
-grids.core.GenericGrid.empty
-============================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.empty

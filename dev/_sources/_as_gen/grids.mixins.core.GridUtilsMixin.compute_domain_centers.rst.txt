@@ -1,6 +1,0 @@
-grids.mixins.core.GridUtilsMixin.compute\_domain\_centers
-=========================================================
-
-.. currentmodule:: grids.mixins.core
-
-.. automethod:: GridUtilsMixin.compute_domain_centers

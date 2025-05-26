@@ -1,6 +1,0 @@
-differential\_geometry.dense\_utils.dense\_adjust\_tensor\_signature
-====================================================================
-
-.. currentmodule:: differential_geometry.dense_utils
-
-.. autofunction:: dense_adjust_tensor_signature

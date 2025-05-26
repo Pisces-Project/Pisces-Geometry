@@ -1,6 +1,0 @@
-coordinates.core.CurvilinearCoordinateSystem.adjust\_dense\_tensor\_signature
-=============================================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: CurvilinearCoordinateSystem.adjust_dense_tensor_signature

@@ -1,6 +1,0 @@
-fields.buffers.base.BufferBase.zeros\_like
-==========================================
-
-.. currentmodule:: fields.buffers.base
-
-.. automethod:: BufferBase.zeros_like

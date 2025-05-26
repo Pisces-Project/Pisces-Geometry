@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.CylindricalCoordinateSystem.create\_coordinate\_list
-====================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: CylindricalCoordinateSystem.create_coordinate_list

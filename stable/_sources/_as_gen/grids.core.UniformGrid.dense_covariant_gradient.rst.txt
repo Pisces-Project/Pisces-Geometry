@@ -1,6 +1,0 @@
-grids.core.UniformGrid.dense\_covariant\_gradient
-=================================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: UniformGrid.dense_covariant_gradient

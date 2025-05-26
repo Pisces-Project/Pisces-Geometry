@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.PolarCoordinateSystem.from\_cartesian
-=====================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: PolarCoordinateSystem.from_cartesian

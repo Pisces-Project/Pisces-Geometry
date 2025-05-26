@@ -1,6 +1,0 @@
-fields.base.SparseField.\_\_init\_\_
-====================================
-
-.. currentmodule:: fields.base
-
-.. automethod:: SparseField.__init__

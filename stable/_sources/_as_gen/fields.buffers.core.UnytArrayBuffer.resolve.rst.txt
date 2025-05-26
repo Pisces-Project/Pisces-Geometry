@@ -1,6 +1,0 @@
-fields.buffers.core.UnytArrayBuffer.resolve
-===========================================
-
-.. currentmodule:: fields.buffers.core
-
-.. automethod:: UnytArrayBuffer.resolve

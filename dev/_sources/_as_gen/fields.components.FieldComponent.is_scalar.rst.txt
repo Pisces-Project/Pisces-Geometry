@@ -1,6 +1,0 @@
-fields.components.FieldComponent.is\_scalar
-===========================================
-
-.. currentmodule:: fields.components
-
-.. autoproperty:: FieldComponent.is_scalar

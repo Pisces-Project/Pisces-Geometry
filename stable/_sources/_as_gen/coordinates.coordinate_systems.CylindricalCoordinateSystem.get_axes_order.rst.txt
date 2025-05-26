@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.CylindricalCoordinateSystem.get\_axes\_order
-============================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: CylindricalCoordinateSystem.get_axes_order

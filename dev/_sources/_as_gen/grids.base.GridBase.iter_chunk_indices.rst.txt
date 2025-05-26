@@ -1,6 +1,0 @@
-grids.base.GridBase.iter\_chunk\_indices
-========================================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.iter_chunk_indices

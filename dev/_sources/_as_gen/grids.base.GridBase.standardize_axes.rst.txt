@@ -1,6 +1,0 @@
-grids.base.GridBase.standardize\_axes
-=====================================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.standardize_axes

@@ -1,6 +1,0 @@
-coordinates.core.CurvilinearCoordinateSystem.in\_axes\_order
-============================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: CurvilinearCoordinateSystem.in_axes_order

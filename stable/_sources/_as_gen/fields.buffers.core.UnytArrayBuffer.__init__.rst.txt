@@ -1,6 +1,0 @@
-fields.buffers.core.UnytArrayBuffer.\_\_init\_\_
-================================================
-
-.. currentmodule:: fields.buffers.core
-
-.. automethod:: UnytArrayBuffer.__init__

@@ -1,6 +1,0 @@
-grids.core.UniformGrid.compute\_domain\_slice
-=============================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: UniformGrid.compute_domain_slice

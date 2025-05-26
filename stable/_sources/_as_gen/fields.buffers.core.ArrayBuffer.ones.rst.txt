@@ -1,6 +1,0 @@
-fields.buffers.core.ArrayBuffer.ones
-====================================
-
-.. currentmodule:: fields.buffers.core
-
-.. automethod:: ArrayBuffer.ones

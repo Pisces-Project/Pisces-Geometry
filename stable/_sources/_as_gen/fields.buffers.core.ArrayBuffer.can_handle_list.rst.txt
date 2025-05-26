@@ -1,6 +1,0 @@
-fields.buffers.core.ArrayBuffer.can\_handle\_list
-=================================================
-
-.. currentmodule:: fields.buffers.core
-
-.. automethod:: ArrayBuffer.can_handle_list

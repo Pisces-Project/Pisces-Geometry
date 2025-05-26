@@ -1,6 +1,0 @@
-grids.core.GenericGrid.iter\_chunk\_coords
-==========================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.iter_chunk_coords

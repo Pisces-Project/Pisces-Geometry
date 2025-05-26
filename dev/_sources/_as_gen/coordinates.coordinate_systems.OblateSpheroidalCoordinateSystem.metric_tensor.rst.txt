@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.OblateSpheroidalCoordinateSystem.metric\_tensor
-===============================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. autoproperty:: OblateSpheroidalCoordinateSystem.metric_tensor

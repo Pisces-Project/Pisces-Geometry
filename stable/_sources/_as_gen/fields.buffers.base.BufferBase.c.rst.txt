@@ -1,6 +1,0 @@
-fields.buffers.base.BufferBase.c
-================================
-
-.. currentmodule:: fields.buffers.base
-
-.. autoproperty:: BufferBase.c

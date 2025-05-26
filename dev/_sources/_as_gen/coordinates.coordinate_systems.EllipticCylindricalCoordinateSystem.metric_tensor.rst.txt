@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.EllipticCylindricalCoordinateSystem.metric\_tensor
-==================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. autoproperty:: EllipticCylindricalCoordinateSystem.metric_tensor

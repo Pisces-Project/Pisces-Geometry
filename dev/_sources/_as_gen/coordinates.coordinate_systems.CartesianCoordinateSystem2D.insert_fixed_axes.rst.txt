@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.CartesianCoordinateSystem2D.insert\_fixed\_axes
-===============================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: CartesianCoordinateSystem2D.insert_fixed_axes

@@ -1,6 +1,0 @@
-fields.tensors.DenseTensorField.spatial\_ndim
-=============================================
-
-.. currentmodule:: fields.tensors
-
-.. autoproperty:: DenseTensorField.spatial_ndim

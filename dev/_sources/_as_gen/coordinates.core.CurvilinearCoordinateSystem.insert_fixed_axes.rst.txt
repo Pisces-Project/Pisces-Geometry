@@ -1,6 +1,0 @@
-coordinates.core.CurvilinearCoordinateSystem.insert\_fixed\_axes
-================================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: CurvilinearCoordinateSystem.insert_fixed_axes

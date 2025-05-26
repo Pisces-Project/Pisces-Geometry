@@ -1,6 +1,0 @@
-grids.base.GridBase.dense\_covariant\_gradient
-==============================================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.dense_covariant_gradient

@@ -1,6 +1,0 @@
-grids.mixins.chunking.GridChunkingMixin.ones\_like\_chunks
-==========================================================
-
-.. currentmodule:: grids.mixins.chunking
-
-.. automethod:: GridChunkingMixin.ones_like_chunks

@@ -1,6 +1,0 @@
-grids.core.GenericGrid.construct\_domain\_interpolator
-======================================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.construct_domain_interpolator

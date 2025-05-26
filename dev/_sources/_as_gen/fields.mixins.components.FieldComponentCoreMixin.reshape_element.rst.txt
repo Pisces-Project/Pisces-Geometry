@@ -1,6 +1,0 @@
-fields.mixins.components.FieldComponentCoreMixin.reshape\_element
-=================================================================
-
-.. currentmodule:: fields.mixins.components
-
-.. automethod:: FieldComponentCoreMixin.reshape_element

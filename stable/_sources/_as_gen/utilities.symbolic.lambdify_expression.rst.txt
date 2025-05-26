@@ -1,6 +1,0 @@
-utilities.symbolic.lambdify\_expression
-=======================================
-
-.. currentmodule:: utilities.symbolic
-
-.. autofunction:: lambdify_expression

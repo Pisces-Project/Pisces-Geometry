@@ -1,6 +1,0 @@
-grids.base.GridBase.ghost\_zones
-================================
-
-.. currentmodule:: grids.base
-
-.. autoproperty:: GridBase.ghost_zones

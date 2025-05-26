@@ -1,6 +1,0 @@
-coordinates.core.OrthogonalCoordinateSystem.axes\_symbols
-=========================================================
-
-.. currentmodule:: coordinates.core
-
-.. autoproperty:: OrthogonalCoordinateSystem.axes_symbols

@@ -1,6 +1,0 @@
-fields.mixins.base.DTensorFieldCoreMixin.ones\_like
-===================================================
-
-.. currentmodule:: fields.mixins.base
-
-.. automethod:: DTensorFieldCoreMixin.ones_like

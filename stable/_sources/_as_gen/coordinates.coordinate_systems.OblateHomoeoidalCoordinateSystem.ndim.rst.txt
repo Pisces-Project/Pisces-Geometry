@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.OblateHomoeoidalCoordinateSystem.ndim
-=====================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. autoproperty:: OblateHomoeoidalCoordinateSystem.ndim

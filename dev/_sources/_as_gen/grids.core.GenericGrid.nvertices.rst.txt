@@ -1,6 +1,0 @@
-grids.core.GenericGrid.nvertices
-================================
-
-.. currentmodule:: grids.core
-
-.. autoproperty:: GenericGrid.nvertices

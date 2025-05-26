@@ -1,6 +1,0 @@
-fields.mixins.dense\_mathops.DenseTensorFieldDMOMixin.gradient
-==============================================================
-
-.. currentmodule:: fields.mixins.dense_mathops
-
-.. automethod:: DenseTensorFieldDMOMixin.gradient

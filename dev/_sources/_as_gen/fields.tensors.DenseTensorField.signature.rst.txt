@@ -1,6 +1,0 @@
-fields.tensors.DenseTensorField.signature
-=========================================
-
-.. currentmodule:: fields.tensors
-
-.. autoproperty:: DenseTensorField.signature

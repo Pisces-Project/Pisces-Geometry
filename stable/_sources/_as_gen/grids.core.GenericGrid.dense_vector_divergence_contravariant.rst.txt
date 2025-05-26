@@ -1,6 +1,0 @@
-grids.core.GenericGrid.dense\_vector\_divergence\_contravariant
-===============================================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.dense_vector_divergence_contravariant

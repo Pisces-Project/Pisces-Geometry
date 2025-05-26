@@ -1,6 +1,0 @@
-fields.buffers.base.BufferBase.copy
-===================================
-
-.. currentmodule:: fields.buffers.base
-
-.. automethod:: BufferBase.copy

@@ -1,6 +1,0 @@
-fields.base.DenseField.element\_shape
-=====================================
-
-.. currentmodule:: fields.base
-
-.. autoproperty:: DenseField.element_shape

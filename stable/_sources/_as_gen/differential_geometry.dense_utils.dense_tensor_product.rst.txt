@@ -1,6 +1,0 @@
-differential\_geometry.dense\_utils.dense\_tensor\_product
-==========================================================
-
-.. currentmodule:: differential_geometry.dense_utils
-
-.. autofunction:: dense_tensor_product

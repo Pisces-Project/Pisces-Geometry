@@ -1,6 +1,0 @@
-grids.core.UniformGrid.empty
-============================
-
-.. currentmodule:: grids.core
-
-.. automethod:: UniformGrid.empty

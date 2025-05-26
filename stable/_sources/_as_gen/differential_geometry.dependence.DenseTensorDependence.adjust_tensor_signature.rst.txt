@@ -1,6 +1,0 @@
-differential\_geometry.dependence.DenseTensorDependence.adjust\_tensor\_signature
-=================================================================================
-
-.. currentmodule:: differential_geometry.dependence
-
-.. automethod:: DenseTensorDependence.adjust_tensor_signature

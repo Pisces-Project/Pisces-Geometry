@@ -1,6 +1,0 @@
-grids.core.UniformGrid.plot\_chunk\_lines
-=========================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: UniformGrid.plot_chunk_lines

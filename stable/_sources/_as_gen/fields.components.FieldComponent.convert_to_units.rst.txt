@@ -1,6 +1,0 @@
-fields.components.FieldComponent.convert\_to\_units
-===================================================
-
-.. currentmodule:: fields.components
-
-.. automethod:: FieldComponent.convert_to_units

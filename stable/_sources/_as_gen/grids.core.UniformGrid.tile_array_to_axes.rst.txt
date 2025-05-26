@@ -1,6 +1,0 @@
-grids.core.UniformGrid.tile\_array\_to\_axes
-============================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: UniformGrid.tile_array_to_axes

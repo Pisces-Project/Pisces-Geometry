@@ -1,6 +1,0 @@
-fields.buffers.utilities.buffer\_zeros\_like
-============================================
-
-.. currentmodule:: fields.buffers.utilities
-
-.. autofunction:: buffer_zeros_like

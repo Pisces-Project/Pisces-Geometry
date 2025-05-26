@@ -1,6 +1,0 @@
-fields.base.SparseField.keys
-============================
-
-.. currentmodule:: fields.base
-
-.. automethod:: SparseField.keys

@@ -1,6 +1,0 @@
-grids.core.GenericGrid.get\_chunk\_bbox
-=======================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.get_chunk_bbox

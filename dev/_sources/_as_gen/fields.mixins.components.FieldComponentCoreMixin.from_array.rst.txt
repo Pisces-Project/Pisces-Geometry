@@ -1,6 +1,0 @@
-fields.mixins.components.FieldComponentCoreMixin.from\_array
-============================================================
-
-.. currentmodule:: fields.mixins.components
-
-.. automethod:: FieldComponentCoreMixin.from_array

@@ -1,6 +1,0 @@
-fields.buffers.core.HDF5Buffer.has\_units
-=========================================
-
-.. currentmodule:: fields.buffers.core
-
-.. autoproperty:: HDF5Buffer.has_units

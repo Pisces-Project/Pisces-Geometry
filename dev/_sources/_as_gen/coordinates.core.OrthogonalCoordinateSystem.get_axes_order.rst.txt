@@ -1,6 +1,0 @@
-coordinates.core.OrthogonalCoordinateSystem.get\_axes\_order
-============================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: OrthogonalCoordinateSystem.get_axes_order

@@ -1,6 +1,0 @@
-fields.mixins.dense\_mathops.DenseTensorFieldDMOMixin.element\_wise\_partial\_derivatives
-=========================================================================================
-
-.. currentmodule:: fields.mixins.dense_mathops
-
-.. automethod:: DenseTensorFieldDMOMixin.element_wise_partial_derivatives

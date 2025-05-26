@@ -1,6 +1,0 @@
-fields.mixins.base.DTensorFieldCoreMixin.zeros
-==============================================
-
-.. currentmodule:: fields.mixins.base
-
-.. automethod:: DTensorFieldCoreMixin.zeros

@@ -1,6 +1,0 @@
-fields.components.FieldComponent.spatial\_shape
-===============================================
-
-.. currentmodule:: fields.components
-
-.. autoproperty:: FieldComponent.spatial_shape
