@@ -24,13 +24,18 @@ handling of both curvilinear and structured grids.
 Installation
 ------------
 
-PyMetric requires Python 3.9 or newer. Install from source by cloning the repository:
+PyMetric requires Python 3.9 or newer. To install the most recent stable version of the code, use ``pip``:
+
+.. code-block:: shell
+
+    $ pip install pymetric
+
+The active development version can be obtained with
 
 .. code-block:: shell
 
     $ pip install git+https://github.com/Pisces-Project/PyMetric
 
-In future releases, the package will be available on PyPi and obtainable directly from pip.
 
 Dependencies
 ------------
