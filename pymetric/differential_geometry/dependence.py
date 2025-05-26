@@ -725,10 +725,10 @@ class DenseDependenceObject(DependenceObject, OperatorsMixin):
     def __init__(
         self,
         coordinate_system: "_CoordinateSystemBase",
-        shape: Sequence[int] | Tuple[int, ...],
+        shape: Sequence[int],
         /,
         *,
-        dependent_axes: str | Sequence[str] | None = None,
+        dependent_axes: Optional[Union[str, Sequence[str]]] = None,
     ) -> None:
         """
         Initialize a dense dependence object with shape and dependent axes.
@@ -976,7 +976,7 @@ class DenseTensorDependence(DenseDependenceObject, TensorDependenceMixin):
         rank: int,
         /,
         *,
-        dependent_axes: str | Sequence[str] | None = None,
+        dependent_axes: Optional[Union[str, Sequence[str]]] = None,
     ) -> None:
         """
         Initialize a dense tensor dependence object with a given rank and coordinate dependence.
