@@ -3280,7 +3280,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                     )
                 else:
                     inverse_metric_field_chunk = inverse_metric_field[
-                        *chunk_slices, ...
+                        (*chunk_slices, ...)
                     ]
 
                 # Compute the covariant gradient.
