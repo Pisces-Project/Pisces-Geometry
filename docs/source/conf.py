@@ -12,11 +12,12 @@
 #
 import os
 import sys
+from typing import List
 
 import matplotlib  # noqa: F401
 
 sys.path.insert(0, os.path.abspath("../.."))
-sys.path.insert(0, os.path.abspath("../../pisces_geometry"))
+sys.path.insert(0, os.path.abspath("../../pymetric"))
 # -- Project information -----------------------------------------------------
 
 project = "Pisces-Geometry"
@@ -37,11 +38,11 @@ extensions = [
     "sphinx.ext.intersphinx",
     "myst_parser",
     "sphinx.ext.mathjax",
-    "nbsphinx",
     "sphinx_design",
     "sphinx.ext.doctest",
     "matplotlib.sphinxext.plot_directive",
     "sphinxcontrib.bibtex",
+    "sphinx_gallery.gen_gallery",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -50,7 +51,7 @@ bibtex_bibfiles = ["docs_bib.bib"]
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = []
+exclude_patterns: List = []
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -63,6 +64,7 @@ html_theme = "pydata_sphinx_theme"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
+html_favicon = "_static/pm_favicon.svg"
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
@@ -78,3 +80,8 @@ intersphinx_mapping = {
 
 napoleon_use_param = True
 napoleon_preprocess_types = True
+
+sphinx_gallery_conf = {
+    "examples_dirs": "./galleries/examples",  # path to your example scripts
+    "gallery_dirs": "auto_examples",  # path to where to save gallery generated output
+}

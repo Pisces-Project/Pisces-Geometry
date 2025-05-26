@@ -38,3 +38,8 @@ repos:
         flake8-2020==1.6.1,
         setuptools
       ]
+- repo: https://github.com/rubik/xenon
+  rev: v0.9.0
+  hooks:
+    - id: xenon
+      args: [ '--max-absolute=E', '--max-modules=C', '--max-average=B' ]

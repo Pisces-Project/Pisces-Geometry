@@ -1,8 +1,8 @@
-.. image:: ./images/pisces.png
-   :width: 200px
+.. image:: ./images/PyMetric.png
+   :width: 300px
    :align: center
 
-Pisces-Geometry
+PyMetric
 ===============
 
 |isort| |black| |Pre-Commit| |docformatter| |NUMPSTYLE| |COMMIT| |CONTRIBUTORS| |docs|
@@ -11,7 +11,7 @@ Pisces-Geometry
 
    <hr style="height:2px;background-color:black">
 
-Pisces-Geometry began as the backend for the `Pisces project <https://github.com/Pisces-Project/Pisces>`_ and has grown
+PyMetric began as the backend for the `Pisces project <https://github.com/Pisces-Project/Pisces>`_ and has grown
 into a self-contained package. It provides a seamless interface for performing coordinate-dependent operations in Python—ranging
 from coordinate transformations and differential operations to solving equations of motion. In addition, it offers robust
 data structures that natively respect and understand underlying coordinate systems and grid architectures, enabling efficient
@@ -25,7 +25,7 @@ handling of both curvilinear and structured grids.
 Installation
 ============
 
-Pisces-Geometry is written for Python 3.8+ (with continued support for older versions). For detailed installation instructions
+PyMetric is written for Python 3.8+ (with continued support for older versions). For detailed installation instructions
 and a quick start guide, please see the :ref:`getting_started` page.
 
 Resources
@@ -43,7 +43,7 @@ Resources
 
         Getting Started
         ^^^^^^^^^^^^^^^
-        New to ``Pisces-Geometry``? The getting started guide walks you through installing the library,
+        New to ``PyMetric``? The getting started guide walks you through installing the library,
         setting up your first coordinate system, and working with fields on structured grids.
 
         +++
@@ -63,7 +63,7 @@ Resources
 
         Worked Examples
         ^^^^^^^^^^^^^^^
-        Explore practical examples that demonstrate how to use ``Pisces-Geometry`` to define coordinates,
+        Explore practical examples that demonstrate how to use ``PyMetric`` to define coordinates,
         manipulate fields, perform differential operations, and more.
 
         +++
@@ -83,7 +83,7 @@ Resources
 
         User Guide
         ^^^^^^^^^^^
-        Learn how Pisces-Geometry is structured under the hood, including coordinate systems, grids,
+        Learn how PyMetric is structured under the hood, including coordinate systems, grids,
         fields, and differential operators. Ideal for in-depth understanding of the core design.
 
         +++
@@ -104,7 +104,7 @@ Resources
         API Reference
         ^^^^^^^^^^^^^
         Need implementation details? The API reference includes docstrings, type hints, and class hierarchies
-        for every public-facing component in ``Pisces-Geometry``.
+        for every public-facing component in ``PyMetric``.
 
         +++
 
@@ -127,12 +127,12 @@ Contents
    :maxdepth: 1
 
    getting_started
-   examples
+   auto_examples/index
    reference/index
    api
 
 - **Getting Started** — A quick guide to installation, basic setup, and your first field.
-- **Examples** — Real-world use cases showing how to use Pisces-Geometry in practice.
+- **Examples** — Real-world use cases showing how to use PyMetric in practice.
 - **User Guide** — In-depth explanations of coordinate systems, grids, and field operations.
 - **API Reference** — Full class and function documentation with source code links and type hints.
 

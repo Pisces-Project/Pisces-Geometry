@@ -3,7 +3,8 @@
 API
 ===
 
-This page contains the complete API documentation for all public components of the Pisces-Geometry library.
+This page contains the complete API documentation for all public components of the Pisces-Geometry library. The
+various modules have been broken down by the category into which they best fit.
 
 
 Core Modules
