@@ -1,0 +1,6 @@
+grids.core.GenericGrid.ncells
+=============================
+
+.. currentmodule:: grids.core
+
+.. autoproperty:: GenericGrid.ncells

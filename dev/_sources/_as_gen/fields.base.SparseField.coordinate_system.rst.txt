@@ -1,0 +1,6 @@
+fields.base.SparseField.coordinate\_system
+==========================================
+
+.. currentmodule:: fields.base
+
+.. autoproperty:: SparseField.coordinate_system

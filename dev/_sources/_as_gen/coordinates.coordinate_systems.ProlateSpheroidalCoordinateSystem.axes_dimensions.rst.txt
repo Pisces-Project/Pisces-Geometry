@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ProlateSpheroidalCoordinateSystem.axes\_dimensions
+==================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: ProlateSpheroidalCoordinateSystem.axes_dimensions

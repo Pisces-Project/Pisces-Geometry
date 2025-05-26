@@ -1,0 +1,26 @@
+SFieldCoreMixin
+==================================
+
+.. currentmodule:: fields.mixins.base
+
+.. autoclass:: fields.mixins.base.SFieldCoreMixin
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~SFieldCoreMixin.__init__
+      ~SFieldCoreMixin.items
+      ~SFieldCoreMixin.keys
+      ~SFieldCoreMixin.values
+   
+   
+
+   
+   
+   

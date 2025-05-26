@@ -1,0 +1,6 @@
+grids.core.GenericGrid.check\_field\_shape
+==========================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: GenericGrid.check_field_shape

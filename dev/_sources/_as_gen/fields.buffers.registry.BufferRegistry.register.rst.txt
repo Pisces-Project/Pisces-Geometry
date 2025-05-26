@@ -1,0 +1,6 @@
+fields.buffers.registry.BufferRegistry.register
+===============================================
+
+.. currentmodule:: fields.buffers.registry
+
+.. automethod:: BufferRegistry.register

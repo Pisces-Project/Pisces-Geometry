@@ -1,0 +1,6 @@
+fields.buffers.core.UnytArrayBuffer.broadcast\_to
+=================================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: UnytArrayBuffer.broadcast_to

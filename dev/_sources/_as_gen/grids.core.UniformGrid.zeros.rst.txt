@@ -1,0 +1,6 @@
+grids.core.UniformGrid.zeros
+============================
+
+.. currentmodule:: grids.core
+
+.. automethod:: UniformGrid.zeros

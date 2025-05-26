@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ConicCoordinateSystem.order\_axes\_canonical
+============================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ConicCoordinateSystem.order_axes_canonical

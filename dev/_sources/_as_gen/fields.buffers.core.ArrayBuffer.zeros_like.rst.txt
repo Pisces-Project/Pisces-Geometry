@@ -1,0 +1,6 @@
+fields.buffers.core.ArrayBuffer.zeros\_like
+===========================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: ArrayBuffer.zeros_like

@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.lower\_index\_dense
+=========================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: PolarCoordinateSystem.lower_index_dense

@@ -1,0 +1,6 @@
+grids.core.GenericGrid.unit\_system
+===================================
+
+.. currentmodule:: grids.core
+
+.. autoproperty:: GenericGrid.unit_system

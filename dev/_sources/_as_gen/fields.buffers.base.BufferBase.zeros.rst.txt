@@ -1,0 +1,6 @@
+fields.buffers.base.BufferBase.zeros
+====================================
+
+.. currentmodule:: fields.buffers.base
+
+.. automethod:: BufferBase.zeros

@@ -1,0 +1,6 @@
+fields.buffers.core.HDF5Buffer.broadcast\_to
+============================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: HDF5Buffer.broadcast_to

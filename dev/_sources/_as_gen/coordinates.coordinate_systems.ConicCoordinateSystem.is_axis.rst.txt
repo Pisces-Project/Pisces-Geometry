@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ConicCoordinateSystem.is\_axis
+==============================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ConicCoordinateSystem.is_axis

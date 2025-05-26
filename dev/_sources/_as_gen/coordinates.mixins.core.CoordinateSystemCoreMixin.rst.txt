@@ -1,0 +1,28 @@
+CoordinateSystemCoreMixin
+=================================================
+
+.. currentmodule:: coordinates.mixins.core
+
+.. autoclass:: coordinates.mixins.core.CoordinateSystemCoreMixin
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~CoordinateSystemCoreMixin.__init__
+      ~CoordinateSystemCoreMixin.convert_to
+      ~CoordinateSystemCoreMixin.from_cartesian
+      ~CoordinateSystemCoreMixin.get_conversion_transform
+      ~CoordinateSystemCoreMixin.pprint
+      ~CoordinateSystemCoreMixin.to_cartesian
+   
+   
+
+   
+   
+   

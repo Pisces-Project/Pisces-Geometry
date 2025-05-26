@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ConicCoordinateSystem.lambdify\_expression
+==========================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ConicCoordinateSystem.lambdify_expression

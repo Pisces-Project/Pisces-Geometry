@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.is\_scalar
+==========================================
+
+.. currentmodule:: fields.tensors
+
+.. autoproperty:: DenseTensorField.is_scalar

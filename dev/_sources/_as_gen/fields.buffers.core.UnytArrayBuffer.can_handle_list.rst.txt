@@ -1,0 +1,6 @@
+fields.buffers.core.UnytArrayBuffer.can\_handle\_list
+=====================================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: UnytArrayBuffer.can_handle_list

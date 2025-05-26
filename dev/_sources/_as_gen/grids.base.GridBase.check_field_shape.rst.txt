@@ -1,0 +1,6 @@
+grids.base.GridBase.check\_field\_shape
+=======================================
+
+.. currentmodule:: grids.base
+
+.. automethod:: GridBase.check_field_shape

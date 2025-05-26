@@ -1,0 +1,6 @@
+fields.buffers.core.HDF5Buffer.as\_array
+========================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: HDF5Buffer.as_array

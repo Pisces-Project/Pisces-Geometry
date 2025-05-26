@@ -1,0 +1,6 @@
+grids.mixins.core.GridUtilsMixin.ones
+=====================================
+
+.. currentmodule:: grids.mixins.core
+
+.. automethod:: GridUtilsMixin.ones

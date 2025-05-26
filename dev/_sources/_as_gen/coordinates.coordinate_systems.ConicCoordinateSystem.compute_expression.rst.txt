@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ConicCoordinateSystem.compute\_expression
+=========================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ConicCoordinateSystem.compute_expression

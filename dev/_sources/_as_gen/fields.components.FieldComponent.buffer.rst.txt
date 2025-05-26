@@ -1,0 +1,6 @@
+fields.components.FieldComponent.buffer
+=======================================
+
+.. currentmodule:: fields.components
+
+.. autoproperty:: FieldComponent.buffer

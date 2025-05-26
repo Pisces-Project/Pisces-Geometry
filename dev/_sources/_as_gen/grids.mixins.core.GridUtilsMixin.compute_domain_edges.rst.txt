@@ -1,0 +1,6 @@
+grids.mixins.core.GridUtilsMixin.compute\_domain\_edges
+=======================================================
+
+.. currentmodule:: grids.mixins.core
+
+.. automethod:: GridUtilsMixin.compute_domain_edges

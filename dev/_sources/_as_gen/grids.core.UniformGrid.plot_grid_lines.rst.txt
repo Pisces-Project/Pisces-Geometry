@@ -1,0 +1,6 @@
+grids.core.UniformGrid.plot\_grid\_lines
+========================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: UniformGrid.plot_grid_lines

@@ -1,0 +1,58 @@
+
+:orphan:
+
+.. _sphx_glr_sg_execution_times:
+
+
+Computation times
+=================
+**00:25.374** total execution time for 8 files **from all galleries**:
+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_auto_examples_a_coordinate_systems_plot_homoeoidal_coordinates.py` (``galleries/examples/a_coordinate_systems/plot_homoeoidal_coordinates.py``)
+     - 00:11.806
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_c_fields_plot_nfw_symmetry_break.py` (``galleries/examples/c_fields/plot_nfw_symmetry_break.py``)
+     - 00:05.976
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_a_coordinate_systems_plot_ellipsoidal_coordinates.py` (``galleries/examples/a_coordinate_systems/plot_ellipsoidal_coordinates.py``)
+     - 00:04.415
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_b_grids_plot_nonuniform_grid_grad.py` (``galleries/examples/b_grids/plot_nonuniform_grid_grad.py``)
+     - 00:00.935
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_b_grids_plot_grid_laplacian.py` (``galleries/examples/b_grids/plot_grid_laplacian.py``)
+     - 00:00.888
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_c_fields_plot_elem_lap_nfw.py` (``galleries/examples/c_fields/plot_elem_lap_nfw.py``)
+     - 00:00.660
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_c_fields_plot_elem_wise_diff.py` (``galleries/examples/c_fields/plot_elem_wise_diff.py``)
+     - 00:00.479
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_d_differential_geometry_plot_cartesian_gradient.py` (``galleries/examples/d_differential_geometry/plot_cartesian_gradient.py``)
+     - 00:00.216
+     - 0.0

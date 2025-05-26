@@ -1,0 +1,6 @@
+fields.buffers.core.ArrayBuffer.size
+====================================
+
+.. currentmodule:: fields.buffers.core
+
+.. autoproperty:: ArrayBuffer.size

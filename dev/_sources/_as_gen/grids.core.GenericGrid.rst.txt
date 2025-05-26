@@ -1,0 +1,106 @@
+GenericGrid
+======================
+
+.. currentmodule:: grids.core
+
+.. autoclass:: grids.core.GenericGrid
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~GenericGrid.__init__
+      ~GenericGrid.broadcast_array_to_axes
+      ~GenericGrid.broadcast_arrays_to_axes
+      ~GenericGrid.broadcast_shape_to_axes
+      ~GenericGrid.broadcast_shapes_to_axes
+      ~GenericGrid.check_field_shape
+      ~GenericGrid.compute_chunk_centers
+      ~GenericGrid.compute_chunk_coords
+      ~GenericGrid.compute_chunk_edges
+      ~GenericGrid.compute_chunk_mesh
+      ~GenericGrid.compute_chunk_slice
+      ~GenericGrid.compute_coords_from_index
+      ~GenericGrid.compute_coords_from_slices
+      ~GenericGrid.compute_domain_centers
+      ~GenericGrid.compute_domain_coords
+      ~GenericGrid.compute_domain_edges
+      ~GenericGrid.compute_domain_mesh
+      ~GenericGrid.compute_domain_slice
+      ~GenericGrid.compute_function_on_grid
+      ~GenericGrid.compute_mesh_from_slices
+      ~GenericGrid.construct_chunk_interpolator
+      ~GenericGrid.construct_domain_interpolator
+      ~GenericGrid.dense_adjust_tensor_signature
+      ~GenericGrid.dense_contract_with_metric
+      ~GenericGrid.dense_contravariant_gradient
+      ~GenericGrid.dense_covariant_gradient
+      ~GenericGrid.dense_element_wise_laplacian
+      ~GenericGrid.dense_element_wise_partial_derivatives
+      ~GenericGrid.dense_gradient
+      ~GenericGrid.dense_lower_index
+      ~GenericGrid.dense_raise_index
+      ~GenericGrid.dense_scalar_laplacian
+      ~GenericGrid.dense_vector_divergence
+      ~GenericGrid.dense_vector_divergence_contravariant
+      ~GenericGrid.dense_vector_divergence_covariant
+      ~GenericGrid.determine_domain_shape
+      ~GenericGrid.empty
+      ~GenericGrid.empty_like_chunks
+      ~GenericGrid.extract_subgrid
+      ~GenericGrid.from_hdf5
+      ~GenericGrid.full
+      ~GenericGrid.full_like_chunks
+      ~GenericGrid.get_chunk_bbox
+      ~GenericGrid.get_chunk_shape
+      ~GenericGrid.iter_chunk_coords
+      ~GenericGrid.iter_chunk_indices
+      ~GenericGrid.iter_chunk_slices
+      ~GenericGrid.ones
+      ~GenericGrid.ones_like_chunks
+      ~GenericGrid.plot_chunk_lines
+      ~GenericGrid.plot_ghost_zone_shading
+      ~GenericGrid.plot_grid_lines
+      ~GenericGrid.show
+      ~GenericGrid.standardize_axes
+      ~GenericGrid.summary
+      ~GenericGrid.tile_array_to_axes
+      ~GenericGrid.to_hdf5
+      ~GenericGrid.zeros
+      ~GenericGrid.zeros_like_chunks
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~GenericGrid.axes
+      ~GenericGrid.axes_units
+      ~GenericGrid.bbox
+      ~GenericGrid.cdd
+      ~GenericGrid.centering
+      ~GenericGrid.chunk_size
+      ~GenericGrid.chunking
+      ~GenericGrid.coordinate_system
+      ~GenericGrid.dd
+      ~GenericGrid.fill_values
+      ~GenericGrid.gbbox
+      ~GenericGrid.gdd
+      ~GenericGrid.ghost_zones
+      ~GenericGrid.ncells
+      ~GenericGrid.ndim
+      ~GenericGrid.nvertices
+      ~GenericGrid.shape
+      ~GenericGrid.unit_system
+   
+   

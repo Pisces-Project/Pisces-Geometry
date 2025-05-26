@@ -1,0 +1,6 @@
+grids.core.UniformGrid.dense\_contract\_with\_metric
+====================================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: UniformGrid.dense_contract_with_metric

@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.substitute\_expression
+==================================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.substitute_expression

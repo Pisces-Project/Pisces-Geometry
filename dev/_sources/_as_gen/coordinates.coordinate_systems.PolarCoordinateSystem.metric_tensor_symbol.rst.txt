@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.metric\_tensor\_symbol
+============================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: PolarCoordinateSystem.metric_tensor_symbol

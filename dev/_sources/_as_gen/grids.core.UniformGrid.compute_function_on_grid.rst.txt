@@ -1,0 +1,6 @@
+grids.core.UniformGrid.compute\_function\_on\_grid
+==================================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: UniformGrid.compute_function_on_grid

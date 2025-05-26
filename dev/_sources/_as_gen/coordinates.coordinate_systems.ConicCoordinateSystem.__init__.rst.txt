@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ConicCoordinateSystem.\_\_init\_\_
+==================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ConicCoordinateSystem.__init__

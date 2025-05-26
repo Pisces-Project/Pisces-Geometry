@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.size
+====================================
+
+.. currentmodule:: fields.tensors
+
+.. autoproperty:: DenseTensorField.size

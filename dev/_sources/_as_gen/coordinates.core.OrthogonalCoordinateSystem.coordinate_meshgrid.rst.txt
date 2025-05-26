@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.coordinate\_meshgrid
+================================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.coordinate_meshgrid

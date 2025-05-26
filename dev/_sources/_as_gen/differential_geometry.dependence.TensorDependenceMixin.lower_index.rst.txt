@@ -1,0 +1,6 @@
+differential\_geometry.dependence.TensorDependenceMixin.lower\_index
+====================================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. automethod:: TensorDependenceMixin.lower_index

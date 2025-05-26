@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.SphericalCoordinateSystem.substitute\_expression
+================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: SphericalCoordinateSystem.substitute_expression

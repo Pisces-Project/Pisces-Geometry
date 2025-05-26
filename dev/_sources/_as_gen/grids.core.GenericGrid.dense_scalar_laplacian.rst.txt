@@ -1,0 +1,6 @@
+grids.core.GenericGrid.dense\_scalar\_laplacian
+===============================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: GenericGrid.dense_scalar_laplacian

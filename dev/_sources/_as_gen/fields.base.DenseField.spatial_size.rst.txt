@@ -1,0 +1,6 @@
+fields.base.DenseField.spatial\_size
+====================================
+
+.. currentmodule:: fields.base
+
+.. autoproperty:: DenseField.spatial_size

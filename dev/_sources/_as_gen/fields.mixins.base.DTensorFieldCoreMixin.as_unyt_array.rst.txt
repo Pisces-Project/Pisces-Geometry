@@ -1,0 +1,6 @@
+fields.mixins.base.DTensorFieldCoreMixin.as\_unyt\_array
+========================================================
+
+.. currentmodule:: fields.mixins.base
+
+.. automethod:: DTensorFieldCoreMixin.as_unyt_array

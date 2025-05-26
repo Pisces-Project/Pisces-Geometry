@@ -1,0 +1,6 @@
+fields.utils.utilities.signature\_to\_tensor\_class
+===================================================
+
+.. currentmodule:: fields.utils.utilities
+
+.. autofunction:: signature_to_tensor_class

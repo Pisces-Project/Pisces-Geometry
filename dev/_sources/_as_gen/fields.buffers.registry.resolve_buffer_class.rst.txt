@@ -1,0 +1,6 @@
+fields.buffers.registry.resolve\_buffer\_class
+==============================================
+
+.. currentmodule:: fields.buffers.registry
+
+.. autofunction:: resolve_buffer_class

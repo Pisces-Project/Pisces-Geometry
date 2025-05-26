@@ -1,0 +1,6 @@
+grids.core.UniformGrid.iter\_chunk\_indices
+===========================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: UniformGrid.iter_chunk_indices

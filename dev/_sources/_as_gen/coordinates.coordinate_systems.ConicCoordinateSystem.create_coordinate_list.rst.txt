@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ConicCoordinateSystem.create\_coordinate\_list
+==============================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ConicCoordinateSystem.create_coordinate_list

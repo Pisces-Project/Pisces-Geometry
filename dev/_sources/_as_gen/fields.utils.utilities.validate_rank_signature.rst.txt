@@ -1,0 +1,6 @@
+fields.utils.utilities.validate\_rank\_signature
+================================================
+
+.. currentmodule:: fields.utils.utilities
+
+.. autofunction:: validate_rank_signature

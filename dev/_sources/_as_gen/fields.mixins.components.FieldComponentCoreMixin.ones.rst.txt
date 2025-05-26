@@ -1,0 +1,6 @@
+fields.mixins.components.FieldComponentCoreMixin.ones
+=====================================================
+
+.. currentmodule:: fields.mixins.components
+
+.. automethod:: FieldComponentCoreMixin.ones

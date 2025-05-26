@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.build\_axes\_mask
+=============================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.build_axes_mask

@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.get\_class\_expression
+==================================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.get_class_expression

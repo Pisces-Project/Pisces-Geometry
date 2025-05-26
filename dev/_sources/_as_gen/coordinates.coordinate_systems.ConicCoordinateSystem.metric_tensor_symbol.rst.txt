@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ConicCoordinateSystem.metric\_tensor\_symbol
+============================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: ConicCoordinateSystem.metric_tensor_symbol

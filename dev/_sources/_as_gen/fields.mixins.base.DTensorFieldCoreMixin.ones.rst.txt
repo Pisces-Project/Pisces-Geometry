@@ -1,0 +1,6 @@
+fields.mixins.base.DTensorFieldCoreMixin.ones
+=============================================
+
+.. currentmodule:: fields.mixins.base
+
+.. automethod:: DTensorFieldCoreMixin.ones

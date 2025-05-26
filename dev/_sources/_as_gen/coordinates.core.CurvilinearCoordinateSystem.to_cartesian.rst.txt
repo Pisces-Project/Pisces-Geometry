@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.to\_cartesian
+==========================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: CurvilinearCoordinateSystem.to_cartesian

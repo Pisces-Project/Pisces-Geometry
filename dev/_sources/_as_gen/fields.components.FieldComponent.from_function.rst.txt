@@ -1,0 +1,6 @@
+fields.components.FieldComponent.from\_function
+===============================================
+
+.. currentmodule:: fields.components
+
+.. automethod:: FieldComponent.from_function

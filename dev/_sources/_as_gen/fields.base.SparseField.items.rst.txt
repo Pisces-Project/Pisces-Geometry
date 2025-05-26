@@ -1,0 +1,6 @@
+fields.base.SparseField.items
+=============================
+
+.. currentmodule:: fields.base
+
+.. automethod:: SparseField.items
