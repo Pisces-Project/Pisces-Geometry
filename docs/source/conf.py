@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath("../.."))
 sys.path.insert(0, os.path.abspath("../../pymetric"))
 # -- Project information -----------------------------------------------------
 
-project = "Pisces-Geometry"
+project = "PyMetric"
 copyright = "2024, Eliza Diggins"
 author = "Eliza Diggins"
 
