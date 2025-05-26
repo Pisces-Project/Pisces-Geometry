@@ -78,18 +78,18 @@ If you use Pisces for academic work, please include a statement in your publicat
 .. |Issues| image:: https://img.shields.io/github/issues/Pisces-Project/PyMetric
    :target: https://github.com/Eliza-Diggins/pisces/issues
 
+.. |Tests| image:: https://github.com/Pisces-Project/PyMetric/actions/workflows/run_tests.yml/badge.svg
+
 .. |Contributors| image:: https://img.shields.io/github/contributors/Pisces-Project/PyMetric
    :target: https://github.com/Eliza-Diggins/pisces/graphs/contributors
 
 .. |Commits| image:: https://img.shields.io/github/last-commit/Pisces-Project/PyMetric
-
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000
    :target: https://github.com/psf/black
 
 .. |isort| image:: https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336
    :target: https://pycqa.github.io/isort/
-
 
 .. |NUMPSTYLE| image:: https://img.shields.io/badge/%20style-numpy-459db9
     :target: https://numpydoc.readthedocs.io/en/latest/format.html
