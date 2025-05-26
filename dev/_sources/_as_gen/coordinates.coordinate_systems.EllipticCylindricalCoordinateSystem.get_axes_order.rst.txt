@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.EllipticCylindricalCoordinateSystem.get\_axes\_order
+====================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: EllipticCylindricalCoordinateSystem.get_axes_order

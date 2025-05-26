@@ -1,0 +1,6 @@
+grids.mixins.core.GridUtilsMixin.broadcast\_array\_to\_axes
+===========================================================
+
+.. currentmodule:: grids.mixins.core
+
+.. automethod:: GridUtilsMixin.broadcast_array_to_axes

@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.OblateSpheroidalCoordinateSystem.adjust\_dense\_tensor\_signature
+=================================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: OblateSpheroidalCoordinateSystem.adjust_dense_tensor_signature

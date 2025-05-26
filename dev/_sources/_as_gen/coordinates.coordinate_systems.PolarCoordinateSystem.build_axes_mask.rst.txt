@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.build\_axes\_mask
+=======================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: PolarCoordinateSystem.build_axes_mask

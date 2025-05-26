@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.CylindricalCoordinateSystem.parameter\_symbols
+==============================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: CylindricalCoordinateSystem.parameter_symbols

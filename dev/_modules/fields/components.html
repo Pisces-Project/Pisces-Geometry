@@ -1,0 +1,1036 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fields.components &#8212; Pisces-Geometry  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/fields/components';</script>
+    <link rel="icon" href="../../_static/pm_favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Pisces-Geometry  documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting_started.html">
+    Quick-start Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
+    PyMetric User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting_started.html">
+    Quick-start Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
+    PyMetric User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">fields.components</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for fields.components</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Field component classes for structured geometric data.</span>
+
+<span class="sd">This module defines the :class:`FieldComponent` class, the core data container for single-buffer</span>
+<span class="sd">components of structured geometric fields in Pisces Geometry. A :class:`FieldComponent` binds together a</span>
+<span class="sd">numerical buffer (such as a NumPy array, `unyt_array`, or HDF5-backed dataset) with metadata that</span>
+<span class="sd">describes how it aligns with a structured grid and how it should behave under NumPy-style operations.</span>
+
+<span class="sd">Field components are the atomic building blocks of all field objects in the Pisces framework.</span>
+<span class="sd">They support spatial axis labeling, broadcasting, ufunc overrides, and type coercion,</span>
+<span class="sd">and are designed to integrate cleanly with NumPy and scientific Python workflows.</span>
+
+<span class="sd">See Also</span>
+<span class="sd">--------</span>
+
+<span class="sd">:class:`~fields.base.DenseField`</span>
+<span class="sd">:class:`~fields.tensors.DenseTensorField`</span>
+<span class="sd">:class:`~fields.buffers.base.BufferBase`</span>
+<span class="sd">:func:`~fields.buffers.base.buffer_from_array`</span>
+<span class="sd">:class:`~grids.base.GridBase`</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">TYPE_CHECKING</span><span class="p">,</span>
+    <span class="n">Any</span><span class="p">,</span>
+    <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">Iterator</span><span class="p">,</span>
+    <span class="n">List</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">Sequence</span><span class="p">,</span>
+    <span class="n">Tuple</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">unyt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy.typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArrayLike</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.fields.buffers</span><span class="w"> </span><span class="kn">import</span> <span class="n">buffer_from_array</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.fields.mixins._generic</span><span class="w"> </span><span class="kn">import</span> <span class="n">NumpyArithmeticMixin</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.fields.mixins.components</span><span class="w"> </span><span class="kn">import</span> <span class="n">FieldComponentCoreMixin</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.utilities.arrays</span><span class="w"> </span><span class="kn">import</span> <span class="n">apply_ufunc_to_labels</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.fields.buffers.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BufferBase</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.grids.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridBase</span>
+
+
+<div class="viewcode-block" id="FieldComponent">
+<a class="viewcode-back" href="../../_as_gen/fields.components.FieldComponent.html#fields.components.FieldComponent">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">FieldComponent</span><span class="p">(</span>
+    <span class="n">NumpyArithmeticMixin</span><span class="p">,</span>
+    <span class="n">FieldComponentCoreMixin</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A single buffer-aligned component of a geometric field.</span>
+
+<span class="sd">    :class:`FieldComponent` represents a dense, spatially resolved data block</span>
+<span class="sd">    associated with a single component of a geometric field. It couples a numerical buffer</span>
+<span class="sd">    (e.g., NumPy array, `unyt`, or HDF5 dataset) with metadata about its spatial axes and</span>
+<span class="sd">    the structured grid on which it resides.</span>
+
+<span class="sd">    This class provides the foundational storage and computation interface for fields such as</span>
+<span class="sd">    :class:`~fields.base.DenseField` and :class:`~fields.tensors.DenseTensorField`. Each</span>
+<span class="sd">    `FieldComponent` knows which axes it spans, how it aligns with a coordinate grid, and</span>
+<span class="sd">    can interact seamlessly with NumPy operations through ufunc overrides and broadcasting.</span>
+
+<span class="sd">    Key Responsibilities</span>
+<span class="sd">    --------------------</span>
+<span class="sd">    - Wrap a structured array-like buffer with grid-aware metadata.</span>
+<span class="sd">    - Track which grid axes the data aligns with and support broadcasting across compatible fields.</span>
+<span class="sd">    - Provide NumPy ufunc and array function compatibility.</span>
+<span class="sd">    - Serve as a backend-neutral data container for differential geometry operations.</span>
+<span class="sd">    - Support views into the underlying buffer in various formats (e.g., array, `unyt`, raw core).</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Each field in the library is composed of one or more :class:`FieldComponent` instances.</span>
+<span class="sd">    Most dense fields only contain one, but multi-component or symbolic fields may</span>
+<span class="sd">    combine many for blockwise decomposition or coordinate basis expansion.</span>
+
+<span class="sd">    Unlike higher-level field objects, :class:`FieldComponent` does not track symbolic dependence,</span>
+<span class="sd">    tensor variance, or units at the field level. It focuses purely on the aligned numerical</span>
+<span class="sd">    representation of a single data block.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    ~fields.base.DenseField :</span>
+<span class="sd">        Field class that wraps a single `FieldComponent`.</span>
+<span class="sd">    ~fields.tensors.DenseTensorField :</span>
+<span class="sd">        Tensor-valued field with variance and signature tracking.</span>
+<span class="sd">    ~fields.buffers.base.BufferBase :</span>
+<span class="sd">        Underlying abstract buffer class used to store the field data.</span>
+<span class="sd">    ~grids.base.GridBase :</span>
+<span class="sd">        Structured grid object that defines spatial coordinates and chunking.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># --- Class Level Flags --- #</span>
+    <span class="c1"># These are logical flags for determining</span>
+    <span class="c1"># finer details of class behavior and triage.</span>
+    <span class="n">__array_priority__</span> <span class="o">=</span> <span class="mf">3.0</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The priority of the component class in numpy operations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__array_function_dispatch__</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    `__array_function_dispatch__` is a dictionary which can optionally map</span>
+<span class="sd">    NumPy callables to internal implementations to allow overriding of default behavior.</span>
+
+<span class="sd">    By default, when a NumPy function (non ufunc) is called on a Component, the buffer</span>
+<span class="sd">    is stripped and the operation occurs on the underlying representation. If a callable</span>
+<span class="sd">    is specified here, then `__array_function__()` will catch the redirect and</span>
+<span class="sd">    triage accordingly.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># --- Initialization Logic --- #</span>
+    <span class="c1"># This section of the class manages the initialization</span>
+    <span class="c1"># logic. It can be altered in subclasses as needed.</span>
+<div class="viewcode-block" id="FieldComponent.__init__">
+<a class="viewcode-back" href="../../_as_gen/fields.components.FieldComponent.__init__.html#fields.components.FieldComponent.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">:</span> <span class="s2">&quot;GridBase&quot;</span><span class="p">,</span> <span class="n">buffer</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="o">/</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a FieldComponent instance.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        grid : GridBase</span>
+<span class="sd">            The structured grid over which the field is defined.</span>
+
+<span class="sd">        buffer : ArrayLike</span>
+<span class="sd">            The data buffer representing field values. This can be a NumPy array,</span>
+<span class="sd">            unyt array, h5py dataset, or other supported backend. It will be</span>
+<span class="sd">            wrapped automatically using `buffer_from_array`.</span>
+
+<span class="sd">        axes : Sequence[str]</span>
+<span class="sd">            The sequence of axis labels corresponding to spatial dimensions</span>
+<span class="sd">            of the buffer. These should match dimensions in the grid.</span>
+
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments passed to `buffer_from_array`.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If the shape of the buffer is inconsistent with the grid and axes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Assign the grid and the buffer. Attempt to coerce to</span>
+        <span class="c1"># a buffer successfully.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__grid__</span><span class="p">:</span> <span class="s2">&quot;GridBase&quot;</span> <span class="o">=</span> <span class="n">grid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span><span class="p">:</span> <span class="s2">&quot;BufferBase&quot;</span> <span class="o">=</span> <span class="n">buffer_from_array</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Now utilize the axes to standardize and then check that the field</span>
+        <span class="c1"># has the correct shape.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__axes__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__grid__</span><span class="o">.</span><span class="n">standardize_axes</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__grid__</span><span class="o">.</span><span class="n">check_field_shape</span><span class="p">(</span><span class="n">buffer</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__axes__</span><span class="p">)</span></div>
+
+
+    <span class="c1"># --- Dunder Methods --- #</span>
+    <span class="c1"># Dunder methods should not be altered to any significant</span>
+    <span class="c1"># degree to ensure that field components have relatively standard</span>
+    <span class="c1"># behaviors.</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;FieldComponent grid=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__grid__</span><span class="si">}</span><span class="s2"> buffer=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span><span class="si">}</span><span class="s2"> axes=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__axes__</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span> <span class="ow">is</span> <span class="n">other</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span><span class="p">)</span>
+
+    <span class="c1"># --- Numpy Semantics --- #</span>
+    <span class="c1"># Methods determining the semantics of numpy operations.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__array__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span><span class="o">.</span><span class="n">__array__</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__standardize_ufunc_inputs__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">inputs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Normalize and prepare inputs for NumPy ufunc operations on field components.</span>
+
+<span class="sd">        This method ensures that all `FieldComponent` inputs are coerced to use a common</span>
+<span class="sd">        set of axes, extracted as the union of all axes present in the input components.</span>
+<span class="sd">        Each component is converted to its underlying array buffer and broadcasted to</span>
+<span class="sd">        match the full `broadcast_axes` layout.</span>
+
+<span class="sd">        Non-`FieldComponent` inputs are returned unchanged. Their axis labels are marked as `None`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        *inputs : Any</span>
+<span class="sd">            The positional inputs passed to a NumPy ufunc. These may include a mix of</span>
+<span class="sd">            `FieldComponent` instances and raw arrays, scalars, etc.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        unwrapped_inputs : list</span>
+<span class="sd">            The actual buffer-backed data used in computation. For `FieldComponent`s,</span>
+<span class="sd">            this is the `.as_buffer_repr_in_axes(...)` representation.</span>
+<span class="sd">        input_axes : list of list[str] or None</span>
+<span class="sd">            The axes each input is aligned to. Non-`FieldComponent` inputs will have `None`.</span>
+<span class="sd">        broadcast_axes : list of str</span>
+<span class="sd">            The unified set of axes shared by all participating `FieldComponent`s.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        This is intended for internal use inside `__array_ufunc__` to ensure that field buffers</span>
+<span class="sd">        are broadcast-compatible and semantically consistent during elementwise operations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Identify all of the elements of the inputs</span>
+        <span class="c1"># which are self.__class__ typed so that we can</span>
+        <span class="c1"># catch and coerce them.</span>
+        <span class="n">input_axes</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="n">component_inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">inp</span> <span class="k">for</span> <span class="n">inp</span> <span class="ow">in</span> <span class="n">inputs</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)]</span>
+
+        <span class="c1"># Check that we have components that need management. If not,</span>
+        <span class="c1"># we can return immediately without any further computation.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">component_inputs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">input_axes</span><span class="p">,</span> <span class="p">[]</span>
+
+        <span class="c1"># Determine the set of shared axes from the provided</span>
+        <span class="c1"># components. These will be the axes that get broadcast to.</span>
+        <span class="n">broadcast_axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ci</span><span class="o">.</span><span class="n">__axes__</span> <span class="k">for</span> <span class="n">ci</span> <span class="ow">in</span> <span class="n">component_inputs</span><span class="p">]</span>
+        <span class="n">broadcast_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__grid__</span><span class="o">.</span><span class="n">standardize_axes</span><span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">()</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="o">*</span><span class="n">broadcast_axes</span><span class="p">)),</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Start managing the inputs. We enforce that everything ends up</span>
+        <span class="c1"># in the Buffer Representation class and is coerced to the shared axes.</span>
+        <span class="n">unwrapped_inputs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_i</span><span class="p">,</span> <span class="n">inp</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">FieldComponent</span><span class="p">):</span>
+                <span class="n">unwrapped_inputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">inp</span><span class="o">.</span><span class="n">broadcast_to_buffer_repr_in_axes</span><span class="p">(</span><span class="n">broadcast_axes</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">input_axes</span><span class="p">[</span><span class="n">_i</span><span class="p">]</span> <span class="o">=</span> <span class="n">broadcast_axes</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">unwrapped_inputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+
+        <span class="c1"># Return the unwrapped inputs, the input axes, and the broadcast</span>
+        <span class="c1"># axes.</span>
+        <span class="k">return</span> <span class="n">unwrapped_inputs</span><span class="p">,</span> <span class="n">input_axes</span><span class="p">,</span> <span class="n">broadcast_axes</span>
+
+    <span class="c1"># noinspection PyMethodMayBeStatic</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__apply_ufunc_to_axes__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">ufunc</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply a NumPy universal function to a set of input shapes and axes to</span>
+<span class="sd">        determine the anticipated output shape and axes.</span>
+
+<span class="sd">        Inputs should be a list of tuples containing (shape,axes).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Standardize the inputs by extending them to have</span>
+        <span class="c1"># a length matching the number of dimensions for each</span>
+        <span class="c1"># element.</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="kc">None</span><span class="p">,))</span> <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">inputs</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Run the label logic to compute output axes</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">output_labels</span> <span class="o">=</span> <span class="n">apply_ufunc_to_labels</span><span class="p">(</span><span class="n">ufunc</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Extract grid axes: we expect (..., None, None, ... )</span>
+        <span class="c1"># so we extract up to the first instance of None and then</span>
+        <span class="c1"># return.</span>
+        <span class="c1"># TODO: This is a little inelegant. PRIORITY: low</span>
+        <span class="n">grid_axes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">output_labels</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">grid_axes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">grid_axes</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__array_ufunc__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ufunc</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># Standardize the inputs. This requires that we go through the</span>
+        <span class="c1"># inputs, identify the relevant axes for each input, and broadcast</span>
+        <span class="c1"># components to a shared set of axes.</span>
+        <span class="n">unwrapped_inputs</span><span class="p">,</span> <span class="n">input_axes</span><span class="p">,</span> <span class="n">output_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__standardize_ufunc_inputs__</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">inputs</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Propagate the shape and axes through the ufunc to determine the</span>
+        <span class="c1"># anticipated size and axes of the resulting object.</span>
+        <span class="n">input_shapes_and_axes</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">_input</span><span class="p">),</span> <span class="n">_input_axes</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">_input</span><span class="p">,</span> <span class="n">_input_axes</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">unwrapped_inputs</span><span class="p">,</span> <span class="n">input_axes</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">output_axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__apply_ufunc_to_axes__</span><span class="p">(</span>
+            <span class="n">ufunc</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">input_shapes_and_axes</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Handle any instances where `out` is specified.</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;out&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">out</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Normalize to a tuple for uniform processing</span>
+            <span class="n">is_tuple</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span>
+            <span class="n">out_tuple</span> <span class="o">=</span> <span class="n">out</span> <span class="k">if</span> <span class="n">is_tuple</span> <span class="k">else</span> <span class="p">(</span><span class="n">out</span><span class="p">,)</span>
+
+            <span class="c1"># Unwrap buffers</span>
+            <span class="n">unwrapped_out</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+                <span class="n">o</span><span class="o">.</span><span class="n">__buffer__</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span> <span class="k">else</span> <span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">out_tuple</span>
+            <span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;out&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">unwrapped_out</span> <span class="k">if</span> <span class="n">is_tuple</span> <span class="k">else</span> <span class="n">unwrapped_out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="c1"># Apply the ufunc</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ufunc</span><span class="p">,</span> <span class="n">method</span><span class="p">)(</span><span class="o">*</span><span class="n">unwrapped_inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+            <span class="c1"># check if result is None or if we got something back.</span>
+            <span class="c1"># If something came back we actually want to pass out.</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">out</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">result</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># out was not specified, we need to compute the result and</span>
+            <span class="c1"># determine if we treat it as a component or not.</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ufunc</span><span class="p">,</span> <span class="n">method</span><span class="p">)(</span><span class="o">*</span><span class="n">unwrapped_inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+            <span class="c1"># Determine what typing the output should get.</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">output_axes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__grid__</span><span class="p">,</span>
+                    <span class="n">result</span><span class="p">,</span>
+                    <span class="n">output_axes</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__array_function__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Override NumPy high-level functions for BufferBase.</span>
+
+<span class="sd">        The heuristic for this behavior is to simply delegate operations to</span>
+<span class="sd">        the buffer representation unless there is a specific override in place.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check for custom forwarding implementations via</span>
+        <span class="c1"># the __array_functions_dispatch__.</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">issubclass</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">types</span><span class="p">):</span>
+            <span class="c1"># Fetch the dispatch and check for the override of</span>
+            <span class="c1"># this function.</span>
+            <span class="n">redirect_func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;__array_function_dispatch__&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="n">func</span><span class="p">,</span> <span class="kc">None</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">redirect_func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># We have a redirection, we now delegate to that.</span>
+                <span class="k">return</span> <span class="n">redirect_func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># No valid dispatch found. We now strip the args down and</span>
+        <span class="c1"># pass through without and further alterations.</span>
+        <span class="n">unwrapped_args</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">__buffer__</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span> <span class="k">else</span> <span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span>
+        <span class="p">)</span>
+        <span class="n">unwrapped_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">_k</span><span class="p">:</span> <span class="n">_v</span><span class="o">.</span><span class="n">__buffer__</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_v</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span> <span class="k">else</span> <span class="n">_v</span>
+            <span class="k">for</span> <span class="n">_k</span><span class="p">,</span> <span class="n">_v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">unwrapped_args</span><span class="p">,</span> <span class="o">**</span><span class="n">unwrapped_kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FieldComponent.as_array">
+<a class="viewcode-back" href="../../_as_gen/fields.components.FieldComponent.as_array.html#fields.components.FieldComponent.as_array">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_array</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the buffer as a standard NumPy array.</span>
+
+<span class="sd">        This strips away units and any backend-specific metadata. It is useful for</span>
+<span class="sd">        performing standard NumPy operations or exporting data in a backend-agnostic format.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            A NumPy array copy of the field&#39;s data buffer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span><span class="o">.</span><span class="n">as_array</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="FieldComponent.as_unyt_array">
+<a class="viewcode-back" href="../../_as_gen/fields.components.FieldComponent.as_unyt_array.html#fields.components.FieldComponent.as_unyt_array">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_unyt_array</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">unyt</span><span class="o">.</span><span class="n">unyt_array</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the buffer as a unit-aware `unyt_array`.</span>
+
+<span class="sd">        This includes the physical units associated with the buffer (if any),</span>
+<span class="sd">        allowing for unit-aware operations using the `unyt` library.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        unyt.unyt_array</span>
+<span class="sd">            A `unyt` array view of the buffer, with units preserved.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span><span class="o">.</span><span class="n">as_unyt_array</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="FieldComponent.as_buffer_core">
+<a class="viewcode-back" href="../../_as_gen/fields.components.FieldComponent.as_buffer_core.html#fields.components.FieldComponent.as_buffer_core">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_buffer_core</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the raw backend array (e.g., `np.ndarray`, `unyt_array`, `h5py.Dataset`).</span>
+
+<span class="sd">        This gives direct access to the underlying array-like object stored in the buffer,</span>
+<span class="sd">        allowing low-level operations or access to backend-specific APIs.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Any</span>
+<span class="sd">            The native backend array object wrapped by the buffer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span><span class="o">.</span><span class="n">as_core</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="FieldComponent.as_buffer_repr">
+<a class="viewcode-back" href="../../_as_gen/fields.components.FieldComponent.as_buffer_repr.html#fields.components.FieldComponent.as_buffer_repr">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_buffer_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a NumPy-compatible representation of the buffer.</span>
+
+<span class="sd">        This representation is used for NumPy ufunc compatibility and typically</span>
+<span class="sd">        returns a view or copy of the data suitable for elementwise operations.</span>
+
+<span class="sd">        For unit-aware buffers, this may return a `unyt_array`; for others,</span>
+<span class="sd">        a NumPy array.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Any</span>
+<span class="sd">            A NumPy-compatible array suitable for broadcasting and ufunc evaluation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span><span class="o">.</span><span class="n">as_repr</span><span class="p">()</span></div>
+
+
+    <span class="c1"># --- Attributes --- #</span>
+    <span class="c1"># Standardized attributes for component classes.</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">grid</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;GridBase&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The structured grid over which this field component is defined.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ~grids.base.GridBase</span>
+<span class="sd">            The grid object associated with this field.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__grid__</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">axes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The spatial axes along which this field component is defined.</span>
+
+<span class="sd">        These axes correspond to the leading dimensions of the field buffer.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list of str</span>
+<span class="sd">            Canonical list of spatial axis labels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__axes__</span><span class="p">[:]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">naxes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Number of spatial axes the field is defined over.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            The number of named spatial axes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__axes__</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BufferBase&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The internal buffer storing this field’s data.</span>
+
+<span class="sd">        This buffer provides backend-specific logic (NumPy, unyt, HDF5, etc.)</span>
+<span class="sd">        for data access, arithmetic, and I/O.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ~fields.buffers.base.BufferBase</span>
+<span class="sd">            The underlying storage buffer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The shape of the full data array, including spatial and element dimensions.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple of int</span>
+<span class="sd">            Full shape of the field buffer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">spatial_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The shape of the field over the spatial axes (grid-aligned dimensions).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple of int</span>
+<span class="sd">            Shape of the field over the named spatial axes only.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span> <span class="bp">self</span><span class="o">.</span><span class="n">spatial_ndim</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">element_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The shape of the element-wise structure (e.g., vector or tensor components).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple of int</span>
+<span class="sd">            Shape of the trailing element-wise dimensions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">spatial_ndim</span> <span class="p">:]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return True if the field has no element-wise structure.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">element_ndim</span> <span class="o">==</span> <span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">units</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">unyt</span><span class="o">.</span><span class="n">Unit</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Physical units attached to the buffer data, if defined.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        unyt.unit_registry.Unit or None</span>
+<span class="sd">            The units attached to this field’s buffer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span><span class="o">.</span><span class="n">units</span>
+
+    <span class="nd">@units</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">units</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Total number of elements in the buffer.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            Product of all dimensions in the field shape.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">element_size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total number of element-wise components.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">element_shape</span><span class="p">))</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">element_ndim</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">spatial_size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total number of spatial elements (grid cells).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spatial_shape</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Total number of dimensions in the field buffer.</span>
+
+<span class="sd">        This includes both spatial (grid-aligned) and trailing element dimensions.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            Total rank of the field array.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span><span class="o">.</span><span class="n">ndim</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">spatial_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Number of spatial dimensions (i.e., number of named axes).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            Number of dimensions aligned with the grid.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__axes__</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">element_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Number of trailing element-wise dimensions (e.g., vector or tensor structure).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            Number of dimensions not aligned with spatial grid axes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">spatial_ndim</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The data type of the elements stored in the buffer.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dtype</span>
+<span class="sd">            The NumPy dtype or equivalent backend type.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buffer__</span><span class="o">.</span><span class="n">dtype</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Eliza Diggins.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

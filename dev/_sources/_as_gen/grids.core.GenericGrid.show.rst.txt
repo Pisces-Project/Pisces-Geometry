@@ -1,0 +1,6 @@
+grids.core.GenericGrid.show
+===========================
+
+.. currentmodule:: grids.core
+
+.. automethod:: GenericGrid.show

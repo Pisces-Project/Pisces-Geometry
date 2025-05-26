@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ConicCoordinateSystem.axes\_complement
+======================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ConicCoordinateSystem.axes_complement

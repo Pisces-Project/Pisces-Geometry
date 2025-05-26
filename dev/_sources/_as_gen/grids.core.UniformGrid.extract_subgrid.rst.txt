@@ -1,0 +1,6 @@
+grids.core.UniformGrid.extract\_subgrid
+=======================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: UniformGrid.extract_subgrid

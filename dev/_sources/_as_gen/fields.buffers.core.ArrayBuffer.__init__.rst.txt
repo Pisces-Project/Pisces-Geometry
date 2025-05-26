@@ -1,0 +1,6 @@
+fields.buffers.core.ArrayBuffer.\_\_init\_\_
+============================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: ArrayBuffer.__init__

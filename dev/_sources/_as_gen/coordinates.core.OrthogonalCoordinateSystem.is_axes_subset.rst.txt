@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.is\_axes\_subset
+============================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.is_axes_subset

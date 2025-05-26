@@ -1,0 +1,6 @@
+grids.mixins.mathops.DenseMathOpsMixin.dense\_lower\_index
+==========================================================
+
+.. currentmodule:: grids.mixins.mathops
+
+.. automethod:: DenseMathOpsMixin.dense_lower_index

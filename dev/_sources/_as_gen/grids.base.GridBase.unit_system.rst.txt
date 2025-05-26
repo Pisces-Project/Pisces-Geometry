@@ -1,0 +1,6 @@
+grids.base.GridBase.unit\_system
+================================
+
+.. currentmodule:: grids.base
+
+.. autoproperty:: GridBase.unit_system

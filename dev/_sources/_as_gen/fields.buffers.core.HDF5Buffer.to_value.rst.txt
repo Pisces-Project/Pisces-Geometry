@@ -1,0 +1,6 @@
+fields.buffers.core.HDF5Buffer.to\_value
+========================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: HDF5Buffer.to_value

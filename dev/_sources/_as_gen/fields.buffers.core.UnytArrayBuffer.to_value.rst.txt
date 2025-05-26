@@ -1,0 +1,6 @@
+fields.buffers.core.UnytArrayBuffer.to\_value
+=============================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: UnytArrayBuffer.to_value

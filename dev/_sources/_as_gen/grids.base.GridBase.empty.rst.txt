@@ -1,0 +1,6 @@
+grids.base.GridBase.empty
+=========================
+
+.. currentmodule:: grids.base
+
+.. automethod:: GridBase.empty

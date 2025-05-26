@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.set\_expression
+===========================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.set_expression

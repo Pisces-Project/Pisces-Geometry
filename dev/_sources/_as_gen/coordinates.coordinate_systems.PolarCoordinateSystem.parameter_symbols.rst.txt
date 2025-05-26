@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.parameter\_symbols
+========================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: PolarCoordinateSystem.parameter_symbols

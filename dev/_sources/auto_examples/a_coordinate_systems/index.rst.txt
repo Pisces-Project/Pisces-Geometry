@@ -1,0 +1,81 @@
+
+
+.. _sphx_glr_auto_examples_a_coordinate_systems:
+
+Core Modules: Coordinate Systems
+================================
+
+This gallery highlights examples built around the :mod:`coordinates` module, PyMetric's foundation
+for defining and working with structured coordinate systems.
+
+The :mod:`coordinates` module provides a flexible API for defining Cartesian,
+polar, cylindrical, spherical, and general curvilinear systems,
+as well as custom user-defined coordinates. These examples showcase how to:
+
+- Instantiate and explore predefined coordinate systems,
+- Evaluate coordinate transforms and Jacobians,
+- Work with symbolic metrics and basis vectors,
+- Integrate coordinate systems into grid construction and field definitions.
+
+Whether you're visualizing a spherical metric or customizing an orthogonal system for a simulation,
+these examples serve as practical guides to mastering the geometry backbone of PyMetric.
+
+.. hint::
+
+    For in-depth user documentation, see :ref:`coordinates_user`.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Visualize how the radial coordinate lines (R-contours) in the OblateSpheroidalCoordinateSystem change as a function of eccentricity.">
+
+.. only:: html
+
+  .. image:: /auto_examples/a_coordinate_systems/images/thumb/sphx_glr_plot_ellipsoidal_coordinates_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_a_coordinate_systems_plot_ellipsoidal_coordinates.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Oblate Spheroidal Coordinates: Effect of Eccentricity</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Visualize how the radial coordinate lines (R-contours) in the OblateHomoeoidalCoordinateSystem change as a function of eccentricity.">
+
+.. only:: html
+
+  .. image:: /auto_examples/a_coordinate_systems/images/thumb/sphx_glr_plot_homoeoidal_coordinates_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_a_coordinate_systems_plot_homoeoidal_coordinates.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Oblate Homoeoidal Coordinates: Effect of Eccentricity</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/a_coordinate_systems/plot_ellipsoidal_coordinates
+   /auto_examples/a_coordinate_systems/plot_homoeoidal_coordinates
+

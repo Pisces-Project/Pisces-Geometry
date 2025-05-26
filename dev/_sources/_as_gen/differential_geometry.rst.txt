@@ -1,0 +1,40 @@
+﻿differential_geometry
+=====================
+
+.. automodule:: differential_geometry
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Modules
+
+   .. autosummary::
+      :toctree:
+      :template: module.rst
+      :recursive:
+
+   
+      dense_ops
+      dense_utils
+      dependence
+      general_ops
+      sparse_ops
+      sparse_utils
+      symbolic
+   
+   
+
+   
+   
+   
+
+   
+   
+   

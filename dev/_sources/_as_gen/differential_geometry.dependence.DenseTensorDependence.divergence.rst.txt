@@ -1,0 +1,6 @@
+differential\_geometry.dependence.DenseTensorDependence.divergence
+==================================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. automethod:: DenseTensorDependence.divergence

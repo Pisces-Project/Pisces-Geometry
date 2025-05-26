@@ -1,0 +1,6 @@
+grids.mixins.core.GridUtilsMixin.compute\_coords\_from\_slices
+==============================================================
+
+.. currentmodule:: grids.mixins.core
+
+.. automethod:: GridUtilsMixin.compute_coords_from_slices

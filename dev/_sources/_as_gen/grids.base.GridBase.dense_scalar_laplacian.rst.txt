@@ -1,0 +1,6 @@
+grids.base.GridBase.dense\_scalar\_laplacian
+============================================
+
+.. currentmodule:: grids.base
+
+.. automethod:: GridBase.dense_scalar_laplacian

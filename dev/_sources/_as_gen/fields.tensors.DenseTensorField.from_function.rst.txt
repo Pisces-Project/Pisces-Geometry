@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.from\_function
+==============================================
+
+.. currentmodule:: fields.tensors
+
+.. automethod:: DenseTensorField.from_function

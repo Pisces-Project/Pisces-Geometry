@@ -1,0 +1,6 @@
+coordinates.mixins.core.CoordinateSystemAxesMixin.build\_axes\_mask
+===================================================================
+
+.. currentmodule:: coordinates.mixins.core
+
+.. automethod:: CoordinateSystemAxesMixin.build_axes_mask

@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.substitute\_expression
+============================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: PolarCoordinateSystem.substitute_expression

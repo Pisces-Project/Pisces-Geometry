@@ -1,0 +1,6 @@
+fields.buffers.base.BufferBase.shape
+====================================
+
+.. currentmodule:: fields.buffers.base
+
+.. autoproperty:: BufferBase.shape

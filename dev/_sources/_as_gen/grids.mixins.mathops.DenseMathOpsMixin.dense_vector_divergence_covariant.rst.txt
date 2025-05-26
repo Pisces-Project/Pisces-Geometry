@@ -1,0 +1,6 @@
+grids.mixins.mathops.DenseMathOpsMixin.dense\_vector\_divergence\_covariant
+===========================================================================
+
+.. currentmodule:: grids.mixins.mathops
+
+.. automethod:: DenseMathOpsMixin.dense_vector_divergence_covariant

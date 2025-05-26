@@ -1,0 +1,6 @@
+fields.buffers.base.BufferBase.dtype
+====================================
+
+.. currentmodule:: fields.buffers.base
+
+.. autoproperty:: BufferBase.dtype

@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.OblateHomoeoidalCoordinateSystem.order\_axes\_canonical
+=======================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: OblateHomoeoidalCoordinateSystem.order_axes_canonical

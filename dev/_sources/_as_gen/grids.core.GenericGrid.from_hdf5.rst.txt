@@ -1,0 +1,6 @@
+grids.core.GenericGrid.from\_hdf5
+=================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: GenericGrid.from_hdf5

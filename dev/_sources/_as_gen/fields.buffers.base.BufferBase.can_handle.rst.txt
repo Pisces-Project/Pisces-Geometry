@@ -1,0 +1,6 @@
+fields.buffers.base.BufferBase.can\_handle
+==========================================
+
+.. currentmodule:: fields.buffers.base
+
+.. automethod:: BufferBase.can_handle

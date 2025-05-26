@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.axes
+====================================
+
+.. currentmodule:: fields.tensors
+
+.. autoproperty:: DenseTensorField.axes

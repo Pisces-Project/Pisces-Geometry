@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ConicCoordinateSystem.insert\_fixed\_axes
+=========================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ConicCoordinateSystem.insert_fixed_axes

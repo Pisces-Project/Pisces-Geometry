@@ -1,0 +1,6 @@
+differential\_geometry.dense\_utils.dense\_compute\_volume\_element
+===================================================================
+
+.. currentmodule:: differential_geometry.dense_utils
+
+.. autofunction:: dense_compute_volume_element

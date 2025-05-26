@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.adjust\_dense\_tensor\_signature
+============================================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.adjust_dense_tensor_signature

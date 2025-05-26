@@ -1,0 +1,6 @@
+fields.buffers.registry.BufferRegistry.get\_buffer\_class
+=========================================================
+
+.. currentmodule:: fields.buffers.registry
+
+.. automethod:: BufferRegistry.get_buffer_class

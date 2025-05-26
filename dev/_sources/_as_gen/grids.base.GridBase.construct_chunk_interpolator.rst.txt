@@ -1,0 +1,6 @@
+grids.base.GridBase.construct\_chunk\_interpolator
+==================================================
+
+.. currentmodule:: grids.base
+
+.. automethod:: GridBase.construct_chunk_interpolator

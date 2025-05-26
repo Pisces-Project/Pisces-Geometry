@@ -1,0 +1,6 @@
+grids.core.GenericGrid.plot\_grid\_lines
+========================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: GenericGrid.plot_grid_lines

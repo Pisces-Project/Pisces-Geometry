@@ -1,0 +1,6 @@
+fields.mixins.dense\_mathops.DenseTensorFieldDMOMixin.determine\_op\_dependence
+===============================================================================
+
+.. currentmodule:: fields.mixins.dense_mathops
+
+.. automethod:: DenseTensorFieldDMOMixin.determine_op_dependence

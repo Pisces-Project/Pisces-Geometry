@@ -1,0 +1,6 @@
+grids.base.GridBase.zeros\_like\_chunks
+=======================================
+
+.. currentmodule:: grids.base
+
+.. automethod:: GridBase.zeros_like_chunks

@@ -1,0 +1,2203 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fields.mixins.dense_mathops &#8212; Pisces-Geometry  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/fields/mixins/dense_mathops';</script>
+    <link rel="icon" href="../../../_static/pm_favicon.svg"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Pisces-Geometry  documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../getting_started.html">
+    Quick-start Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../auto_examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../reference/index.html">
+    PyMetric User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../getting_started.html">
+    Quick-start Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../auto_examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../reference/index.html">
+    PyMetric User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">fields.mixins.dense_mathops</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for fields.mixins.dense_mathops</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Field support for dense mathematical operations.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">TYPE_CHECKING</span><span class="p">,</span>
+    <span class="n">Any</span><span class="p">,</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">Generic</span><span class="p">,</span>
+    <span class="n">Literal</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">Sequence</span><span class="p">,</span>
+    <span class="n">Type</span><span class="p">,</span>
+    <span class="n">TypeVar</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy.typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArrayLike</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.fields.buffers</span><span class="w"> </span><span class="kn">import</span> <span class="n">buffer_from_array</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.fields.components</span><span class="w"> </span><span class="kn">import</span> <span class="n">FieldComponent</span>
+
+<span class="c1"># -------------------------------- #</span>
+<span class="c1"># Type Checking Support / IDE      #</span>
+<span class="c1"># -------------------------------- #</span>
+<span class="c1"># This section provides mypy support and ensures</span>
+<span class="c1"># that IDE inspection is correct for development.</span>
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.fields.buffers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BufferRegistry</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.fields.buffers.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BufferBase</span>
+
+    <span class="c1"># noinspection PyUnresolvedReferences</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.fields.mixins._typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+        <span class="n">_SupportsDFieldDMathOps</span><span class="p">,</span>
+        <span class="n">_SupportsDTFieldDMathOps</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="c1"># Type variables for generics</span>
+<span class="n">_SupDFDMOs</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_SupDFDMOs&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;_SupportsDFieldDMathOps&quot;</span><span class="p">)</span>
+<span class="n">_SupDTFDMOs</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_SupDTFDMOs&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;_SupportsDTFieldDMathOps&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># -------------------------------- #</span>
+<span class="c1"># DMOs for DenseFields             #</span>
+<span class="c1"># -------------------------------- #</span>
+<span class="c1"># Support for DMOs in general dense fields.</span>
+<div class="viewcode-block" id="DenseFieldDMOMixin">
+<a class="viewcode-back" href="../../../_as_gen/fields.mixins.dense_mathops.DenseFieldDMOMixin.html#fields.mixins.dense_mathops.DenseFieldDMOMixin">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DenseFieldDMOMixin</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">_SupDFDMOs</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Mixin class adding DMOs to :class:`fields.base.DenseField`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># --- Utility Methods --- #</span>
+<div class="viewcode-block" id="DenseFieldDMOMixin.determine_op_dependence">
+<a class="viewcode-back" href="../../../_as_gen/fields.mixins.dense_mathops.DenseFieldDMOMixin.determine_op_dependence.html#fields.mixins.dense_mathops.DenseFieldDMOMixin.determine_op_dependence">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">determine_op_dependence</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">_SupDFDMOs</span><span class="p">,</span> <span class="n">opname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Infer the symbolic coordinate dependence resulting from a differential operation.</span>
+
+<span class="sd">        This utility method performs symbolic dependence tracking by delegating</span>
+<span class="sd">        to the internal dependence object (``self.dependence``) and extracting the</span>
+<span class="sd">        resulting coordinate axis dependencies after applying the specified operation.</span>
+
+<span class="sd">        It is commonly used by high-level field and component operations to</span>
+<span class="sd">        automatically annotate new objects (e.g., gradients, divergences, Laplacians)</span>
+<span class="sd">        with their correct symbolic dependence.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        opname : str</span>
+<span class="sd">            The name of the symbolic operation to perform (e.g., ``&quot;gradient&quot;``,</span>
+<span class="sd">            ``&quot;laplacian&quot;``, ``&quot;divergence&quot;``, ``&quot;raise_index&quot;``, etc.).</span>
+<span class="sd">            This must be a method of ``self.dependence``.</span>
+<span class="sd">        *args : tuple</span>
+<span class="sd">            Positional arguments passed directly to the method being invoked.</span>
+<span class="sd">        **kwargs : dict</span>
+<span class="sd">            Keyword arguments passed directly to the method being invoked.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        List[str]</span>
+<span class="sd">            A list of coordinate axis names (e.g., ``[&quot;r&quot;, &quot;theta&quot;]``) on which</span>
+<span class="sd">            the resulting field depends after the symbolic operation.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If the given operation name is not a valid method of ``self.dependence``.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; field.determine_op_dependence(&quot;gradient&quot;, basis=&quot;covariant&quot;)</span>
+<span class="sd">        [&#39;r&#39;, &#39;theta&#39;]</span>
+
+<span class="sd">        &gt;&gt;&gt; field.determine_op_dependence(&quot;laplacian&quot;)</span>
+<span class="sd">        [&#39;r&#39;, &#39;theta&#39;]</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        This method is purely symbolic and does **not** perform any numerical evaluation.</span>
+<span class="sd">        It is used for metadata propagation and symbolic analysis of coordinate dependence.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Ensure that the method exists.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dependence</span><span class="p">,</span> <span class="n">opname</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dependence object cannot resolve </span><span class="si">{</span><span class="n">opname</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Perform the dependence operation.</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dependence</span><span class="p">,</span> <span class="n">opname</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># return the dependent axes.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__grid__</span><span class="o">.</span><span class="n">standardize_axes</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">dependent_axes</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_process_output_to_field_or_array</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupDFDMOs</span><span class="p">,</span>
+        <span class="n">output</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="n">as_array</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">buffer_class</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="s2">&quot;BufferBase&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_registry</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;BufferRegistry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">output_axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This helper method allows the output of a grid-level operation to</span>
+<span class="sd">        be cast upward to a field on its own. It incorporates the various buffer</span>
+<span class="sd">        arguments and keywords as well as the as_array argument.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check if the as_array option is True. If it is,</span>
+        <span class="c1"># we just need to dump to raw result as an array.</span>
+        <span class="k">if</span> <span class="n">as_array</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+
+        <span class="c1"># Otherwise, we need to proceed to interpreting</span>
+        <span class="c1"># the output as a buffer.</span>
+        <span class="n">buffer_args</span> <span class="o">=</span> <span class="n">buffer_args</span> <span class="ow">or</span> <span class="p">()</span>
+        <span class="n">buffer_kwargs</span> <span class="o">=</span> <span class="n">buffer_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">buffer</span> <span class="o">=</span> <span class="n">buffer_from_array</span><span class="p">(</span>
+            <span class="n">output</span><span class="p">,</span>
+            <span class="o">*</span><span class="n">buffer_args</span><span class="p">,</span>
+            <span class="n">buffer_class</span><span class="o">=</span><span class="n">buffer_class</span><span class="p">,</span>
+            <span class="n">buffer_registry</span><span class="o">=</span><span class="n">buffer_registry</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">buffer_kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># With the buffer constructed, we now</span>
+        <span class="c1"># proceed to determine the output axes, construct</span>
+        <span class="c1"># the component, and then pass through any additional</span>
+        <span class="c1"># args or kwargs.</span>
+        <span class="k">if</span> <span class="n">output_axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">output_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># standardize the output axes.</span>
+        <span class="n">output_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">standardize_axes</span><span class="p">(</span><span class="n">output_axes</span><span class="p">)</span>
+
+        <span class="c1"># Finally, construct the field component and the</span>
+        <span class="c1"># resulting field.</span>
+        <span class="n">component</span> <span class="o">=</span> <span class="n">FieldComponent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="n">output_axes</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="n">component</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="c1"># ======================================= #</span>
+    <span class="c1"># General Dense Ops                       #</span>
+    <span class="c1"># ======================================= #</span>
+    <span class="c1"># recasting of functions from differential geometry&#39;s</span>
+    <span class="c1"># general_ops module.</span>
+    <span class="c1"># noinspection PyIncorrectDocstring</span>
+<div class="viewcode-block" id="DenseFieldDMOMixin.element_wise_partial_derivatives">
+<a class="viewcode-back" href="../../../_as_gen/fields.mixins.dense_mathops.DenseFieldDMOMixin.element_wise_partial_derivatives.html#fields.mixins.dense_mathops.DenseFieldDMOMixin.element_wise_partial_derivatives">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">element_wise_partial_derivatives</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupDFDMOs</span><span class="p">,</span>
+        <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">output_axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">as_array</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">buffer_class</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="s2">&quot;BufferBase&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_registry</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;BufferRegistry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;_SupDFDMOs&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the element-wise partial derivatives of the field.</span>
+
+<span class="sd">        This method computes the coordinate-wise partial derivatives of the field,</span>
+<span class="sd">        treating each scalar component independently. It returns the covariant gradient</span>
+<span class="sd">        of each element of the field with respect to the grid&#39;s coordinate directions.</span>
+
+<span class="sd">        .. math::</span>
+
+<span class="sd">            \phi \mapsto \left( \frac{\partial \phi}{\partial x^1}, \dots, \frac{\partial \phi}{\partial x^n} \right)</span>
+
+<span class="sd">        For a vector or tensor field, the derivative is applied independently to each</span>
+<span class="sd">        component in the field&#39;s trailing axes.</span>
+
+<span class="sd">        .. hint::</span>
+
+<span class="sd">            This wraps the grid-level method :meth:`~grids.base.GridBase.dense_element_wise_partial_derivatives`,</span>
+<span class="sd">            which in turn calls the low-level routine</span>
+<span class="sd">            :func:`~differential_geometry.general_ops.dense_element_wise_partial_derivatives`.</span>
+
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        out : array-like, optional</span>
+<span class="sd">            An optional buffer in which to store the result.</span>
+<span class="sd">            This can be used to reduce memory usage when performing</span>
+<span class="sd">            computations. The shape of `out` must be compliant</span>
+<span class="sd">            with broadcasting rules (see `Notes`). `out` may be a buffer or any</span>
+<span class="sd">            other array-like object.</span>
+<span class="sd">        output_axes : list of str, optional</span>
+<span class="sd">            The axes of the coordinate system over which the result should</span>
+<span class="sd">            span. By default, the dependence is calculated internally.</span>
+
+<span class="sd">            This argument may be specified to expand the number of axes onto which</span>
+<span class="sd">            the output field is computed. `output_axes` must be a superset of the</span>
+<span class="sd">            :attr:`axes` of the calling field.</span>
+<span class="sd">        **kwargs</span>
+<span class="sd">            Additional keyword arguments passed to the low-level operation</span>
+<span class="sd">            :func:`~differential_geometry.general_ops.dense_element_wise_partial_derivatives`.</span>
+
+<span class="sd">        Other Parameters</span>
+<span class="sd">        ----------------</span>
+<span class="sd">        in_chunks : bool, optional</span>
+<span class="sd">            Whether to perform the computation in chunks. This can help reduce memory usage during the operation but</span>
+<span class="sd">            will increase runtime due to increased computational load. If input buffers are all fully-loaded into memory,</span>
+<span class="sd">            chunked performance will only marginally improve; however, if buffers are lazy loaded, then chunked operations</span>
+<span class="sd">            will significantly improve efficiency. Defaults to ``False``.</span>
+<span class="sd">        edge_order : {1, 2}, optional</span>
+<span class="sd">            Order of the finite difference scheme to use when computing derivatives. See :func:`numpy.gradient` for more</span>
+<span class="sd">            details on this argument. Defaults to ``2``.</span>
+<span class="sd">        pbar : bool, optional</span>
+<span class="sd">            Whether to display a progress bar when ``in_chunks=True``.</span>
+<span class="sd">        pbar_kwargs : dict, optional</span>
+<span class="sd">            Additional keyword arguments passed to the progress bar utility. These can be any valid arguments</span>
+<span class="sd">            to :func:`tqdm.tqdm`.</span>
+<span class="sd">        as_array : bool, optional</span>
+<span class="sd">            If ``True``, then no post-processing occurs and an array is returned.</span>
+<span class="sd">        buffer_class : type, optional</span>
+<span class="sd">            Class to use when wrapping the result buffer, e.g., :class:`fields.buffers.core.ArrayBuffer`</span>
+<span class="sd">            or :class:`fields.buffers.core.UnytArrayBuffer`.</span>
+
+<span class="sd">            Defaults to buffer resolution to determine a fitting buffer for the resulting</span>
+<span class="sd">            array result.</span>
+<span class="sd">        buffer_registry : ~fields.buffers.registry.BufferRegistry, optional</span>
+<span class="sd">            Optional registry to use when resolving the buffer class. This is eventually passed on</span>
+<span class="sd">            to :func:`fields.buffers.base.buffer_from_array`.</span>
+<span class="sd">        buffer_args, buffer_kwargs : optional</span>
+<span class="sd">            arguments to pass to :func:`fields.buffers.base.buffer_from_array`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ~fields.base.DenseField or ~numpy.ndarray</span>
+<span class="sd">            The partial derivatives of the field, computed along each spatial coordinate direction.</span>
+
+<span class="sd">            - If ``as_array=False`` (default), returns a new :class:`~fields.base.DenseField`</span>
+<span class="sd">              whose element shape is extended by an additional dimension of size `ndim`,</span>
+<span class="sd">              corresponding to the partial derivatives :math:`\partial_\mu`.</span>
+
+<span class="sd">            - If ``as_array=True``, returns a raw NumPy array with shape</span>
+<span class="sd">              ``(grid_shape over output_axes, ..., element_shape, ndim)``</span>
+<span class="sd">              where `element_shape` refers to the shape of each scalar/vector/tensor component in the field.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        **Input and Output Shapes**</span>
+
+<span class="sd">        The input field must have shape ``(grid_shape, ..., element_shape)``</span>
+
+<span class="sd">        where:</span>
+
+<span class="sd">        - `grid_shape` is the shape of the domain over the field’s spatial axes.</span>
+<span class="sd">        - `element_shape` represents any trailing axes used to encode vector or tensor components.</span>
+
+<span class="sd">        The output will append a new axis of length `ndim`, corresponding to the partial derivative</span>
+<span class="sd">        with respect to each spatial coordinate. The resulting shape is:</span>
+<span class="sd">        ``(grid_shape over `output_axes`, ..., element_shape, ndim)``</span>
+
+<span class="sd">        Examples:</span>
+
+<span class="sd">        - A scalar field on a 2D grid → shape ``(Nx, Ny, 2)``</span>
+<span class="sd">        - A 3-vector field on a 3D grid → shape ``(Nx, Ny, Nz, 3, 3)``</span>
+
+<span class="sd">        **Chunking Behavior**</span>
+
+<span class="sd">        If ``in_chunks=True``, the operation is evaluated over grid chunks using a streaming</span>
+<span class="sd">        strategy. Each chunk is automatically extended with a 1-cell halo in every direction to</span>
+<span class="sd">        preserve stencil accuracy for finite differences.</span>
+
+<span class="sd">        Chunked evaluation is particularly useful when:</span>
+
+<span class="sd">        - Working with large or out-of-core fields (e.g., HDF5-backed)</span>
+<span class="sd">        - Minimizing peak memory use</span>
+<span class="sd">        - Avoiding full-domain materialization for intermediate results</span>
+
+<span class="sd">        **Buffer Class Customization**</span>
+
+<span class="sd">        If ``as_array=False``, the output is wrapped in a new :class:`~fields.base.DenseField`</span>
+<span class="sd">        using the specified `buffer_class`, `buffer_registry`, and buffer construction arguments.</span>
+
+<span class="sd">        If ``as_array=True``, no wrapping occurs, and a raw NumPy array is returned. In this case,</span>
+<span class="sd">        buffer configuration options are ignored.</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        ~grids.base.GridBase.dense_element_wise_partial_derivatives :</span>
+<span class="sd">            Grid-level implementation this method wraps.</span>
+<span class="sd">        ~differential_geometry.general_ops.dense_element_wise_partial_derivatives :</span>
+<span class="sd">            Lower-level numerical routine.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Determine the output axes based on the relevant</span>
+        <span class="c1"># operation and the specified output axes.</span>
+        <span class="c1">#</span>
+        <span class="c1"># This operation fixes the basis to the covariant basis, so we</span>
+        <span class="c1"># need to fix it here too.</span>
+        <span class="k">if</span> <span class="n">output_axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">output_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">determine_op_dependence</span><span class="p">(</span>
+                <span class="s2">&quot;element_wise_gradient&quot;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s2">&quot;covariant&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Now compute the result by pass-through.</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__grid__</span><span class="o">.</span><span class="n">dense_element_wise_partial_derivatives</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__component__</span><span class="o">.</span><span class="n">__buffer__</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__component__</span><span class="o">.</span><span class="n">__axes__</span><span class="p">,</span>
+            <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
+            <span class="n">output_axes</span><span class="o">=</span><span class="n">output_axes</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Now cast the result.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_output_to_field_or_array</span><span class="p">(</span>
+            <span class="n">result</span><span class="p">,</span>
+            <span class="n">as_array</span><span class="o">=</span><span class="n">as_array</span><span class="p">,</span>
+            <span class="n">buffer_class</span><span class="o">=</span><span class="n">buffer_class</span><span class="p">,</span>
+            <span class="n">buffer_registry</span><span class="o">=</span><span class="n">buffer_registry</span><span class="p">,</span>
+            <span class="n">buffer_args</span><span class="o">=</span><span class="n">buffer_args</span><span class="p">,</span>
+            <span class="n">buffer_kwargs</span><span class="o">=</span><span class="n">buffer_kwargs</span><span class="p">,</span>
+            <span class="n">output_axes</span><span class="o">=</span><span class="n">output_axes</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+    <span class="c1"># noinspection PyIncorrectDocstring</span>
+<div class="viewcode-block" id="DenseFieldDMOMixin.element_wise_laplacian">
+<a class="viewcode-back" href="../../../_as_gen/fields.mixins.dense_mathops.DenseFieldDMOMixin.element_wise_laplacian.html#fields.mixins.dense_mathops.DenseFieldDMOMixin.element_wise_laplacian">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">element_wise_laplacian</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupDFDMOs</span><span class="p">,</span>
+        <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">Lterm_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">inverse_metric_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">derivative_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">second_derivative_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">output_axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">as_array</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">buffer_class</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="s2">&quot;BufferBase&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_registry</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;BufferRegistry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;_SupDFDMOs&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the element-wise Laplacian of the field.</span>
+
+<span class="sd">        This method evaluates the Laplacian operator for each scalar component of the field</span>
+<span class="sd">        using the generalized curved-space expression:</span>
+
+<span class="sd">        .. math::</span>
+
+<span class="sd">            \nabla^2 \phi = \frac{1}{\rho} \partial_\mu \left( \rho g^{\mu\nu} \partial_\nu \phi \right)</span>
+
+<span class="sd">        which, for numerical stability, is implemented in expanded form as:</span>
+
+<span class="sd">        .. math::</span>
+
+<span class="sd">            \nabla^2 \phi = \left( \frac{1}{\rho} \partial_\mu \left[ g^{\mu\nu} \rho \right] \right) \partial_\nu \phi</span>
+<span class="sd">                          + g^{\mu\nu} \partial_\mu \partial_\nu \phi</span>
+<span class="sd">                          = L^\nu \partial_\nu \phi + g^{\mu\nu} \partial_\mu \partial_\nu \phi</span>
+
+<span class="sd">        where :math:`L^\nu` is the &quot;log-volume derivative&quot; term for the coordinate system.</span>
+
+<span class="sd">        This method wraps the corresponding grid-level Laplacian operator and performs chunked or</span>
+<span class="sd">        full-domain computation as needed. It supports optional auxiliary fields to bypass</span>
+<span class="sd">        internal derivative or metric computations for improved efficiency or accuracy.</span>
+
+<span class="sd">        .. hint::</span>
+
+<span class="sd">            Internally wraps :meth:`~grids.base.GridBase.dense_element_wise_laplacian`, which delegates to</span>
+<span class="sd">            :func:`~differential_geometry.dense_ops.dense_scalar_laplacian_diag` or</span>
+<span class="sd">            :func:`~differential_geometry.dense_ops.dense_scalar_laplacian_full`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        out : array-like, optional</span>
+<span class="sd">            Optional buffer to store the result. Must match the grid shape over the</span>
+<span class="sd">            evaluation domain (see `output_axes`) and the element shape of the field.</span>
+<span class="sd">            If not provided, a new buffer is allocated.</span>
+<span class="sd">        Lterm_field : array-like, optional</span>
+<span class="sd">            Precomputed log-volume term:</span>
+
+<span class="sd">            .. math::</span>
+
+<span class="sd">                L^\nu = \frac{1}{\rho} \partial_\mu \left( g^{\mu\nu} \rho \right)</span>
+
+<span class="sd">            Used to reduce numerical error and avoid redundant computation. Must have shape ``(*spatial_shape, ndim)``,</span>
+<span class="sd">            where ``spatial_shape`` is this field&#39;s :attr:`spatial_shape`.</span>
+
+<span class="sd">            If not supplied, it is computed automatically from the coordinate system.</span>
+<span class="sd">        inverse_metric_field : array-like, optional</span>
+<span class="sd">            The inverse metric tensor :math:`g^{\mu\nu}`, used for curved-coordinate contraction.</span>
+
+<span class="sd">            - For diagonal metrics: shape ``(*spatial_shape, ndim)``</span>
+<span class="sd">            - For full metrics: shape ``(*spatial_shape, ndim, ndim)``</span>
+
+<span class="sd">            where ``spatial_shape`` is this field&#39;s :attr:`spatial_shape`.</span>
+
+<span class="sd">            If not provided, it is derived from the coordinate system.</span>
+<span class="sd">        derivative_field : array-like, optional</span>
+<span class="sd">            Precomputed first derivatives :math:`\partial_\nu \phi` for each scalar component.</span>
+<span class="sd">            This avoids re-computation of first-order gradients.</span>
+
+<span class="sd">            Must have shape ``(*spatial_shape, ..., ndim)`` where ``spatial_shape``</span>
+<span class="sd">            is this field&#39;s :attr:`spatial_shape`, and the trailing `ndim` axis</span>
+<span class="sd">            corresponds to derivatives with respect to each coordinate direction.</span>
+
+<span class="sd">        second_derivative_field : array-like, optional</span>
+<span class="sd">            Precomputed second derivatives :math:`\partial_\mu \partial_\nu \phi`.</span>
+
+<span class="sd">            Required shape depends on the metric type:</span>
+
+<span class="sd">            - Diagonal metric: ``(*spatial_shape, ..., ndim)``</span>
+<span class="sd">            - Full metric: ``(*spatial_shape, ..., ndim, ndim)``</span>
+
+<span class="sd">            where ``spatial_shape``</span>
+<span class="sd">            is this field&#39;s :attr:`spatial_shape`, and the trailing `ndim` axis</span>
+<span class="sd">            corresponds to derivatives with respect to each coordinate direction.</span>
+
+<span class="sd">        output_axes : list of str, optional</span>
+<span class="sd">            The axes of the coordinate system over which the result should</span>
+<span class="sd">            span. By default, the dependence is calculated internally.</span>
+
+<span class="sd">            This argument may be specified to expand the number of axes onto which</span>
+<span class="sd">            the output field is computed. `output_axes` must be a superset of the</span>
+<span class="sd">            :attr:`axes` of the calling field.</span>
+
+
+<span class="sd">        Other Parameters</span>
+<span class="sd">        ----------------</span>
+<span class="sd">        in_chunks : bool, default False</span>
+<span class="sd">            Whether to compute the result chunk-by-chunk using the grid&#39;s chunking logic.</span>
+<span class="sd">            This can reduce memory usage for large domains or lazy-loaded buffers.</span>
+
+<span class="sd">        edge_order : {1, 2}, default 2</span>
+<span class="sd">            The order of the finite difference scheme to use for numerical derivatives.</span>
+<span class="sd">            Passed to :func:`numpy.gradient`.</span>
+
+<span class="sd">        pbar : bool, default True</span>
+<span class="sd">            If `in_chunks=True`, whether to display a progress bar during processing.</span>
+
+<span class="sd">        pbar_kwargs : dict, optional</span>
+<span class="sd">            Additional keyword arguments forwarded to the progress bar utility (:mod:`tqdm`).</span>
+
+<span class="sd">        as_array : bool, default False</span>
+<span class="sd">            If True, return the raw NumPy array result.</span>
+<span class="sd">            If False (default), wrap the result in a new :class:`~fields.base.DenseField` instance.</span>
+
+<span class="sd">        buffer_class : type, optional</span>
+<span class="sd">            Class to use when wrapping the result buffer, e.g., :class:`fields.buffers.core.ArrayBuffer`</span>
+<span class="sd">            or :class:`fields.buffers.core.UnytArrayBuffer`.</span>
+
+<span class="sd">            Defaults to buffer resolution to determine a fitting buffer for the resulting</span>
+<span class="sd">            array result.</span>
+<span class="sd">        buffer_registry : ~fields.buffers.registry.BufferRegistry, optional</span>
+<span class="sd">            Registry to use when resolving the buffer type.</span>
+
+<span class="sd">        buffer_args, buffer_kwargs : optional</span>
+<span class="sd">            Arguments forwarded to :func:`fields.buffers.base.buffer_from_array` when constructing the buffer.</span>
+
+<span class="sd">        **kwargs</span>
+<span class="sd">            Additional arguments forwarded to the underlying numerical Laplacian routines.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ~fields.base.DenseField or ~numpy.ndarray</span>
+<span class="sd">            The computed Laplacian. Shape matches the field&#39;s spatial domain and element shape.</span>
+
+<span class="sd">            - If ``as_array=True``, returns a NumPy array with shape ``(grid_shape, ..., element_shape)``.</span>
+<span class="sd">            - If ``as_array=False``, returns a new :class:`~fields.base.DenseField` instance.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        **Element-wise Behavior**</span>
+
+<span class="sd">        The Laplacian is applied independently to each scalar component of the field.</span>
+<span class="sd">        This includes each entry of a vector or tensor field. No automatic raising/lowering of indices is performed.</span>
+
+<span class="sd">        **Shape Compatibility**</span>
+
+<span class="sd">        The field must be defined over a structured grid. Its shape should follow:</span>
+<span class="sd">        ``(grid_shape, ..., element_shape)``</span>
+
+<span class="sd">        where `grid_shape` matches the dimensions of the field’s domain,</span>
+<span class="sd">        and `element_shape` represents any trailing vector/tensor axes.</span>
+
+<span class="sd">        The result will have the same shape as the input field, unless `output_axes` introduces broadcasting.</span>
+
+<span class="sd">        **Auxiliary Field Requirements**</span>
+
+<span class="sd">        When provided, auxiliary fields must be shape-compatible with the grid and derivatives:</span>
+
+<span class="sd">        - `Lterm_field`: shape ``(..., ndim)``</span>
+<span class="sd">        - `inverse_metric_field`: shape ``(..., ndim)`` or ``(..., ndim, ndim)``</span>
+<span class="sd">        - `derivative_field`: shape ``(..., ndim)``</span>
+<span class="sd">        - `second_derivative_field`: shape ``(..., ndim)`` or ``(..., ndim, ndim)`` depending on metric type</span>
+
+<span class="sd">        **Chunked Execution**</span>
+
+<span class="sd">        When `in_chunks=True`, each chunk of the domain is processed independently.</span>
+<span class="sd">        Ghost cells (1-cell halo) are included automatically to preserve stencil accuracy</span>
+<span class="sd">        during finite difference operations.</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        ~grids.base.GridBase.dense_element_wise_laplacian :</span>
+<span class="sd">            Grid-level implementation wrapped by this method.</span>
+<span class="sd">        ~differential_geometry.dense_ops.dense_scalar_laplacian_full :</span>
+<span class="sd">            Full-metric low-level Laplacian kernel.</span>
+<span class="sd">        ~differential_geometry.dense_ops.dense_scalar_laplacian_diag :</span>
+<span class="sd">            Diagonal-metric version used in orthogonal systems.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Determine the output axes based on the relevant</span>
+        <span class="c1"># operation and the specified output axes.</span>
+        <span class="c1">#</span>
+        <span class="c1"># This operation fixes the basis to the covariant basis, so we</span>
+        <span class="c1"># need to fix it here too.</span>
+        <span class="k">if</span> <span class="n">output_axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">output_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">determine_op_dependence</span><span class="p">(</span><span class="s2">&quot;element_wise_laplacian&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Perform the operation at the grid level using the</span>
+        <span class="c1"># single component buffer of the field.</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__grid__</span><span class="o">.</span><span class="n">dense_element_wise_laplacian</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__component__</span><span class="o">.</span><span class="n">__buffer__</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__component__</span><span class="o">.</span><span class="n">__axes__</span><span class="p">,</span>
+            <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
+            <span class="n">Lterm_field</span><span class="o">=</span><span class="n">Lterm_field</span><span class="p">,</span>
+            <span class="n">inverse_metric_field</span><span class="o">=</span><span class="n">inverse_metric_field</span><span class="p">,</span>
+            <span class="n">derivative_field</span><span class="o">=</span><span class="n">derivative_field</span><span class="p">,</span>
+            <span class="n">second_derivative_field</span><span class="o">=</span><span class="n">second_derivative_field</span><span class="p">,</span>
+            <span class="n">output_axes</span><span class="o">=</span><span class="n">output_axes</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_output_to_field_or_array</span><span class="p">(</span>
+            <span class="n">result</span><span class="p">,</span>
+            <span class="n">as_array</span><span class="o">=</span><span class="n">as_array</span><span class="p">,</span>
+            <span class="n">buffer_class</span><span class="o">=</span><span class="n">buffer_class</span><span class="p">,</span>
+            <span class="n">buffer_registry</span><span class="o">=</span><span class="n">buffer_registry</span><span class="p">,</span>
+            <span class="n">buffer_args</span><span class="o">=</span><span class="n">buffer_args</span><span class="p">,</span>
+            <span class="n">buffer_kwargs</span><span class="o">=</span><span class="n">buffer_kwargs</span><span class="p">,</span>
+            <span class="n">output_axes</span><span class="o">=</span><span class="n">output_axes</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<span class="c1"># -------------------------------- #</span>
+<span class="c1"># DMOs for DenseTensorFields       #</span>
+<span class="c1"># -------------------------------- #</span>
+<span class="c1"># Support for DMOs in tensor dense fields.</span>
+<div class="viewcode-block" id="DenseTensorFieldDMOMixin">
+<a class="viewcode-back" href="../../../_as_gen/fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.html#fields.mixins.dense_mathops.DenseTensorFieldDMOMixin">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DenseTensorFieldDMOMixin</span><span class="p">(</span><span class="n">DenseFieldDMOMixin</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">_SupDTFDMOs</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Mixin class adding DMOs to :class:`fields.tensors.DenseTensorField`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># ======================================= #</span>
+    <span class="c1"># General Dense Ops                       #</span>
+    <span class="c1"># ======================================= #</span>
+    <span class="c1"># recasting of functions from differential geometry&#39;s</span>
+    <span class="c1"># general_ops module.</span>
+    <span class="c1"># noinspection PyIncorrectDocstring</span>
+<div class="viewcode-block" id="DenseTensorFieldDMOMixin.element_wise_partial_derivatives">
+<a class="viewcode-back" href="../../../_as_gen/fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.element_wise_partial_derivatives.html#fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.element_wise_partial_derivatives">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">element_wise_partial_derivatives</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupDTFDMOs</span><span class="p">,</span>
+        <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">output_axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">as_array</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">buffer_class</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="s2">&quot;BufferBase&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_registry</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;BufferRegistry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;_SupDTFDMOs&quot;</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">element_wise_partial_derivatives</span><span class="p">(</span>
+            <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
+            <span class="n">output_axes</span><span class="o">=</span><span class="n">output_axes</span><span class="p">,</span>
+            <span class="n">as_array</span><span class="o">=</span><span class="n">as_array</span><span class="p">,</span>
+            <span class="n">buffer_class</span><span class="o">=</span><span class="n">buffer_class</span><span class="p">,</span>
+            <span class="n">buffer_registry</span><span class="o">=</span><span class="n">buffer_registry</span><span class="p">,</span>
+            <span class="n">buffer_args</span><span class="o">=</span><span class="n">buffer_args</span><span class="p">,</span>
+            <span class="n">buffer_kwargs</span><span class="o">=</span><span class="n">buffer_kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Fix the signature before returning the output.</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">__signature__</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__signature__</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,)</span></div>
+
+
+    <span class="c1"># noinspection PyIncorrectDocstring</span>
+<div class="viewcode-block" id="DenseTensorFieldDMOMixin.element_wise_laplacian">
+<a class="viewcode-back" href="../../../_as_gen/fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.element_wise_laplacian.html#fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.element_wise_laplacian">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">element_wise_laplacian</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupDFDMOs</span><span class="p">,</span>
+        <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">Lterm_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">inverse_metric_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">derivative_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">second_derivative_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">output_axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">as_array</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">buffer_class</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="s2">&quot;BufferBase&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_registry</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;BufferRegistry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;_SupDFDMOs&quot;</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">element_wise_laplacian</span><span class="p">(</span>
+            <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
+            <span class="n">Lterm_field</span><span class="o">=</span><span class="n">Lterm_field</span><span class="p">,</span>
+            <span class="n">inverse_metric_field</span><span class="o">=</span><span class="n">inverse_metric_field</span><span class="p">,</span>
+            <span class="n">derivative_field</span><span class="o">=</span><span class="n">derivative_field</span><span class="p">,</span>
+            <span class="n">second_derivative_field</span><span class="o">=</span><span class="n">second_derivative_field</span><span class="p">,</span>
+            <span class="n">output_axes</span><span class="o">=</span><span class="n">output_axes</span><span class="p">,</span>
+            <span class="n">as_array</span><span class="o">=</span><span class="n">as_array</span><span class="p">,</span>
+            <span class="n">buffer_class</span><span class="o">=</span><span class="n">buffer_class</span><span class="p">,</span>
+            <span class="n">buffer_registry</span><span class="o">=</span><span class="n">buffer_registry</span><span class="p">,</span>
+            <span class="n">buffer_args</span><span class="o">=</span><span class="n">buffer_args</span><span class="p">,</span>
+            <span class="n">buffer_kwargs</span><span class="o">=</span><span class="n">buffer_kwargs</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Fix the signature before returning the output.</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">__signature__</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__signature__</span><span class="p">)</span></div>
+
+
+    <span class="c1"># ======================================= #</span>
+    <span class="c1"># Dense Ops                               #</span>
+    <span class="c1"># ======================================= #</span>
+    <span class="c1"># These methods allow wrapping for methods</span>
+    <span class="c1"># in `dense_utils`.</span>
+    <span class="c1"># noinspection PyIncorrectDocstring</span>
+<div class="viewcode-block" id="DenseTensorFieldDMOMixin.contract_with_metric">
+<a class="viewcode-back" href="../../../_as_gen/fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.contract_with_metric.html#fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.contract_with_metric">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">contract_with_metric</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupDTFDMOs</span><span class="p">,</span>
+        <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;lower&quot;</span><span class="p">,</span>
+        <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">metric_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">output_axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">as_array</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">buffer_class</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="s2">&quot;BufferBase&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_registry</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;BufferRegistry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Contract this tensor field with the metric or inverse metric tensor.</span>
+
+<span class="sd">        This method raises or lowers a single index of the field by contracting it with</span>
+<span class="sd">        either the metric :math:`g_{\mu\nu}` or its inverse :math:`g^{\mu\nu}`, depending on the</span>
+<span class="sd">        selected `mode`. The contraction modifies one of the field&#39;s trailing tensor slots,</span>
+<span class="sd">        changing its variance (covariant or contravariant).</span>
+
+<span class="sd">        .. hint::</span>
+
+<span class="sd">            This method wraps the grid-level :meth:`~grids.base.GridBase.dense_contract_with_metric`,</span>
+<span class="sd">            which wraps the low-level :func:`~differential_geometry.dense_utils.dense_contract_with_metric`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        index : int</span>
+<span class="sd">            The tensor slot (i.e., axis in the field&#39;s trailing element shape) to operate</span>
+<span class="sd">            on.</span>
+
+<span class="sd">            This refers to the position among the field’s value axes, not its spatial grid axes.</span>
+<span class="sd">            For example, in a rank-2 tensor field with shape ``(Nx, Ny, 3, 3)``, ``index=0`` contracts</span>
+<span class="sd">            the first value index (e.g., the row), while ``index=1`` contracts the second (e.g., the column).</span>
+<span class="sd">        mode : {&#39;raise&#39;, &#39;lower&#39;}, optional</span>
+<span class="sd">            Whether to raise or lower the index being operated on. This determines</span>
+<span class="sd">            which metric is used in the contraction and (therefore) which metric field</span>
+<span class="sd">            is expected if manually supplied by `metric_field`.</span>
+
+<span class="sd">            By default, ``mode=&#39;lower&#39;``.</span>
+<span class="sd">        out : array-like, optional</span>
+<span class="sd">            An optional buffer in which to store the result.</span>
+<span class="sd">            This can be used to reduce memory usage when performing</span>
+<span class="sd">            computations. The shape of `out` must be compliant</span>
+<span class="sd">            with broadcasting rules (see `Notes`). `out` may be a buffer or any</span>
+<span class="sd">            other array-like object.</span>
+<span class="sd">        metric_field : array-like, optional</span>
+<span class="sd">            Override metric to use for the contraction:</span>
+
+<span class="sd">            - For ``mode=&#39;raise&#39;`` this must be the **inverse** metric</span>
+<span class="sd">              :math:`g^{\mu\nu}`.</span>
+<span class="sd">            - For ``mode=&#39;lower&#39;`` this must be the metric</span>
+<span class="sd">              :math:`g_{\mu\nu}`.</span>
+
+<span class="sd">            The field can be rank-2 (full) or rank-1 (diagonal); if not</span>
+<span class="sd">            supplied it is generated chunk-by-chunk (or once globally)</span>
+<span class="sd">            from the coordinate system.</span>
+<span class="sd">            See `Notes` for more details on the shape requirements.</span>
+<span class="sd">        output_axes : list of str, optional</span>
+<span class="sd">            The axes of the coordinate system over which the result should</span>
+<span class="sd">            span. By default, the dependence is calculated internally.</span>
+
+<span class="sd">            This argument may be specified to expand the number of axes onto which</span>
+<span class="sd">            the output field is computed. `output_axes` must be a superset of the</span>
+<span class="sd">            :attr:`axes` of the calling field.</span>
+<span class="sd">        **kwargs</span>
+<span class="sd">            Additional keyword arguments passed to the low-level operation</span>
+<span class="sd">            :func:`~differential_geometry.dense_utils.dense_contract_with_metric`.</span>
+
+<span class="sd">        Other Parameters</span>
+<span class="sd">        ----------------</span>
+<span class="sd">        in_chunks : bool, optional</span>
+<span class="sd">            Whether to perform the computation in chunks. This can help reduce memory usage during the operation but</span>
+<span class="sd">            will increase runtime due to increased computational load. If input buffers are all fully-loaded into memory,</span>
+<span class="sd">            chunked performance will only marginally improve; however, if buffers are lazy loaded, then chunked operations</span>
+<span class="sd">            will significantly improve efficiency. Defaults to ``False``.</span>
+<span class="sd">        pbar : bool, optional</span>
+<span class="sd">            Whether to display a progress bar when ``in_chunks=True``.</span>
+<span class="sd">        pbar_kwargs : dict, optional</span>
+<span class="sd">            Additional keyword arguments passed to the progress bar utility. These can be any valid arguments</span>
+<span class="sd">            to :func:`tqdm.tqdm`.</span>
+<span class="sd">        as_array : bool, optional</span>
+<span class="sd">            If ``True``, then no post-processing occurs and an array is returned.</span>
+<span class="sd">        buffer_class : type, optional</span>
+<span class="sd">            Class to use when wrapping the result buffer, e.g., :class:`fields.buffers.core.ArrayBuffer`</span>
+<span class="sd">            or :class:`fields.buffers.core.UnytArrayBuffer`.</span>
+
+<span class="sd">            Defaults to buffer resolution to determine a fitting buffer for the resulting</span>
+<span class="sd">            array result.</span>
+<span class="sd">        buffer_registry : ~fields.buffers.registry.BufferRegistry, optional</span>
+<span class="sd">            Optional registry to use when resolving the buffer class. This is eventually passed on</span>
+<span class="sd">            to :func:`fields.buffers.base.buffer_from_array`.</span>
+<span class="sd">        buffer_args, buffer_kwargs : optional</span>
+<span class="sd">            arguments to pass to :func:`fields.buffers.base.buffer_from_array`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ~fields.tensors.DenseTensorField or numpy.ndarray</span>
+<span class="sd">            The result of contracting one index of the tensor field with the metric or inverse metric.</span>
+
+<span class="sd">            - If ``as_array=False`` (default), returns a new :class:`~fields.base.DenseField` instance</span>
+<span class="sd">              with the specified slot adjusted (lowered or raised).</span>
+<span class="sd">            - If ``as_array=True``, returns a raw NumPy array with shape:</span>
+
+<span class="sd">              .. code:: python</span>
+
+<span class="sd">                  (grid_shape over output_axes, ..., element_shape)</span>
+
+<span class="sd">            where ``element_shape`` reflects the adjusted tensor signature after contraction.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        **Contraction Behavior**</span>
+
+<span class="sd">        This operation modifies the variance of a single tensor index by contracting it with</span>
+<span class="sd">        either the metric :math:`g_{\mu\nu}` or its inverse :math:`g^{\mu\nu}`. The result has</span>
+<span class="sd">        the same rank but with the specified slot changed from covariant to contravariant or vice versa.</span>
+
+<span class="sd">        **Index Semantics**</span>
+
+<span class="sd">        The `index` parameter refers to the position within the field&#39;s element shape.</span>
+<span class="sd">        For example, a rank-2 tensor field with shape ``(Nx, Ny, 3, 3)`` uses `index=0` for the first</span>
+<span class="sd">        component axis and `index=1` for the second.</span>
+
+<span class="sd">        **Metric Field Requirements**</span>
+
+<span class="sd">        The shape of `metric_field` depends on the metric type:</span>
+
+<span class="sd">        - **Diagonal metric (orthogonal coordinates):** ``(*spatial_shape, ndim)``</span>
+<span class="sd">        - **Full metric (non-orthogonal):** ``(*spatial_shape, ndim, ndim)``</span>
+
+<span class="sd">        If not supplied, the appropriate metric is computed automatically from the coordinate system</span>
+<span class="sd">        (either once globally or per chunk).</span>
+
+<span class="sd">        **Chunking Behavior**</span>
+
+<span class="sd">        If ``in_chunks=True``, the operation is performed chunk-by-chunk across the grid. This is</span>
+<span class="sd">        particularly helpful when working with large, memory-mapped, or HDF5-backed fields.</span>
+
+<span class="sd">        Each chunk is evaluated with a 1-cell halo to preserve accuracy during intermediate gradient computations.</span>
+
+<span class="sd">        **Backend Buffer Customization**</span>
+
+<span class="sd">        If ``as_array=False``, the result is wrapped in a new :class:`DenseField`. You may control</span>
+<span class="sd">        the buffer backend (NumPy, Unyt, HDF5, etc.) using `buffer_class`, `buffer_registry`,</span>
+<span class="sd">        `buffer_args`, and `buffer_kwargs`.</span>
+
+<span class="sd">        If ``as_array=True``, these options are ignored and a raw NumPy array is returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Perform preliminary checks. We don&#39;t permit</span>
+        <span class="c1"># this to proceed if the index and mode aren&#39;t</span>
+        <span class="c1"># consistent with the current signature.</span>
+        <span class="n">index_variance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">signature</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;lower&quot;</span> <span class="ow">and</span> <span class="n">index_variance</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot lower a covariant index.&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;raise&quot;</span> <span class="ow">and</span> <span class="n">index_variance</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot raise a contravariant index.&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;raise&quot;</span><span class="p">,</span> <span class="s2">&quot;lower&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid mode.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># Create the new signature.</span>
+        <span class="n">new_sig</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">signature</span><span class="p">[:</span><span class="n">index</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="n">index_variance</span><span class="p">,)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">signature</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:]</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Determine the dependence.</span>
+        <span class="k">if</span> <span class="n">output_axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;raise&quot;</span><span class="p">:</span>
+                <span class="n">output_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">determine_op_dependence</span><span class="p">(</span><span class="s2">&quot;raise_index&quot;</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">output_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">determine_op_dependence</span><span class="p">(</span><span class="s2">&quot;lower_index&quot;</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+
+        <span class="c1"># Perform the operation at the grid level using the</span>
+        <span class="c1"># single component buffer of the field.</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__grid__</span><span class="o">.</span><span class="n">dense_contract_with_metric</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__component__</span><span class="o">.</span><span class="n">__buffer__</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__component__</span><span class="o">.</span><span class="n">__axes__</span><span class="p">,</span>
+            <span class="n">index</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
+            <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
+            <span class="n">metric_field</span><span class="o">=</span><span class="n">metric_field</span><span class="p">,</span>
+            <span class="n">output_axes</span><span class="o">=</span><span class="n">output_axes</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_output_to_field_or_array</span><span class="p">(</span>
+            <span class="n">result</span><span class="p">,</span>
+            <span class="n">as_array</span><span class="o">=</span><span class="n">as_array</span><span class="p">,</span>
+            <span class="n">buffer_class</span><span class="o">=</span><span class="n">buffer_class</span><span class="p">,</span>
+            <span class="n">buffer_registry</span><span class="o">=</span><span class="n">buffer_registry</span><span class="p">,</span>
+            <span class="n">buffer_args</span><span class="o">=</span><span class="n">buffer_args</span><span class="p">,</span>
+            <span class="n">buffer_kwargs</span><span class="o">=</span><span class="n">buffer_kwargs</span><span class="p">,</span>
+            <span class="n">output_axes</span><span class="o">=</span><span class="n">output_axes</span><span class="p">,</span>
+            <span class="n">signature</span><span class="o">=</span><span class="n">new_sig</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+    <span class="c1"># noinspection PyIncorrectDocstring</span>
+<div class="viewcode-block" id="DenseTensorFieldDMOMixin.raise_index">
+<a class="viewcode-back" href="../../../_as_gen/fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.raise_index.html#fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.raise_index">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">raise_index</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupDTFDMOs</span><span class="p">,</span>
+        <span class="n">index</span><span class="p">,</span>
+        <span class="n">inverse_metric_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">output_axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">as_array</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">buffer_class</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="s2">&quot;BufferBase&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_registry</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;BufferRegistry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Raise a single covariant index of this tensor field.</span>
+
+<span class="sd">        This method contracts one of the tensor&#39;s value axes with the inverse metric</span>
+<span class="sd">        :math:`g^{\mu\nu}` to convert a covariant component into a contravariant one.</span>
+<span class="sd">        The operation modifies only the specified slot and leaves all other indices unchanged.</span>
+
+<span class="sd">        .. hint::</span>
+
+<span class="sd">            This is a convenience wrapper around :meth:`~grids.base.GridBase.dense_raise_index`,</span>
+<span class="sd">            which itself wraps :func:`~differential_geometry.dense_utils.dense_contract_with_metric`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        index : int</span>
+<span class="sd">            The tensor slot (i.e., axis in the field&#39;s trailing element shape) to operate</span>
+<span class="sd">            on.</span>
+
+<span class="sd">            This refers to the position among the field’s value axes, not its spatial grid axes.</span>
+<span class="sd">            For example, in a rank-2 tensor field with shape ``(Nx, Ny, 3, 3)``, ``index=0`` contracts</span>
+<span class="sd">            the first value index (e.g., the row), while ``index=1`` contracts the second (e.g., the column).</span>
+<span class="sd">        inverse_metric_field : array-like, optional</span>
+<span class="sd">            The inverse metric tensor :math:`g^{\mu\nu}`, used for curved-coordinate contraction.</span>
+
+<span class="sd">            - For diagonal metrics: shape ``(*spatial_shape, ndim)``</span>
+<span class="sd">            - For full metrics: shape ``(*spatial_shape, ndim, ndim)``</span>
+
+<span class="sd">            where ``spatial_shape`` is this field&#39;s :attr:`spatial_shape`.</span>
+
+<span class="sd">            If not provided, it is derived from the coordinate system.</span>
+<span class="sd">        out : array-like, optional</span>
+<span class="sd">            An optional buffer in which to store the result.</span>
+<span class="sd">            This can be used to reduce memory usage when performing</span>
+<span class="sd">            computations. The shape of `out` must be compliant</span>
+<span class="sd">            with broadcasting rules (see `Notes`). `out` may be a buffer or any</span>
+<span class="sd">            other array-like object.</span>
+<span class="sd">        output_axes : list of str, optional</span>
+<span class="sd">            The axes of the coordinate system over which the result should</span>
+<span class="sd">            span. By default, the dependence is calculated internally.</span>
+
+<span class="sd">            This argument may be specified to expand the number of axes onto which</span>
+<span class="sd">            the output field is computed. `output_axes` must be a superset of the</span>
+<span class="sd">            :attr:`axes` of the calling field.</span>
+<span class="sd">        **kwargs</span>
+<span class="sd">            Passed straight to the low-level metric-contraction kernels</span>
+<span class="sd">            (e.g. `where=` masks).</span>
+
+<span class="sd">        Other Parameters</span>
+<span class="sd">        ----------------</span>
+<span class="sd">        as_array : bool, default False</span>
+<span class="sd">            If True, return the raw array representing the result.</span>
+<span class="sd">            If False, return a new symbolic field with the raised index.</span>
+<span class="sd">        buffer_class : type, optional</span>
+<span class="sd">            Class to use when wrapping the result buffer, e.g., :class:`fields.buffers.core.ArrayBuffer`</span>
+<span class="sd">            or :class:`fields.buffers.core.UnytArrayBuffer`.</span>
+
+<span class="sd">            Defaults to buffer resolution to determine a fitting buffer for the resulting</span>
+<span class="sd">            array result.</span>
+<span class="sd">        buffer_registry : ~fields.buffers.registry.BufferRegistry, optional</span>
+<span class="sd">            Registry to use when resolving the buffer class. Required for advanced dispatch.</span>
+<span class="sd">        buffer_args : Sequence, optional</span>
+<span class="sd">            Positional arguments forwarded to the buffer constructor.</span>
+<span class="sd">        buffer_kwargs : dict, optional</span>
+<span class="sd">            Keyword arguments forwarded to the buffer constructor.</span>
+<span class="sd">        in_chunks : bool, default False</span>
+<span class="sd">            If True, compute the result in streaming fashion over grid chunks to reduce</span>
+<span class="sd">            memory usage.</span>
+<span class="sd">        pbar : bool, default True</span>
+<span class="sd">            Show a progress bar during chunked computation.</span>
+<span class="sd">        pbar_kwargs : dict, optional</span>
+<span class="sd">            Extra keyword arguments passed to the progress bar (e.g., `desc` or `position`).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ~fields.tensors.DenseTensorField or numpy.ndarray</span>
+<span class="sd">            The resulting tensor field with the specified index raised.</span>
+
+<span class="sd">            - If ``as_array=False`` (default), returns a new field of the same type as this one</span>
+<span class="sd">              (e.g., :class:`~fields.base.DenseField`) with the indicated slot raised to contravariant form.</span>
+<span class="sd">            - If ``as_array=True``, returns a raw NumPy array with shape:</span>
+
+<span class="sd">              .. code:: python</span>
+
+<span class="sd">                  (grid_shape over output_axes, ..., element_shape)</span>
+
+<span class="sd">              where the `element_shape` reflects the updated tensor signature.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        **Index Contraction**</span>
+
+<span class="sd">        This operation raises a single index of the field by contracting it with the inverse metric</span>
+<span class="sd">        :math:`g^{\mu\nu}`. The index position is given by `index`, which refers to one of the</span>
+<span class="sd">        trailing component axes in the field’s element shape (not spatial grid axes).</span>
+
+<span class="sd">        The rank of the tensor remains the same; only the variance (covariant → contravariant)</span>
+<span class="sd">        of the specified slot is updated.</span>
+
+<span class="sd">        **Metric Handling**</span>
+
+<span class="sd">        If `inverse_metric_field` is not supplied, it is computed from the grid&#39;s coordinate system:</span>
+
+<span class="sd">        - For orthogonal systems (diagonal metric): shape ``(*spatial_shape, ndim)``</span>
+<span class="sd">        - For general systems (full metric): shape ``(*spatial_shape, ndim, ndim)``</span>
+
+<span class="sd">        You may precompute this expression using</span>
+<span class="sd">        :meth:`~coordinates.base.CoordinateSystem.compute_expression_from_coordinates`</span>
+<span class="sd">        to avoid repeated work.</span>
+
+<span class="sd">        **Chunked Evaluation**</span>
+
+<span class="sd">        If `in_chunks=True`, the contraction is performed chunk-by-chunk across the domain.</span>
+<span class="sd">        This can reduce memory pressure for large or lazily loaded fields.</span>
+
+<span class="sd">        **Buffer Customization**</span>
+
+<span class="sd">        If ``as_array=False``, the resulting array is wrapped in a new field using the specified</span>
+<span class="sd">        `buffer_class`, `buffer_registry`, and optional constructor arguments.</span>
+
+<span class="sd">        If ``as_array=True``, those options are ignored and the raw array is returned directly.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Ensure that the specified index is allowed to</span>
+        <span class="c1"># be raised.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">signature</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Cannot raise index </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">. It is already contravariant.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Determine the relevant output axes.</span>
+        <span class="k">if</span> <span class="n">output_axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">output_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">determine_op_dependence</span><span class="p">(</span><span class="s2">&quot;raise_index&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Perform the operation at the grid level using the</span>
+        <span class="c1"># single component buffer of the field.</span>
+        <span class="n">result_field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__grid__</span><span class="o">.</span><span class="n">dense_raise_index</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__component__</span><span class="o">.</span><span class="n">__buffer__</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span>
+            <span class="n">index</span><span class="p">,</span>
+            <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
+            <span class="n">inverse_metric_field</span><span class="o">=</span><span class="n">inverse_metric_field</span><span class="p">,</span>
+            <span class="n">output_axes</span><span class="o">=</span><span class="n">output_axes</span><span class="p">,</span>
+            <span class="n">as_array</span><span class="o">=</span><span class="n">as_array</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Coerce the output to the desired typing.</span>
+        <span class="c1"># This is where we use the various buffer info.</span>
+        <span class="n">new_signature</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">index</span> <span class="k">else</span> <span class="o">-</span><span class="n">s</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">signature</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cast_result_to_field_or_array</span><span class="p">(</span>
+            <span class="n">result_field</span><span class="p">,</span>
+            <span class="n">as_array</span><span class="o">=</span><span class="n">as_array</span><span class="p">,</span>
+            <span class="n">buffer_class</span><span class="o">=</span><span class="n">buffer_class</span><span class="p">,</span>
+            <span class="n">buffer_registry</span><span class="o">=</span><span class="n">buffer_registry</span><span class="p">,</span>
+            <span class="n">buffer_args</span><span class="o">=</span><span class="n">buffer_args</span><span class="p">,</span>
+            <span class="n">buffer_kwargs</span><span class="o">=</span><span class="n">buffer_kwargs</span><span class="p">,</span>
+            <span class="n">output_axes</span><span class="o">=</span><span class="n">output_axes</span><span class="p">,</span>
+            <span class="n">signature</span><span class="o">=</span><span class="n">new_signature</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+    <span class="c1"># noinspection PyIncorrectDocstring</span>
+<div class="viewcode-block" id="DenseTensorFieldDMOMixin.lower_index">
+<a class="viewcode-back" href="../../../_as_gen/fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.lower_index.html#fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.lower_index">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">lower_index</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupDTFDMOs</span><span class="p">,</span>
+        <span class="n">index</span><span class="p">,</span>
+        <span class="n">metric_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">output_axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">as_array</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">buffer_class</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="s2">&quot;BufferBase&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_registry</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;BufferRegistry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Lower a single contravariant index of this tensor field.</span>
+
+<span class="sd">        This method contracts one of the tensor&#39;s value axes with the metric</span>
+<span class="sd">        :math:`g_{\mu\nu}` to convert a contravariant component into a covariant one.</span>
+<span class="sd">        The operation modifies only the specified slot and leaves all other indices unchanged.</span>
+
+<span class="sd">        .. hint::</span>
+
+<span class="sd">            This is a convenience wrapper around :meth:`~grids.base.GridBase.dense_lower_index`,</span>
+<span class="sd">            which itself wraps :func:`~differential_geometry.dense_utils.dense_contract_with_metric`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        index : int</span>
+<span class="sd">            The tensor slot (i.e., axis in the field&#39;s trailing element shape) to operate</span>
+<span class="sd">            on.</span>
+
+<span class="sd">            This refers to the position among the field’s value axes, not its spatial grid axes.</span>
+<span class="sd">            For example, in a rank-2 tensor field with shape ``(Nx, Ny, 3, 3)``, ``index=0`` contracts</span>
+<span class="sd">            the first value index (e.g., the row), while ``index=1`` contracts the second (e.g., the column).</span>
+
+<span class="sd">        metric_field : array-like, optional</span>
+<span class="sd">            The metric tensor :math:`g_{\mu\nu}`, used to perform the contraction.</span>
+
+<span class="sd">            - For diagonal metrics: shape ``(*spatial_shape, ndim)``</span>
+<span class="sd">            - For full metrics: shape ``(*spatial_shape, ndim, ndim)``</span>
+
+<span class="sd">            where ``spatial_shape`` is this field&#39;s :attr:`spatial_shape`.</span>
+
+<span class="sd">            If not provided, it is derived from the coordinate system.</span>
+
+<span class="sd">        out : array-like, optional</span>
+<span class="sd">            An optional buffer in which to store the result.</span>
+<span class="sd">            This can be used to reduce memory usage when performing</span>
+<span class="sd">            computations. The shape of `out` must be compliant</span>
+<span class="sd">            with broadcasting rules (see `Notes`). `out` may be a buffer or any</span>
+<span class="sd">            other array-like object.</span>
+
+<span class="sd">        output_axes : list of str, optional</span>
+<span class="sd">            The axes of the coordinate system over which the result should</span>
+<span class="sd">            span. By default, the dependence is calculated internally.</span>
+
+<span class="sd">            This argument may be specified to expand the number of axes onto which</span>
+<span class="sd">            the output field is computed. `output_axes` must be a superset of the</span>
+<span class="sd">            :attr:`axes` of the calling field.</span>
+
+<span class="sd">        **kwargs</span>
+<span class="sd">            Passed straight to the low-level metric-contraction kernels</span>
+<span class="sd">            (e.g. `where=` masks).</span>
+
+<span class="sd">        Other Parameters</span>
+<span class="sd">        ----------------</span>
+<span class="sd">        as_array : bool, default False</span>
+<span class="sd">            If True, return the raw array representing the result.</span>
+<span class="sd">            If False, return a new field with the lowered index.</span>
+
+<span class="sd">        buffer_class : type, optional</span>
+<span class="sd">            Class to use when wrapping the result buffer, e.g., :class:`fields.buffers.core.ArrayBuffer`</span>
+<span class="sd">            or :class:`fields.buffers.core.UnytArrayBuffer`.</span>
+
+<span class="sd">            If not provided, the buffer type is inferred automatically from the result.</span>
+
+<span class="sd">        buffer_registry : ~fields.buffers.registry.BufferRegistry, optional</span>
+<span class="sd">            Registry to use when resolving the buffer class. Required for advanced dispatch.</span>
+
+<span class="sd">        buffer_args : Sequence, optional</span>
+<span class="sd">            Positional arguments forwarded to the buffer constructor.</span>
+
+<span class="sd">        buffer_kwargs : dict, optional</span>
+<span class="sd">            Keyword arguments forwarded to the buffer constructor.</span>
+
+<span class="sd">        in_chunks : bool, default False</span>
+<span class="sd">            If True, compute the result in streaming fashion over grid chunks to reduce</span>
+<span class="sd">            memory usage.</span>
+
+<span class="sd">        pbar : bool, default True</span>
+<span class="sd">            Show a progress bar during chunked computation.</span>
+
+<span class="sd">        pbar_kwargs : dict, optional</span>
+<span class="sd">            Extra keyword arguments passed to the progress bar (e.g., `desc` or `position`).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ~fields.tensors.DenseTensorField or numpy.ndarray</span>
+<span class="sd">            The resulting tensor field with the specified index lowered.</span>
+
+<span class="sd">            - If ``as_array=False`` (default), returns a new field of the same type as this one</span>
+<span class="sd">              (e.g., :class:`~fields.base.DenseField`) with the indicated slot converted to covariant form.</span>
+<span class="sd">            - If ``as_array=True``, returns a raw NumPy array with shape:</span>
+
+<span class="sd">              .. code:: python</span>
+
+<span class="sd">                  (grid_shape over output_axes, ..., element_shape)</span>
+
+<span class="sd">              where the `element_shape` reflects the updated tensor signature.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        **Index Contraction**</span>
+
+<span class="sd">        This operation lowers a single index of the field by contracting it with the metric</span>
+<span class="sd">        :math:`g_{\mu\nu}`. The index position is given by `index`, which refers to one of the</span>
+<span class="sd">        trailing component axes in the field’s element shape (not spatial grid axes).</span>
+
+<span class="sd">        The rank of the tensor remains the same; only the variance (contravariant → covariant)</span>
+<span class="sd">        of the specified slot is updated.</span>
+
+<span class="sd">        **Metric Handling**</span>
+
+<span class="sd">        If `metric_field` is not supplied, it is computed from the grid&#39;s coordinate system:</span>
+
+<span class="sd">        - For orthogonal systems (diagonal metric): shape ``(*spatial_shape, ndim)``</span>
+<span class="sd">        - For general systems (full metric): shape ``(*spatial_shape, ndim, ndim)``</span>
+
+<span class="sd">        You may precompute this expression using</span>
+<span class="sd">        :meth:`~coordinates.base.CoordinateSystem.compute_expression_from_coordinates`</span>
+<span class="sd">        to avoid repeated work.</span>
+
+<span class="sd">        **Chunked Evaluation**</span>
+
+<span class="sd">        If `in_chunks=True`, the contraction is performed chunk-by-chunk across the domain.</span>
+<span class="sd">        This can reduce memory pressure for large or lazily loaded fields.</span>
+
+<span class="sd">        **Buffer Customization**</span>
+
+<span class="sd">        If ``as_array=False``, the resulting array is wrapped in a new field using the specified</span>
+<span class="sd">        `buffer_class`, `buffer_registry`, and optional constructor arguments.</span>
+
+<span class="sd">        If ``as_array=True``, those options are ignored and the raw array is returned directly.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">signature</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Cannot lower index </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">. It is already covariant.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Determine the relevant output axes.</span>
+        <span class="k">if</span> <span class="n">output_axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">output_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">determine_op_dependence</span><span class="p">(</span><span class="s2">&quot;lower_index&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Perform the operation at the grid level using the</span>
+        <span class="c1"># single component buffer of the field.</span>
+        <span class="n">result_field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__grid__</span><span class="o">.</span><span class="n">dense_lower_index</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__component__</span><span class="o">.</span><span class="n">__buffer__</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span>
+            <span class="n">index</span><span class="p">,</span>
+            <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
+            <span class="n">metric_field</span><span class="o">=</span><span class="n">metric_field</span><span class="p">,</span>
+            <span class="n">output_axes</span><span class="o">=</span><span class="n">output_axes</span><span class="p">,</span>
+            <span class="n">as_array</span><span class="o">=</span><span class="n">as_array</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Coerce the output to the desired typing.</span>
+        <span class="c1"># This is where we use the various buffer info.</span>
+        <span class="n">new_signature</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">index</span> <span class="k">else</span> <span class="o">-</span><span class="n">s</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">signature</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cast_result_to_field_or_array</span><span class="p">(</span>
+            <span class="n">result_field</span><span class="p">,</span>
+            <span class="n">as_array</span><span class="o">=</span><span class="n">as_array</span><span class="p">,</span>
+            <span class="n">buffer_class</span><span class="o">=</span><span class="n">buffer_class</span><span class="p">,</span>
+            <span class="n">buffer_registry</span><span class="o">=</span><span class="n">buffer_registry</span><span class="p">,</span>
+            <span class="n">buffer_args</span><span class="o">=</span><span class="n">buffer_args</span><span class="p">,</span>
+            <span class="n">buffer_kwargs</span><span class="o">=</span><span class="n">buffer_kwargs</span><span class="p">,</span>
+            <span class="n">output_axes</span><span class="o">=</span><span class="n">output_axes</span><span class="p">,</span>
+            <span class="n">signature</span><span class="o">=</span><span class="n">new_signature</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+    <span class="c1"># noinspection PyIncorrectDocstring</span>
+<div class="viewcode-block" id="DenseTensorFieldDMOMixin.adjust_tensor_signature">
+<a class="viewcode-back" href="../../../_as_gen/fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.adjust_tensor_signature.html#fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.adjust_tensor_signature">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">adjust_tensor_signature</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupDTFDMOs</span><span class="p">,</span>
+        <span class="n">indices</span><span class="p">,</span>
+        <span class="n">metric_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">inverse_metric_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">output_axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">as_array</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">buffer_class</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="s2">&quot;BufferBase&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_registry</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;BufferRegistry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adjust the variance (covariant or contravariant) of multiple tensor indices.</span>
+
+<span class="sd">        This method applies metric contractions to raise or lower selected slots of the</span>
+<span class="sd">        field&#39;s element shape, transforming them between covariant and contravariant form.</span>
+<span class="sd">        It modifies only the specified indices and leaves all other slots unchanged.</span>
+
+<span class="sd">        Under the hood, this wraps :meth:`~grids.base.GridBase.dense_adjust_tensor_signature`,</span>
+<span class="sd">        which applies one or more contractions using either the metric :math:`g_{\mu\nu}` or its inverse</span>
+<span class="sd">        :math:`g^{\mu\nu}`, depending on the target signature.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        indices : list of int</span>
+<span class="sd">            The tensor slots (i.e., axes in the field&#39;s trailing element shape) to operate</span>
+<span class="sd">            on.</span>
+
+<span class="sd">            This refers to the position among the field’s value axes, not its spatial grid axes.</span>
+<span class="sd">            For example, in a rank-2 tensor field with shape ``(Nx, Ny, 3, 3)``, ``indices=[0]`` contracts</span>
+<span class="sd">            the first value index (e.g., the row), while ``indices=[1]`` contracts the second (e.g., the column).</span>
+<span class="sd">        metric_field, inverse_metric_field : array-like, optional</span>
+<span class="sd">            Optional precomputed metric and inverse metric tensors used during contraction.</span>
+
+<span class="sd">            - `metric_field` is used to **lower** covariant indices and must correspond to :math:`g_{\mu\nu}`</span>
+<span class="sd">            - `inverse_metric_field` is used to **raise** contravariant indices and must correspond to :math:`g^{\mu\nu}`</span>
+
+<span class="sd">            You may provide one or both, depending on which indices are being modified. Any missing tensor</span>
+<span class="sd">            will be computed automatically from the grid’s coordinate system.</span>
+
+<span class="sd">            Expected shapes:</span>
+
+<span class="sd">            - Diagonal (orthogonal) systems: ``(*spatial_shape, ndim)``</span>
+<span class="sd">            - Full (non-orthogonal) systems: ``(*spatial_shape, ndim, ndim)``</span>
+
+<span class="sd">            Here, ``spatial_shape`` refers to the shape of the field over its domain grid axes.</span>
+<span class="sd">        output_axes : list of str, optional</span>
+<span class="sd">            The axes of the coordinate system over which the result should</span>
+<span class="sd">            span. By default, the dependence is calculated internally.</span>
+
+<span class="sd">            This argument may be specified to expand the number of axes onto which</span>
+<span class="sd">            the output field is computed. `output_axes` must be a superset of the</span>
+<span class="sd">            :attr:`axes` of the calling field.</span>
+<span class="sd">        out : array-like, optional</span>
+<span class="sd">            An optional buffer in which to store the result.</span>
+<span class="sd">            This can be used to reduce memory usage when performing</span>
+<span class="sd">            computations. The shape of `out` must be compliant</span>
+<span class="sd">            with broadcasting rules (see `Notes`). `out` may be a buffer or any</span>
+<span class="sd">            other array-like object.</span>
+<span class="sd">        **kwargs</span>
+<span class="sd">            Passed straight to the low-level metric-contraction kernels</span>
+<span class="sd">            (e.g. `where=` masks).</span>
+
+<span class="sd">        Other Parameters</span>
+<span class="sd">        ----------------</span>
+<span class="sd">        in_chunks : bool, default False</span>
+<span class="sd">            If True, compute the result in streaming fashion over grid chunks to reduce</span>
+<span class="sd">            memory usage.</span>
+<span class="sd">        pbar : bool, default True</span>
+<span class="sd">            Show a progress bar during chunked computation.</span>
+<span class="sd">        pbar_kwargs : dict, optional</span>
+<span class="sd">            Extra keyword arguments passed to the progress bar (e.g., `desc` or `position`).</span>
+<span class="sd">        as_array : bool, default False</span>
+<span class="sd">            If True, return the raw array representing the result.</span>
+<span class="sd">            If False, return a new symbolic field with the raised index.</span>
+<span class="sd">        buffer_class : type, optional</span>
+<span class="sd">            Class to use when wrapping the result buffer, e.g., :class:`fields.buffers.core.ArrayBuffer`</span>
+<span class="sd">            or :class:`fields.buffers.core.UnytArrayBuffer`.</span>
+
+<span class="sd">            Defaults to buffer resolution to determine a fitting buffer for the resulting</span>
+<span class="sd">            array result.</span>
+<span class="sd">        buffer_registry : ~fields.buffers.registry.BufferRegistry, optional</span>
+<span class="sd">            Registry to use when resolving the buffer class. Required for advanced dispatch.</span>
+<span class="sd">        buffer_args : Sequence, optional</span>
+<span class="sd">            Positional arguments forwarded to the buffer constructor.</span>
+<span class="sd">        buffer_kwargs : dict, optional</span>
+<span class="sd">            Keyword arguments forwarded to the buffer constructor.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ~fields.tensors.DenseTensorField or numpy.ndarray</span>
+<span class="sd">            The tensor field with updated variance on the specified slots. It will match the</span>
+<span class="sd">            shape of the calling field.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        **Variance Adjustment Logic**</span>
+
+<span class="sd">        Each entry in `indices` is matched against the corresponding component in the</span>
+<span class="sd">        current tensor signature (stored in `self.signature`). Based on the desired</span>
+<span class="sd">        transformation, the following logic is applied:</span>
+
+<span class="sd">        - If the current slot is covariant (−1) and the target is +1 → **raise**</span>
+<span class="sd">        - If the current slot is contravariant (+1) and the target is −1 → **lower**</span>
+<span class="sd">        - If the slot already matches the target signature, no action is taken.</span>
+
+<span class="sd">        **Metric Field Requirements**</span>
+
+<span class="sd">        - Orthogonal metrics (diagonal): shape ``(*spatial_shape, ndim)``</span>
+<span class="sd">        - Non-orthogonal metrics (full): shape ``(*spatial_shape, ndim, ndim)``</span>
+
+<span class="sd">        **Chunking Behavior**</span>
+
+<span class="sd">        If ``in_chunks=True``, each grid chunk is processed independently with 1-cell halo padding</span>
+<span class="sd">        for stencil accuracy. This mode is especially useful with HDF5-backed or large fields.</span>
+
+<span class="sd">        **Buffer Handling**</span>
+
+<span class="sd">        If ``as_array=False``, the result is wrapped using the buffer system. The buffer type may be</span>
+<span class="sd">        explicitly controlled via `buffer_class`, `buffer_registry`, and related args.</span>
+
+<span class="sd">        If ``as_array=True``, the raw NumPy array is returned, and no wrapping occurs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Determine the relevant output axes. To do so, we need to</span>
+        <span class="c1"># determine the current and output variance.</span>
+        <span class="n">current_variance</span><span class="p">,</span> <span class="n">new_variance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">signature</span><span class="p">[:],</span> <span class="bp">self</span><span class="o">.</span><span class="n">signature</span><span class="p">[:]</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+            <span class="n">new_variance</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">output_axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">output_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">determine_op_dependence</span><span class="p">(</span>
+                <span class="s2">&quot;lower_index&quot;</span><span class="p">,</span> <span class="n">current_variance</span><span class="p">,</span> <span class="n">new_variance</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Perform the operation at the grid level using the</span>
+        <span class="c1"># single component buffer of the field.</span>
+        <span class="n">result_field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__grid__</span><span class="o">.</span><span class="n">dense_adjust_tensor_signature</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__component__</span><span class="o">.</span><span class="n">__buffer__</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span>
+            <span class="n">indices</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">signature</span><span class="p">,</span>
+            <span class="n">inverse_metric_field</span><span class="o">=</span><span class="n">inverse_metric_field</span><span class="p">,</span>
+            <span class="n">metric_field</span><span class="o">=</span><span class="n">metric_field</span><span class="p">,</span>
+            <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
+            <span class="n">output_axes</span><span class="o">=</span><span class="n">output_axes</span><span class="p">,</span>
+            <span class="n">as_array</span><span class="o">=</span><span class="n">as_array</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Coerce the output to the desired typing.</span>
+        <span class="c1"># This is where we use the various buffer info.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cast_result_to_field_or_array</span><span class="p">(</span>
+            <span class="n">result_field</span><span class="p">,</span>
+            <span class="n">as_array</span><span class="o">=</span><span class="n">as_array</span><span class="p">,</span>
+            <span class="n">buffer_class</span><span class="o">=</span><span class="n">buffer_class</span><span class="p">,</span>
+            <span class="n">buffer_registry</span><span class="o">=</span><span class="n">buffer_registry</span><span class="p">,</span>
+            <span class="n">buffer_args</span><span class="o">=</span><span class="n">buffer_args</span><span class="p">,</span>
+            <span class="n">buffer_kwargs</span><span class="o">=</span><span class="n">buffer_kwargs</span><span class="p">,</span>
+            <span class="n">output_axes</span><span class="o">=</span><span class="n">output_axes</span><span class="p">,</span>
+            <span class="n">signature</span><span class="o">=</span><span class="n">new_variance</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+    <span class="c1"># --- Differential Operators --- #</span>
+    <span class="c1"># These methods support differential</span>
+    <span class="c1"># operations.</span>
+
+    <span class="c1"># noinspection PyIncorrectDocstring</span>
+<div class="viewcode-block" id="DenseTensorFieldDMOMixin.gradient">
+<a class="viewcode-back" href="../../../_as_gen/fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.gradient.html#fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.gradient">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">gradient</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupDFDMOs</span><span class="p">,</span>
+        <span class="n">basis</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;contravariant&quot;</span><span class="p">,</span> <span class="s2">&quot;covariant&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">&quot;covariant&quot;</span><span class="p">,</span>
+        <span class="n">inverse_metric_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">output_axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">as_array</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">buffer_class</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="s2">&quot;BufferBase&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_registry</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;BufferRegistry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the covariant or contravariant gradient of this field.</span>
+
+<span class="sd">        This method computes the coordinate-wise gradient of the field, applied</span>
+<span class="sd">        independently to each scalar component. The result is a new tensor field</span>
+<span class="sd">        whose rank is one greater than that of the input, with the final axis</span>
+<span class="sd">        encoding the derivative direction (covariant or contravariant).</span>
+
+<span class="sd">        .. math::</span>
+
+<span class="sd">            \phi \mapsto \nabla_\mu \phi \quad \text{or} \quad \nabla^\mu \phi</span>
+
+<span class="sd">        The gradient basis is selected using the `basis` argument. In covariant form,</span>
+<span class="sd">        the gradient consists of raw partial derivatives. In contravariant form, the</span>
+<span class="sd">        derivatives are raised using the inverse metric tensor :math:`g^{\mu\nu}`.</span>
+
+<span class="sd">        .. hint::</span>
+
+<span class="sd">            This is a wrapper around :meth:`~grids.base.GridBase.dense_gradient`, which in turn</span>
+<span class="sd">            dispatches to either :func:`~differential_geometry.dense_ops.dense_gradient_covariant`</span>
+<span class="sd">            or :func:`~differential_geometry.dense_ops.dense_gradient_contravariant_full`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        basis : {&#39;covariant&#39;, &#39;contravariant&#39;}, optional</span>
+<span class="sd">            The basis in which to compute the gradient. Defaults to ``&#39;covariant&#39;``.</span>
+
+<span class="sd">            - If ``&#39;covariant&#39;``: returns raw partial derivatives :math:`\partial_\mu \phi`</span>
+<span class="sd">            - If ``&#39;contravariant&#39;``: raises the result using :math:`g^{\mu\nu}` to produce :math:`\nabla^\mu \phi`</span>
+<span class="sd">        inverse_metric_field : array-like, optional</span>
+<span class="sd">            The inverse metric tensor :math:`g^{\mu\nu}` required for computing the contravariant gradient.</span>
+
+<span class="sd">            - For diagonal metrics: shape ``(*spatial_shape, ndim)``</span>
+<span class="sd">            - For full metrics: shape ``(*spatial_shape, ndim, ndim)``</span>
+
+<span class="sd">            If not provided, it is computed automatically from the coordinate system.</span>
+<span class="sd">            Ignored when ``basis=&#39;covariant&#39;``.</span>
+<span class="sd">        out : array-like, optional</span>
+<span class="sd">            An optional buffer in which to store the result.</span>
+<span class="sd">            This can be used to reduce memory usage when performing</span>
+<span class="sd">            computations. The shape of `out` must be compliant</span>
+<span class="sd">            with broadcasting rules (see `Notes`). `out` may be a buffer or any</span>
+<span class="sd">            other array-like object.</span>
+<span class="sd">        output_axes : list of str, optional</span>
+<span class="sd">            The axes of the coordinate system over which the result should</span>
+<span class="sd">            span. By default, the dependence is calculated internally.</span>
+
+<span class="sd">            This argument may be specified to expand the number of axes onto which</span>
+<span class="sd">            the output field is computed. `output_axes` must be a superset of the</span>
+<span class="sd">            :attr:`axes` of the calling field.</span>
+
+<span class="sd">        Other Parameters</span>
+<span class="sd">        ----------------</span>
+<span class="sd">        in_chunks : bool, default False</span>
+<span class="sd">            If True, compute the result in streaming fashion over grid chunks to reduce</span>
+<span class="sd">            memory usage.</span>
+<span class="sd">        pbar : bool, default True</span>
+<span class="sd">            Show a progress bar during chunked computation.</span>
+<span class="sd">        pbar_kwargs : dict, optional</span>
+<span class="sd">            Extra keyword arguments passed to the progress bar (e.g., `desc` or `position`).</span>
+<span class="sd">        as_array : bool, default False</span>
+<span class="sd">            If True, return the raw array representing the result.</span>
+<span class="sd">            If False, return a new symbolic field with the raised index.</span>
+<span class="sd">        buffer_class : type, optional</span>
+<span class="sd">            Class to use when wrapping the result buffer, e.g., :class:`fields.buffers.core.ArrayBuffer`</span>
+<span class="sd">            or :class:`fields.buffers.core.UnytArrayBuffer`.</span>
+
+<span class="sd">            Defaults to buffer resolution to determine a fitting buffer for the resulting</span>
+<span class="sd">            array result.</span>
+<span class="sd">        buffer_registry : ~fields.buffers.registry.BufferRegistry, optional</span>
+<span class="sd">            Registry to use when resolving the buffer class. Required for advanced dispatch.</span>
+<span class="sd">        buffer_args : Sequence, optional</span>
+<span class="sd">            Positional arguments forwarded to the buffer constructor.</span>
+<span class="sd">        buffer_kwargs : dict, optional</span>
+<span class="sd">            Keyword arguments forwarded to the buffer constructor.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ~fields.base.DenseTensorField or ~numpy.ndarray</span>
+<span class="sd">            The gradient of the field. The output shape matches the input shape with</span>
+<span class="sd">            one additional trailing axis of size `ndim`.</span>
+
+<span class="sd">            - If ``as_array=False`` (default), returns a new :class:`DenseTensorField` instance.</span>
+<span class="sd">            - If ``as_array=True``, returns a NumPy array of shape:</span>
+
+<span class="sd">              .. code:: python</span>
+
+<span class="sd">                  (grid_shape over output_axes, ..., element_shape, ndim)</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        **Output Shape and Signature**</span>
+
+<span class="sd">        The gradient adds one additional index to the tensor field:</span>
+
+<span class="sd">        - For a scalar field, the output becomes a vector field.</span>
+<span class="sd">        - For a vector field, the output becomes a rank-2 tensor.</span>
+
+<span class="sd">        The updated element shape is the original field’s `element_shape` extended by `(ndim,)`.</span>
+
+<span class="sd">        The gradient basis determines the signature of this final axis:</span>
+
+<span class="sd">        - ``&#39;covariant&#39;`` → covariant index (e.g., ∂μ)</span>
+<span class="sd">        - ``&#39;contravariant&#39;`` → contravariant index (e.g., ∇^μ)</span>
+
+<span class="sd">        **Metric Requirements**</span>
+
+<span class="sd">        The inverse metric field is only required when ``basis=&#39;contravariant&#39;``.</span>
+<span class="sd">        If not provided, it is evaluated from the coordinate system automatically.</span>
+
+<span class="sd">        **Chunked Evaluation**</span>
+
+<span class="sd">        When ``in_chunks=True``, the operation is evaluated block-by-block.</span>
+<span class="sd">        Ghost cells (1-cell halo) are added to preserve the accuracy of finite-difference stencils.</span>
+
+<span class="sd">        This is especially useful for HDF5-backed buffers or streaming workloads.</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        ~grids.base.GridBase.dense_gradient :</span>
+<span class="sd">            Grid-level implementation used here.</span>
+<span class="sd">        ~differential_geometry.dense_ops.dense_gradient_covariant :</span>
+<span class="sd">            Covariant gradient kernel (raw partial derivatives).</span>
+<span class="sd">        ~differential_geometry.dense_ops.dense_gradient_contravariant_full :</span>
+<span class="sd">            Contravariant gradient kernel (full metric).</span>
+<span class="sd">        ~differential_geometry.dense_ops.dense_gradient_contravariant_diag :</span>
+<span class="sd">            Contravariant gradient kernel (diagonal metric).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Adjust the signature based on the basis</span>
+        <span class="c1"># we got given.</span>
+        <span class="n">new_signature</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">signature</span><span class="p">)</span>
+        <span class="n">new_signature</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span> <span class="k">if</span> <span class="n">basis</span> <span class="o">==</span> <span class="s2">&quot;covariant&quot;</span> <span class="k">else</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,)</span>
+
+        <span class="c1"># Determine the relevant output axes.</span>
+        <span class="k">if</span> <span class="n">output_axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">output_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">determine_op_dependence</span><span class="p">(</span><span class="s2">&quot;gradient&quot;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="n">basis</span><span class="p">)</span>
+
+        <span class="c1"># Perform the operation at the grid level using the</span>
+        <span class="c1"># single component buffer of the field.</span>
+        <span class="n">result_field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__grid__</span><span class="o">.</span><span class="n">dense_gradient</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__component__</span><span class="o">.</span><span class="n">__buffer__</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span>
+            <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
+            <span class="n">inverse_metric_field</span><span class="o">=</span><span class="n">inverse_metric_field</span><span class="p">,</span>
+            <span class="n">basis</span><span class="o">=</span><span class="n">basis</span><span class="p">,</span>
+            <span class="n">output_axes</span><span class="o">=</span><span class="n">output_axes</span><span class="p">,</span>
+            <span class="n">as_array</span><span class="o">=</span><span class="n">as_array</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Coerce the output to the desired typing.</span>
+        <span class="c1"># This is where we use the various buffer info.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cast_result_to_field_or_array</span><span class="p">(</span>
+            <span class="n">result_field</span><span class="p">,</span>
+            <span class="n">as_array</span><span class="o">=</span><span class="n">as_array</span><span class="p">,</span>
+            <span class="n">buffer_class</span><span class="o">=</span><span class="n">buffer_class</span><span class="p">,</span>
+            <span class="n">buffer_registry</span><span class="o">=</span><span class="n">buffer_registry</span><span class="p">,</span>
+            <span class="n">buffer_args</span><span class="o">=</span><span class="n">buffer_args</span><span class="p">,</span>
+            <span class="n">buffer_kwargs</span><span class="o">=</span><span class="n">buffer_kwargs</span><span class="p">,</span>
+            <span class="n">output_axes</span><span class="o">=</span><span class="n">output_axes</span><span class="p">,</span>
+            <span class="n">signature</span><span class="o">=</span><span class="n">new_signature</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+    <span class="c1"># noinspection PyIncorrectDocstring</span>
+<div class="viewcode-block" id="DenseTensorFieldDMOMixin.vector_divergence">
+<a class="viewcode-back" href="../../../_as_gen/fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.vector_divergence.html#fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.vector_divergence">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">vector_divergence</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupDFDMOs</span><span class="p">,</span>
+        <span class="n">Dterm_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">inverse_metric_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">derivative_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">output_axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">as_array</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">buffer_class</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="s2">&quot;BufferBase&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_registry</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;BufferRegistry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the divergence of a vector field.</span>
+
+<span class="sd">        This method applies the divergence operator to a rank-1 tensor field (i.e., a vector field)</span>
+<span class="sd">        by contracting the gradient with the metric or its inverse, depending on the field&#39;s basis.</span>
+<span class="sd">        For a vector field :math:`V^\mu` or covector field :math:`V_\mu`, the divergence is:</span>
+
+<span class="sd">        .. math::</span>
+
+<span class="sd">            \nabla \cdot V = \frac{1}{\rho} \partial_\mu (\rho V^\mu)</span>
+<span class="sd">                           = \partial_\mu V^\mu + \frac{1}{\rho} V^\mu \partial_\mu \rho</span>
+
+<span class="sd">        for contravariant vectors, or</span>
+
+<span class="sd">        .. math::</span>
+
+<span class="sd">            \nabla \cdot V = \frac{1}{\rho} \partial_\mu (\rho g^{\mu\nu} V_\nu)</span>
+
+<span class="sd">        for covariant vectors.</span>
+
+<span class="sd">        The appropriate form is automatically selected based on the tensor signature.</span>
+
+<span class="sd">        .. hint::</span>
+
+<span class="sd">            This is a wrapper around :meth:`~grids.base.GridBase.dense_vector_divergence`, which delegates to</span>
+<span class="sd">            either :func:`~differential_geometry.dense_ops.dense_vector_divergence_contravariant` or</span>
+<span class="sd">            :func:`~differential_geometry.dense_ops.dense_vector_divergence_covariant`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        out : array-like, optional</span>
+<span class="sd">            An optional buffer in which to store the result.</span>
+<span class="sd">            This can be used to reduce memory usage when performing</span>
+<span class="sd">            computations. The shape of `out` must be compliant</span>
+<span class="sd">            with broadcasting rules (see `Notes`). `out` may be a buffer or any</span>
+<span class="sd">            other array-like object.</span>
+<span class="sd">        Dterm_field : array-like, optional</span>
+<span class="sd">            The D-term field :math:`D_\mu = \frac{\partial_\mu \rho}{\rho}`, where :math:`\rho = \sqrt{|g|}`</span>
+<span class="sd">            is the metric volume element of the coordinate system.</span>
+
+<span class="sd">            This term arises in expressions for the divergence and Laplacian in curved coordinates, and accounts</span>
+<span class="sd">            for coordinate-dependent geometric volume effects.</span>
+
+<span class="sd">            - If not provided, the D-term is automatically computed from the coordinate system.</span>
+<span class="sd">            - If supplied, this can reduce redundant computation or improve accuracy if an analytical</span>
+<span class="sd">              expression is known.</span>
+
+<span class="sd">        inverse_metric_field : array-like, optional</span>
+<span class="sd">            The inverse metric tensor :math:`g^{\mu\nu}`, used to raise covariant vector components</span>
+<span class="sd">            when the field&#39;s basis (as inferred from its tensor signature) is covariant.</span>
+
+<span class="sd">            - Required **only if** the field is covariant (i.e., its signature is ``(-1,)``).</span>
+<span class="sd">            - Ignored when the field is contravariant (i.e., its signature is ``(+1,)``).</span>
+
+<span class="sd">            If not provided, the inverse metric is automatically computed from the coordinate system.</span>
+
+<span class="sd">        derivative_field : array-like, optional</span>
+<span class="sd">            Precomputed partial derivatives of the input vector field: :math:`\partial_\mu V^\nu`.</span>
+
+<span class="sd">            This array is only used if the field is **contravariant**, and will be ignored if the field is covariant.</span>
+
+<span class="sd">            Providing this can reduce runtime and improve numerical accuracy when the derivatives are analytically known</span>
+<span class="sd">            or already computed elsewhere. Otherwise, they are approximated using finite differences.</span>
+
+<span class="sd">        Other Parameters</span>
+<span class="sd">        ----------------</span>
+<span class="sd">        in_chunks : bool, default False</span>
+<span class="sd">            If True, compute the result in streaming fashion over grid chunks to reduce</span>
+<span class="sd">            memory usage.</span>
+<span class="sd">        pbar : bool, default True</span>
+<span class="sd">            Show a progress bar during chunked computation.</span>
+<span class="sd">        pbar_kwargs : dict, optional</span>
+<span class="sd">            Extra keyword arguments passed to the progress bar (e.g., `desc` or `position`).</span>
+<span class="sd">        as_array : bool, default False</span>
+<span class="sd">            If True, return the raw array representing the result.</span>
+<span class="sd">            If False, return a new symbolic field with the raised index.</span>
+<span class="sd">        buffer_class : type, optional</span>
+<span class="sd">            Class to use when wrapping the result buffer, e.g., :class:`fields.buffers.core.ArrayBuffer`</span>
+<span class="sd">            or :class:`fields.buffers.core.UnytArrayBuffer`.</span>
+
+<span class="sd">            Defaults to buffer resolution to determine a fitting buffer for the resulting</span>
+<span class="sd">            array result.</span>
+<span class="sd">        buffer_registry : ~fields.buffers.registry.BufferRegistry, optional</span>
+<span class="sd">            Registry to use when resolving the buffer class. Required for advanced dispatch.</span>
+<span class="sd">        buffer_args : Sequence, optional</span>
+<span class="sd">            Positional arguments forwarded to the buffer constructor.</span>
+<span class="sd">        buffer_kwargs : dict, optional</span>
+<span class="sd">            Keyword arguments forwarded to the buffer constructor.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ~fields.tensors.DenseTenseField or ~numpy.ndarray</span>
+<span class="sd">            The scalar divergence of the field.</span>
+
+<span class="sd">            - If ``as_array=False`` (default), returns a new :class:`DenseTensorField` instance representing the divergence</span>
+<span class="sd">              as a scalar field defined over the appropriate grid axes.</span>
+<span class="sd">            - If ``as_array=True``, returns a raw NumPy array with shape:</span>
+
+<span class="sd">              .. code:: python</span>
+
+<span class="sd">                  (grid_shape over output_axes)</span>
+
+<span class="sd">            This result contains one scalar value per spatial grid point and is rank-0 in element shape.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        **Field Signature Requirements**</span>
+
+<span class="sd">        This operation is valid **only** for rank-1 tensor fields with one of the following signatures:</span>
+
+<span class="sd">        - ``(+1,)``: a contravariant vector field</span>
+<span class="sd">        - ``(-1,)``: a covariant vector field</span>
+
+<span class="sd">        An error is raised for all other signatures.</span>
+
+<span class="sd">        **Output Shape**</span>
+
+<span class="sd">        The result is a scalar field with the same spatial shape as the input, over the `output_axes`.</span>
+
+<span class="sd">        - For example, if the input field spans ``(Nx, Ny, Nz)`` over `[&#39;x&#39;, &#39;y&#39;, &#39;z&#39;]`, the output will have shape</span>
+<span class="sd">          ``(Nx, Ny, Nz)``.</span>
+<span class="sd">        - No trailing element axes are retained in the result.</span>
+
+<span class="sd">        **Auxiliary Inputs**</span>
+
+<span class="sd">        - `Dterm_field` must have shape ``(*spatial_shape, ndim)``, where the last axis indexes coordinate directions.</span>
+<span class="sd">        - `inverse_metric_field` must have shape:</span>
+<span class="sd">            - ``(*spatial_shape, ndim)`` for diagonal metrics</span>
+<span class="sd">            - ``(*spatial_shape, ndim, ndim)`` for full metrics</span>
+<span class="sd">        - `derivative_field` must have shape ``(*spatial_shape, ndim)`` if supplied, and is ignored for covariant fields.</span>
+
+<span class="sd">        **Chunked Evaluation**</span>
+
+<span class="sd">        When ``in_chunks=True``, the divergence is computed block-by-block. A 1-cell halo is added around each chunk</span>
+<span class="sd">        to preserve stencil accuracy in derivative operations. This is especially useful when:</span>
+
+<span class="sd">        - Working with memory-mapped or HDF5-backed buffers</span>
+<span class="sd">        - Reducing memory overhead for large grids</span>
+
+<span class="sd">        **Coordinate System Handling**</span>
+
+<span class="sd">        All required geometric quantities—including the metric, inverse metric, volume factor, and D-terms—are computed</span>
+<span class="sd">        from the grid’s associated coordinate system unless manually overridden.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Ensure that this is really a vector and that</span>
+        <span class="c1"># we can properly take the divergence.</span>
+        <span class="k">if</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">signature</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,)]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Field is not a vector field.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Adjust the signature based on the basis</span>
+        <span class="c1"># we got given.</span>
+        <span class="n">new_signature</span> <span class="o">=</span> <span class="p">()</span>
+
+        <span class="c1"># Determine the relevant output axes.</span>
+        <span class="n">basis</span> <span class="o">=</span> <span class="s2">&quot;covariant&quot;</span> <span class="k">if</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">signature</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,)</span> <span class="k">else</span> <span class="s2">&quot;contravariant&quot;</span>
+        <span class="k">if</span> <span class="n">output_axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">output_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">determine_op_dependence</span><span class="p">(</span><span class="s2">&quot;divergence&quot;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="n">basis</span><span class="p">)</span>
+
+        <span class="c1"># Perform the operation at the grid level using the</span>
+        <span class="c1"># single component buffer of the field.</span>
+        <span class="n">result_field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__grid__</span><span class="o">.</span><span class="n">dense_vector_divergence</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__component__</span><span class="o">.</span><span class="n">__buffer__</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span>
+            <span class="n">derivative_field</span><span class="o">=</span><span class="n">derivative_field</span><span class="p">,</span>
+            <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
+            <span class="n">Dterm_field</span><span class="o">=</span><span class="n">Dterm_field</span><span class="p">,</span>
+            <span class="n">inverse_metric_field</span><span class="o">=</span><span class="n">inverse_metric_field</span><span class="p">,</span>
+            <span class="n">basis</span><span class="o">=</span><span class="n">basis</span><span class="p">,</span>
+            <span class="n">output_axes</span><span class="o">=</span><span class="n">output_axes</span><span class="p">,</span>
+            <span class="n">as_array</span><span class="o">=</span><span class="n">as_array</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Coerce the output to the desired typing.</span>
+        <span class="c1"># This is where we use the various buffer info.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cast_result_to_field_or_array</span><span class="p">(</span>
+            <span class="n">result_field</span><span class="p">,</span>
+            <span class="n">as_array</span><span class="o">=</span><span class="n">as_array</span><span class="p">,</span>
+            <span class="n">buffer_class</span><span class="o">=</span><span class="n">buffer_class</span><span class="p">,</span>
+            <span class="n">buffer_registry</span><span class="o">=</span><span class="n">buffer_registry</span><span class="p">,</span>
+            <span class="n">buffer_args</span><span class="o">=</span><span class="n">buffer_args</span><span class="p">,</span>
+            <span class="n">buffer_kwargs</span><span class="o">=</span><span class="n">buffer_kwargs</span><span class="p">,</span>
+            <span class="n">output_axes</span><span class="o">=</span><span class="n">output_axes</span><span class="p">,</span>
+            <span class="n">signature</span><span class="o">=</span><span class="n">new_signature</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+    <span class="c1"># noinspection PyIncorrectDocstring</span>
+<div class="viewcode-block" id="DenseTensorFieldDMOMixin.scalar_laplacian">
+<a class="viewcode-back" href="../../../_as_gen/fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.scalar_laplacian.html#fields.mixins.dense_mathops.DenseTensorFieldDMOMixin.scalar_laplacian">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">scalar_laplacian</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupDFDMOs</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Alias for :meth:`element_wise_laplacian`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">element_wise_laplacian</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Eliza Diggins.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

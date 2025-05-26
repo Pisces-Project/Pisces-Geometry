@@ -1,0 +1,37 @@
+﻿coordinates
+===========
+
+.. automodule:: coordinates
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Modules
+
+   .. autosummary::
+      :toctree:
+      :template: module.rst
+      :recursive:
+
+   
+      base
+      coordinate_systems
+      core
+      mixins
+   
+   
+
+   
+   
+   
+
+   
+   
+   

@@ -1,0 +1,6 @@
+fields.buffers.core.UnytArrayBuffer.full\_like
+==============================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: UnytArrayBuffer.full_like

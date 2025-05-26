@@ -1,0 +1,6 @@
+grids.base.GridBase.dense\_gradient
+===================================
+
+.. currentmodule:: grids.base
+
+.. automethod:: GridBase.dense_gradient

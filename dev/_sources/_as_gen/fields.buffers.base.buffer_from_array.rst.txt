@@ -1,0 +1,6 @@
+fields.buffers.base.buffer\_from\_array
+=======================================
+
+.. currentmodule:: fields.buffers.base
+
+.. autofunction:: buffer_from_array

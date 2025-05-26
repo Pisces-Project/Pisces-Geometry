@@ -1,0 +1,6 @@
+differential\_geometry.dependence.DenseTensorDependence.rank
+============================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. autoproperty:: DenseTensorDependence.rank

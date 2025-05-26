@@ -1,0 +1,6 @@
+grids.mixins.chunking.GridChunkingMixin.\_\_init\_\_
+====================================================
+
+.. currentmodule:: grids.mixins.chunking
+
+.. automethod:: GridChunkingMixin.__init__

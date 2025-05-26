@@ -1,0 +1,6 @@
+fields.mixins.dense\_mathops.DenseTensorFieldDMOMixin.contract\_with\_metric
+============================================================================
+
+.. currentmodule:: fields.mixins.dense_mathops
+
+.. automethod:: DenseTensorFieldDMOMixin.contract_with_metric

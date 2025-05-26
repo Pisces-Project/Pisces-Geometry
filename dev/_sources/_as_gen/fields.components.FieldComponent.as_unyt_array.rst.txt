@@ -1,0 +1,6 @@
+fields.components.FieldComponent.as\_unyt\_array
+================================================
+
+.. currentmodule:: fields.components
+
+.. automethod:: FieldComponent.as_unyt_array

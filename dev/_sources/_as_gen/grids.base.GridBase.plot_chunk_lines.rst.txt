@@ -1,0 +1,6 @@
+grids.base.GridBase.plot\_chunk\_lines
+======================================
+
+.. currentmodule:: grids.base
+
+.. automethod:: GridBase.plot_chunk_lines

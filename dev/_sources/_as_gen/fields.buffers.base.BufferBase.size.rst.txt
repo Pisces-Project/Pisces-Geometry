@@ -1,0 +1,6 @@
+fields.buffers.base.BufferBase.size
+===================================
+
+.. currentmodule:: fields.buffers.base
+
+.. autoproperty:: BufferBase.size

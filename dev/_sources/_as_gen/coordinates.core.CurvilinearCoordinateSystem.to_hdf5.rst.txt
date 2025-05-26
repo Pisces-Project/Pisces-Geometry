@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.to\_hdf5
+=====================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: CurvilinearCoordinateSystem.to_hdf5

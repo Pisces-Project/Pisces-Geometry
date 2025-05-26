@@ -1,0 +1,6 @@
+fields.mixins.components.FieldComponentCoreMixin.\_\_init\_\_
+=============================================================
+
+.. currentmodule:: fields.mixins.components
+
+.. automethod:: FieldComponentCoreMixin.__init__

@@ -1,0 +1,6 @@
+coordinates.mixins.core.CoordinateSystemAxesMixin.axes\_complement
+==================================================================
+
+.. currentmodule:: coordinates.mixins.core
+
+.. automethod:: CoordinateSystemAxesMixin.axes_complement

@@ -1,0 +1,6 @@
+grids.base.GridBase.nvertices
+=============================
+
+.. currentmodule:: grids.base
+
+.. autoproperty:: GridBase.nvertices

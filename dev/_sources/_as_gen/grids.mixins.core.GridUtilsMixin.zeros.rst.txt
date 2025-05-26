@@ -1,0 +1,6 @@
+grids.mixins.core.GridUtilsMixin.zeros
+======================================
+
+.. currentmodule:: grids.mixins.core
+
+.. automethod:: GridUtilsMixin.zeros

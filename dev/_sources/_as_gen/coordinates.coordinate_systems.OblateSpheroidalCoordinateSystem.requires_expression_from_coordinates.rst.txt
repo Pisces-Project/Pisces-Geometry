@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.OblateSpheroidalCoordinateSystem.requires\_expression\_from\_coordinates
+========================================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: OblateSpheroidalCoordinateSystem.requires_expression_from_coordinates

@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ProlateHomoeoidalCoordinateSystem.inverse\_metric\_tensor
+=========================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: ProlateHomoeoidalCoordinateSystem.inverse_metric_tensor

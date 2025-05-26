@@ -1,0 +1,6 @@
+grids.base.GridBase.ndim
+========================
+
+.. currentmodule:: grids.base
+
+.. autoproperty:: GridBase.ndim

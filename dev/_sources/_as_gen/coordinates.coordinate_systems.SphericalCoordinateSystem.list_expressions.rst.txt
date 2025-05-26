@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.SphericalCoordinateSystem.list\_expressions
+===========================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: SphericalCoordinateSystem.list_expressions

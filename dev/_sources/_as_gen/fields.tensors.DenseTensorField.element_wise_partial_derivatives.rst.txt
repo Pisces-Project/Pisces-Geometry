@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.element\_wise\_partial\_derivatives
+===================================================================
+
+.. currentmodule:: fields.tensors
+
+.. automethod:: DenseTensorField.element_wise_partial_derivatives

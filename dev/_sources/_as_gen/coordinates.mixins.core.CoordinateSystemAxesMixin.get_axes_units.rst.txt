@@ -1,0 +1,6 @@
+coordinates.mixins.core.CoordinateSystemAxesMixin.get\_axes\_units
+==================================================================
+
+.. currentmodule:: coordinates.mixins.core
+
+.. automethod:: CoordinateSystemAxesMixin.get_axes_units

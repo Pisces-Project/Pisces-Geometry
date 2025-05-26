@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.in\_canonical\_order
+=================================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: CurvilinearCoordinateSystem.in_canonical_order

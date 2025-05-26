@@ -1,0 +1,6 @@
+differential\_geometry.dense\_ops.dense\_scalar\_laplacian\_diag
+================================================================
+
+.. currentmodule:: differential_geometry.dense_ops
+
+.. autofunction:: dense_scalar_laplacian_diag

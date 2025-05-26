@@ -1,0 +1,6 @@
+grids.base.GridBase.gdd
+=======================
+
+.. currentmodule:: grids.base
+
+.. autoproperty:: GridBase.gdd

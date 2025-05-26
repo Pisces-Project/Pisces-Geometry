@@ -1,0 +1,6 @@
+differential\_geometry.dense\_utils.dense\_raise\_index
+=======================================================
+
+.. currentmodule:: differential_geometry.dense_utils
+
+.. autofunction:: dense_raise_index

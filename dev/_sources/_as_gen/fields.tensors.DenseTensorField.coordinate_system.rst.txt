@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.coordinate\_system
+==================================================
+
+.. currentmodule:: fields.tensors
+
+.. autoproperty:: DenseTensorField.coordinate_system
