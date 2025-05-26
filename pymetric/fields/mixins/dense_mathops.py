@@ -98,7 +98,7 @@ class DenseFieldDMOMixin(Generic[_SupDFDMOs]):
         """
         # Ensure that the method exists.
         if not hasattr(self.dependence, opname):
-            raise ValueError()
+            raise ValueError(f"Dependence object cannot resolve {opname}.")
 
         # Perform the dependence operation.
         result = getattr(self.dependence, opname)(*args, **kwargs)
@@ -526,7 +526,7 @@ class DenseFieldDMOMixin(Generic[_SupDFDMOs]):
         # This operation fixes the basis to the covariant basis, so we
         # need to fix it here too.
         if output_axes is None:
-            output_axes = self.determine_op_dependence("laplacian")
+            output_axes = self.determine_op_dependence("element_wise_laplacian")
 
         # Perform the operation at the grid level using the
         # single component buffer of the field.

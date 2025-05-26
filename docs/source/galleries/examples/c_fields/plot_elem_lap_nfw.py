@@ -69,7 +69,7 @@ grid.fill_values = {"r": 1, "theta": 1, "phi": 1}  # handle r=0 and boundaries s
 
 # %%
 # Evaluate the NFW potential on the grid.
-field = DenseField.from_function(nfw_potential, grid, axes=["r"])
+field: DenseField = DenseField.from_function(nfw_potential, grid, axes=["r"])
 
 # %%
 # Visualize the magnitude of the potential vs radius.
