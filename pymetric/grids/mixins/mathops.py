@@ -244,7 +244,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
             )
         else:
             # Return a simple slicing function
-            return lambda chunk_slices, coordinates: value[*chunk_slices, ...]
+            return lambda chunk_slices, coordinates: value[(*chunk_slices, ...)]
 
     # ======================================= #
     # General Math Ops                        #
@@ -405,7 +405,9 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                 coordinates = self.compute_coords_from_slices(
                     chunk_slices, axes=output_axes, origin="global", __validate__=False
                 )
-                out[*chunk_slices, ...] = self.__cs__.compute_function_from_coordinates(
+                out[
+                    (*chunk_slices, ...)
+                ] = self.__cs__.compute_function_from_coordinates(
                     eval_func, coordinates, fixed_axes=fixed_values
                 )
         else:
@@ -670,7 +672,9 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
             ):
                 # Cut the slice out of the input tensor field.
                 tensor_field_chunk = self.broadcast_array_to_axes(
-                    field[*chunk_slices, ...], axes_in=field_axes, axes_out=output_axes
+                    field[(*chunk_slices, ...)],
+                    axes_in=field_axes,
+                    axes_out=output_axes,
                 )
 
                 # Construct the coordinates from the slices.
@@ -689,7 +693,12 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                 )
 
                 # Assign to the output.
-                out[*chunk_slices, ..., :] = cov_grad
+                out[
+                    (
+                        *chunk_slices,
+                        ...,
+                    )
+                ] = cov_grad
 
         else:
             # Operation performed in single call. Compute all
@@ -949,7 +958,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
 
                 # Broadcast the vector field onto the chunk.
                 vector_field_chunk = self.broadcast_array_to_axes(
-                    field[*differential_chunk_slices, ...],
+                    field[(*differential_chunk_slices, ...)],
                     axes_in=field_axes,
                     axes_out=output_axes,
                 )
@@ -960,7 +969,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                         "Lterm", coordinates, fixed_axes=fixed_values
                     )
                 else:
-                    Fterm_chunk = Lterm_field[*chunk_slices, ...]
+                    Fterm_chunk = Lterm_field[(*chunk_slices, ...)]
 
                 if _try_metric:
                     inverse_metric_field_chunk = (
@@ -978,7 +987,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                 # If we have the derivative field, we need to cut into it.
                 if _has_derivative:
                     derivative_field_broadcast = self.broadcast_array_to_axes(
-                        derivative_field[*differential_chunk_slices, ...],
+                        derivative_field[(*differential_chunk_slices, ...)],
                         axes_in=field_axes,
                         axes_out=output_axes,
                     )
@@ -987,7 +996,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
 
                 if _has_second_derivative:
                     second_derivative_field_broadcast = self.broadcast_array_to_axes(
-                        second_derivative_field[*differential_chunk_slices, ...],
+                        second_derivative_field[(*differential_chunk_slices, ...)],
                         axes_in=field_axes,
                         axes_out=output_axes,
                     )
@@ -995,7 +1004,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                     second_derivative_field_broadcast = None
 
                 # Compute the covariant gradient.
-                out[*chunk_slices, ...] = __op__(
+                out[(*chunk_slices, ...)] = __op__(
                     vector_field_chunk,
                     Fterm_chunk,
                     inverse_metric_field_chunk,
@@ -1277,7 +1286,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                 metric_field_chunk = _metric_fetcher_(chunk_slices, coordinates)
 
                 # Compute the covariant gradient.
-                out[*chunk_slices, ...] = __op__(
+                out[(*chunk_slices, ...)] = __op__(
                     tensor_field_chunk,
                     metric_field_chunk,
                     index,
@@ -1527,7 +1536,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                 )
 
                 # Compute the covariant gradient.
-                out[*chunk_slices, ...] = __op__(
+                out[(*chunk_slices, ...)] = __op__(
                     tensor_field_chunk,
                     indices,
                     tensor_signature,
@@ -2054,7 +2063,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
             ):
                 # Cut the slice out of the input tensor field.
                 tensor_field_chunk = self.broadcast_array_to_axes(
-                    tensor_field[*chunk_slices, ...],
+                    tensor_field[(*chunk_slices, ...)],
                     axes_in=field_axes,
                     axes_out=output_axes,
                 )
@@ -2076,7 +2085,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                 )
 
                 # Assign to the output.
-                out[*chunk_slices, ..., :] = cov_grad
+                out[(*chunk_slices, ...)] = cov_grad
 
         else:
             # Operation performed in single call. Compute all
@@ -2392,7 +2401,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                 ]
 
                 tensor_field_chunk = self.broadcast_array_to_axes(
-                    tensor_field[*differential_chunk_slices, ...],
+                    tensor_field[(*differential_chunk_slices, ...)],
                     axes_in=field_axes,
                     axes_out=output_axes,
                 )
@@ -2401,7 +2410,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                 inverse_metric_field_chunk = _metric_fetcher_(chunk_slices, coordinates)
 
                 # Compute the covariant gradient.
-                out[*chunk_slices, ..., :] = __op__(
+                out[(*chunk_slices, ...)] = __op__(
                     tensor_field_chunk,
                     inverse_metric_field_chunk,
                     rank,
@@ -2950,7 +2959,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
 
                 # Broadcast the vector field onto the chunk.
                 vector_field_chunk = self.broadcast_array_to_axes(
-                    vector_field[*differential_chunk_slices, ...],
+                    vector_field[(*differential_chunk_slices, ...)],
                     axes_in=field_axes,
                     axes_out=output_axes,
                 )
@@ -2961,7 +2970,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                 # If we have the derivative field, we need to cut into it.
                 if _has_derivative:
                     derivative_field_broadcast = self.broadcast_array_to_axes(
-                        derivative_field[*differential_chunk_slices, ...],
+                        derivative_field[(*differential_chunk_slices, ...)],
                         axes_in=field_axes,
                         axes_out=output_axes,
                     )
@@ -2969,7 +2978,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                     derivative_field_broadcast = None
 
                 # Compute the covariant gradient.
-                out[*chunk_slices, ...] = dense_vector_divergence_contravariant(
+                out[(*chunk_slices, ...)] = dense_vector_divergence_contravariant(
                     vector_field_chunk,
                     Dterm_chunk,
                     *differential_coordinates,
@@ -3247,7 +3256,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
 
                 # Broadcast the vector field onto the chunk.
                 vector_field_chunk = self.broadcast_array_to_axes(
-                    vector_field[*differential_chunk_slices, ...],
+                    vector_field[(*differential_chunk_slices, ...)],
                     axes_in=field_axes,
                     axes_out=output_axes,
                 )
@@ -3258,7 +3267,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                         "Dterm", coordinates, fixed_axes=fixed_values
                     )
                 else:
-                    Dterm_chunk = Dterm_field[*chunk_slices, ...]
+                    Dterm_chunk = Dterm_field[(*chunk_slices, ...)]
 
                 # Attempt to build the metric tensor.
                 if _try_metric:
@@ -3275,7 +3284,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                     ]
 
                 # Compute the covariant gradient.
-                out[*chunk_slices, ...] = __op__(
+                out[(*chunk_slices, ...)] = __op__(
                     vector_field_chunk,
                     Dterm_chunk,
                     inverse_metric_field_chunk,
