@@ -204,7 +204,7 @@ Use the `element_wise_partial_derivative` method from DenseField.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.467 seconds)
+   **Total running time of the script:** (0 minutes 0.474 seconds)
 
 
 .. _sphx_glr_download_auto_examples_c_fields_plot_elem_wise_diff.py:
