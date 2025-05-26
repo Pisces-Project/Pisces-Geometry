@@ -32,9 +32,14 @@ jobs:
         run: |
           sphinx-build -b html -j auto docs/source/ docs/_build/html
 
-      - name: Copy redirect index.html
-        run: |
-          cp docs/redirect/index.html docs/_build/html/index.html
+      - name: Deploy redirect index.html to root
+        if: github.ref_name == 'main' || github.ref_type == 'tag'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: docs/redirect
+          destination_dir: .
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
