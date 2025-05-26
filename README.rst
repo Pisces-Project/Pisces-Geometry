@@ -6,11 +6,11 @@ PyMetric
 ===============
 
 +-------------------+----------------------------------------------------------+
-| **Code**          | |black| |isort| |yt-project| |Pre-Commit|                |
+| **Code**          | |black| |isort| |Pre-Commit| |Xenon|                     |
 +-------------------+----------------------------------------------------------+
-| **Documentation** | |docs|                                                   |
+| **Documentation** | |docs| |NUMPSTYLE| |docformatter|                        |
 +-------------------+----------------------------------------------------------+
-| **GitHub**        | |Contributors| |Commits|                                 |
+| **GitHub**        | |Contributors| |Commits| |Tests|                         |
 +-------------------+----------------------------------------------------------+
 | **PyPi**          | Coming Soon                                              |
 +-------------------+----------------------------------------------------------+
@@ -60,14 +60,6 @@ If you use Pisces for academic work, please include a statement in your publicat
     Initial conditions were generated using PyMetric (version), an initial conditions generator for astrophysical
     simulations, developed by Eliza Diggins and available at https://github.com/Pisces-Project/PyMetric
 
-.. |yt-project| image:: https://img.shields.io/badge/works%20with-yt-blueviolet
-   :target: https://yt-project.org
-
-.. |Pylint| image:: https://github.com/Pisces-Project/PyMetric/actions/workflows/pylint.yml/badge.svg
-   :target: https://pylint.pycqa.org/
-
-.. |coverage| image:: https://coveralls.io/repos/github/Pisces-Project/PyMetric/pisces/badge.svg
-   :target: https://coveralls.io/github/Eliza-Diggins/pisces
 
 .. |docs| image:: https://img.shields.io/badge/docs-latest-brightgreen
    :target: https://eliza-diggins.github.io/pisces/build/html/index.html
@@ -75,8 +67,8 @@ If you use Pisces for academic work, please include a statement in your publicat
 .. |Pre-Commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
    :target: https://pre-commit.com/
 
-.. |Issues| image:: https://img.shields.io/github/issues/Pisces-Project/PyMetric
-   :target: https://github.com/Eliza-Diggins/pisces/issues
+.. |Xenon| image:: https://img.shields.io/badge/Xenon-enabled-red
+   :target: https://xenon.readthedocs.io/en/latest/
 
 .. |Tests| image:: https://github.com/Pisces-Project/PyMetric/actions/workflows/run_tests.yml/badge.svg
 
