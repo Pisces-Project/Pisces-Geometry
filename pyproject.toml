@@ -90,6 +90,7 @@ include-package-data = true
 
 [tool.setuptools_scm]
 version_file = "pymetric/_version.py"
+local_scheme = "no-local-version"
 fallback_version = "0.0.0"
 
 [tool.pytest.ini_options]
