@@ -981,7 +981,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                     )
                 else:
                     inverse_metric_field_chunk = inverse_metric_field[
-                        *chunk_slices, ...
+                        (*chunk_slices, ...)
                     ]
 
                 # If we have the derivative field, we need to cut into it.
