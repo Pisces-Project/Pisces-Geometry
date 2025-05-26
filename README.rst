@@ -24,15 +24,13 @@ handling of both curvilinear and structured grids.
 Installation
 ------------
 
-.. note::
-
-    PyMetric is in active development. Report any installation or usage issues on the GitHub issues page.
-
-PyMetric requires Python 3.8 or newer. Install from source by cloning the repository:
+PyMetric requires Python 3.9 or newer. Install from source by cloning the repository:
 
 .. code-block:: shell
 
     $ pip install git+https://github.com/Pisces-Project/PyMetric
+
+In future releases, the package will be available on PyPi and obtainable directly from pip.
 
 Dependencies
 ------------
@@ -55,10 +53,10 @@ or submit an issue to suggest new features or report bugs.
 Acknowledgment
 --------------
 
-If you use Pisces for academic work, please include a statement in your publication similar to:
+If you use PyMetric for academic work, please include a statement in your publication similar to:
 
-    Initial conditions were generated using PyMetric (version), an initial conditions generator for astrophysical
-    simulations, developed by Eliza Diggins and available at https://github.com/Pisces-Project/PyMetric
+    This work made use of PyMetric, a geometry and mathematics framework for computational physics,
+    developed by Eliza Diggins and available at https://github.com/Pisces-Project/PyMetric
 
 
 .. |docs| image:: https://img.shields.io/badge/docs-latest-brightgreen
