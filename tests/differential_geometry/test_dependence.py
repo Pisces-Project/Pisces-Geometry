@@ -18,8 +18,8 @@ from pymetric.differential_geometry import dependence as dep
 __all_coordinate_systems_params__ = [
     pytest.param("spherical", marks=pytest.mark.spherical),
     pytest.param("cartesian", marks=pytest.mark.cartesian),
-    pytest.param("oblate_spherical", marks=pytest.mark.obns),
-    pytest.param("oblate_non_spherical", marks=pytest.mark.obs),
+    pytest.param("oblate_spherical", marks=pytest.mark.obs),
+    pytest.param("oblate_non_spherical", marks=pytest.mark.obns),
 ]
 
 

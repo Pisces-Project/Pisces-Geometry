@@ -95,6 +95,16 @@ fallback_version = "0.0.0"
 minversion = "6.0"
 addopts = "-ra -q --strict-markers"
 testpaths = ["tests"]
+markers = [
+  "array: mark tests for ArrayBuffer",
+  "unyt: mark tests for UnytArrayBuffer",
+  "hdf5: mark tests for HDF5Buffer",
+  "spherical: Marks tests using spherical coordinates",
+  "cartesian: Marks tests using cartesian coordinates.",
+  "obns: Marks tests using oblate non-spherical coordinates.",
+  "obs: Marks tests using oblate spherical coordinates."
+]
+
 
 [tool.black]
 line-length = 88

@@ -1592,7 +1592,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
         inverse_metric_field: Optional[ArrayLike] = None,
         *,
         in_chunks: bool = False,
-        output_axes: Sequence[str] | None = None,
+        output_axes: Optional[Sequence[str]] = None,
         pbar: bool = True,
         pbar_kwargs: Optional[dict] = None,
         **kwargs,
