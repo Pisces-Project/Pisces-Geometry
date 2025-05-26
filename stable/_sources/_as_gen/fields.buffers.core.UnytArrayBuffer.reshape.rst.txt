@@ -1,0 +1,6 @@
+fields.buffers.core.UnytArrayBuffer.reshape
+===========================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: UnytArrayBuffer.reshape

@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.as\_array
+=========================================
+
+.. currentmodule:: fields.tensors
+
+.. automethod:: DenseTensorField.as_array

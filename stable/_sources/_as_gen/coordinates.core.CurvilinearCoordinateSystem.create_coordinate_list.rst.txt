@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.create\_coordinate\_list
+=====================================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: CurvilinearCoordinateSystem.create_coordinate_list

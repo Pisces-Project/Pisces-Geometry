@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.compute\_expression\_from\_coordinates
+==================================================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.compute_expression_from_coordinates

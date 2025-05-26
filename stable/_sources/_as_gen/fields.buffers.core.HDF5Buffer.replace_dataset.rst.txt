@@ -1,0 +1,6 @@
+fields.buffers.core.HDF5Buffer.replace\_dataset
+===============================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: HDF5Buffer.replace_dataset

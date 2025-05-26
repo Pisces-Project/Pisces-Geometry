@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.tensor\_class
+=============================================
+
+.. currentmodule:: fields.tensors
+
+.. autoproperty:: DenseTensorField.tensor_class

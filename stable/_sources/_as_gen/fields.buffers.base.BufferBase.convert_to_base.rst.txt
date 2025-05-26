@@ -1,0 +1,6 @@
+fields.buffers.base.BufferBase.convert\_to\_base
+================================================
+
+.. currentmodule:: fields.buffers.base
+
+.. automethod:: BufferBase.convert_to_base

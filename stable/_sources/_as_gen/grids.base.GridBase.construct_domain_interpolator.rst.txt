@@ -1,0 +1,6 @@
+grids.base.GridBase.construct\_domain\_interpolator
+===================================================
+
+.. currentmodule:: grids.base
+
+.. automethod:: GridBase.construct_domain_interpolator

@@ -1,0 +1,6 @@
+grids.core.GenericGrid.construct\_chunk\_interpolator
+=====================================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: GenericGrid.construct_chunk_interpolator

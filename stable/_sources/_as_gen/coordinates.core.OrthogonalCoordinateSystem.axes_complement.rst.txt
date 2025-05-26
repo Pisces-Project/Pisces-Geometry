@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.axes\_complement
+============================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.axes_complement

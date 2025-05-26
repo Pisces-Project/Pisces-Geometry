@@ -1,0 +1,6 @@
+fields.base.DenseField.ones
+===========================
+
+.. currentmodule:: fields.base
+
+.. automethod:: DenseField.ones

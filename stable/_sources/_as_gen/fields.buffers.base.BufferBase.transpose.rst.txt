@@ -1,0 +1,6 @@
+fields.buffers.base.BufferBase.transpose
+========================================
+
+.. currentmodule:: fields.buffers.base
+
+.. automethod:: BufferBase.transpose

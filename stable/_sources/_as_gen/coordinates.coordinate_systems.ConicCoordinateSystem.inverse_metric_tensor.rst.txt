@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ConicCoordinateSystem.inverse\_metric\_tensor
+=============================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: ConicCoordinateSystem.inverse_metric_tensor

@@ -1,0 +1,6 @@
+fields.buffers.core.HDF5Buffer.expand\_dims
+===========================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: HDF5Buffer.expand_dims

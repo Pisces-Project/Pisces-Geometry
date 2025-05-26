@@ -1,0 +1,6 @@
+coordinates.mixins.core.CoordinateSystemAxesMixin.get\_axes\_permutation
+========================================================================
+
+.. currentmodule:: coordinates.mixins.core
+
+.. automethod:: CoordinateSystemAxesMixin.get_axes_permutation

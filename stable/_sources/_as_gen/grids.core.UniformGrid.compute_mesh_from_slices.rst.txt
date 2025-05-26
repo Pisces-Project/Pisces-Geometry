@@ -1,0 +1,6 @@
+grids.core.UniformGrid.compute\_mesh\_from\_slices
+==================================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: UniformGrid.compute_mesh_from_slices

@@ -1,0 +1,52 @@
+
+
+.. _sphx_glr_auto_examples_d_differential_geometry:
+
+Auxiliary Modules: Differential Geometry
+========================================
+
+These examples showcase some of the low-level functions from the
+:mod:`differential_geometry` module.
+
+.. warning::
+
+    In general, direct use of :mod:`differential_geometry` introduces much more
+    complexity than using equivalent functions at the level of fields or grids.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Calculate the gradient of a function in Cartesian coordinates.">
+
+.. only:: html
+
+  .. image:: /auto_examples/d_differential_geometry/images/thumb/sphx_glr_plot_cartesian_gradient_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_d_differential_geometry_plot_cartesian_gradient.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Gradient In Cartesian Coordinates</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/d_differential_geometry/plot_cartesian_gradient
+

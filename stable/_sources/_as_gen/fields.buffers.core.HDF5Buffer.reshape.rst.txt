@@ -1,0 +1,6 @@
+fields.buffers.core.HDF5Buffer.reshape
+======================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: HDF5Buffer.reshape

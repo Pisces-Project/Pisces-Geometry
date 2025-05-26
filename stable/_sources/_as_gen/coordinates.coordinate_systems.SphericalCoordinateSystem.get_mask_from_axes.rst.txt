@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.SphericalCoordinateSystem.get\_mask\_from\_axes
+===============================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: SphericalCoordinateSystem.get_mask_from_axes

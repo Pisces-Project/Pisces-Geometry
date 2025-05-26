@@ -1,0 +1,6 @@
+fields.components.FieldComponent.reshape\_element
+=================================================
+
+.. currentmodule:: fields.components
+
+.. automethod:: FieldComponent.reshape_element

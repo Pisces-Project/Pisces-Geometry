@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.element\_shape
+==============================================
+
+.. currentmodule:: fields.tensors
+
+.. autoproperty:: DenseTensorField.element_shape

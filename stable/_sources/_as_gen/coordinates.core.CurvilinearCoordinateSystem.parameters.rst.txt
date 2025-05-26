@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.parameters
+=======================================================
+
+.. currentmodule:: coordinates.core
+
+.. autoproperty:: CurvilinearCoordinateSystem.parameters

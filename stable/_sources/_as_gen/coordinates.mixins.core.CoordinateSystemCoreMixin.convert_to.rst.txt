@@ -1,0 +1,6 @@
+coordinates.mixins.core.CoordinateSystemCoreMixin.convert\_to
+=============================================================
+
+.. currentmodule:: coordinates.mixins.core
+
+.. automethod:: CoordinateSystemCoreMixin.convert_to

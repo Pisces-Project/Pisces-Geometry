@@ -1,0 +1,6 @@
+grids.core.UniformGrid.gdd
+==========================
+
+.. currentmodule:: grids.core
+
+.. autoproperty:: UniformGrid.gdd

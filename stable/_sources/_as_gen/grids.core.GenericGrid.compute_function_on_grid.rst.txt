@@ -1,0 +1,6 @@
+grids.core.GenericGrid.compute\_function\_on\_grid
+==================================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: GenericGrid.compute_function_on_grid

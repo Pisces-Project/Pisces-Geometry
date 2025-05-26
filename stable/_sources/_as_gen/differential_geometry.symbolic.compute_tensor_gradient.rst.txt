@@ -1,0 +1,6 @@
+differential\_geometry.symbolic.compute\_tensor\_gradient
+=========================================================
+
+.. currentmodule:: differential_geometry.symbolic
+
+.. autofunction:: compute_tensor_gradient

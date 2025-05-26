@@ -1,0 +1,6 @@
+fields.base.DenseField.axes
+===========================
+
+.. currentmodule:: fields.base
+
+.. autoproperty:: DenseField.axes

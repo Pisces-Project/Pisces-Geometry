@@ -1,0 +1,45 @@
+coordinates.coordinate_systems
+==============================
+
+.. automodule:: coordinates.coordinate_systems
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :template: class.rst
+      :recursive:
+   
+      CartesianCoordinateSystem1D
+      CartesianCoordinateSystem2D
+      CartesianCoordinateSystem3D
+      ConicCoordinateSystem
+      CylindricalCoordinateSystem
+      EllipticCylindricalCoordinateSystem
+      OblateHomoeoidalCoordinateSystem
+      OblateSpheroidalCoordinateSystem
+      PolarCoordinateSystem
+      ProlateHomoeoidalCoordinateSystem
+      ProlateSpheroidalCoordinateSystem
+      SphericalCoordinateSystem
+   
+   
+
+   
+   
+   

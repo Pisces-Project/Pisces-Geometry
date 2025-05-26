@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ConicCoordinateSystem.from\_cartesian
+=====================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ConicCoordinateSystem.from_cartesian

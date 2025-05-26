@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.get\_mask\_from\_axes
+==================================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: CurvilinearCoordinateSystem.get_mask_from_axes

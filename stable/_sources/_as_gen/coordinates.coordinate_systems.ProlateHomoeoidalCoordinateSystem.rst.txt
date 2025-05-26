@@ -1,0 +1,91 @@
+ProlateHomoeoidalCoordinateSystem
+================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoclass:: coordinates.coordinate_systems.ProlateHomoeoidalCoordinateSystem
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~ProlateHomoeoidalCoordinateSystem.__init__
+      ~ProlateHomoeoidalCoordinateSystem.adjust_dense_tensor_signature
+      ~ProlateHomoeoidalCoordinateSystem.axes_complement
+      ~ProlateHomoeoidalCoordinateSystem.build_axes_mask
+      ~ProlateHomoeoidalCoordinateSystem.compute_expression
+      ~ProlateHomoeoidalCoordinateSystem.compute_expression_from_coordinates
+      ~ProlateHomoeoidalCoordinateSystem.compute_function_from_coordinates
+      ~ProlateHomoeoidalCoordinateSystem.convert_axes_to_indices
+      ~ProlateHomoeoidalCoordinateSystem.convert_indices_to_axes
+      ~ProlateHomoeoidalCoordinateSystem.convert_to
+      ~ProlateHomoeoidalCoordinateSystem.coordinate_meshgrid
+      ~ProlateHomoeoidalCoordinateSystem.create_coordinate_list
+      ~ProlateHomoeoidalCoordinateSystem.from_cartesian
+      ~ProlateHomoeoidalCoordinateSystem.from_hdf5
+      ~ProlateHomoeoidalCoordinateSystem.get_axes_from_mask
+      ~ProlateHomoeoidalCoordinateSystem.get_axes_latex
+      ~ProlateHomoeoidalCoordinateSystem.get_axes_order
+      ~ProlateHomoeoidalCoordinateSystem.get_axes_permutation
+      ~ProlateHomoeoidalCoordinateSystem.get_axes_units
+      ~ProlateHomoeoidalCoordinateSystem.get_canonical_axes_order
+      ~ProlateHomoeoidalCoordinateSystem.get_canonical_axes_permutation
+      ~ProlateHomoeoidalCoordinateSystem.get_class_expression
+      ~ProlateHomoeoidalCoordinateSystem.get_conversion_transform
+      ~ProlateHomoeoidalCoordinateSystem.get_expression
+      ~ProlateHomoeoidalCoordinateSystem.get_free_fixed
+      ~ProlateHomoeoidalCoordinateSystem.get_indices_from_mask
+      ~ProlateHomoeoidalCoordinateSystem.get_mask_from_axes
+      ~ProlateHomoeoidalCoordinateSystem.get_mask_from_indices
+      ~ProlateHomoeoidalCoordinateSystem.get_numeric_expression
+      ~ProlateHomoeoidalCoordinateSystem.has_class_expression
+      ~ProlateHomoeoidalCoordinateSystem.has_expression
+      ~ProlateHomoeoidalCoordinateSystem.in_axes_order
+      ~ProlateHomoeoidalCoordinateSystem.in_canonical_order
+      ~ProlateHomoeoidalCoordinateSystem.insert_fixed_axes
+      ~ProlateHomoeoidalCoordinateSystem.is_axes_subset
+      ~ProlateHomoeoidalCoordinateSystem.is_axes_superset
+      ~ProlateHomoeoidalCoordinateSystem.is_axis
+      ~ProlateHomoeoidalCoordinateSystem.lambdify_expression
+      ~ProlateHomoeoidalCoordinateSystem.list_class_expressions
+      ~ProlateHomoeoidalCoordinateSystem.list_expressions
+      ~ProlateHomoeoidalCoordinateSystem.lower_index_dense
+      ~ProlateHomoeoidalCoordinateSystem.order_axes
+      ~ProlateHomoeoidalCoordinateSystem.order_axes_canonical
+      ~ProlateHomoeoidalCoordinateSystem.pprint
+      ~ProlateHomoeoidalCoordinateSystem.raise_index_dense
+      ~ProlateHomoeoidalCoordinateSystem.requires_expression
+      ~ProlateHomoeoidalCoordinateSystem.requires_expression_from_coordinates
+      ~ProlateHomoeoidalCoordinateSystem.resolve_axes
+      ~ProlateHomoeoidalCoordinateSystem.set_expression
+      ~ProlateHomoeoidalCoordinateSystem.substitute_expression
+      ~ProlateHomoeoidalCoordinateSystem.to_cartesian
+      ~ProlateHomoeoidalCoordinateSystem.to_hdf5
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~ProlateHomoeoidalCoordinateSystem.axes
+      ~ProlateHomoeoidalCoordinateSystem.axes_dimensions
+      ~ProlateHomoeoidalCoordinateSystem.axes_symbols
+      ~ProlateHomoeoidalCoordinateSystem.inverse_metric_tensor
+      ~ProlateHomoeoidalCoordinateSystem.inverse_metric_tensor_symbol
+      ~ProlateHomoeoidalCoordinateSystem.metric_tensor
+      ~ProlateHomoeoidalCoordinateSystem.metric_tensor_symbol
+      ~ProlateHomoeoidalCoordinateSystem.ndim
+      ~ProlateHomoeoidalCoordinateSystem.parameter_symbols
+      ~ProlateHomoeoidalCoordinateSystem.parameters
+   
+   

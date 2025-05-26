@@ -1,0 +1,6 @@
+coordinates.mixins.coords.CoordinateOperationsMixin.coordinate\_meshgrid
+========================================================================
+
+.. currentmodule:: coordinates.mixins.coords
+
+.. automethod:: CoordinateOperationsMixin.coordinate_meshgrid

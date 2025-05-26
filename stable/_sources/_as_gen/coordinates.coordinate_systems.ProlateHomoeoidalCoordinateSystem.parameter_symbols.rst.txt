@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ProlateHomoeoidalCoordinateSystem.parameter\_symbols
+====================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: ProlateHomoeoidalCoordinateSystem.parameter_symbols

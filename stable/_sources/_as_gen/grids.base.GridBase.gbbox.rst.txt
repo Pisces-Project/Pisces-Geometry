@@ -1,0 +1,6 @@
+grids.base.GridBase.gbbox
+=========================
+
+.. currentmodule:: grids.base
+
+.. autoproperty:: GridBase.gbbox

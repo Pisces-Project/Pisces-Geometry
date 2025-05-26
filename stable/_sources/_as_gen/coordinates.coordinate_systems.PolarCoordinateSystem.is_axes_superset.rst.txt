@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.is\_axes\_superset
+========================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: PolarCoordinateSystem.is_axes_superset

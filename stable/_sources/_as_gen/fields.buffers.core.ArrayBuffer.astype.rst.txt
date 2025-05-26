@@ -1,0 +1,6 @@
+fields.buffers.core.ArrayBuffer.astype
+======================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: ArrayBuffer.astype

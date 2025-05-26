@@ -1,0 +1,26 @@
+DenseFieldDMOMixin
+==============================================
+
+.. currentmodule:: fields.mixins.dense_mathops
+
+.. autoclass:: fields.mixins.dense_mathops.DenseFieldDMOMixin
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~DenseFieldDMOMixin.__init__
+      ~DenseFieldDMOMixin.determine_op_dependence
+      ~DenseFieldDMOMixin.element_wise_laplacian
+      ~DenseFieldDMOMixin.element_wise_partial_derivatives
+   
+   
+
+   
+   
+   

@@ -1,0 +1,6 @@
+grids.core.GenericGrid.dense\_contravariant\_gradient
+=====================================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: GenericGrid.dense_contravariant_gradient

@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.determine\_op\_dependence
+=========================================================
+
+.. currentmodule:: fields.tensors
+
+.. automethod:: DenseTensorField.determine_op_dependence

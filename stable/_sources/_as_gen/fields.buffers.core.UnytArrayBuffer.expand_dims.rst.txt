@@ -1,0 +1,6 @@
+fields.buffers.core.UnytArrayBuffer.expand\_dims
+================================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: UnytArrayBuffer.expand_dims

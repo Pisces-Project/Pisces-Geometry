@@ -1,0 +1,6 @@
+grids.mixins.mathops.DenseMathOpsMixin.\_\_init\_\_
+===================================================
+
+.. currentmodule:: grids.mixins.mathops
+
+.. automethod:: DenseMathOpsMixin.__init__

@@ -1,0 +1,6 @@
+grids.core.GenericGrid.dense\_vector\_divergence
+================================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: GenericGrid.dense_vector_divergence

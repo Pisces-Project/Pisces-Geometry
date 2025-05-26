@@ -1,0 +1,6 @@
+differential\_geometry.dependence.DenseDependenceObject.depends\_on
+===================================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. automethod:: DenseDependenceObject.depends_on

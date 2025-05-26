@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.ndim
+==========================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: PolarCoordinateSystem.ndim

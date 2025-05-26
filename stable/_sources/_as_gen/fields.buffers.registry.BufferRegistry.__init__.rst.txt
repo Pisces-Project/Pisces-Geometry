@@ -1,0 +1,6 @@
+fields.buffers.registry.BufferRegistry.\_\_init\_\_
+===================================================
+
+.. currentmodule:: fields.buffers.registry
+
+.. automethod:: BufferRegistry.__init__

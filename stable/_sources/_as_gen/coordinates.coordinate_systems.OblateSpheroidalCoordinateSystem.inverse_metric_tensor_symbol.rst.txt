@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.OblateSpheroidalCoordinateSystem.inverse\_metric\_tensor\_symbol
+================================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: OblateSpheroidalCoordinateSystem.inverse_metric_tensor_symbol

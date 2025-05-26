@@ -1,0 +1,6 @@
+grids.core.GenericGrid.axes
+===========================
+
+.. currentmodule:: grids.core
+
+.. autoproperty:: GenericGrid.axes

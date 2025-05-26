@@ -1,0 +1,6 @@
+fields.buffers.core.UnytArrayBuffer.shape
+=========================================
+
+.. currentmodule:: fields.buffers.core
+
+.. autoproperty:: UnytArrayBuffer.shape

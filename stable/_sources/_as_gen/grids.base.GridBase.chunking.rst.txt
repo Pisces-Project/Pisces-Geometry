@@ -1,0 +1,6 @@
+grids.base.GridBase.chunking
+============================
+
+.. currentmodule:: grids.base
+
+.. autoproperty:: GridBase.chunking

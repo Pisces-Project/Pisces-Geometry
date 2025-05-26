@@ -1,0 +1,6 @@
+grids.mixins.core.GridUtilsMixin.empty
+======================================
+
+.. currentmodule:: grids.mixins.core
+
+.. automethod:: GridUtilsMixin.empty

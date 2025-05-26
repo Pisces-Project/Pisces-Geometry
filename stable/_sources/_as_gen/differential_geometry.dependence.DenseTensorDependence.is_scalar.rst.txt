@@ -1,0 +1,6 @@
+differential\_geometry.dependence.DenseTensorDependence.is\_scalar
+==================================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. autoproperty:: DenseTensorDependence.is_scalar

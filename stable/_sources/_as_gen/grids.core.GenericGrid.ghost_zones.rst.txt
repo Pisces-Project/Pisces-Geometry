@@ -1,0 +1,6 @@
+grids.core.GenericGrid.ghost\_zones
+===================================
+
+.. currentmodule:: grids.core
+
+.. autoproperty:: GenericGrid.ghost_zones

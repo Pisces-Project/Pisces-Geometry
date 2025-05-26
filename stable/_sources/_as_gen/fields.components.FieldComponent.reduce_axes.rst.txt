@@ -1,0 +1,6 @@
+fields.components.FieldComponent.reduce\_axes
+=============================================
+
+.. currentmodule:: fields.components
+
+.. automethod:: FieldComponent.reduce_axes

@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.get\_canonical\_axes\_permutation
+=============================================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.get_canonical_axes_permutation

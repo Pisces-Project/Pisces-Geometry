@@ -1,0 +1,6 @@
+differential\_geometry.symbolic.adjust\_tensor\_signature
+=========================================================
+
+.. currentmodule:: differential_geometry.symbolic
+
+.. autofunction:: adjust_tensor_signature

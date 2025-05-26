@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.from\_hdf5
+================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: PolarCoordinateSystem.from_hdf5

@@ -1,0 +1,6 @@
+differential\_geometry.symbolic.lower\_index
+============================================
+
+.. currentmodule:: differential_geometry.symbolic
+
+.. autofunction:: lower_index

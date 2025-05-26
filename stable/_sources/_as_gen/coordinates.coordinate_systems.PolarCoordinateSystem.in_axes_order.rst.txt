@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.in\_axes\_order
+=====================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: PolarCoordinateSystem.in_axes_order

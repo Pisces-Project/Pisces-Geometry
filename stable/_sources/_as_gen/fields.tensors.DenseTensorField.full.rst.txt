@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.full
+====================================
+
+.. currentmodule:: fields.tensors
+
+.. automethod:: DenseTensorField.full

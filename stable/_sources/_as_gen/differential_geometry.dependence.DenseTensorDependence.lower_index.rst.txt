@@ -1,0 +1,6 @@
+differential\_geometry.dependence.DenseTensorDependence.lower\_index
+====================================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. automethod:: DenseTensorDependence.lower_index

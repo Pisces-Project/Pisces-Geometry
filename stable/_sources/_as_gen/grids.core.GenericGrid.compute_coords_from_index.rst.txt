@@ -1,0 +1,6 @@
+grids.core.GenericGrid.compute\_coords\_from\_index
+===================================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: GenericGrid.compute_coords_from_index

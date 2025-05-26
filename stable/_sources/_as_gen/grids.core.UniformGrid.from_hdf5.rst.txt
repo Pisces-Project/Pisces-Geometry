@@ -1,0 +1,6 @@
+grids.core.UniformGrid.from\_hdf5
+=================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: UniformGrid.from_hdf5

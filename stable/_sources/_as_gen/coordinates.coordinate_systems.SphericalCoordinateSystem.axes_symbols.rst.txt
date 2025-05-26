@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.SphericalCoordinateSystem.axes\_symbols
+=======================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: SphericalCoordinateSystem.axes_symbols

@@ -1,0 +1,6 @@
+grids.core.GenericGrid.tile\_array\_to\_axes
+============================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: GenericGrid.tile_array_to_axes

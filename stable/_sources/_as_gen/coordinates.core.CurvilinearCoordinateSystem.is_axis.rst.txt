@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.is\_axis
+=====================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: CurvilinearCoordinateSystem.is_axis

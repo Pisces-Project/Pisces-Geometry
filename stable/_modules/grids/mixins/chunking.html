@@ -1,0 +1,1994 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>grids.mixins.chunking &#8212; Pisces-Geometry  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/grids/mixins/chunking';</script>
+    <link rel="icon" href="../../../_static/pm_favicon.svg"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Pisces-Geometry  documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../getting_started.html">
+    Quick-start Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../auto_examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../reference/index.html">
+    PyMetric User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../getting_started.html">
+    Quick-start Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../auto_examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../reference/index.html">
+    PyMetric User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">grids.mixins.chunking</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for grids.mixins.chunking</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Mixin classes to support chunking in grids.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">TYPE_CHECKING</span><span class="p">,</span>
+    <span class="n">Any</span><span class="p">,</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">Generic</span><span class="p">,</span>
+    <span class="n">Iterator</span><span class="p">,</span>
+    <span class="n">List</span><span class="p">,</span>
+    <span class="n">Literal</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">Sequence</span><span class="p">,</span>
+    <span class="n">Tuple</span><span class="p">,</span>
+    <span class="n">TypeVar</span><span class="p">,</span>
+    <span class="n">Union</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm.auto</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.grids.utils._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">BoundingBox</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.interpolate</span><span class="w"> </span><span class="kn">import</span> <span class="n">RegularGridInterpolator</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.grids.mixins._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">_SupportsGridChunking</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.grids.utils._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">AxesInput</span><span class="p">,</span> <span class="n">ChunkIndexInput</span><span class="p">,</span> <span class="n">HaloOffsetInput</span>
+
+<span class="c1"># =================================== #</span>
+<span class="c1"># Type Annotations                    #</span>
+<span class="c1"># =================================== #</span>
+<span class="c1"># These type annotations are used for compatibility</span>
+<span class="c1"># with static type checkers like mypy.</span>
+<span class="n">_SupGridChunking</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_SupGridChunking&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;_SupportsGridChunking&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="GridChunkingMixin">
+<a class="viewcode-back" href="../../../_as_gen/grids.mixins.chunking.GridChunkingMixin.html#grids.mixins.chunking.GridChunkingMixin">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">GridChunkingMixin</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">_SupGridChunking</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Mixin class supporting chunking in subclasses of</span>
+<span class="sd">    :py:class:`grids.base.GridBase`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># ================================ #</span>
+    <span class="c1"># Input Coercion Methods           #</span>
+    <span class="c1"># ================================ #</span>
+    <span class="c1"># These methods provide support for coercing various</span>
+    <span class="c1"># common inputs like chunks, axes, halo offsets, etc.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_ensure_supports_chunking</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Raises an error if chunking is not enabled on this grid.</span>
+
+<span class="sd">        This method is used internally to ensure that chunking-related methods</span>
+<span class="sd">        are only called on grids that support chunking.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            If chunking is not enabled on the grid.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__chunking__</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Instance </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> does not support chunking.&quot;</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_standardize_chunk_indices_type</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="n">chunks</span><span class="p">:</span> <span class="s2">&quot;ChunkIndexInput&quot;</span><span class="p">,</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;AxesInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Normalize a flexible chunk specification into a tuple of (start, stop) pairs per axis.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        chunks : ChunkIndexInput</span>
+<span class="sd">            A chunk index specification — either a single value or a list of per-axis</span>
+<span class="sd">            values. Each element may be:</span>
+
+<span class="sd">            - int → interpreted as a single chunk (i, i+1)</span>
+<span class="sd">            - tuple[int, int] → a (start, stop) chunk range</span>
+<span class="sd">            - slice → with optional start/stop, defaulting to 0 and cdd</span>
+
+<span class="sd">        axes : str or list of str, optional</span>
+<span class="sd">            Axes to which the chunks apply. If None, applies to all axes.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple of (int, int)</span>
+<span class="sd">            Normalized chunk index ranges for each axis.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Normalize axes and get metadata</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_axes</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="n">axes_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cs__</span><span class="o">.</span><span class="n">convert_axes_to_indices</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="n">num_axes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes_indices</span><span class="p">)</span>
+        <span class="n">cdd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cdd__</span><span class="p">[</span><span class="n">axes_indices</span><span class="p">]</span>
+
+        <span class="c1"># Normalize scalar inputs</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">chunks</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)):</span>
+            <span class="n">chunks</span> <span class="o">=</span> <span class="p">[</span><span class="n">chunks</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">chunks</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">chunks</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">int</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span> <span class="o">==</span> <span class="n">num_axes</span>
+        <span class="p">):</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">chunks</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">chunks</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">int</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+        <span class="p">):</span>
+            <span class="n">chunks</span> <span class="o">=</span> <span class="p">[</span><span class="n">chunks</span><span class="p">]</span>
+
+        <span class="c1"># Validate number of chunk specs</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_axes</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Expected </span><span class="si">{</span><span class="n">num_axes</span><span class="si">}</span><span class="s2"> chunk specs for axes </span><span class="si">{</span><span class="n">axes</span><span class="si">}</span><span class="s2">, got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Normalize each axis&#39; chunk spec to (start, stop)</span>
+        <span class="n">normalized</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chunks</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="n">normalized</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">item</span><span class="p">,</span> <span class="n">item</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Chunk tuple must be (start, stop), got </span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">normalized</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">item</span><span class="o">.</span><span class="n">start</span>
+                <span class="n">stop</span> <span class="o">=</span> <span class="n">cdd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">stop</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">item</span><span class="o">.</span><span class="n">stop</span>
+                <span class="n">normalized</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Invalid chunk index type at axis </span><span class="si">{</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">: expected int, tuple, or slice, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">normalized</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_standardize_chunk_indices</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="n">chunks</span><span class="p">:</span> <span class="s2">&quot;ChunkIndexInput&quot;</span><span class="p">,</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;AxesInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Normalize and validate chunk indices for the specified axes.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        chunks : sequence of int, tuple, or slice</span>
+
+<span class="sd">            Chunk index specifications for each axis. Each element can be:</span>
+<span class="sd">            - int: a single chunk index (e.g., 1)</span>
+<span class="sd">            - tuple of int: a (start, stop) chunk range (half-open interval)</span>
+<span class="sd">            - slice: a Python slice object (must have step of 1 or None)</span>
+
+<span class="sd">        axes : list of str, optional</span>
+<span class="sd">            Subset of axes to which the chunk specification applies.</span>
+<span class="sd">            If None, all axes are considered in order.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple of (int, int)</span>
+<span class="sd">            A sequence of (start, stop) pairs, one for each selected axis.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If the number of chunk specs does not match number of axes.</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            If any chunk spec is not a supported type or invalid format.</span>
+<span class="sd">        IndexError</span>
+<span class="sd">            If chunk indices are out of bounds.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Ensure that we have enabled chunking at all.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_supports_chunking</span><span class="p">()</span>
+
+        <span class="c1"># Coerce the typings of the chunk indices to ensure that we</span>
+        <span class="c1"># have correct specifiers.</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_axes</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="n">axes_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cs__</span><span class="o">.</span><span class="n">convert_axes_to_indices</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="n">chunks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_standardize_chunk_indices_type</span><span class="p">(</span><span class="n">chunks</span><span class="p">,</span> <span class="n">axes</span><span class="p">)</span>
+        <span class="n">cdd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cdd__</span>
+
+        <span class="k">for</span> <span class="n">chunk</span><span class="p">,</span> <span class="n">axis</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">chunks</span><span class="p">,</span> <span class="n">axes_indices</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">chunk</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">chunk</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">cdd</span><span class="p">[</span><span class="n">axes_indices</span><span class="p">]):</span>
+                <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Chunk (</span><span class="si">{</span><span class="n">chunk</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">chunk</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">) out of bounds for axis </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">chunks</span>
+
+    <span class="c1"># ================================ #</span>
+    <span class="c1"># Casting                          #</span>
+    <span class="c1"># ================================ #</span>
+    <span class="c1"># These methods help with determining shapes</span>
+    <span class="c1"># of chunks and constructing arrays matching those</span>
+    <span class="c1"># chunks / chunk stencils.</span>
+<div class="viewcode-block" id="GridChunkingMixin.get_chunk_shape">
+<a class="viewcode-back" href="../../../_as_gen/grids.mixins.chunking.GridChunkingMixin.get_chunk_shape.html#grids.mixins.chunking.GridChunkingMixin.get_chunk_shape">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_chunk_shape</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="n">chunks</span><span class="p">:</span> <span class="s2">&quot;ChunkIndexInput&quot;</span><span class="p">,</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;AxesInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">include_ghosts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">halo_offsets</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;HaloOffsetInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">oob_behavior</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;clip&quot;</span><span class="p">,</span> <span class="s2">&quot;raise&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;raise&quot;</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the shape of the buffer corresponding to a given chunk,</span>
+<span class="sd">        including optional ghost zones and halo padding.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        chunks : int, tuple, slice, or sequence of those</span>
+<span class="sd">            Chunk specification per axis. For each axis, you may specify:</span>
+
+<span class="sd">            - `int`: selects a single chunk (i, i+1)</span>
+<span class="sd">            - `(start, stop)`: a range of chunks</span>
+<span class="sd">            - `slice(start, stop)`: a Python slice (step is ignored)</span>
+
+<span class="sd">            These are converted to global-space data index ranges.</span>
+<span class="sd">        axes : str or list of str, optional</span>
+<span class="sd">            The names of the axes to include in the slice. If None, all axes are used.</span>
+<span class="sd">            This determines the number of :py:class:`slice` objects returned in</span>
+<span class="sd">            the output tuple — one slice per selected axis.</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                Regardless of the ordering of ``axes``, the axes are reordered to</span>
+<span class="sd">                match canonical ordering as defined by the coordinate system.</span>
+<span class="sd">        include_ghosts : bool, optional</span>
+<span class="sd">            If ``True``, then the slice will include the ghost zones around the boundary of</span>
+<span class="sd">            the domain. Otherwise (default), the ghost zones are excluded from the resulting slice.</span>
+<span class="sd">        halo_offsets : int, sequence[int], or np.ndarray, optional</span>
+<span class="sd">            Extra padding (in ghost-cell units) to apply on top of the active or ghost-augmented domain.</span>
+
+<span class="sd">            This allows you to extend the region further outward beyond ghost zones — for example,</span>
+<span class="sd">            to reserve additional halo space for multi-pass stencils.</span>
+
+<span class="sd">            Supported formats:</span>
+
+<span class="sd">            - **int**: same padding applied to both sides of all axes</span>
+<span class="sd">            - **sequence of length N**: symmetric padding per axis (left = right)</span>
+<span class="sd">            - **array of shape (2, N)**: explicit left/right padding per axis</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                This is applied *after* ghost zones (if `include_ghosts=True`). Total padding = ghost zones + halo.</span>
+
+<span class="sd">        oob_behavior : {&quot;raise&quot;, &quot;clip&quot;}, default=&quot;raise&quot;</span>
+<span class="sd">            Determines what to do if the computed slice (after applying ghost zones and halo padding)</span>
+<span class="sd">            would extend beyond the allocated grid buffer (`__ghost_dd__`).</span>
+
+<span class="sd">            Options:</span>
+<span class="sd">                - **&quot;raise&quot;** : Raise an `IndexError` if any part of the slice is out of bounds.</span>
+<span class="sd">                - **&quot;clip&quot;**  : Clamp the slice to stay within the valid grid extent.</span>
+
+<span class="sd">            Use &quot;clip&quot; if you&#39;re performing relaxed operations (e.g., visualization or padding-aware reads),</span>
+<span class="sd">            and &quot;raise&quot; for strict enforcement during stencil computations or buffer validation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple of int</span>
+<span class="sd">            The shape of the selected chunk in global buffer space.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">chunk_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_chunk_slice</span><span class="p">(</span>
+            <span class="n">chunks</span><span class="o">=</span><span class="n">chunks</span><span class="p">,</span>
+            <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span>
+            <span class="n">include_ghosts</span><span class="o">=</span><span class="n">include_ghosts</span><span class="p">,</span>
+            <span class="n">halo_offsets</span><span class="o">=</span><span class="n">halo_offsets</span><span class="p">,</span>
+            <span class="n">oob_behavior</span><span class="o">=</span><span class="n">oob_behavior</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">slc</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="n">slc</span><span class="o">.</span><span class="n">start</span> <span class="k">for</span> <span class="n">slc</span> <span class="ow">in</span> <span class="n">chunk_slice</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GridChunkingMixin.empty_like_chunks">
+<a class="viewcode-back" href="../../../_as_gen/grids.mixins.chunking.GridChunkingMixin.empty_like_chunks.html#grids.mixins.chunking.GridChunkingMixin.empty_like_chunks">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">empty_like_chunks</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="n">chunks</span><span class="p">:</span> <span class="s2">&quot;ChunkIndexInput&quot;</span><span class="p">,</span>
+        <span class="o">/</span><span class="p">,</span>
+        <span class="n">element_shape</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(),</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;AxesInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">include_ghosts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">halo_offsets</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;HaloOffsetInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">oob_behavior</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;clip&quot;</span><span class="p">,</span> <span class="s2">&quot;raise&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;raise&quot;</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return an uninitialized array shaped to match a domain-aligned region of the grid.</span>
+
+<span class="sd">        This is useful for quickly allocating grid-aligned buffers (e.g., field data)</span>
+<span class="sd">        without initializing values.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        element_shape : int or sequence of int, default=()</span>
+<span class="sd">            Additional trailing shape to append to the grid dimensions.</span>
+<span class="sd">            For scalar fields, use `()`. For vector fields, e.g. `(3,)`.</span>
+<span class="sd">        chunks : int, tuple, slice, or sequence of those</span>
+<span class="sd">            Chunk specification per axis. For each axis, you may specify:</span>
+
+<span class="sd">            - `int`: selects a single chunk (i, i+1)</span>
+<span class="sd">            - `(start, stop)`: a range of chunks</span>
+<span class="sd">            - `slice(start, stop)`: a Python slice (step is ignored)</span>
+
+<span class="sd">            These are converted to global-space data index ranges.</span>
+<span class="sd">        axes : str or list of str, optional</span>
+<span class="sd">            The names of the axes to include in the slice. If None, all axes are used.</span>
+<span class="sd">            This determines the number of :py:class:`slice` objects returned in</span>
+<span class="sd">            the output tuple — one slice per selected axis.</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                Regardless of the ordering of ``axes``, the axes are reordered to</span>
+<span class="sd">                match canonical ordering as defined by the coordinate system.</span>
+<span class="sd">        include_ghosts : bool, optional</span>
+<span class="sd">            If ``True``, then the slice will include the ghost zones around the boundary of</span>
+<span class="sd">            the domain. Otherwise (default), the ghost zones are excluded from the resulting slice.</span>
+<span class="sd">        halo_offsets : int, sequence[int], or np.ndarray, optional</span>
+<span class="sd">            Extra padding (in ghost-cell units) to apply on top of the active or ghost-augmented domain.</span>
+
+<span class="sd">            This allows you to extend the region further outward beyond ghost zones — for example,</span>
+<span class="sd">            to reserve additional halo space for multi-pass stencils.</span>
+
+<span class="sd">            Supported formats:</span>
+
+<span class="sd">            - **int**: same padding applied to both sides of all axes</span>
+<span class="sd">            - **sequence of length N**: symmetric padding per axis (left = right)</span>
+<span class="sd">            - **array of shape (2, N)**: explicit left/right padding per axis</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                This is applied *after* ghost zones (if `include_ghosts=True`). Total padding = ghost zones + halo.</span>
+
+<span class="sd">        oob_behavior : {&quot;raise&quot;, &quot;clip&quot;}, default=&quot;raise&quot;</span>
+<span class="sd">            Determines what to do if the computed slice (after applying ghost zones and halo padding)</span>
+<span class="sd">            would extend beyond the allocated grid buffer (`__ghost_dd__`).</span>
+
+<span class="sd">            Options:</span>
+<span class="sd">                - **&quot;raise&quot;** : Raise an `IndexError` if any part of the slice is out of bounds.</span>
+<span class="sd">                - **&quot;clip&quot;**  : Clamp the slice to stay within the valid grid extent.</span>
+
+<span class="sd">            Use &quot;clip&quot; if you&#39;re performing relaxed operations (e.g., visualization or padding-aware reads),</span>
+<span class="sd">            and &quot;raise&quot; for strict enforcement during stencil computations or buffer validation.</span>
+
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments passed to `np.empty`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            An uninitialized array of shape `(domain_shape, *element_shape)`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Determine the domain shape we want.</span>
+        <span class="n">domain_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_chunk_shape</span><span class="p">(</span>
+            <span class="n">chunks</span><span class="p">,</span>
+            <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span>
+            <span class="n">include_ghosts</span><span class="o">=</span><span class="n">include_ghosts</span><span class="p">,</span>
+            <span class="n">halo_offsets</span><span class="o">=</span><span class="n">halo_offsets</span><span class="p">,</span>
+            <span class="n">oob_behavior</span><span class="o">=</span><span class="n">oob_behavior</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">array_shape</span> <span class="o">=</span> <span class="n">domain_shape</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">element_shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">array_shape</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GridChunkingMixin.zeros_like_chunks">
+<a class="viewcode-back" href="../../../_as_gen/grids.mixins.chunking.GridChunkingMixin.zeros_like_chunks.html#grids.mixins.chunking.GridChunkingMixin.zeros_like_chunks">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">zeros_like_chunks</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="n">chunks</span><span class="p">:</span> <span class="s2">&quot;ChunkIndexInput&quot;</span><span class="p">,</span>
+        <span class="o">/</span><span class="p">,</span>
+        <span class="n">element_shape</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(),</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;AxesInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">include_ghosts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">halo_offsets</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;HaloOffsetInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">oob_behavior</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;clip&quot;</span><span class="p">,</span> <span class="s2">&quot;raise&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;raise&quot;</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return an array of zeros shaped to match a domain-aligned region of the grid.</span>
+
+<span class="sd">        This is useful for creating initialized scalar/vector/tensor buffers over the grid.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        element_shape : int or sequence of int, default=()</span>
+<span class="sd">            Additional trailing shape to append to the grid dimensions.</span>
+<span class="sd">        chunks : int, tuple, slice, or sequence of those</span>
+<span class="sd">            Chunk specification per axis. For each axis, you may specify:</span>
+
+<span class="sd">            - `int`: selects a single chunk (i, i+1)</span>
+<span class="sd">            - `(start, stop)`: a range of chunks</span>
+<span class="sd">            - `slice(start, stop)`: a Python slice (step is ignored)</span>
+
+<span class="sd">            These are converted to global-space data index ranges.</span>
+<span class="sd">        axes : str or list of str, optional</span>
+<span class="sd">            The names of the axes to include in the slice. If None, all axes are used.</span>
+<span class="sd">            This determines the number of :py:class:`slice` objects returned in</span>
+<span class="sd">            the output tuple — one slice per selected axis.</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                Regardless of the ordering of ``axes``, the axes are reordered to</span>
+<span class="sd">                match canonical ordering as defined by the coordinate system.</span>
+<span class="sd">        include_ghosts : bool, optional</span>
+<span class="sd">            If ``True``, then the slice will include the ghost zones around the boundary of</span>
+<span class="sd">            the domain. Otherwise (default), the ghost zones are excluded from the resulting slice.</span>
+<span class="sd">        halo_offsets : int, sequence[int], or np.ndarray, optional</span>
+<span class="sd">            Extra padding (in ghost-cell units) to apply on top of the active or ghost-augmented domain.</span>
+
+<span class="sd">            This allows you to extend the region further outward beyond ghost zones — for example,</span>
+<span class="sd">            to reserve additional halo space for multi-pass stencils.</span>
+
+<span class="sd">            Supported formats:</span>
+
+<span class="sd">            - **int**: same padding applied to both sides of all axes</span>
+<span class="sd">            - **sequence of length N**: symmetric padding per axis (left = right)</span>
+<span class="sd">            - **array of shape (2, N)**: explicit left/right padding per axis</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                This is applied *after* ghost zones (if `include_ghosts=True`). Total padding = ghost zones + halo.</span>
+
+<span class="sd">        oob_behavior : {&quot;raise&quot;, &quot;clip&quot;}, default=&quot;raise&quot;</span>
+<span class="sd">            Determines what to do if the computed slice (after applying ghost zones and halo padding)</span>
+<span class="sd">            would extend beyond the allocated grid buffer (`__ghost_dd__`).</span>
+
+<span class="sd">            Options:</span>
+<span class="sd">                - **&quot;raise&quot;** : Raise an `IndexError` if any part of the slice is out of bounds.</span>
+<span class="sd">                - **&quot;clip&quot;**  : Clamp the slice to stay within the valid grid extent.</span>
+
+<span class="sd">            Use &quot;clip&quot; if you&#39;re performing relaxed operations (e.g., visualization or padding-aware reads),</span>
+<span class="sd">            and &quot;raise&quot; for strict enforcement during stencil computations or buffer validation.</span>
+
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments passed to `np.zeros`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            A zero-initialized array of shape `(domain_shape, *element_shape)`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Determine the domain shape we want.</span>
+        <span class="n">domain_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_chunk_shape</span><span class="p">(</span>
+            <span class="n">chunks</span><span class="p">,</span>
+            <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span>
+            <span class="n">include_ghosts</span><span class="o">=</span><span class="n">include_ghosts</span><span class="p">,</span>
+            <span class="n">halo_offsets</span><span class="o">=</span><span class="n">halo_offsets</span><span class="p">,</span>
+            <span class="n">oob_behavior</span><span class="o">=</span><span class="n">oob_behavior</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">array_shape</span> <span class="o">=</span> <span class="n">domain_shape</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">element_shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">array_shape</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GridChunkingMixin.ones_like_chunks">
+<a class="viewcode-back" href="../../../_as_gen/grids.mixins.chunking.GridChunkingMixin.ones_like_chunks.html#grids.mixins.chunking.GridChunkingMixin.ones_like_chunks">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ones_like_chunks</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="n">chunks</span><span class="p">:</span> <span class="s2">&quot;ChunkIndexInput&quot;</span><span class="p">,</span>
+        <span class="o">/</span><span class="p">,</span>
+        <span class="n">element_shape</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(),</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;AxesInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">include_ghosts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">halo_offsets</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;HaloOffsetInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">oob_behavior</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;clip&quot;</span><span class="p">,</span> <span class="s2">&quot;raise&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;raise&quot;</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return an array of ones shaped to match a domain-aligned region of the grid.</span>
+
+<span class="sd">        This is useful for initializing buffers to a uniform value over the grid.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        element_shape : int or sequence of int, default=()</span>
+<span class="sd">            Additional trailing shape to append to the grid dimensions.</span>
+<span class="sd">        chunks : int, tuple, slice, or sequence of those</span>
+<span class="sd">            Chunk specification per axis. For each axis, you may specify:</span>
+
+<span class="sd">            - `int`: selects a single chunk (i, i+1)</span>
+<span class="sd">            - `(start, stop)`: a range of chunks</span>
+<span class="sd">            - `slice(start, stop)`: a Python slice (step is ignored)</span>
+
+<span class="sd">            These are converted to global-space data index ranges.</span>
+<span class="sd">        axes : str or list of str, optional</span>
+<span class="sd">            The names of the axes to include in the slice. If None, all axes are used.</span>
+<span class="sd">            This determines the number of :py:class:`slice` objects returned in</span>
+<span class="sd">            the output tuple — one slice per selected axis.</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                Regardless of the ordering of ``axes``, the axes are reordered to</span>
+<span class="sd">                match canonical ordering as defined by the coordinate system.</span>
+<span class="sd">        include_ghosts : bool, optional</span>
+<span class="sd">            If ``True``, then the slice will include the ghost zones around the boundary of</span>
+<span class="sd">            the domain. Otherwise (default), the ghost zones are excluded from the resulting slice.</span>
+<span class="sd">        halo_offsets : int, sequence[int], or np.ndarray, optional</span>
+<span class="sd">            Extra padding (in ghost-cell units) to apply on top of the active or ghost-augmented domain.</span>
+
+<span class="sd">            This allows you to extend the region further outward beyond ghost zones — for example,</span>
+<span class="sd">            to reserve additional halo space for multi-pass stencils.</span>
+
+<span class="sd">            Supported formats:</span>
+
+<span class="sd">            - **int**: same padding applied to both sides of all axes</span>
+<span class="sd">            - **sequence of length N**: symmetric padding per axis (left = right)</span>
+<span class="sd">            - **array of shape (2, N)**: explicit left/right padding per axis</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                This is applied *after* ghost zones (if `include_ghosts=True`). Total padding = ghost zones + halo.</span>
+
+<span class="sd">        oob_behavior : {&quot;raise&quot;, &quot;clip&quot;}, default=&quot;raise&quot;</span>
+<span class="sd">            Determines what to do if the computed slice (after applying ghost zones and halo padding)</span>
+<span class="sd">            would extend beyond the allocated grid buffer (`__ghost_dd__`).</span>
+
+<span class="sd">            Options:</span>
+<span class="sd">                - **&quot;raise&quot;** : Raise an `IndexError` if any part of the slice is out of bounds.</span>
+<span class="sd">                - **&quot;clip&quot;**  : Clamp the slice to stay within the valid grid extent.</span>
+
+<span class="sd">            Use &quot;clip&quot; if you&#39;re performing relaxed operations (e.g., visualization or padding-aware reads),</span>
+<span class="sd">            and &quot;raise&quot; for strict enforcement during stencil computations or buffer validation.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments passed to `np.ones`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            A one-initialized array of shape `(domain_shape, *element_shape)`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Determine the domain shape we want.</span>
+        <span class="n">domain_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_chunk_shape</span><span class="p">(</span>
+            <span class="n">chunks</span><span class="p">,</span>
+            <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span>
+            <span class="n">include_ghosts</span><span class="o">=</span><span class="n">include_ghosts</span><span class="p">,</span>
+            <span class="n">halo_offsets</span><span class="o">=</span><span class="n">halo_offsets</span><span class="p">,</span>
+            <span class="n">oob_behavior</span><span class="o">=</span><span class="n">oob_behavior</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">array_shape</span> <span class="o">=</span> <span class="n">domain_shape</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">element_shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">array_shape</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GridChunkingMixin.full_like_chunks">
+<a class="viewcode-back" href="../../../_as_gen/grids.mixins.chunking.GridChunkingMixin.full_like_chunks.html#grids.mixins.chunking.GridChunkingMixin.full_like_chunks">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">full_like_chunks</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="n">chunks</span><span class="p">:</span> <span class="s2">&quot;ChunkIndexInput&quot;</span><span class="p">,</span>
+        <span class="n">fill_value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="o">/</span><span class="p">,</span>
+        <span class="n">element_shape</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(),</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;AxesInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">include_ghosts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">halo_offsets</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;HaloOffsetInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">oob_behavior</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;clip&quot;</span><span class="p">,</span> <span class="s2">&quot;raise&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;raise&quot;</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a constant-valued array shaped to match a domain-aligned region of the grid.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        chunks : int, tuple, slice, or sequence of those</span>
+<span class="sd">            Chunk specification per axis. For each axis, you may specify:</span>
+
+<span class="sd">            - `int`: selects a single chunk (i, i+1)</span>
+<span class="sd">            - `(start, stop)`: a range of chunks</span>
+<span class="sd">            - `slice(start, stop)`: a Python slice (step is ignored)</span>
+
+<span class="sd">            These are converted to global-space data index ranges.</span>
+<span class="sd">        fill_value : Any</span>
+<span class="sd">            The value to fill the array with.</span>
+<span class="sd">        element_shape : int or sequence of int, default=()</span>
+<span class="sd">            Additional trailing shape to append to the grid dimensions.</span>
+<span class="sd">        axes : str or list of str, optional</span>
+<span class="sd">            The names of the axes to include in the slice. If None, all axes are used.</span>
+<span class="sd">            This determines the number of :py:class:`slice` objects returned in</span>
+<span class="sd">            the output tuple — one slice per selected axis.</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                Regardless of the ordering of ``axes``, the axes are reordered to</span>
+<span class="sd">                match canonical ordering as defined by the coordinate system.</span>
+<span class="sd">        include_ghosts : bool, optional</span>
+<span class="sd">            If ``True``, then the slice will include the ghost zones around the boundary of</span>
+<span class="sd">            the domain. Otherwise (default), the ghost zones are excluded from the resulting slice.</span>
+<span class="sd">        halo_offsets : int, sequence[int], or np.ndarray, optional</span>
+<span class="sd">            Extra padding (in ghost-cell units) to apply on top of the active or ghost-augmented domain.</span>
+
+<span class="sd">            This allows you to extend the region further outward beyond ghost zones — for example,</span>
+<span class="sd">            to reserve additional halo space for multi-pass stencils.</span>
+
+<span class="sd">            Supported formats:</span>
+
+<span class="sd">            - **int**: same padding applied to both sides of all axes</span>
+<span class="sd">            - **sequence of length N**: symmetric padding per axis (left = right)</span>
+<span class="sd">            - **array of shape (2, N)**: explicit left/right padding per axis</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                This is applied *after* ghost zones (if `include_ghosts=True`). Total padding = ghost zones + halo.</span>
+
+<span class="sd">        oob_behavior : {&quot;raise&quot;, &quot;clip&quot;}, default=&quot;raise&quot;</span>
+<span class="sd">            Determines what to do if the computed slice (after applying ghost zones and halo padding)</span>
+<span class="sd">            would extend beyond the allocated grid buffer (`__ghost_dd__`).</span>
+
+<span class="sd">            Options:</span>
+<span class="sd">                - **&quot;raise&quot;** : Raise an `IndexError` if any part of the slice is out of bounds.</span>
+<span class="sd">                - **&quot;clip&quot;**  : Clamp the slice to stay within the valid grid extent.</span>
+
+<span class="sd">            Use &quot;clip&quot; if you&#39;re performing relaxed operations (e.g., visualization or padding-aware reads),</span>
+<span class="sd">            and &quot;raise&quot; for strict enforcement during stencil computations or buffer validation.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments passed to `np.full`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            A constant-valued array of shape `(domain_shape, *element_shape)`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Determine the domain shape we want.</span>
+        <span class="n">domain_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_chunk_shape</span><span class="p">(</span>
+            <span class="n">chunks</span><span class="p">,</span>
+            <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span>
+            <span class="n">include_ghosts</span><span class="o">=</span><span class="n">include_ghosts</span><span class="p">,</span>
+            <span class="n">halo_offsets</span><span class="o">=</span><span class="n">halo_offsets</span><span class="p">,</span>
+            <span class="n">oob_behavior</span><span class="o">=</span><span class="n">oob_behavior</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">array_shape</span> <span class="o">=</span> <span class="n">domain_shape</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">element_shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">array_shape</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+    <span class="c1"># ================================ #</span>
+    <span class="c1"># Chunk Slicing Methods            #</span>
+    <span class="c1"># ================================ #</span>
+    <span class="c1"># These methods provide support for various slicing</span>
+    <span class="c1"># needs when working in chunks.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_chunk_slice_fast</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="n">start</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">stop</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">axes_indices</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">include_ghosts</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">halo_offsets</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">oob_behavior</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        From a specific set of stopping and starting indices,</span>
+<span class="sd">        compute the coordinate slices for a specific chunk.</span>
+
+<span class="sd">        Notably, this is a slice into the GRID COORDINATES, and therefore</span>
+<span class="sd">        will depend on the coordinate centering.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__chunk_size__</span><span class="p">[</span><span class="n">axes_indices</span><span class="p">]</span>  <span class="c1"># Number of CELLS per chunk.</span>
+        <span class="n">ghost</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__ghost_zones__</span><span class="p">[:,</span> <span class="n">axes_indices</span><span class="p">]</span>  <span class="c1"># Number of ghost CELLS.</span>
+        <span class="n">full</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__ghost_dd__</span><span class="p">[</span><span class="n">axes_indices</span><span class="p">]</span>
+        <span class="n">total_chunks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cdd__</span><span class="p">[</span><span class="n">axes_indices</span><span class="p">]</span>
+
+        <span class="c1"># Compute raw grid-space indices</span>
+        <span class="n">start_idx</span> <span class="o">=</span> <span class="n">start</span> <span class="o">*</span> <span class="n">size</span>
+        <span class="n">stop_idx</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">*</span> <span class="n">size</span>
+
+        <span class="c1"># Adjust for ghost zones at edges</span>
+        <span class="k">if</span> <span class="n">include_ghosts</span><span class="p">:</span>
+            <span class="n">is_left_edge</span> <span class="o">=</span> <span class="n">start</span> <span class="o">==</span> <span class="mi">0</span>
+            <span class="n">is_right_edge</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">==</span> <span class="n">total_chunks</span>
+            <span class="n">start_idx</span> <span class="o">-=</span> <span class="n">is_left_edge</span> <span class="o">*</span> <span class="n">ghost</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">stop_idx</span> <span class="o">+=</span> <span class="n">is_right_edge</span> <span class="o">*</span> <span class="n">ghost</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Add ghost and halo padding (ghost[0] is base offset)</span>
+        <span class="n">start_idx</span> <span class="o">+=</span> <span class="n">ghost</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">halo_offsets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">stop_idx</span> <span class="o">+=</span> <span class="n">ghost</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">halo_offsets</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Adjust for the cell centering of the grid.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__center__</span> <span class="o">==</span> <span class="s2">&quot;vertex&quot;</span><span class="p">:</span>
+            <span class="n">stop_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Clip or raise on bounds violation</span>
+        <span class="k">if</span> <span class="n">oob_behavior</span> <span class="o">==</span> <span class="s2">&quot;clip&quot;</span><span class="p">:</span>
+            <span class="n">start_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">start_idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">full</span><span class="p">)</span>
+            <span class="n">stop_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">stop_idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">full</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">oob_behavior</span> <span class="o">==</span> <span class="s2">&quot;raise&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">start_idx</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">stop_idx</span> <span class="o">&gt;</span> <span class="n">full</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Chunk slice out of bounds: start=</span><span class="si">{</span><span class="n">start_idx</span><span class="si">}</span><span class="s2">, stop=</span><span class="si">{</span><span class="n">stop_idx</span><span class="si">}</span><span class="s2">, bounds=</span><span class="si">{</span><span class="n">full</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid oob_behavior: </span><span class="si">{</span><span class="n">oob_behavior</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">start_idx</span><span class="p">,</span> <span class="n">stop_idx</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_chunk_slice_fast_scalar</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="n">start</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">axis_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">include_ghosts</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">halo_offsets</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">oob_behavior</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">slice</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fast internal core for computing a single-axis chunk slice.</span>
+
+<span class="sd">        This is optimized for cases where only one axis changes (e.g., tight inner loop).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__chunk_size__</span><span class="p">[</span><span class="n">axis_index</span><span class="p">])</span>
+        <span class="n">ghost_lo</span><span class="p">,</span> <span class="n">ghost_hi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__ghost_zones__</span><span class="p">[:,</span> <span class="n">axis_index</span><span class="p">]</span>
+        <span class="n">total_chunks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cdd__</span><span class="p">[</span><span class="n">axis_index</span><span class="p">]</span>
+        <span class="n">full</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__ghost_dd__</span><span class="p">[</span><span class="n">axis_index</span><span class="p">])</span>
+
+        <span class="n">start_idx</span> <span class="o">=</span> <span class="n">start</span> <span class="o">*</span> <span class="n">size</span>
+        <span class="n">stop_idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">size</span>
+
+        <span class="c1"># Edge-aware ghost padding</span>
+        <span class="k">if</span> <span class="n">include_ghosts</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">start</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">start_idx</span> <span class="o">-=</span> <span class="n">ghost_lo</span>
+            <span class="k">if</span> <span class="n">start</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">total_chunks</span><span class="p">:</span>
+                <span class="n">stop_idx</span> <span class="o">+=</span> <span class="n">ghost_hi</span>
+
+        <span class="c1"># Apply offset</span>
+        <span class="n">start_idx</span> <span class="o">+=</span> <span class="n">ghost_lo</span> <span class="o">-</span> <span class="n">halo_offsets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">stop_idx</span> <span class="o">+=</span> <span class="n">ghost_lo</span> <span class="o">+</span> <span class="n">halo_offsets</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__center__</span> <span class="o">==</span> <span class="s2">&quot;vertex&quot;</span><span class="p">:</span>
+            <span class="n">stop_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Bounds logic</span>
+        <span class="k">if</span> <span class="n">oob_behavior</span> <span class="o">==</span> <span class="s2">&quot;clip&quot;</span><span class="p">:</span>
+            <span class="n">start_idx</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">start_idx</span><span class="p">,</span> <span class="n">full</span><span class="p">))</span>
+            <span class="n">stop_idx</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">stop_idx</span><span class="p">,</span> <span class="n">full</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">oob_behavior</span> <span class="o">==</span> <span class="s2">&quot;raise&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">start_idx</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">stop_idx</span> <span class="o">&gt;</span> <span class="n">full</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Chunk slice out of bounds on axis </span><span class="si">{</span><span class="n">axis_index</span><span class="si">}</span><span class="s2">: &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;start=</span><span class="si">{</span><span class="n">start_idx</span><span class="si">}</span><span class="s2">, stop=</span><span class="si">{</span><span class="n">stop_idx</span><span class="si">}</span><span class="s2">, bounds=[0,</span><span class="si">{</span><span class="n">full</span><span class="si">}</span><span class="s2">)&quot;</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid oob_behavior: </span><span class="si">{</span><span class="n">oob_behavior</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">slice</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">start_idx</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">stop_idx</span><span class="p">))</span>
+
+<div class="viewcode-block" id="GridChunkingMixin.compute_chunk_slice">
+<a class="viewcode-back" href="../../../_as_gen/grids.mixins.chunking.GridChunkingMixin.compute_chunk_slice.html#grids.mixins.chunking.GridChunkingMixin.compute_chunk_slice">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_chunk_slice</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="n">chunks</span><span class="p">:</span> <span class="s2">&quot;ChunkIndexInput&quot;</span><span class="p">,</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;AxesInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">include_ghosts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">halo_offsets</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;HaloOffsetInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">oob_behavior</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;raise&quot;</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute a global index-space slice corresponding to one or more chunks</span>
+<span class="sd">        along selected axes, with optional ghost zones and halo padding.</span>
+
+<span class="sd">        This method returns the global index-space slice that selects the desired chunk</span>
+<span class="sd">        region from the grid buffer. It supports ghost zones, halo extensions, and</span>
+<span class="sd">        relaxed boundary behavior.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        chunks : int, tuple, slice, or sequence of those</span>
+<span class="sd">            Chunk specification per axis. For each axis, you may specify:</span>
+
+<span class="sd">            - `int`: selects a single chunk (i, i+1)</span>
+<span class="sd">            - `(start, stop)`: a range of chunks</span>
+<span class="sd">            - `slice(start, stop)`: a Python slice (step is ignored)</span>
+
+<span class="sd">            These are converted to global-space data index ranges.</span>
+<span class="sd">        axes : str or list of str, optional</span>
+<span class="sd">            The names of the axes to include in the slice. If None, all axes are used.</span>
+<span class="sd">            This determines the number of :py:class:`slice` objects returned in</span>
+<span class="sd">            the output tuple — one slice per selected axis.</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                Regardless of the ordering of ``axes``, the axes are reordered to</span>
+<span class="sd">                match canonical ordering as defined by the coordinate system.</span>
+<span class="sd">        include_ghosts : bool, optional</span>
+<span class="sd">            If ``True``, then the slice will include the ghost zones around the boundary of</span>
+<span class="sd">            the domain. Otherwise (default), the ghost zones are excluded from the resulting slice.</span>
+<span class="sd">        halo_offsets : int, sequence[int], or np.ndarray, optional</span>
+<span class="sd">            Extra padding (in ghost-cell units) to apply on top of the active or ghost-augmented domain.</span>
+
+<span class="sd">            This allows you to extend the region further outward beyond ghost zones — for example,</span>
+<span class="sd">            to reserve additional halo space for multi-pass stencils.</span>
+
+<span class="sd">            Supported formats:</span>
+
+<span class="sd">            - **int**: same padding applied to both sides of all axes</span>
+<span class="sd">            - **sequence of length N**: symmetric padding per axis (left = right)</span>
+<span class="sd">            - **array of shape (2, N)**: explicit left/right padding per axis</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                This is applied *after* ghost zones (if `include_ghosts=True`). Total padding = ghost zones + halo.</span>
+
+<span class="sd">        oob_behavior : {&quot;raise&quot;, &quot;clip&quot;}, default=&quot;raise&quot;</span>
+<span class="sd">            Determines what to do if the computed slice (after applying ghost zones and halo padding)</span>
+<span class="sd">            would extend beyond the allocated grid buffer (`__ghost_dd__`).</span>
+
+<span class="sd">            Options:</span>
+<span class="sd">                - **&quot;raise&quot;** : Raise an `IndexError` if any part of the slice is out of bounds.</span>
+<span class="sd">                - **&quot;clip&quot;**  : Clamp the slice to stay within the valid grid extent.</span>
+
+<span class="sd">            Use &quot;clip&quot; if you&#39;re performing relaxed operations (e.g., visualization or padding-aware reads),</span>
+<span class="sd">            and &quot;raise&quot; for strict enforcement during stencil computations or buffer validation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple of slice</span>
+<span class="sd">            One slice per selected axis, expressed **in global index space**.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_axes</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="n">ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="n">axes_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cs__</span><span class="o">.</span><span class="n">convert_axes_to_indices</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="n">halo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_standardize_halo_offset</span><span class="p">(</span><span class="n">halo_offsets</span><span class="p">,</span> <span class="n">ndim</span><span class="p">)</span>
+
+        <span class="n">chunks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_standardize_chunk_indices_type</span><span class="p">(</span><span class="n">chunks</span><span class="p">,</span> <span class="n">axes</span><span class="p">)</span>
+        <span class="n">chunk_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="n">chunk_indices</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">stop</span> <span class="o">=</span> <span class="n">chunk_indices</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_chunk_slice_fast</span><span class="p">(</span>
+            <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
+            <span class="n">stop</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span>
+            <span class="n">axes_indices</span><span class="o">=</span><span class="n">axes_indices</span><span class="p">,</span>
+            <span class="n">include_ghosts</span><span class="o">=</span><span class="n">include_ghosts</span><span class="p">,</span>
+            <span class="n">halo_offsets</span><span class="o">=</span><span class="n">halo</span><span class="p">,</span>
+            <span class="n">oob_behavior</span><span class="o">=</span><span class="n">oob_behavior</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+    <span class="c1"># =============================== #</span>
+    <span class="c1"># Coordinates                     #</span>
+    <span class="c1"># =============================== #</span>
+    <span class="c1"># These methods handle the coordinate generation</span>
+    <span class="c1"># procedures. The only method in the base class is the</span>
+    <span class="c1"># `compute_coords_from_slices` abstract method. Everything</span>
+    <span class="c1"># else utilizes that.</span>
+<div class="viewcode-block" id="GridChunkingMixin.compute_chunk_coords">
+<a class="viewcode-back" href="../../../_as_gen/grids.mixins.chunking.GridChunkingMixin.compute_chunk_coords.html#grids.mixins.chunking.GridChunkingMixin.compute_chunk_coords">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_chunk_coords</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="n">chunks</span><span class="p">:</span> <span class="s2">&quot;ChunkIndexInput&quot;</span><span class="p">,</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;AxesInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">include_ghosts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">halo_offsets</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;HaloOffsetInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">oob_behavior</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;raise&quot;</span><span class="p">,</span>
+        <span class="n">__validate__</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute physical coordinate arrays for a selected chunk region.</span>
+
+<span class="sd">        This method returns the 1D coordinate arrays along each axis for a</span>
+<span class="sd">        given chunk, optionally including ghost zones and additional halo padding.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        chunks : int, tuple, slice, or sequence of those</span>
+<span class="sd">            Chunk specification per axis. For each axis, you may specify:</span>
+
+<span class="sd">            - `int`: selects a single chunk (i, i+1)</span>
+<span class="sd">            - `(start, stop)`: a range of chunks</span>
+<span class="sd">            - `slice(start, stop)`: a Python slice (step is ignored)</span>
+
+<span class="sd">            These are converted to global-space data index ranges.</span>
+<span class="sd">        axes : str or list of str, optional</span>
+<span class="sd">            The names of the axes to include in the slice. If None, all axes are used.</span>
+<span class="sd">            This determines the number of :py:class:`slice` objects returned in</span>
+<span class="sd">            the output tuple — one slice per selected axis.</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                Regardless of the ordering of ``axes``, the axes are reordered to</span>
+<span class="sd">                match canonical ordering as defined by the coordinate system.</span>
+<span class="sd">        include_ghosts : bool, optional</span>
+<span class="sd">            If ``True``, then the slice will include the ghost zones around the boundary of</span>
+<span class="sd">            the domain. Otherwise (default), the ghost zones are excluded from the resulting slice.</span>
+<span class="sd">        halo_offsets : int, sequence[int], or np.ndarray, optional</span>
+<span class="sd">            Extra padding (in ghost-cell units) to apply on top of the active or ghost-augmented domain.</span>
+
+<span class="sd">            This allows you to extend the region further outward beyond ghost zones — for example,</span>
+<span class="sd">            to reserve additional halo space for multi-pass stencils.</span>
+
+<span class="sd">            Supported formats:</span>
+
+<span class="sd">            - **int**: same padding applied to both sides of all axes</span>
+<span class="sd">            - **sequence of length N**: symmetric padding per axis (left = right)</span>
+<span class="sd">            - **array of shape (2, N)**: explicit left/right padding per axis</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                This is applied *after* ghost zones (if `include_ghosts=True`). Total padding = ghost zones + halo.</span>
+
+<span class="sd">        oob_behavior : {&quot;raise&quot;, &quot;clip&quot;}, default=&quot;raise&quot;</span>
+<span class="sd">            Determines what to do if the computed slice (after applying ghost zones and halo padding)</span>
+<span class="sd">            would extend beyond the allocated grid buffer (`__ghost_dd__`).</span>
+
+<span class="sd">            Options:</span>
+<span class="sd">                - **&quot;raise&quot;** : Raise an `IndexError` if any part of the slice is out of bounds.</span>
+<span class="sd">                - **&quot;clip&quot;**  : Clamp the slice to stay within the valid grid extent.</span>
+
+<span class="sd">            Use &quot;clip&quot; if you&#39;re performing relaxed operations (e.g., visualization or padding-aware reads),</span>
+<span class="sd">            and &quot;raise&quot; for strict enforcement during stencil computations or buffer validation.</span>
+<span class="sd">        __validate__ : bool, default=True</span>
+<span class="sd">            Whether to perform full type/shape validation. Disable in performance-critical paths.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple of np.ndarray</span>
+<span class="sd">            Physical coordinate arrays, one per selected axis.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">slices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_chunk_slice</span><span class="p">(</span>
+            <span class="n">chunks</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">include_ghosts</span><span class="p">,</span> <span class="n">halo_offsets</span><span class="p">,</span> <span class="n">oob_behavior</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_coords_from_slices</span><span class="p">(</span>
+            <span class="n">slices</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;global&quot;</span><span class="p">,</span> <span class="n">__validate__</span><span class="o">=</span><span class="n">__validate__</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GridChunkingMixin.compute_chunk_mesh">
+<a class="viewcode-back" href="../../../_as_gen/grids.mixins.chunking.GridChunkingMixin.compute_chunk_mesh.html#grids.mixins.chunking.GridChunkingMixin.compute_chunk_mesh">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_chunk_mesh</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="n">chunks</span><span class="p">:</span> <span class="s2">&quot;ChunkIndexInput&quot;</span><span class="p">,</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;AxesInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">include_ghosts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">halo_offsets</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;HaloOffsetInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">oob_behavior</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;raise&quot;</span><span class="p">,</span>
+        <span class="n">__validate__</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute a meshgrid of physical coordinates over a selected chunk region.</span>
+
+<span class="sd">        This method returns a set of multidimensional coordinate arrays representing</span>
+<span class="sd">        a full mesh over the selected chunk. It supports optional ghost zones and halo padding.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        chunks : int, tuple, slice, or sequence of those</span>
+<span class="sd">            Chunk specification per axis. For each axis, you may specify:</span>
+
+<span class="sd">            - `int`: selects a single chunk (i, i+1)</span>
+<span class="sd">            - `(start, stop)`: a range of chunks</span>
+<span class="sd">            - `slice(start, stop)`: a Python slice (step is ignored)</span>
+
+<span class="sd">            These are converted to global-space data index ranges.</span>
+<span class="sd">        axes : str or list of str, optional</span>
+<span class="sd">            The names of the axes to include in the slice. If None, all axes are used.</span>
+<span class="sd">            This determines the number of :py:class:`slice` objects returned in</span>
+<span class="sd">            the output tuple — one slice per selected axis.</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                Regardless of the ordering of ``axes``, the axes are reordered to</span>
+<span class="sd">                match canonical ordering as defined by the coordinate system.</span>
+<span class="sd">        include_ghosts : bool, optional</span>
+<span class="sd">            If ``True``, then the slice will include the ghost zones around the boundary of</span>
+<span class="sd">            the domain. Otherwise (default), the ghost zones are excluded from the resulting slice.</span>
+<span class="sd">        halo_offsets : int, sequence[int], or np.ndarray, optional</span>
+<span class="sd">            Extra padding (in ghost-cell units) to apply on top of the active or ghost-augmented domain.</span>
+
+<span class="sd">            This allows you to extend the region further outward beyond ghost zones — for example,</span>
+<span class="sd">            to reserve additional halo space for multi-pass stencils.</span>
+
+<span class="sd">            Supported formats:</span>
+
+<span class="sd">            - **int**: same padding applied to both sides of all axes</span>
+<span class="sd">            - **sequence of length N**: symmetric padding per axis (left = right)</span>
+<span class="sd">            - **array of shape (2, N)**: explicit left/right padding per axis</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                This is applied *after* ghost zones (if `include_ghosts=True`). Total padding = ghost zones + halo.</span>
+
+<span class="sd">        oob_behavior : {&quot;raise&quot;, &quot;clip&quot;}, default=&quot;raise&quot;</span>
+<span class="sd">            Determines what to do if the computed slice (after applying ghost zones and halo padding)</span>
+<span class="sd">            would extend beyond the allocated grid buffer (`__ghost_dd__`).</span>
+
+<span class="sd">            Options:</span>
+<span class="sd">                - **&quot;raise&quot;** : Raise an `IndexError` if any part of the slice is out of bounds.</span>
+<span class="sd">                - **&quot;clip&quot;**  : Clamp the slice to stay within the valid grid extent.</span>
+
+<span class="sd">            Use &quot;clip&quot; if you&#39;re performing relaxed operations (e.g., visualization or padding-aware reads),</span>
+<span class="sd">            and &quot;raise&quot; for strict enforcement during stencil computations or buffer validation.</span>
+
+<span class="sd">        __validate__ : bool, default=True</span>
+<span class="sd">            Whether to perform full type/shape validation. Disable in performance-critical paths.</span>
+
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Additional keyword arguments passed to `numpy.meshgrid`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple of np.ndarray</span>
+<span class="sd">            A tuple of meshgrid arrays, one for each selected axis.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_chunk_coords</span><span class="p">(</span>
+            <span class="n">chunks</span><span class="p">,</span>
+            <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span>
+            <span class="n">include_ghosts</span><span class="o">=</span><span class="n">include_ghosts</span><span class="p">,</span>
+            <span class="n">halo_offsets</span><span class="o">=</span><span class="n">halo_offsets</span><span class="p">,</span>
+            <span class="n">oob_behavior</span><span class="o">=</span><span class="n">oob_behavior</span><span class="p">,</span>
+            <span class="n">__validate__</span><span class="o">=</span><span class="n">__validate__</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="o">*</span><span class="n">coords</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GridChunkingMixin.compute_chunk_edges">
+<a class="viewcode-back" href="../../../_as_gen/grids.mixins.chunking.GridChunkingMixin.compute_chunk_edges.html#grids.mixins.chunking.GridChunkingMixin.compute_chunk_edges">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_chunk_edges</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="n">chunks</span><span class="p">:</span> <span class="s2">&quot;ChunkIndexInput&quot;</span><span class="p">,</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;AxesInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">include_ghosts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">halo_offsets</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;HaloOffsetInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">oob_behavior</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;raise&quot;</span><span class="p">,</span>
+        <span class="n">__validate__</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return coordinate edge arrays for a specific chunk along the selected axes.</span>
+
+<span class="sd">        If the grid is vertex-centered, the coordinates are already edges and are returned directly.</span>
+<span class="sd">        If the grid is cell-centered, edges are computed from the center coordinates and the chunk-local bounding box.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        chunks : ChunkIndexInput</span>
+<span class="sd">            The chunk index specification (int, tuple, slice, or sequence of those).</span>
+<span class="sd">        axes : str or list of str, optional</span>
+<span class="sd">            Axes to include. If None, all axes are included.</span>
+<span class="sd">        include_ghosts : bool, default=False</span>
+<span class="sd">            Whether to include ghost zones when computing chunk extent.</span>
+<span class="sd">        halo_offsets : int, sequence[int], or np.ndarray, optional</span>
+<span class="sd">            Extra ghost-cell-padding to apply on top of the standard ghost zones.</span>
+<span class="sd">        oob_behavior : {&quot;raise&quot;, &quot;clip&quot;}, default=&quot;raise&quot;</span>
+<span class="sd">            What to do if the computed chunk region would go out of bounds.</span>
+<span class="sd">        __validate__ : bool, default=True</span>
+<span class="sd">            Whether to validate inputs (axes, shapes, etc).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list of np.ndarray</span>
+<span class="sd">            One coordinate array per axis, with length = n+1 (edge-aligned).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_axes</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+
+        <span class="c1"># Retrieve center coordinates and bounding box for this chunk</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_chunk_coords</span><span class="p">(</span>
+            <span class="n">chunks</span><span class="p">,</span>
+            <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span>
+            <span class="n">include_ghosts</span><span class="o">=</span><span class="n">include_ghosts</span><span class="p">,</span>
+            <span class="n">halo_offsets</span><span class="o">=</span><span class="n">halo_offsets</span><span class="p">,</span>
+            <span class="n">oob_behavior</span><span class="o">=</span><span class="n">oob_behavior</span><span class="p">,</span>
+            <span class="n">__validate__</span><span class="o">=</span><span class="n">__validate__</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_chunk_bbox</span><span class="p">(</span>
+            <span class="n">chunks</span><span class="p">,</span>
+            <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span>
+            <span class="n">include_ghosts</span><span class="o">=</span><span class="n">include_ghosts</span><span class="p">,</span>
+            <span class="n">halo_offsets</span><span class="o">=</span><span class="n">halo_offsets</span><span class="p">,</span>
+            <span class="n">oob_behavior</span><span class="o">=</span><span class="n">oob_behavior</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">centering</span> <span class="o">==</span> <span class="s2">&quot;vertex&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">coords</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">centering</span> <span class="o">==</span> <span class="s2">&quot;cell&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_centers_to_edges</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Centering mode &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">centering</span><span class="si">}</span><span class="s2">&#39; is not supported.&quot;</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GridChunkingMixin.compute_chunk_centers">
+<a class="viewcode-back" href="../../../_as_gen/grids.mixins.chunking.GridChunkingMixin.compute_chunk_centers.html#grids.mixins.chunking.GridChunkingMixin.compute_chunk_centers">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_chunk_centers</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="n">chunks</span><span class="p">:</span> <span class="s2">&quot;ChunkIndexInput&quot;</span><span class="p">,</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;AxesInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">include_ghosts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">halo_offsets</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;HaloOffsetInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">oob_behavior</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;raise&quot;</span><span class="p">,</span>
+        <span class="n">__validate__</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return coordinate center arrays for a specific chunk along the selected axes.</span>
+
+<span class="sd">        If the grid is cell-centered, the coordinates are already centers and are returned directly.</span>
+<span class="sd">        If the grid is vertex-centered, centers are computed from the edge coordinates.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        chunks : ChunkIndexInput</span>
+<span class="sd">            The chunk index specification (int, tuple, slice, or sequence of those).</span>
+<span class="sd">        axes : str or list of str, optional</span>
+<span class="sd">            Axes to include. If None, all axes are included.</span>
+<span class="sd">        include_ghosts : bool, default=False</span>
+<span class="sd">            Whether to include ghost zones when computing chunk extent.</span>
+<span class="sd">        halo_offsets : int, sequence[int], or np.ndarray, optional</span>
+<span class="sd">            Extra ghost-cell-padding to apply on top of the standard ghost zones.</span>
+<span class="sd">        oob_behavior : {&quot;raise&quot;, &quot;clip&quot;}, default=&quot;raise&quot;</span>
+<span class="sd">            What to do if the computed chunk region would go out of bounds.</span>
+<span class="sd">        __validate__ : bool, default=True</span>
+<span class="sd">            Whether to validate inputs (axes, shapes, etc).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list of np.ndarray</span>
+<span class="sd">            One coordinate array per axis, center-aligned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_axes</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+
+        <span class="n">coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_chunk_coords</span><span class="p">(</span>
+            <span class="n">chunks</span><span class="p">,</span>
+            <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span>
+            <span class="n">include_ghosts</span><span class="o">=</span><span class="n">include_ghosts</span><span class="p">,</span>
+            <span class="n">halo_offsets</span><span class="o">=</span><span class="n">halo_offsets</span><span class="p">,</span>
+            <span class="n">oob_behavior</span><span class="o">=</span><span class="n">oob_behavior</span><span class="p">,</span>
+            <span class="n">__validate__</span><span class="o">=</span><span class="n">__validate__</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">centering</span> <span class="o">==</span> <span class="s2">&quot;cell&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">coords</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">centering</span> <span class="o">==</span> <span class="s2">&quot;vertex&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edges_to_centers</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Centering mode &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">centering</span><span class="si">}</span><span class="s2">&#39; is not supported.&quot;</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GridChunkingMixin.get_chunk_bbox">
+<a class="viewcode-back" href="../../../_as_gen/grids.mixins.chunking.GridChunkingMixin.get_chunk_bbox.html#grids.mixins.chunking.GridChunkingMixin.get_chunk_bbox">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_chunk_bbox</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="n">chunks</span><span class="p">:</span> <span class="s2">&quot;ChunkIndexInput&quot;</span><span class="p">,</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;AxesInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">include_ghosts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">halo_offsets</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;HaloOffsetInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">oob_behavior</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;raise&quot;</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BoundingBox</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the physical bounding box (lower, upper) of a given chunk.</span>
+
+<span class="sd">        This works for both vertex- and cell-centered grids by computing edge coordinates</span>
+<span class="sd">        over the full domain and slicing into them appropriately.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_axes</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+
+        <span class="c1"># Get full domain edges for the relevant axes</span>
+        <span class="n">edge_coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_domain_edges</span><span class="p">(</span>
+            <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;global&quot;</span><span class="p">,</span> <span class="n">__validate__</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Get chunk slice (in point index space)</span>
+        <span class="n">chunk_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_chunk_slice</span><span class="p">(</span>
+            <span class="n">chunks</span><span class="o">=</span><span class="n">chunks</span><span class="p">,</span>
+            <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span>
+            <span class="n">include_ghosts</span><span class="o">=</span><span class="n">include_ghosts</span><span class="p">,</span>
+            <span class="n">halo_offsets</span><span class="o">=</span><span class="n">halo_offsets</span><span class="p">,</span>
+            <span class="n">oob_behavior</span><span class="o">=</span><span class="n">oob_behavior</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Adjust slice endpoints if cell-centered: we need (n+1) points to get n cells&#39; edges</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">centering</span> <span class="o">==</span> <span class="s2">&quot;cell&quot;</span><span class="p">:</span>
+            <span class="n">adjusted_slices</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="n">slc</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">slc</span><span class="o">.</span><span class="n">stop</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">slc</span> <span class="ow">in</span> <span class="n">chunk_slice</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">adjusted_slices</span> <span class="o">=</span> <span class="n">chunk_slice</span>
+
+        <span class="c1"># Build bounding box from edge values</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">edge</span><span class="p">,</span> <span class="n">slc</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">edge_coords</span><span class="p">,</span> <span class="n">adjusted_slices</span><span class="p">):</span>
+            <span class="n">lower</span> <span class="o">=</span> <span class="n">edge</span><span class="p">[</span><span class="n">slc</span><span class="o">.</span><span class="n">start</span><span class="p">]</span>
+            <span class="n">upper</span> <span class="o">=</span> <span class="n">edge</span><span class="p">[</span><span class="n">slc</span><span class="o">.</span><span class="n">stop</span><span class="p">]</span>
+            <span class="n">bbox</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">BoundingBox</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span></div>
+
+
+    <span class="c1"># =============================== #</span>
+    <span class="c1"># Interpolation on chunks         #</span>
+    <span class="c1"># =============================== #</span>
+<div class="viewcode-block" id="GridChunkingMixin.construct_chunk_interpolator">
+<a class="viewcode-back" href="../../../_as_gen/grids.mixins.chunking.GridChunkingMixin.construct_chunk_interpolator.html#grids.mixins.chunking.GridChunkingMixin.construct_chunk_interpolator">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">construct_chunk_interpolator</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">field_axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">chunks</span><span class="p">:</span> <span class="s2">&quot;ChunkIndexInput&quot;</span><span class="p">,</span>
+        <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span><span class="p">,</span>
+        <span class="n">include_ghosts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">halo_offsets</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;HaloOffsetInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">bounds_error</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">fill_value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+        <span class="n">oob_behavior</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;raise&quot;</span><span class="p">,</span>
+        <span class="n">__validate__</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;RegularGridInterpolator&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct an interpolator for a specific chunk using SciPy&#39;s RegularGridInterpolator.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        field : np.ndarray</span>
+<span class="sd">            Field data over the chunk, aligned with `field_axes`.</span>
+<span class="sd">        field_axes : Sequence[str]</span>
+<span class="sd">            Axes spanned by the field (e.g., [&quot;x&quot;, &quot;y&quot;]).</span>
+<span class="sd">        chunks : ChunkIndexInput</span>
+<span class="sd">            Chunk index (e.g., (1, 2) or [1, 2]) for the region over which to interpolate.</span>
+<span class="sd">        method : {&quot;linear&quot;, &quot;nearest&quot;}, default=&quot;linear&quot;</span>
+<span class="sd">            Interpolation method.</span>
+<span class="sd">        include_ghosts : bool, default=False</span>
+<span class="sd">            Whether to include ghost zones in the chunk coordinate extraction.</span>
+<span class="sd">        halo_offsets : int, sequence[int], or array, optional</span>
+<span class="sd">            Extra padding around the chunk region.</span>
+<span class="sd">        bounds_error : bool, default=False</span>
+<span class="sd">            Whether to raise an error for out-of-bound queries.</span>
+<span class="sd">        fill_value : float or None, default=np.nan</span>
+<span class="sd">            Fill value for out-of-bound queries if `bounds_error=False`.</span>
+<span class="sd">        oob_behavior : {&quot;raise&quot;, &quot;clip&quot;}, default=&quot;raise&quot;</span>
+<span class="sd">            How to handle index overflow when applying halo or ghost zones.</span>
+<span class="sd">        __validate__ : bool, default=True</span>
+<span class="sd">            Whether to perform full input validation.</span>
+<span class="sd">        **kwargs</span>
+<span class="sd">            Extra options forwarded to RegularGridInterpolator.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        interpolator : RegularGridInterpolator</span>
+<span class="sd">            A callable that performs interpolation over the selected chunk.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.interpolate</span><span class="w"> </span><span class="kn">import</span> <span class="n">RegularGridInterpolator</span>
+
+        <span class="c1"># Extract the physical coordinates over the chunk</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_chunk_coords</span><span class="p">(</span>
+            <span class="n">chunks</span><span class="o">=</span><span class="n">chunks</span><span class="p">,</span>
+            <span class="n">axes</span><span class="o">=</span><span class="n">field_axes</span><span class="p">,</span>
+            <span class="n">include_ghosts</span><span class="o">=</span><span class="n">include_ghosts</span><span class="p">,</span>
+            <span class="n">halo_offsets</span><span class="o">=</span><span class="n">halo_offsets</span><span class="p">,</span>
+            <span class="n">oob_behavior</span><span class="o">=</span><span class="n">oob_behavior</span><span class="p">,</span>
+            <span class="n">__validate__</span><span class="o">=</span><span class="n">__validate__</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Construct the interpolator using the chunk-local field</span>
+        <span class="n">interpolator</span> <span class="o">=</span> <span class="n">RegularGridInterpolator</span><span class="p">(</span>
+            <span class="n">points</span><span class="o">=</span><span class="n">coords</span><span class="p">,</span>
+            <span class="n">values</span><span class="o">=</span><span class="n">field</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+            <span class="n">bounds_error</span><span class="o">=</span><span class="n">bounds_error</span><span class="p">,</span>
+            <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">interpolator</span></div>
+
+
+    <span class="c1"># ================================ #</span>
+    <span class="c1"># Iterables                        #</span>
+    <span class="c1"># ================================ #</span>
+    <span class="c1"># These methods allow users to loop through</span>
+    <span class="c1"># chunks in each grid.</span>
+<div class="viewcode-block" id="GridChunkingMixin.iter_chunk_slices">
+<a class="viewcode-back" href="../../../_as_gen/grids.mixins.chunking.GridChunkingMixin.iter_chunk_slices.html#grids.mixins.chunking.GridChunkingMixin.iter_chunk_slices">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">iter_chunk_slices</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="o">/</span><span class="p">,</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;AxesInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">include_ghosts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">halo_offsets</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;HaloOffsetInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">oob_behavior</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;raise&quot;</span><span class="p">,</span>
+        <span class="n">pbar</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">pbar_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Efficiently iterate over chunk-wise slices in global index space.</span>
+
+<span class="sd">        This iterator yields a tuple of slices per chunk along selected axes,</span>
+<span class="sd">        updating only the slices that change. Supports ghost zones, halo padding,</span>
+<span class="sd">        and progress bar display.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        axes : str or list of str, optional</span>
+<span class="sd">            The names of the axes to include in the slice. If None, all axes are used.</span>
+<span class="sd">            This determines the number of :py:class:`slice` objects returned in</span>
+<span class="sd">            the output tuple — one slice per selected axis.</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                Regardless of the ordering of ``axes``, the axes are reordered to</span>
+<span class="sd">                match canonical ordering as defined by the coordinate system.</span>
+<span class="sd">        include_ghosts : bool, optional</span>
+<span class="sd">            If ``True``, then the slice will include the ghost zones around the boundary of</span>
+<span class="sd">            the domain. Otherwise (default), the ghost zones are excluded from the resulting slice.</span>
+<span class="sd">        halo_offsets : int, sequence[int], or np.ndarray, optional</span>
+<span class="sd">            Extra padding (in ghost-cell units) to apply on top of the active or ghost-augmented domain.</span>
+
+<span class="sd">            This allows you to extend the region further outward beyond ghost zones — for example,</span>
+<span class="sd">            to reserve additional halo space for multi-pass stencils.</span>
+
+<span class="sd">            Supported formats:</span>
+
+<span class="sd">            - **int**: same padding applied to both sides of all axes</span>
+<span class="sd">            - **sequence of length N**: symmetric padding per axis (left = right)</span>
+<span class="sd">            - **array of shape (2, N)**: explicit left/right padding per axis</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                This is applied *after* ghost zones (if `include_ghosts=True`). Total padding = ghost zones + halo.</span>
+
+<span class="sd">        oob_behavior : {&quot;raise&quot;, &quot;clip&quot;}, default=&quot;raise&quot;</span>
+<span class="sd">            Determines what to do if the computed slice (after applying ghost zones and halo padding)</span>
+<span class="sd">            would extend beyond the allocated grid buffer (`__ghost_dd__`).</span>
+
+<span class="sd">            Options:</span>
+<span class="sd">                - **&quot;raise&quot;** : Raise an `IndexError` if any part of the slice is out of bounds.</span>
+<span class="sd">                - **&quot;clip&quot;**  : Clamp the slice to stay within the valid grid extent.</span>
+
+<span class="sd">            Use &quot;clip&quot; if you&#39;re performing relaxed operations (e.g., visualization or padding-aware reads),</span>
+<span class="sd">            and &quot;raise&quot; for strict enforcement during stencil computations or buffer validation.</span>
+<span class="sd">        pbar : bool, default=True</span>
+<span class="sd">            Whether to display a tqdm progress bar.</span>
+<span class="sd">        pbar_kwargs : dict, optional</span>
+<span class="sd">            Additional keyword arguments passed to `tqdm`.</span>
+
+<span class="sd">        Yields</span>
+<span class="sd">        ------</span>
+<span class="sd">        tuple of slice</span>
+<span class="sd">            A tuple of slices selecting the current chunk in global index space.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Standardize axes and prepare chunk metadata</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_axes</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="n">num_axes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="n">axes_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__cs__</span><span class="o">.</span><span class="n">convert_axes_to_indices</span><span class="p">(</span><span class="n">axes</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">halo_offsets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_standardize_halo_offset</span><span class="p">(</span><span class="n">halo_offsets</span><span class="p">,</span> <span class="n">num_axes</span><span class="p">)</span>
+
+        <span class="n">cdd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cdd__</span><span class="p">[</span><span class="n">axes_indices</span><span class="p">]</span>
+
+        <span class="c1"># Initialize first slice using fast multi-axis function</span>
+        <span class="n">current_slices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_compute_chunk_slice_fast</span><span class="p">(</span>
+                <span class="n">start</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_axes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">),</span>
+                <span class="n">stop</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">num_axes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">),</span>
+                <span class="n">axes_indices</span><span class="o">=</span><span class="n">axes_indices</span><span class="p">,</span>
+                <span class="n">include_ghosts</span><span class="o">=</span><span class="n">include_ghosts</span><span class="p">,</span>
+                <span class="n">halo_offsets</span><span class="o">=</span><span class="n">halo_offsets</span><span class="p">,</span>
+                <span class="n">oob_behavior</span><span class="o">=</span><span class="n">oob_behavior</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Initialize progress bar</span>
+        <span class="n">progress_bar</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">pbar</span><span class="p">:</span>
+            <span class="n">pbar_kwargs</span> <span class="o">=</span> <span class="n">pbar_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+            <span class="n">pbar_kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;desc&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Iterating over </span><span class="si">{</span><span class="n">axes</span><span class="si">}</span><span class="s2"> chunks&quot;</span><span class="p">)</span>
+            <span class="n">pbar_kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;total&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">cdd</span><span class="p">)))</span>
+            <span class="n">progress_bar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="o">**</span><span class="n">pbar_kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Iterate over all chunk index tuples (e.g. (0,0), (0,1), ...)</span>
+        <span class="n">_prev_chunk_index</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span> <span class="o">*</span> <span class="n">num_axes</span>
+        <span class="k">for</span> <span class="n">chunk_index</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ndindex</span><span class="p">(</span><span class="o">*</span><span class="n">cdd</span><span class="p">):</span>
+            <span class="c1"># Only recompute slices along axes that changed</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_axes</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">chunk_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">_prev_chunk_index</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="n">current_slices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_chunk_slice_fast_scalar</span><span class="p">(</span>
+                        <span class="n">start</span><span class="o">=</span><span class="n">chunk_index</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                        <span class="n">axis_index</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">axes_indices</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span>
+                        <span class="n">include_ghosts</span><span class="o">=</span><span class="n">include_ghosts</span><span class="p">,</span>
+                        <span class="n">halo_offsets</span><span class="o">=</span><span class="n">halo_offsets</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span>
+                        <span class="n">oob_behavior</span><span class="o">=</span><span class="n">oob_behavior</span><span class="p">,</span>
+                    <span class="p">)</span>
+
+            <span class="n">_prev_chunk_index</span> <span class="o">=</span> <span class="n">chunk_index</span>
+            <span class="k">if</span> <span class="n">progress_bar</span><span class="p">:</span>
+                <span class="n">progress_bar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="k">yield</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">current_slices</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GridChunkingMixin.iter_chunk_indices">
+<a class="viewcode-back" href="../../../_as_gen/grids.mixins.chunking.GridChunkingMixin.iter_chunk_indices.html#grids.mixins.chunking.GridChunkingMixin.iter_chunk_indices">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">iter_chunk_indices</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;AxesInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">pbar</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">pbar_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Iterate over chunk indices for the grid along specified axes.</span>
+
+<span class="sd">        This yields the index tuple (e.g., (i, j, k)) for each chunk</span>
+<span class="sd">        along the selected axes. It does not compute slices or include</span>
+<span class="sd">        ghost/halo metadata — it is simply the raw chunk index iterator.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        axes : str or list of str, optional</span>
+<span class="sd">            The names of the axes to include in the slice. If None, all axes are used.</span>
+<span class="sd">            This determines the number of :py:class:`slice` objects returned in</span>
+<span class="sd">            the output tuple — one slice per selected axis.</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                Regardless of the ordering of ``axes``, the axes are reordered to</span>
+<span class="sd">                match canonical ordering as defined by the coordinate system.</span>
+
+<span class="sd">        pbar : bool, default=True</span>
+<span class="sd">            Whether to display a tqdm progress bar during iteration.</span>
+
+<span class="sd">        pbar_kwargs : dict, optional</span>
+<span class="sd">            Additional keyword arguments to pass to `tqdm`.</span>
+
+<span class="sd">        Yields</span>
+<span class="sd">        ------</span>
+<span class="sd">        tuple of int</span>
+<span class="sd">            The current chunk index along the selected axes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Normalize the axes</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_axes</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="n">axes_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cs__</span><span class="o">.</span><span class="n">convert_axes_to_indices</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+
+        <span class="c1"># Extract shape of chunk layout along those axes</span>
+        <span class="n">cdd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cdd__</span><span class="p">[</span><span class="n">axes_indices</span><span class="p">]</span>
+
+        <span class="c1"># Configure optional progress bar</span>
+        <span class="n">progress_bar</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">pbar</span><span class="p">:</span>
+            <span class="n">pbar_kwargs</span> <span class="o">=</span> <span class="n">pbar_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+            <span class="n">pbar_kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;desc&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Iterating over </span><span class="si">{</span><span class="n">axes</span><span class="si">}</span><span class="s2"> chunk indices&quot;</span><span class="p">)</span>
+            <span class="n">pbar_kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;total&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">cdd</span><span class="p">)))</span>
+            <span class="n">progress_bar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="o">**</span><span class="n">pbar_kwargs</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">chunk_index</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ndindex</span><span class="p">(</span><span class="o">*</span><span class="n">cdd</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">progress_bar</span><span class="p">:</span>
+                <span class="n">progress_bar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">chunk_index</span></div>
+
+
+<div class="viewcode-block" id="GridChunkingMixin.iter_chunk_coords">
+<a class="viewcode-back" href="../../../_as_gen/grids.mixins.chunking.GridChunkingMixin.iter_chunk_coords.html#grids.mixins.chunking.GridChunkingMixin.iter_chunk_coords">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">iter_chunk_coords</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_SupGridChunking</span><span class="p">,</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;AxesInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">include_ghosts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">halo_offsets</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;HaloOffsetInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">oob_behavior</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;raise&quot;</span><span class="p">,</span>
+        <span class="n">pbar</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">pbar_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Efficiently iterate over physical coordinates for each chunk in the grid.</span>
+
+<span class="sd">        This yields 1D coordinate arrays along the selected axes, one set per chunk.</span>
+<span class="sd">        Only the coordinate arrays for axes that change between chunks are recomputed,</span>
+<span class="sd">        making this efficient for tight iteration.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        axes : str or list of str, optional</span>
+<span class="sd">            The names of the axes to include in the slice. If None, all axes are used.</span>
+<span class="sd">            This determines the number of :py:class:`slice` objects returned in</span>
+<span class="sd">            the output tuple — one slice per selected axis.</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                Regardless of the ordering of ``axes``, the axes are reordered to</span>
+<span class="sd">                match canonical ordering as defined by the coordinate system.</span>
+<span class="sd">        include_ghosts : bool, optional</span>
+<span class="sd">            If ``True``, then the slice will include the ghost zones around the boundary of</span>
+<span class="sd">            the domain. Otherwise (default), the ghost zones are excluded from the resulting slice.</span>
+<span class="sd">        halo_offsets : int, sequence[int], or np.ndarray, optional</span>
+<span class="sd">            Extra padding (in ghost-cell units) to apply on top of the active or ghost-augmented domain.</span>
+
+<span class="sd">            This allows you to extend the region further outward beyond ghost zones — for example,</span>
+<span class="sd">            to reserve additional halo space for multi-pass stencils.</span>
+
+<span class="sd">            Supported formats:</span>
+
+<span class="sd">            - **int**: same padding applied to both sides of all axes</span>
+<span class="sd">            - **sequence of length N**: symmetric padding per axis (left = right)</span>
+<span class="sd">            - **array of shape (2, N)**: explicit left/right padding per axis</span>
+
+<span class="sd">            .. note::</span>
+
+<span class="sd">                This is applied *after* ghost zones (if `include_ghosts=True`). Total padding = ghost zones + halo.</span>
+
+<span class="sd">        oob_behavior : {&quot;raise&quot;, &quot;clip&quot;}, default=&quot;raise&quot;</span>
+<span class="sd">            Determines what to do if the computed slice (after applying ghost zones and halo padding)</span>
+<span class="sd">            would extend beyond the allocated grid buffer (`__ghost_dd__`).</span>
+
+<span class="sd">            Options:</span>
+<span class="sd">                - **&quot;raise&quot;** : Raise an `IndexError` if any part of the slice is out of bounds.</span>
+<span class="sd">                - **&quot;clip&quot;**  : Clamp the slice to stay within the valid grid extent.</span>
+
+<span class="sd">            Use &quot;clip&quot; if you&#39;re performing relaxed operations (e.g., visualization or padding-aware reads),</span>
+<span class="sd">            and &quot;raise&quot; for strict enforcement during stencil computations or buffer validation.</span>
+<span class="sd">        pbar : bool, default=True</span>
+<span class="sd">            Whether to display a tqdm progress bar.</span>
+<span class="sd">        pbar_kwargs : dict, optional</span>
+<span class="sd">            Additional keyword arguments passed to `tqdm`.</span>
+
+<span class="sd">        Yields</span>
+<span class="sd">        ------</span>
+<span class="sd">        tuple of np.ndarray</span>
+<span class="sd">            A tuple of coordinate arrays, one per selected axis, for each chunk.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Normalize inputs and initialize metadata</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_axes</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="n">num_axes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="n">axes_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cs__</span><span class="o">.</span><span class="n">convert_axes_to_indices</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="n">halo_offsets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_standardize_halo_offset</span><span class="p">(</span><span class="n">halo_offsets</span><span class="p">,</span> <span class="n">num_axes</span><span class="p">)</span>
+        <span class="n">halo_offsets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># pre-negate left side</span>
+
+        <span class="n">cdd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cdd__</span><span class="p">[</span><span class="n">axes_indices</span><span class="p">]</span>
+
+        <span class="c1"># Track initial slices and coordinates</span>
+        <span class="n">current_slices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_compute_chunk_slice_fast</span><span class="p">(</span>
+                <span class="n">start</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_axes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">),</span>
+                <span class="n">stop</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">num_axes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">),</span>
+                <span class="n">axes_indices</span><span class="o">=</span><span class="n">axes_indices</span><span class="p">,</span>
+                <span class="n">include_ghosts</span><span class="o">=</span><span class="n">include_ghosts</span><span class="p">,</span>
+                <span class="n">halo_offsets</span><span class="o">=</span><span class="n">halo_offsets</span><span class="p">,</span>
+                <span class="n">oob_behavior</span><span class="o">=</span><span class="n">oob_behavior</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">current_coords</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">compute_coords_from_slices</span><span class="p">(</span>
+                <span class="n">current_slices</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;global&quot;</span><span class="p">,</span> <span class="n">__validate__</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Setup progress bar</span>
+        <span class="n">progress_bar</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">pbar</span><span class="p">:</span>
+            <span class="n">pbar_kwargs</span> <span class="o">=</span> <span class="n">pbar_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+            <span class="n">pbar_kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;desc&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Iterating over </span><span class="si">{</span><span class="n">axes</span><span class="si">}</span><span class="s2"> chunk coordinates&quot;</span><span class="p">)</span>
+            <span class="n">pbar_kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;total&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">cdd</span><span class="p">)))</span>
+            <span class="n">progress_bar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="o">**</span><span class="n">pbar_kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Loop over all chunk indices</span>
+        <span class="n">_prev_chunk_index</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span> <span class="o">*</span> <span class="n">num_axes</span>
+        <span class="k">for</span> <span class="n">chunk_index</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ndindex</span><span class="p">(</span><span class="o">*</span><span class="n">cdd</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_axes</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">chunk_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">_prev_chunk_index</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="n">current_slices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_chunk_slice_fast_scalar</span><span class="p">(</span>
+                        <span class="n">start</span><span class="o">=</span><span class="n">chunk_index</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                        <span class="n">axis_index</span><span class="o">=</span><span class="n">axes_indices</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                        <span class="n">include_ghosts</span><span class="o">=</span><span class="n">include_ghosts</span><span class="p">,</span>
+                        <span class="n">halo_offsets</span><span class="o">=</span><span class="n">halo_offsets</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span>
+                        <span class="n">oob_behavior</span><span class="o">=</span><span class="n">oob_behavior</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="n">current_coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_coords_from_slices</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">current_slices</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span>
+                        <span class="n">axes</span><span class="o">=</span><span class="p">[</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span>
+                        <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;global&quot;</span><span class="p">,</span>
+                        <span class="n">__validate__</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="p">)[</span>
+                        <span class="mi">0</span>
+                    <span class="p">]</span>  <span class="c1"># unwrap single-axis result</span>
+
+            <span class="n">_prev_chunk_index</span> <span class="o">=</span> <span class="n">chunk_index</span>
+            <span class="k">if</span> <span class="n">progress_bar</span><span class="p">:</span>
+                <span class="n">progress_bar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="k">yield</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">current_coords</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Eliza Diggins.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

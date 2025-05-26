@@ -1,0 +1,6 @@
+fields.buffers.utilities.buffer\_full
+=====================================
+
+.. currentmodule:: fields.buffers.utilities
+
+.. autofunction:: buffer_full

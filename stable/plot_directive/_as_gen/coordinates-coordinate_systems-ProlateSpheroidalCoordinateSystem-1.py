@@ -1,0 +1,35 @@
+import matplotlib.pyplot as plt
+from pymetric.coordinates.coordinate_systems import ProlateSpheroidalCoordinateSystem
+#
+# Initialize the coordinate system:
+#
+a = 1.0  # Semi-major axis
+coordinate_system = ProlateSpheroidalCoordinateSystem(a=a)
+#
+# Define the coordinate ranges:
+#
+mu_vals = np.linspace(0, 2, 6)  # Range of mu values
+nu_vals = np.linspace(0, np.pi, 12)  # Range of nu values
+phi = 0  # Fix the azimuthal angle
+#
+# Plot constant :math:`\mu` surfaces:
+#
+for mu in mu_vals:
+    nu = np.linspace(0, np.pi, 200)
+    coords = [mu * np.ones_like(nu), nu, np.full_like(nu, phi)]
+    cartesian = coordinate_system._convert_native_to_cartesian(*coords)
+    _ = plt.plot(cartesian[0],cartesian[2], 'k-', lw=0.5)
+#
+# Plot constant :math:`\nu` surfaces:
+#
+for nu in nu_vals:
+    mu = np.linspace(0, 2, 200)
+    coords = [mu, np.full_like(mu, nu), np.full_like(mu, phi)]
+    cartesian = coordinate_system._convert_native_to_cartesian(*coords)
+    _ = plt.plot(cartesian[0],cartesian[2], 'k-', lw=0.5)
+#
+_ = plt.title('Prolate Spheroidal Coordinate System')
+_ = plt.xlabel('x')
+_ = plt.ylabel('z')
+_ = plt.axis('equal')
+plt.show()

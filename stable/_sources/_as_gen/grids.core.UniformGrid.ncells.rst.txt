@@ -1,0 +1,6 @@
+grids.core.UniformGrid.ncells
+=============================
+
+.. currentmodule:: grids.core
+
+.. autoproperty:: UniformGrid.ncells

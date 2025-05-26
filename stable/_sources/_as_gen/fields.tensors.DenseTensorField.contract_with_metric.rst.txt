@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.contract\_with\_metric
+======================================================
+
+.. currentmodule:: fields.tensors
+
+.. automethod:: DenseTensorField.contract_with_metric

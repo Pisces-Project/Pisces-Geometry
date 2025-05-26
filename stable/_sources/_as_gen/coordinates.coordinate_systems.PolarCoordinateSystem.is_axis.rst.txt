@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.is\_axis
+==============================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: PolarCoordinateSystem.is_axis

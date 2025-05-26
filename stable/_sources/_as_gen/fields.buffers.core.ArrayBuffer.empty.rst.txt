@@ -1,0 +1,6 @@
+fields.buffers.core.ArrayBuffer.empty
+=====================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: ArrayBuffer.empty

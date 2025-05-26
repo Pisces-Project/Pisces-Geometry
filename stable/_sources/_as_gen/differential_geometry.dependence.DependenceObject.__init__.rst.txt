@@ -1,0 +1,6 @@
+differential\_geometry.dependence.DependenceObject.\_\_init\_\_
+===============================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. automethod:: DependenceObject.__init__

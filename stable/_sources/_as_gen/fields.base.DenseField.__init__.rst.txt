@@ -1,0 +1,6 @@
+fields.base.DenseField.\_\_init\_\_
+===================================
+
+.. currentmodule:: fields.base
+
+.. automethod:: DenseField.__init__

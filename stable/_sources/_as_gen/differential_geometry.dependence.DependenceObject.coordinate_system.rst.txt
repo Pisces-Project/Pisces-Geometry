@@ -1,0 +1,6 @@
+differential\_geometry.dependence.DependenceObject.coordinate\_system
+=====================================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. autoproperty:: DependenceObject.coordinate_system
