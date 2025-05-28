@@ -1,0 +1,6 @@
+grids.core.UniformGrid.dense\_raise\_index
+==========================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: UniformGrid.dense_raise_index

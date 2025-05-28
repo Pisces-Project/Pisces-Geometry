@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.CartesianCoordinateSystem1D.has\_expression
+===========================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: CartesianCoordinateSystem1D.has_expression

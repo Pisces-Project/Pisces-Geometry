@@ -1,0 +1,6 @@
+grids.base.GridBase.dense\_vector\_divergence
+=============================================
+
+.. currentmodule:: grids.base
+
+.. automethod:: GridBase.dense_vector_divergence

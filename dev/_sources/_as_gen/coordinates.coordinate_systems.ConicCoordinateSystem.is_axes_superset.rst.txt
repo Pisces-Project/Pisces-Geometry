@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ConicCoordinateSystem.is\_axes\_superset
+========================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ConicCoordinateSystem.is_axes_superset

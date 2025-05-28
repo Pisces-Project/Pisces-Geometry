@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.CartesianCoordinateSystem3D.parameter\_symbols
+==============================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: CartesianCoordinateSystem3D.parameter_symbols

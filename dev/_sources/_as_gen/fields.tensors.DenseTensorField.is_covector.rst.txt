@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.is\_covector
+============================================
+
+.. currentmodule:: fields.tensors
+
+.. autoproperty:: DenseTensorField.is_covector

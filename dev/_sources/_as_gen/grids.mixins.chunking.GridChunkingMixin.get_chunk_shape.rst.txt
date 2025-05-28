@@ -1,0 +1,6 @@
+grids.mixins.chunking.GridChunkingMixin.get\_chunk\_shape
+=========================================================
+
+.. currentmodule:: grids.mixins.chunking
+
+.. automethod:: GridChunkingMixin.get_chunk_shape

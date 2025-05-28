@@ -1,0 +1,6 @@
+fields.buffers.core.ArrayBuffer.v
+=================================
+
+.. currentmodule:: fields.buffers.core
+
+.. autoproperty:: ArrayBuffer.v

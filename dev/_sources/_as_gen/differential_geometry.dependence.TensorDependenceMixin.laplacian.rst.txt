@@ -1,0 +1,6 @@
+differential\_geometry.dependence.TensorDependenceMixin.laplacian
+=================================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. automethod:: TensorDependenceMixin.laplacian

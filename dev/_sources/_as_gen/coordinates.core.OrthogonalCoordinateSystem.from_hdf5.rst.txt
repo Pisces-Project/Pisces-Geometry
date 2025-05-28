@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.from\_hdf5
+======================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.from_hdf5

@@ -1,0 +1,6 @@
+differential\_geometry.dense\_ops.dense\_vector\_divergence\_covariant\_full
+============================================================================
+
+.. currentmodule:: differential_geometry.dense_ops
+
+.. autofunction:: dense_vector_divergence_covariant_full

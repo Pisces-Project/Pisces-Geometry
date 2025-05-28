@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.coordinate\_meshgrid
+=================================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: CurvilinearCoordinateSystem.coordinate_meshgrid

@@ -1,0 +1,6 @@
+grids.core.UniformGrid.dense\_gradient
+======================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: UniformGrid.dense_gradient

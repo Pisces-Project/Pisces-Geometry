@@ -1,0 +1,6 @@
+grids.mixins.core.GridPlotMixin.plot\_ghost\_zone\_shading
+==========================================================
+
+.. currentmodule:: grids.mixins.core
+
+.. automethod:: GridPlotMixin.plot_ghost_zone_shading

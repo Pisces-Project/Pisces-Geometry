@@ -1,0 +1,6 @@
+fields.buffers.core.ArrayBuffer.to\_value
+=========================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: ArrayBuffer.to_value

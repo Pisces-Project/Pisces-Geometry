@@ -1,0 +1,6 @@
+fields.buffers.core.HDF5Buffer.open
+===================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: HDF5Buffer.open

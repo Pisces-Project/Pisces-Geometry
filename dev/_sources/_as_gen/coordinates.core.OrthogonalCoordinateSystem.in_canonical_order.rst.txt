@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.in\_canonical\_order
+================================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.in_canonical_order

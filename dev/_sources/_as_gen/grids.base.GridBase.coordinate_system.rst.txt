@@ -1,0 +1,6 @@
+grids.base.GridBase.coordinate\_system
+======================================
+
+.. currentmodule:: grids.base
+
+.. autoproperty:: GridBase.coordinate_system

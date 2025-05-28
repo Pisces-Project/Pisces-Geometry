@@ -1,0 +1,6 @@
+fields.mixins.base.DFieldCoreMixin.full\_like
+=============================================
+
+.. currentmodule:: fields.mixins.base
+
+.. automethod:: DFieldCoreMixin.full_like

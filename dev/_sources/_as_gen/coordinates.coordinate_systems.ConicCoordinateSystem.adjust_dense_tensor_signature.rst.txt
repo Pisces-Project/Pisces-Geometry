@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ConicCoordinateSystem.adjust\_dense\_tensor\_signature
+======================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ConicCoordinateSystem.adjust_dense_tensor_signature

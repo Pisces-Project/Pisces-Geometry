@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.inverse\_metric\_tensor
+===================================================================
+
+.. currentmodule:: coordinates.core
+
+.. autoproperty:: OrthogonalCoordinateSystem.inverse_metric_tensor

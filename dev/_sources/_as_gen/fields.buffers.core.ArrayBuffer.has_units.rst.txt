@@ -1,0 +1,6 @@
+fields.buffers.core.ArrayBuffer.has\_units
+==========================================
+
+.. currentmodule:: fields.buffers.core
+
+.. autoproperty:: ArrayBuffer.has_units

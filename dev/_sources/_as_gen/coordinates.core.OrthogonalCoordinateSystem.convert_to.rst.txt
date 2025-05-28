@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.convert\_to
+=======================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.convert_to

@@ -1,0 +1,6 @@
+fields.base.DenseField.validate\_component
+==========================================
+
+.. currentmodule:: fields.base
+
+.. automethod:: DenseField.validate_component

@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ProlateSpheroidalCoordinateSystem.axes\_complement
+==================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ProlateSpheroidalCoordinateSystem.axes_complement

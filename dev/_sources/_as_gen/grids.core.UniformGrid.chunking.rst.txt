@@ -1,0 +1,6 @@
+grids.core.UniformGrid.chunking
+===============================
+
+.. currentmodule:: grids.core
+
+.. autoproperty:: UniformGrid.chunking

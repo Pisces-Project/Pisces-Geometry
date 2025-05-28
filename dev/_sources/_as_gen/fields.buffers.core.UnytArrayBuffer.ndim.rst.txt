@@ -1,0 +1,6 @@
+fields.buffers.core.UnytArrayBuffer.ndim
+========================================
+
+.. currentmodule:: fields.buffers.core
+
+.. autoproperty:: UnytArrayBuffer.ndim

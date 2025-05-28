@@ -1,0 +1,6 @@
+fields.buffers.base.BufferBase.ones\_like
+=========================================
+
+.. currentmodule:: fields.buffers.base
+
+.. automethod:: BufferBase.ones_like

@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.ndim
+================================================
+
+.. currentmodule:: coordinates.core
+
+.. autoproperty:: OrthogonalCoordinateSystem.ndim

@@ -1,0 +1,6 @@
+fields.base.DenseField.from\_function
+=====================================
+
+.. currentmodule:: fields.base
+
+.. automethod:: DenseField.from_function

@@ -1,0 +1,1570 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>differential_geometry.dependence &#8212; PyMetric  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/differential_geometry/dependence';</script>
+    <link rel="icon" href="../../_static/pm_favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">PyMetric  documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_quickstart/index.html">
+    PyMetric Quickstart Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
+    PyMetric User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api_base.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_quickstart/index.html">
+    PyMetric Quickstart Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
+    PyMetric User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api_base.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">differential_geometry.dependence</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for differential_geometry.dependence</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Symbolic operational dependence manager classes.</span>
+
+<span class="sd">This module contains `SymPy &lt;https://docs.sympy.org/latest/index.html&gt;`__ based handlers</span>
+<span class="sd">for keeping track of dependence in differential operations.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">operator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">TYPE_CHECKING</span><span class="p">,</span>
+    <span class="n">Any</span><span class="p">,</span>
+    <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">Generic</span><span class="p">,</span>
+    <span class="n">List</span><span class="p">,</span>
+    <span class="n">Literal</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">Protocol</span><span class="p">,</span>
+    <span class="n">Sequence</span><span class="p">,</span>
+    <span class="n">Tuple</span><span class="p">,</span>
+    <span class="n">TypeVar</span><span class="p">,</span>
+    <span class="n">Union</span><span class="p">,</span>
+    <span class="n">runtime_checkable</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sympy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.differential_geometry.symbolic</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">adjust_tensor_signature</span><span class="p">,</span>
+    <span class="n">compute_divergence</span><span class="p">,</span>
+    <span class="n">compute_gradient</span><span class="p">,</span>
+    <span class="n">compute_laplacian</span><span class="p">,</span>
+    <span class="n">compute_tensor_gradient</span><span class="p">,</span>
+    <span class="n">compute_tensor_laplacian</span><span class="p">,</span>
+    <span class="n">lower_index</span><span class="p">,</span>
+    <span class="n">raise_index</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># =================== Typing Utilities ================== #</span>
+<span class="c1"># These are utilities for handling typing in this module. They should</span>
+<span class="c1"># not need modification in most cases and add little to the</span>
+<span class="c1"># understanding of the code.</span>
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.coordinates.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">_CoordinateSystemBase</span>
+
+<span class="c1"># Define a generic field type so that we can shorten type hints.</span>
+<span class="n">_GenericFieldType</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">sp</span><span class="o">.</span><span class="n">Function</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">MutableDenseNDimArray</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">Basic</span><span class="p">]</span>
+
+
+<span class="c1"># noinspection PyMissingOrEmptyDocstring</span>
+<span class="nd">@runtime_checkable</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">_TensorDependenceProto</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="c1"># data attributes the mixin touches</span>
+    <span class="n">coordinate_system</span><span class="p">:</span> <span class="s2">&quot;_CoordinateSystemBase&quot;</span>
+    <span class="n">rank</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">symbolic_proxy</span><span class="p">:</span> <span class="n">_GenericFieldType</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_symbolic_proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_GenericFieldType</span><span class="p">:</span>
+        <span class="o">...</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_symbolic_proxy</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">coordinate_system</span><span class="p">:</span> <span class="s2">&quot;_CoordinateSystemBase&quot;</span><span class="p">,</span>
+        <span class="n">symbolic_proxy</span><span class="p">:</span> <span class="n">_GenericFieldType</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DependenceObject&quot;</span><span class="p">:</span>
+        <span class="o">...</span>
+
+
+<span class="c1"># noinspection PyMissingOrEmptyDocstring</span>
+<span class="nd">@runtime_checkable</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">_OperatorsDependenceProto</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="c1"># data attributes the mixin touches</span>
+    <span class="n">coordinate_system</span><span class="p">:</span> <span class="s2">&quot;_CoordinateSystemBase&quot;</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+    <span class="n">is_scalar</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">symbolic_proxy</span><span class="p">:</span> <span class="n">_GenericFieldType</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_symbolic_proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_GenericFieldType</span><span class="p">:</span>
+        <span class="o">...</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_symbolic_proxy</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">coordinate_system</span><span class="p">:</span> <span class="s2">&quot;_CoordinateSystemBase&quot;</span><span class="p">,</span>
+        <span class="n">symbolic_proxy</span><span class="p">:</span> <span class="n">_GenericFieldType</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DependenceObject&quot;</span><span class="p">:</span>
+        <span class="o">...</span>
+
+
+<span class="n">_DepT</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_DepT&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">_TensorDependenceProto</span><span class="p">)</span>
+<span class="n">_DepA</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_DepA&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">_OperatorsDependenceProto</span><span class="p">)</span>
+
+
+<span class="c1"># ============= Tensor Support Mixins =================== #</span>
+<span class="c1"># These mixin classes allow us to support operations on different</span>
+<span class="c1"># dependence structures. The OperatorsMixin supports operations</span>
+<span class="c1"># on generic arrays / fields and TensorDependenceMixin allows support</span>
+<span class="c1"># on tensor fields.</span>
+<div class="viewcode-block" id="OperatorsMixin">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.OperatorsMixin.html#differential_geometry.dependence.OperatorsMixin">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">OperatorsMixin</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">_DepA</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Mixin class providing basic arithmetic operations and differential operators</span>
+<span class="sd">    for symbolic dependence objects in a coordinate system.</span>
+
+<span class="sd">    Supports elementwise binary operations (e.g., addition, subtraction, multiplication,</span>
+<span class="sd">    division) with other compatible dependence objects or scalars. Also provides</span>
+<span class="sd">    methods to compute symbolic gradients and Laplacians on each component.</span>
+
+<span class="sd">    Intended to be used with classes that define a symbolic proxy, coordinate system,</span>
+<span class="sd">    and a `from_symbolic_proxy` constructor method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># @@ Basic Operation Support @@ #</span>
+    <span class="c1"># These methods provide mixin support for basic operations</span>
+    <span class="c1"># like addition, subtraction, etc.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__binary_operation__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_DepA</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">Basic</span><span class="p">,</span> <span class="n">_DepA</span><span class="p">],</span>
+        <span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">op_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform an elementwise binary operation between this object and another operand.</span>
+
+<span class="sd">        At it&#39;s core, this method performs the underlying operation on this object&#39;s</span>
+<span class="sd">        symbolic proxy and the other objects symbolic proxy. If the other object doesn&#39;t have</span>
+<span class="sd">        a symbolic proxy, we attempt to apply it directly.</span>
+
+<span class="sd">        Furthermore, the __is_binary_op_compatible__ method allows for other</span>
+<span class="sd">        objects with symbolic proxies to be checked for compatibility.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;symbolic_proxy&quot;</span><span class="p">):</span>
+            <span class="c1"># This object has a symbolic proxy so we need to</span>
+            <span class="c1"># check for compatibility and then pass the proxy forward.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__is_binary_op_compatible__</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">op_name</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Cannot perform </span><span class="si">{</span><span class="n">op_name</span><span class="si">}</span><span class="s2">: incompatible objects: </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">other</span><span class="si">}</span><span class="s2">)&quot;</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Now simply apply the operation between the two elements</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">result_exp</span> <span class="o">=</span> <span class="n">op</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbolic_proxy</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">__symbolic_proxy__</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Failed to perform </span><span class="si">{</span><span class="n">op_name</span><span class="si">}</span><span class="s2"> between&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># We don&#39;t need to validate. We can simply be direct and try to</span>
+            <span class="c1"># perform the operation.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">result_exp</span> <span class="o">=</span> <span class="n">op</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbolic_proxy</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Failed to perform </span><span class="si">{</span><span class="n">op_name</span><span class="si">}</span><span class="s2"> between&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+        <span class="c1"># Now attempt to convert the result expression into a new</span>
+        <span class="c1"># object using the symbolic proxy.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_symbolic_proxy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="p">,</span> <span class="n">result_exp</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Failed to perform </span><span class="si">{</span><span class="n">op_name</span><span class="si">}</span><span class="s2"> between&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> due&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; to failure in proxy reconstruction.&quot;</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__is_binary_op_compatible__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">_DepA</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">op_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check whether a binary operation with `other` is valid.</span>
+
+<span class="sd">        Compatibility is defined by matching coordinate systems and shape.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        other : Any</span>
+<span class="sd">            The second operand in the binary operation.</span>
+<span class="sd">        op_name : str</span>
+<span class="sd">            The name of the operation being attempted (e.g., &#39;__add__&#39;).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if the operation is allowed; False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Ensure the other object has necessary attributes</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;coordinate_system&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;shape&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">coordinate_system</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">shape</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add two dependence objects.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__binary_operation__</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">operator</span><span class="o">.</span><span class="n">add</span><span class="p">,</span> <span class="s2">&quot;__add__&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Subtract two dependence objects.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__binary_operation__</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">operator</span><span class="o">.</span><span class="n">sub</span><span class="p">,</span> <span class="s2">&quot;__sub__&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Multiply two dependence objects.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__binary_operation__</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">operator</span><span class="o">.</span><span class="n">mul</span><span class="p">,</span> <span class="s2">&quot;__mul__&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Divide two dependence objects.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__binary_operation__</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">operator</span><span class="o">.</span><span class="n">truediv</span><span class="p">,</span> <span class="s2">&quot;__truediv__&quot;</span><span class="p">)</span>
+
+    <span class="c1"># @@ Element Wise Differential Operations @@ #</span>
+    <span class="c1"># These are standard operations that are available to all array structured</span>
+    <span class="c1"># dependence classes for computing gradients and</span>
+    <span class="c1"># @@ Element-Wise Differential Operations @@ #</span>
+    <span class="c1"># These operations compute symbolic derivatives for each component</span>
+    <span class="c1"># of a scalar or tensor field over a coordinate system.</span>
+
+<div class="viewcode-block" id="OperatorsMixin.element_wise_gradient">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.OperatorsMixin.element_wise_gradient.html#differential_geometry.dependence.OperatorsMixin.element_wise_gradient">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">element_wise_gradient</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_DepA</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">basis</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;covariant&quot;</span><span class="p">,</span> <span class="s2">&quot;contravariant&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;covariant&quot;</span><span class="p">,</span>
+        <span class="n">as_field</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the component-wise gradient of the field.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        basis : {&quot;covariant&quot;, &quot;contravariant&quot;}, optional</span>
+<span class="sd">            Whether to compute the gradient in the covariant or contravariant basis.</span>
+<span class="sd">        as_field : bool, optional</span>
+<span class="sd">            If True, return the raw symbolic expression.</span>
+<span class="sd">            If False (default), wrap the result in a dependence object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Expr or _DepA</span>
+<span class="sd">            Symbolic gradient expression or a new dependence object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">inverse_metric</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="o">.</span><span class="n">get_expression</span><span class="p">(</span><span class="s2">&quot;inverse_metric_tensor&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">basis</span> <span class="o">==</span> <span class="s2">&quot;contravariant&quot;</span>
+            <span class="k">else</span> <span class="kc">None</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbolic_proxy</span><span class="p">,</span> <span class="s2">&quot;shape&quot;</span><span class="p">):</span>
+            <span class="c1"># We have a shape, so this needs the tensorial</span>
+            <span class="c1"># treatment.</span>
+            <span class="n">grad</span> <span class="o">=</span> <span class="n">compute_tensor_gradient</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">symbolic_proxy</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="o">.</span><span class="n">axes_symbols</span><span class="p">,</span>
+                <span class="n">basis</span><span class="o">=</span><span class="n">basis</span><span class="p">,</span>
+                <span class="n">inverse_metric</span><span class="o">=</span><span class="n">inverse_metric</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">grad</span> <span class="o">=</span> <span class="n">compute_gradient</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">symbolic_proxy</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="o">.</span><span class="n">axes_symbols</span><span class="p">,</span>
+                <span class="n">basis</span><span class="o">=</span><span class="n">basis</span><span class="p">,</span>
+                <span class="n">inverse_metric</span><span class="o">=</span><span class="n">inverse_metric</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">grad</span> <span class="k">if</span> <span class="n">as_field</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_symbolic_proxy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="p">,</span> <span class="n">grad</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="OperatorsMixin.element_wise_laplacian">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.OperatorsMixin.element_wise_laplacian.html#differential_geometry.dependence.OperatorsMixin.element_wise_laplacian">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">element_wise_laplacian</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">_DepA</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">as_field</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the component-wise Laplacian of the field.</span>
+
+<span class="sd">        For scalar fields, computes the scalar Laplacian.</span>
+<span class="sd">        For tensor fields, applies the Laplace–Beltrami operator to each component.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        as_field : bool, optional</span>
+<span class="sd">            If True, return the raw symbolic expression.</span>
+<span class="sd">            If False (default), wrap the result in a dependence object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Expr or _DepA</span>
+<span class="sd">            Symbolic Laplacian expression or a new dependence object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">inverse_metric</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="o">.</span><span class="n">get_expression</span><span class="p">(</span><span class="s2">&quot;inverse_metric_tensor&quot;</span><span class="p">)</span>
+        <span class="n">metric_density</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="o">.</span><span class="n">get_expression</span><span class="p">(</span><span class="s2">&quot;metric_density&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">lap</span> <span class="o">=</span> <span class="n">compute_laplacian</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">symbolic_proxy</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="o">.</span><span class="n">axes_symbols</span><span class="p">,</span>
+                <span class="n">inverse_metric</span><span class="o">=</span><span class="n">inverse_metric</span><span class="p">,</span>
+                <span class="n">metric_density</span><span class="o">=</span><span class="n">metric_density</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lap</span> <span class="o">=</span> <span class="n">compute_tensor_laplacian</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">symbolic_proxy</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="o">.</span><span class="n">axes_symbols</span><span class="p">,</span>
+                <span class="n">inverse_metric</span><span class="o">=</span><span class="n">inverse_metric</span><span class="p">,</span>
+                <span class="n">metric_density</span><span class="o">=</span><span class="n">metric_density</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">lap</span> <span class="k">if</span> <span class="n">as_field</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_symbolic_proxy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="p">,</span> <span class="n">lap</span><span class="p">)</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="TensorDependenceMixin">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.TensorDependenceMixin.html#differential_geometry.dependence.TensorDependenceMixin">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TensorDependenceMixin</span><span class="p">(</span><span class="n">OperatorsMixin</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">_DepT</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Mixin class providing tensor-specific operations for symbolic dependence objects.</span>
+
+<span class="sd">    This mixin extends `OperatorsMixin` by adding operations that rely on tensor structure,</span>
+<span class="sd">    such as raising/lowering indices, adjusting variance signatures, and computing</span>
+<span class="sd">    divergence in addition to the general-purpose gradient and Laplacian.</span>
+
+<span class="sd">    It assumes the object exposes:</span>
+<span class="sd">        - `coordinate_system`: a coordinate system with symbolic metric data,</span>
+<span class="sd">        - `rank`: an integer rank for the tensor (0 = scalar, 1 = vector, etc.),</span>
+<span class="sd">        - `symbolic_proxy`: a SymPy scalar or array-like expression,</span>
+<span class="sd">        - `from_symbolic_proxy`: a method to reconstruct a new instance from a proxy.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Unlike `OperatorsMixin`, which applies differential operators to each component</span>
+<span class="sd">    independently, this mixin enables true tensorial operations that respect index</span>
+<span class="sd">    variance (covariant/contravariant behavior).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TensorDependenceMixin.raise_index">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.TensorDependenceMixin.raise_index.html#differential_geometry.dependence.TensorDependenceMixin.raise_index">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">raise_index</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">_DepT</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">as_field</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Raise a tensor index along the specified axis using the inverse metric tensor.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        axis : int</span>
+<span class="sd">            The index axis to raise.</span>
+<span class="sd">        as_field : bool, optional</span>
+<span class="sd">            If True, return a symbolic expression. If False, return a new dependence object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        _GenericFieldType or _DepT</span>
+<span class="sd">            Symbolic tensor with raised index or a new dependence object.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If the tensor is scalar (rank 0).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot raise an index on a scalar field.&quot;</span><span class="p">)</span>
+        <span class="n">proxy</span> <span class="o">=</span> <span class="n">raise_index</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">symbolic_proxy</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="o">.</span><span class="n">get_expression</span><span class="p">(</span><span class="s2">&quot;inverse_metric_tensor&quot;</span><span class="p">),</span>
+            <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">proxy</span>
+            <span class="k">if</span> <span class="n">as_field</span>
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_symbolic_proxy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="p">,</span> <span class="n">proxy</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TensorDependenceMixin.lower_index">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.TensorDependenceMixin.lower_index.html#differential_geometry.dependence.TensorDependenceMixin.lower_index">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">lower_index</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">_DepT</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">as_field</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Lower a tensor index along the specified axis using the metric tensor.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        axis : int</span>
+<span class="sd">            The index axis to lower.</span>
+<span class="sd">        as_field : bool, optional</span>
+<span class="sd">            If True, return a symbolic expression. If False, return a new dependence object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        _GenericFieldType or _DepT</span>
+<span class="sd">            Symbolic tensor with lowered index or a new dependence object.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If the tensor is scalar (rank 0).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot lower an index on a scalar field.&quot;</span><span class="p">)</span>
+        <span class="n">proxy</span> <span class="o">=</span> <span class="n">lower_index</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">symbolic_proxy</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="o">.</span><span class="n">get_expression</span><span class="p">(</span><span class="s2">&quot;metric_tensor&quot;</span><span class="p">),</span>
+            <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">proxy</span>
+            <span class="k">if</span> <span class="n">as_field</span>
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_symbolic_proxy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="p">,</span> <span class="n">proxy</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TensorDependenceMixin.adjust_tensor_signature">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.TensorDependenceMixin.adjust_tensor_signature.html#differential_geometry.dependence.TensorDependenceMixin.adjust_tensor_signature">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">adjust_tensor_signature</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_DepT</span><span class="p">,</span>
+        <span class="n">variance_in</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">variance_out</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="o">/</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">as_field</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adjust the tensor variance (covariant/contravariant) of each index.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        variance_in : Sequence[int]</span>
+<span class="sd">            The current variance of each index (0 = covariant, 1 = contravariant).</span>
+<span class="sd">        variance_out : Sequence[int]</span>
+<span class="sd">            The target variance signature to convert to.</span>
+<span class="sd">        as_field : bool, optional</span>
+<span class="sd">            If True, return the symbolic expression. If False, return a new dependence object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        _GenericFieldType or _DepT</span>
+<span class="sd">            Symbolic tensor with adjusted signature or a new dependence object.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If the variance vector lengths do not match the tensor rank.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">variance_in</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">variance_out</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Variance vectors must match tensor rank.&quot;</span><span class="p">)</span>
+        <span class="n">metric</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="o">.</span><span class="n">get_expression</span><span class="p">(</span><span class="s2">&quot;metric_tensor&quot;</span><span class="p">)</span>
+        <span class="n">inv_metric</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="o">.</span><span class="n">get_expression</span><span class="p">(</span><span class="s2">&quot;inverse_metric_tensor&quot;</span><span class="p">)</span>
+        <span class="n">transformed</span> <span class="o">=</span> <span class="n">adjust_tensor_signature</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">symbolic_proxy</span><span class="p">,</span>
+            <span class="n">variance_in</span><span class="p">,</span>
+            <span class="n">variance_out</span><span class="p">,</span>
+            <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span>
+            <span class="n">inverse_metric</span><span class="o">=</span><span class="n">inv_metric</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">transformed</span>
+            <span class="k">if</span> <span class="n">as_field</span>
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_symbolic_proxy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="p">,</span> <span class="n">transformed</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TensorDependenceMixin.gradient">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.TensorDependenceMixin.gradient.html#differential_geometry.dependence.TensorDependenceMixin.gradient">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">gradient</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_DepT</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">basis</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;covariant&quot;</span><span class="p">,</span> <span class="s2">&quot;contravariant&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;covariant&quot;</span><span class="p">,</span>
+        <span class="n">as_field</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the elementwise gradient of the tensor field.</span>
+
+<span class="sd">        This delegates to `element_wise_gradient()` from `OperatorsMixin`, treating each</span>
+<span class="sd">        tensor component as an independent scalar function.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        basis : {&quot;covariant&quot;, &quot;contravariant&quot;}, optional</span>
+<span class="sd">            Whether to return the result in the covariant or contravariant basis.</span>
+<span class="sd">        as_field : bool, optional</span>
+<span class="sd">            Whether to return the raw symbolic result or wrap it as a dependence object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        _GenericFieldType or _DepT</span>
+<span class="sd">            The gradient expression or new dependence object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">element_wise_gradient</span><span class="p">(</span><span class="n">basis</span><span class="o">=</span><span class="n">basis</span><span class="p">,</span> <span class="n">as_field</span><span class="o">=</span><span class="n">as_field</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TensorDependenceMixin.divergence">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.TensorDependenceMixin.divergence.html#differential_geometry.dependence.TensorDependenceMixin.divergence">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">divergence</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_DepT</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">basis</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;covariant&quot;</span><span class="p">,</span> <span class="s2">&quot;contravariant&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;contravariant&quot;</span><span class="p">,</span>
+        <span class="n">as_field</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the divergence of a rank-1 tensor field.</span>
+
+<span class="sd">        This is a true tensorial divergence that contracts the covariant derivative</span>
+<span class="sd">        with the appropriate metric volume form and raises indices if needed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        basis : {&quot;covariant&quot;, &quot;contravariant&quot;}, optional</span>
+<span class="sd">            Basis in which to compute the divergence.</span>
+<span class="sd">        as_field : bool, optional</span>
+<span class="sd">            Whether to return the raw symbolic result or wrap it as a dependence object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        _GenericFieldType or _DepT</span>
+<span class="sd">            The divergence expression or new dependence object.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If the tensor rank is not 1 (i.e., not a vector field).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Divergence only defined for rank‑1 tensors.&quot;</span><span class="p">)</span>
+        <span class="n">inv_metric</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="o">.</span><span class="n">get_expression</span><span class="p">(</span><span class="s2">&quot;inverse_metric_tensor&quot;</span><span class="p">)</span>
+        <span class="n">metric_density</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="o">.</span><span class="n">get_expression</span><span class="p">(</span><span class="s2">&quot;metric_density&quot;</span><span class="p">)</span>
+        <span class="n">div</span> <span class="o">=</span> <span class="n">compute_divergence</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">symbolic_proxy</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="o">.</span><span class="n">axes_symbols</span><span class="p">,</span>
+            <span class="n">basis</span><span class="o">=</span><span class="n">basis</span><span class="p">,</span>
+            <span class="n">inverse_metric</span><span class="o">=</span><span class="n">inv_metric</span><span class="p">,</span>
+            <span class="n">metric_density</span><span class="o">=</span><span class="n">metric_density</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">div</span> <span class="k">if</span> <span class="n">as_field</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_symbolic_proxy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="p">,</span> <span class="n">div</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TensorDependenceMixin.laplacian">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.TensorDependenceMixin.laplacian.html#differential_geometry.dependence.TensorDependenceMixin.laplacian">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">laplacian</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">_DepT</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">as_field</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the Laplacian of the tensor field (component-wise).</span>
+
+<span class="sd">        This calls `element_wise_laplacian()` from `OperatorsMixin`, applying the</span>
+<span class="sd">        Laplace–Beltrami operator to each component independently.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        as_field : bool, optional</span>
+<span class="sd">            Whether to return the raw symbolic result or wrap it as a dependence object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        _GenericFieldType or _DepT</span>
+<span class="sd">            The Laplacian expression or new dependence object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">element_wise_laplacian</span><span class="p">(</span><span class="n">as_field</span><span class="o">=</span><span class="n">as_field</span><span class="p">)</span></div>
+</div>
+
+
+
+<span class="c1"># ============= Dependence Tensor Generators ============ #</span>
+<span class="c1"># This section of the code provides a couple of methods for converting</span>
+<span class="c1"># common tensor conventions (dense, sparse, etc.) to symbolic models</span>
+<span class="c1"># that reflect the correct tensor dependence.</span>
+<div class="viewcode-block" id="DependenceObject">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.DependenceObject.html#differential_geometry.dependence.DependenceObject">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DependenceObject</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for representing symbolic dependence of tensors on coordinates.</span>
+
+<span class="sd">    This class serves as the foundation for modeling whether a scalar or tensor field</span>
+<span class="sd">    depends on specific coordinate axes in a given coordinate system. It provides</span>
+<span class="sd">    interfaces to construct a symbolic proxy of the tensor and to reconstruct a dependence</span>
+<span class="sd">    object from a symbolic expression.</span>
+
+<span class="sd">    Subclasses must implement:</span>
+<span class="sd">        - :meth:`to_symbolic_proxy`: Create a dummy symbolic tensor/field to represent dependence.</span>
+<span class="sd">        - :meth:`from_symbolic_proxy`: Reconstruct a dependence object from an existing symbolic proxy.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    coordinate_system : _CoordinateSystemBase</span>
+<span class="sd">        The coordinate system in which the dependence is defined.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># @@ Initialization @@ #</span>
+<div class="viewcode-block" id="DependenceObject.__init__">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.DependenceObject.__init__.html#differential_geometry.dependence.DependenceObject.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coordinate_system</span><span class="p">:</span> <span class="s2">&quot;_CoordinateSystemBase&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the base dependence object with a coordinate system.</span>
+
+<span class="sd">        This constructor sets up the foundational context for tensor dependence by</span>
+<span class="sd">        storing the coordinate system and deferring construction of the symbolic proxy</span>
+<span class="sd">        until it is explicitly requested via `symbolic_proxy`.</span>
+
+<span class="sd">        Subclasses should extend this constructor to store additional structural</span>
+<span class="sd">        properties (e.g., shape, dependent axes, tensor rank), but **must always**</span>
+<span class="sd">        call `super().__init__(coordinate_system)` to ensure proper initialization.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        coordinate_system : _CoordinateSystemBase</span>
+<span class="sd">            The coordinate system that defines the geometric context for symbolic dependence.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__cs__</span><span class="p">:</span> <span class="s2">&quot;_CoordinateSystemBase&quot;</span> <span class="o">=</span> <span class="n">coordinate_system</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__symbolic_proxy__</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_GenericFieldType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a developer-friendly string representation of the object.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a str version of the object.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
+
+    <span class="c1"># @@ Universal Properties @@ #</span>
+    <span class="c1"># These are universal properties of all</span>
+    <span class="c1"># DependenceObjects, but may be supplemented in</span>
+    <span class="c1"># subclasses.</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">coordinate_system</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;_CoordinateSystemBase&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The coordinate system associated with this dependence object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        _CoordinateSystemBase</span>
+<span class="sd">            The coordinate system in which the tensor is defined.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cs__</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">coordinates_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Number of coordinate dimensions in the associated coordinate system.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            Dimensionality of the coordinate system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cs__</span><span class="o">.</span><span class="n">ndim</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">symbolic_proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_GenericFieldType</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A symbolic proxy field or tensor that represents coordinate dependence.</span>
+
+<span class="sd">        This property lazily constructs a symbolic representation of the field or tensor</span>
+<span class="sd">        that depends on specific coordinates, useful for symbolic differential operations</span>
+<span class="sd">        or analysis of tensor structure.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        _GenericFieldType</span>
+<span class="sd">            A SymPy function or tensor representing the tensor&#39;s coordinate dependence.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__symbolic_proxy__</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__symbolic_proxy__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_symbolic_proxy</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__symbolic_proxy__</span>
+
+    <span class="c1"># @@ Abstract Methods @@ #</span>
+    <span class="c1"># These two methods are critical for all subclasses and</span>
+    <span class="c1"># are used to convert symbolic proxies to / from the base class.</span>
+<div class="viewcode-block" id="DependenceObject.to_symbolic_proxy">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.DependenceObject.to_symbolic_proxy.html#differential_geometry.dependence.DependenceObject.to_symbolic_proxy">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_symbolic_proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_GenericFieldType</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct a symbolic proxy representing this dependence.</span>
+
+<span class="sd">        This method should return a dummy symbolic field or tensor using SymPy,</span>
+<span class="sd">        where the coordinate axes on which the tensor depends are expressed</span>
+<span class="sd">        via symbolic function arguments.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        _GenericFieldType</span>
+<span class="sd">            A symbolic field or tensor constructed using SymPy.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="DependenceObject.from_symbolic_proxy">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.DependenceObject.from_symbolic_proxy.html#differential_geometry.dependence.DependenceObject.from_symbolic_proxy">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_symbolic_proxy</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">coordinate_system</span><span class="p">:</span> <span class="s2">&quot;_CoordinateSystemBase&quot;</span><span class="p">,</span>
+        <span class="n">symbolic_proxy</span><span class="p">:</span> <span class="n">_GenericFieldType</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DependenceObject&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct a dependence object by analyzing a symbolic proxy.</span>
+
+<span class="sd">        This method should parse a symbolic expression and infer the shape,</span>
+<span class="sd">        rank, and axes of dependence in order to reconstruct a subclass instance.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        coordinate_system : _CoordinateSystemBase</span>
+<span class="sd">            The coordinate system in which the symbolic expression is defined.</span>
+<span class="sd">        symbolic_proxy : _GenericFieldType</span>
+<span class="sd">            A symbolic representation (scalar or tensor) of the field.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DependenceObject</span>
+<span class="sd">            An instance of the subclass representing the symbolic dependence.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="DenseDependenceObject">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.DenseDependenceObject.html#differential_geometry.dependence.DenseDependenceObject">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DenseDependenceObject</span><span class="p">(</span><span class="n">DependenceObject</span><span class="p">,</span> <span class="n">OperatorsMixin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a dense symbolic dependence on coordinate axes within a coordinate system.</span>
+
+<span class="sd">    This class models a scalar or tensor field where every component shares the same</span>
+<span class="sd">    symbolic dependence on one or more coordinate axes. In a dense dependence object,</span>
+<span class="sd">    the entire field is treated uniformly: all components are assumed to depend on the</span>
+<span class="sd">    same subset of coordinate axes (e.g., [&quot;r&quot;, &quot;theta&quot;]). This contrasts with sparse</span>
+<span class="sd">    or component-wise symbolic representations where each component could depend on</span>
+<span class="sd">    different variables.</span>
+
+<span class="sd">    DenseDependenceObject supports:</span>
+<span class="sd">    - Uniform shape and rank definitions for the symbolic field.</span>
+<span class="sd">    - Construction of full symbolic proxies (scalars or tensors).</span>
+<span class="sd">    - Element-wise symbolic operations and differential operators.</span>
+<span class="sd">    - Dependence introspection and shape-level comparison.</span>
+
+<span class="sd">    It builds on the abstract `DependenceObject` base class by adding tensor shape and</span>
+<span class="sd">    axis metadata, and it mixes in `OperatorsMixin` to enable symbolic arithmetic and</span>
+<span class="sd">    differential operations.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The symbolic proxy is lazily constructed using SymPy. For tensor fields, a</span>
+<span class="sd">    `MutableDenseNDimArray` of symbolic functions is used, with each component named</span>
+<span class="sd">    based on its index.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from pymetric.coordinates import SphericalCoordinateSystem</span>
+<span class="sd">    &gt;&gt;&gt; from pymetric.utilities.logging import pg_log</span>
+<span class="sd">    &gt;&gt;&gt; pg_log.disabled = True</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; u = SphericalCoordinateSystem() # doctest: +ELLIPSIS</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # Construct the dependence</span>
+<span class="sd">    &gt;&gt;&gt; # object.</span>
+<span class="sd">    &gt;&gt;&gt; obj = DenseDependenceObject(u, (3,), dependent_axes=[&quot;r&quot;, &quot;theta&quot;])</span>
+<span class="sd">    &gt;&gt;&gt; obj.shape</span>
+<span class="sd">    (3,)</span>
+<span class="sd">    &gt;&gt;&gt; obj.depends_on(&quot;r&quot;)</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; obj.symbolic_proxy  # Returns a symbolic vector field</span>
+<span class="sd">    [T_r(r, theta), T_theta(r, theta), T_phi(r, theta)]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># @@ Initialization @@ #</span>
+    <span class="c1"># The __init__ here builds on that of DependenceObject</span>
+    <span class="c1"># to clarify structure for dense objects.</span>
+<div class="viewcode-block" id="DenseDependenceObject.__init__">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.DenseDependenceObject.__init__.html#differential_geometry.dependence.DenseDependenceObject.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">coordinate_system</span><span class="p">:</span> <span class="s2">&quot;_CoordinateSystemBase&quot;</span><span class="p">,</span>
+        <span class="n">shape</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="o">/</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">dependent_axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a dense dependence object with shape and dependent axes.</span>
+
+<span class="sd">        This constructor defines the tensor shape and determines which coordinate</span>
+<span class="sd">        axes the symbolic expression should depend on. If `dependent_axes` is not</span>
+<span class="sd">        provided, it defaults to full dependence on all coordinate axes.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        coordinate_system : _CoordinateSystemBase</span>
+<span class="sd">            The coordinate system that defines the geometric context.</span>
+<span class="sd">        shape : Sequence[int] or Tuple[int, ...]</span>
+<span class="sd">            The tensor shape of the symbolic object (e.g., (3,) for a vector).</span>
+<span class="sd">        dependent_axes : str or Sequence[str], optional</span>
+<span class="sd">            The coordinate axes on which the tensor depends. Can be a single axis name</span>
+<span class="sd">            (e.g., &quot;r&quot;) or a list of axis names. If None, the tensor is assumed to</span>
+<span class="sd">            depend on all axes in the coordinate system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">coordinate_system</span><span class="p">)</span>
+
+        <span class="c1"># Store shape and scalar flag</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__shape__</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__is_scalar__</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__shape__</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+        <span class="c1"># Normalize the dependent axes</span>
+        <span class="k">if</span> <span class="n">dependent_axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Default: depend on all axes</span>
+            <span class="n">dependent_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cs__</span><span class="o">.</span><span class="n">__AXES__</span><span class="p">[:]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dependent_axes</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="c1"># Single axis string → list</span>
+            <span class="n">dependent_axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">dependent_axes</span><span class="p">]</span>
+
+        <span class="c1"># Canonicalize and store ordered dependent axes and their index positions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__dependent_axes__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cs__</span><span class="o">.</span><span class="n">order_axes_canonical</span><span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span><span class="n">dependent_axes</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__dependent_axes_idx__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__cs__</span><span class="o">.</span><span class="n">convert_axes_to_indices</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span> <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dependent_axes__</span>
+        <span class="p">]</span></div>
+
+
+    <span class="c1"># @@ Dunder Methods @@ #</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;DenseDependenceObject(cs=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="si">}</span><span class="s2">, shape=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;axes=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dependent_axes</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="s2">&quot;scalar&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_scalar</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;tensor of shape </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;DenseDependenceObject over </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">summary</span><span class="si">}</span><span class="s2"> | depends on </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dependent_axes</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;DenseDependenceObject&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="c1"># For two DenseDependenceObjects to be equivalent, they must</span>
+        <span class="c1"># be of the same type, share the same coordinate system, have</span>
+        <span class="c1"># the same shape, and have the same dependence.</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">coordinate_system</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">shape</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">dependent_axes</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">dependent_axes</span>
+        <span class="p">)</span>
+
+    <span class="c1"># @@ Universal Properties @@ #</span>
+    <span class="c1"># These are common structural attributes of all DependenceObjects.</span>
+    <span class="c1"># Subclasses may override or extend them, but the base logic</span>
+    <span class="c1"># supports consistent behavior for symbolic tensor fields.</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The tensor shape of this symbolic field.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Tuple[int, ...]</span>
+<span class="sd">            A tuple describing the shape (e.g., (), (3,), (3, 3)).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__shape__</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The tensor rank [number of indices] of this field.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            The number of tensor indices, equivalent to `len(shape)`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__is_scalar__</span> <span class="k">else</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__shape__</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Whether this object represents a scalar field (i.e., rank 0).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if this is a scalar field; False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__is_scalar__</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dependent_axes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The list of coordinate axis names this field depends on.</span>
+
+<span class="sd">        This is returned as a copy to prevent accidental mutation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        List[str]</span>
+<span class="sd">            Ordered list of axis names (e.g., [&#39;r&#39;, &#39;theta&#39;]).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dependent_axes__</span><span class="p">[:]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">axes_symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The symbolic representations of the dependent coordinate axes.</span>
+
+<span class="sd">        These are SymPy symbols corresponding to each axis name</span>
+<span class="sd">        in `dependent_axes`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        List[sympy.Symbol]</span>
+<span class="sd">            List of SymPy axis symbols.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__cs__</span><span class="o">.</span><span class="n">axes_symbols</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dependent_axes_idx__</span><span class="p">]</span>
+
+    <span class="c1"># @@ Abstract Methods @@ #</span>
+    <span class="c1"># These two methods are critical for all subclasses and</span>
+    <span class="c1"># are used to convert symbolic proxies to / from the base class.</span>
+<div class="viewcode-block" id="DenseDependenceObject.to_symbolic_proxy">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.DenseDependenceObject.to_symbolic_proxy.html#differential_geometry.dependence.DenseDependenceObject.to_symbolic_proxy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_symbolic_proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_GenericFieldType</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct a symbolic proxy representing this tensor or scalar field.</span>
+
+<span class="sd">        This method builds a symbolic field or tensor using SymPy function objects.</span>
+<span class="sd">        For scalar fields, it returns a single symbolic function depending on the</span>
+<span class="sd">        relevant coordinate symbols. For tensors, it returns a dense symbolic array</span>
+<span class="sd">        of the appropriate shape, with each component named based on its index.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        sympy.Function or sympy.MutableDenseNDimArray</span>
+<span class="sd">            A symbolic scalar or tensor function with coordinate dependence.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_scalar</span><span class="p">:</span>
+            <span class="c1"># Scalar field: return a single symbolic function depending on axes</span>
+            <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">axes_symbols</span><span class="p">)</span>
+
+        <span class="c1"># Tensor field: construct a dense symbolic array with named components</span>
+        <span class="n">proxy</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">MutableDenseNDimArray</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">__shape__</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ndindex</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">__shape__</span><span class="p">):</span>
+            <span class="c1"># Build a label like T_r or T_01 depending on coordinate naming</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">idx</span><span class="p">))</span>
+            <span class="n">proxy</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;T_</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">axes_symbols</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">proxy</span></div>
+
+
+<div class="viewcode-block" id="DenseDependenceObject.from_symbolic_proxy">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.DenseDependenceObject.from_symbolic_proxy.html#differential_geometry.dependence.DenseDependenceObject.from_symbolic_proxy">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_symbolic_proxy</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">coordinate_system</span><span class="p">:</span> <span class="s2">&quot;_CoordinateSystemBase&quot;</span><span class="p">,</span>
+        <span class="n">symbolic_proxy</span><span class="p">:</span> <span class="n">_GenericFieldType</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DenseDependenceObject&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reconstruct a DenseDependenceObject from a symbolic proxy expression.</span>
+
+<span class="sd">        This method is the inverse of `to_symbolic_proxy`. It inspects a symbolic expression—</span>
+<span class="sd">        either a scalar symbolic function or a dense symbolic tensor array—to determine:</span>
+
+<span class="sd">        - its shape (based on `.shape` if present),</span>
+<span class="sd">        - its dependent coordinate axes (based on free symbols).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        coordinate_system : _CoordinateSystemBase</span>
+<span class="sd">            The coordinate system context in which the symbolic proxy is defined.</span>
+<span class="sd">        symbolic_proxy : _GenericFieldType</span>
+<span class="sd">            A symbolic scalar or tensor expression (e.g., from SymPy).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DenseDependenceObject</span>
+<span class="sd">            A new instance initialized from the inferred shape and dependencies.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Extract all free symbols from the expression</span>
+        <span class="n">free_syms</span> <span class="o">=</span> <span class="n">symbolic_proxy</span><span class="o">.</span><span class="n">free_symbols</span>
+        <span class="n">dependent_axes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">sym</span><span class="p">)</span> <span class="k">for</span> <span class="n">sym</span> <span class="ow">in</span> <span class="n">free_syms</span><span class="p">]</span>
+
+        <span class="c1"># Determine shape: assume scalar if `.shape` is not available</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">symbolic_proxy</span><span class="p">,</span> <span class="s2">&quot;shape&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="n">symbolic_proxy</span><span class="o">.</span><span class="n">shape</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">coordinate_system</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">dependent_axes</span><span class="o">=</span><span class="n">dependent_axes</span><span class="p">)</span></div>
+
+
+    <span class="c1"># @@ Basic Methods @@ #</span>
+    <span class="c1"># These are methods specific to these dense structural</span>
+    <span class="c1"># methods.</span>
+<div class="viewcode-block" id="DenseDependenceObject.depends_on">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.DenseDependenceObject.depends_on.html#differential_geometry.dependence.DenseDependenceObject.depends_on">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">depends_on</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check whether this object symbolically depends on a given coordinate axis.</span>
+
+<span class="sd">        This method inspects the symbolic structure and returns whether the field</span>
+<span class="sd">        (scalar or tensor) has symbolic dependence on the specified axis.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        axis : str</span>
+<span class="sd">            The name of the coordinate axis (e.g., &quot;r&quot;, &quot;theta&quot;, &quot;z&quot;).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if this object depends on the given axis; False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">axis</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dependent_axes</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="DenseTensorDependence">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.DenseTensorDependence.html#differential_geometry.dependence.DenseTensorDependence">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DenseTensorDependence</span><span class="p">(</span><span class="n">DenseDependenceObject</span><span class="p">,</span> <span class="n">TensorDependenceMixin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dense symbolic tensor dependence with attached tensor-aware operators.</span>
+
+<span class="sd">    This subclass uses the tensor rank to define the shape and supports symbolic</span>
+<span class="sd">    tensor operations (e.g., raising/lowering indices, divergence), in addition to</span>
+<span class="sd">    element-wise operations.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    coordinate_system : _CoordinateSystemBase</span>
+<span class="sd">        The coordinate system in which the tensor is defined.</span>
+<span class="sd">    rank : int</span>
+<span class="sd">        The rank (number of tensor indices) for the tensor. Shape will be (ndim,)*rank.</span>
+<span class="sd">    dependent_axes : str or Sequence[str], optional</span>
+<span class="sd">        The coordinate axes on which the tensor depends.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DenseTensorDependence.__init__">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.DenseTensorDependence.__init__.html#differential_geometry.dependence.DenseTensorDependence.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">coordinate_system</span><span class="p">:</span> <span class="s2">&quot;_CoordinateSystemBase&quot;</span><span class="p">,</span>
+        <span class="n">rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="o">/</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">dependent_axes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a dense tensor dependence object with a given rank and coordinate dependence.</span>
+
+<span class="sd">        This constructor extends `DenseDependenceObject` by inferring the shape of the tensor</span>
+<span class="sd">        based on its rank and the dimensionality of the coordinate system. For example, a</span>
+<span class="sd">        rank-2 tensor in a 3D coordinate system will have shape (3, 3).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        coordinate_system : _CoordinateSystemBase</span>
+<span class="sd">            The coordinate system that defines the geometric context.</span>
+<span class="sd">        rank : int</span>
+<span class="sd">            The rank (number of tensor indices) of the tensor field.</span>
+<span class="sd">            A rank of 0 indicates a scalar field.</span>
+<span class="sd">        dependent_axes : str or Sequence[str], optional</span>
+<span class="sd">            The coordinate axes the tensor depends on. Can be a single axis name or a list.</span>
+<span class="sd">            If None, the tensor is assumed to depend on all coordinate axes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Infer shape from rank and coordinate dimensionality</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="p">()</span> <span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="n">coordinate_system</span><span class="o">.</span><span class="n">ndim</span><span class="p">,)</span> <span class="o">*</span> <span class="n">rank</span>
+
+        <span class="c1"># Delegate to the base DenseDependenceObject constructor</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">coordinate_system</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">dependent_axes</span><span class="o">=</span><span class="n">dependent_axes</span><span class="p">)</span>
+
+        <span class="c1"># Store rank explicitly for clarity and subclass use</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__rank__</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">rank</span></div>
+
+
+    <span class="c1"># @@ Dunder Methods @@ #</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;DenseTensorDependence(cs=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="si">}</span><span class="s2">, rank=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;axes=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dependent_axes</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="s2">&quot;scalar&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;tensor of rank </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;DenseTensorDependence over </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">summary</span><span class="si">}</span><span class="s2"> | depends on </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dependent_axes</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+
+    <span class="c1"># @@ Universal Properties @@ #</span>
+    <span class="c1"># These are universal properties of all</span>
+    <span class="c1"># DependenceObjects, but may be supplemented in</span>
+    <span class="c1"># subclasses.</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The tensor rank [number of indices] of this field.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            The rank explicitly stored during construction.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rank__</span>
+
+    <span class="c1"># @@ Abstract Methods @@ #</span>
+    <span class="c1"># These two methods are critical for all subclasses and</span>
+    <span class="c1"># are used to convert symbolic proxies to / from the base class.</span>
+<div class="viewcode-block" id="DenseTensorDependence.to_symbolic_proxy">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.DenseTensorDependence.to_symbolic_proxy.html#differential_geometry.dependence.DenseTensorDependence.to_symbolic_proxy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_symbolic_proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_GenericFieldType</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct a symbolic proxy representing this tensor or scalar field.</span>
+
+<span class="sd">        This method builds a symbolic field or tensor using SymPy function objects.</span>
+<span class="sd">        For scalar fields, it returns a single symbolic function depending on the</span>
+<span class="sd">        relevant coordinate symbols. For tensors, it returns a dense symbolic array</span>
+<span class="sd">        of the appropriate shape, with each component named based on its index.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        sympy.Function or sympy.MutableDenseNDimArray</span>
+<span class="sd">            A symbolic scalar or tensor function with coordinate dependence.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_scalar</span><span class="p">:</span>
+            <span class="c1"># Scalar field: return a single symbolic function depending on axes</span>
+            <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">axes_symbols</span><span class="p">)</span>
+
+        <span class="c1"># Tensor field: construct a dense symbolic array with named components</span>
+        <span class="n">coord_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__cs__</span><span class="o">.</span><span class="n">__AXES__</span><span class="p">)</span>
+        <span class="n">proxy</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">MutableDenseNDimArray</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">__shape__</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ndindex</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">__shape__</span><span class="p">):</span>
+            <span class="c1"># Build a label like T_r or T_01 depending on coordinate naming</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">coord_labels</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">idx</span><span class="p">)])</span>
+            <span class="n">proxy</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;T_</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">axes_symbols</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">proxy</span></div>
+
+
+<div class="viewcode-block" id="DenseTensorDependence.from_symbolic_proxy">
+<a class="viewcode-back" href="../../_as_gen/differential_geometry.dependence.DenseTensorDependence.from_symbolic_proxy.html#differential_geometry.dependence.DenseTensorDependence.from_symbolic_proxy">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_symbolic_proxy</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">coordinate_system</span><span class="p">:</span> <span class="s2">&quot;_CoordinateSystemBase&quot;</span><span class="p">,</span>
+        <span class="n">symbolic_proxy</span><span class="p">:</span> <span class="n">_GenericFieldType</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DenseTensorDependence&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rebuild a DenseTensorDependence from a symbolic proxy.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        coordinate_system : _CoordinateSystemBase</span>
+<span class="sd">        symbolic_proxy : sympy expression</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DenseTensorDependence</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">free_syms</span> <span class="o">=</span> <span class="n">symbolic_proxy</span><span class="o">.</span><span class="n">free_symbols</span>
+        <span class="n">dependent_axes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">sym</span><span class="p">)</span> <span class="k">for</span> <span class="n">sym</span> <span class="ow">in</span> <span class="n">free_syms</span><span class="p">]</span>
+        <span class="n">rank</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">symbolic_proxy</span><span class="p">,</span> <span class="s2">&quot;shape&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="nb">len</span><span class="p">(</span><span class="n">symbolic_proxy</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">coordinate_system</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">dependent_axes</span><span class="o">=</span><span class="n">dependent_axes</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Eliza Diggins.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

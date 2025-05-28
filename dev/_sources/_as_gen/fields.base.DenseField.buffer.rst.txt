@@ -1,0 +1,6 @@
+fields.base.DenseField.buffer
+=============================
+
+.. currentmodule:: fields.base
+
+.. autoproperty:: DenseField.buffer

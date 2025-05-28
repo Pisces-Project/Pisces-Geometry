@@ -1,0 +1,6 @@
+differential\_geometry.dense\_utils.dense\_transform\_tensor\_field
+===================================================================
+
+.. currentmodule:: differential_geometry.dense_utils
+
+.. autofunction:: dense_transform_tensor_field

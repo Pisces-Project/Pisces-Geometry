@@ -1,0 +1,6 @@
+coordinates.mixins.mathops.CoordinateSystemMathMixin.adjust\_dense\_tensor\_signature
+=====================================================================================
+
+.. currentmodule:: coordinates.mixins.mathops
+
+.. automethod:: CoordinateSystemMathMixin.adjust_dense_tensor_signature

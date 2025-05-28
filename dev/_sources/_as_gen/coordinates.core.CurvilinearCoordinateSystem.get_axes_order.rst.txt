@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.get\_axes\_order
+=============================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: CurvilinearCoordinateSystem.get_axes_order

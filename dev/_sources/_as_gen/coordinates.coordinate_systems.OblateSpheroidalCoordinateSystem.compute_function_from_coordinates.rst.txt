@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.OblateSpheroidalCoordinateSystem.compute\_function\_from\_coordinates
+=====================================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: OblateSpheroidalCoordinateSystem.compute_function_from_coordinates

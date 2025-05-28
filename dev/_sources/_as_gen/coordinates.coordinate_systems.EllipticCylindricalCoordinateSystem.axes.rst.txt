@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.EllipticCylindricalCoordinateSystem.axes
+========================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: EllipticCylindricalCoordinateSystem.axes

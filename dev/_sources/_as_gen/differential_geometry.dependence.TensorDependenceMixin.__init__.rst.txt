@@ -1,0 +1,6 @@
+differential\_geometry.dependence.TensorDependenceMixin.\_\_init\_\_
+====================================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. automethod:: TensorDependenceMixin.__init__

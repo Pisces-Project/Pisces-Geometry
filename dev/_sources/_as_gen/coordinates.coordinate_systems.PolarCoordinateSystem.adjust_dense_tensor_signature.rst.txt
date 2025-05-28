@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.adjust\_dense\_tensor\_signature
+======================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: PolarCoordinateSystem.adjust_dense_tensor_signature

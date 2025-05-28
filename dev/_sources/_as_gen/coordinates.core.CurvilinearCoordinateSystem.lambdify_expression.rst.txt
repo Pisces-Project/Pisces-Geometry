@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.lambdify\_expression
+=================================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: CurvilinearCoordinateSystem.lambdify_expression

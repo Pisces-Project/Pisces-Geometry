@@ -1,0 +1,36 @@
+coordinates.mixins
+==================
+
+.. automodule:: coordinates.mixins
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Modules
+
+   .. autosummary::
+      :toctree:
+      :template: module.rst
+      :recursive:
+
+   
+      coords
+      core
+      mathops
+   
+   
+
+   
+   
+   
+
+   
+   
+   

@@ -1,0 +1,6 @@
+coordinates.mixins.core.CoordinateSystemCoreMixin.get\_conversion\_transform
+============================================================================
+
+.. currentmodule:: coordinates.mixins.core
+
+.. automethod:: CoordinateSystemCoreMixin.get_conversion_transform

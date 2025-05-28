@@ -1,0 +1,6 @@
+fields.buffers.core.UnytArrayBuffer.units
+=========================================
+
+.. currentmodule:: fields.buffers.core
+
+.. autoproperty:: UnytArrayBuffer.units

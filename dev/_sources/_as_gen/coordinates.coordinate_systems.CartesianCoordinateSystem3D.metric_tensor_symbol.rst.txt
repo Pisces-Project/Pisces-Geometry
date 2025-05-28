@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.CartesianCoordinateSystem3D.metric\_tensor\_symbol
+==================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: CartesianCoordinateSystem3D.metric_tensor_symbol

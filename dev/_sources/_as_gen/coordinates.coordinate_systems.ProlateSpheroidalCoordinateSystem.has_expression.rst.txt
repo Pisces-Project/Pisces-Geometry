@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ProlateSpheroidalCoordinateSystem.has\_expression
+=================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ProlateSpheroidalCoordinateSystem.has_expression

@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.vector\_divergence
+==================================================
+
+.. currentmodule:: fields.tensors
+
+.. automethod:: DenseTensorField.vector_divergence

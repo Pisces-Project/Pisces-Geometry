@@ -1,0 +1,6 @@
+fields.components.FieldComponent.empty\_like
+============================================
+
+.. currentmodule:: fields.components
+
+.. automethod:: FieldComponent.empty_like

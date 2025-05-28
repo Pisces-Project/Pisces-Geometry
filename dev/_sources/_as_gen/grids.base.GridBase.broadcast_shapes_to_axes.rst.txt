@@ -1,0 +1,6 @@
+grids.base.GridBase.broadcast\_shapes\_to\_axes
+===============================================
+
+.. currentmodule:: grids.base
+
+.. automethod:: GridBase.broadcast_shapes_to_axes

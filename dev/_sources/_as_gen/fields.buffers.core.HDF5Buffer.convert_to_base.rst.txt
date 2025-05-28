@@ -1,0 +1,6 @@
+fields.buffers.core.HDF5Buffer.convert\_to\_base
+================================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: HDF5Buffer.convert_to_base

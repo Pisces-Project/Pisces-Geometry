@@ -1,0 +1,6 @@
+fields.buffers.base.BufferBase.flatten
+======================================
+
+.. currentmodule:: fields.buffers.base
+
+.. automethod:: BufferBase.flatten

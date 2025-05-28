@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.order\_axes\_canonical
+============================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: PolarCoordinateSystem.order_axes_canonical

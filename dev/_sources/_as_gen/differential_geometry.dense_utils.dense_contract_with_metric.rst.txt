@@ -1,0 +1,6 @@
+differential\_geometry.dense\_utils.dense\_contract\_with\_metric
+=================================================================
+
+.. currentmodule:: differential_geometry.dense_utils
+
+.. autofunction:: dense_contract_with_metric

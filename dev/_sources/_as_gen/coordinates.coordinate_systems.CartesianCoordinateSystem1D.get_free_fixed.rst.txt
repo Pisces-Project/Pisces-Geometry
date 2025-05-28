@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.CartesianCoordinateSystem1D.get\_free\_fixed
+============================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: CartesianCoordinateSystem1D.get_free_fixed

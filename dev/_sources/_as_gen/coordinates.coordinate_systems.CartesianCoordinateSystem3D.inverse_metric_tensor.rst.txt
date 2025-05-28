@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.CartesianCoordinateSystem3D.inverse\_metric\_tensor
+===================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: CartesianCoordinateSystem3D.inverse_metric_tensor

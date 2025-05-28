@@ -1,0 +1,6 @@
+fields.buffers.base.BufferBase.broadcast\_to
+============================================
+
+.. currentmodule:: fields.buffers.base
+
+.. automethod:: BufferBase.broadcast_to

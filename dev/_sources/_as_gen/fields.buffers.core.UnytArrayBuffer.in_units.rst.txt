@@ -1,0 +1,6 @@
+fields.buffers.core.UnytArrayBuffer.in\_units
+=============================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: UnytArrayBuffer.in_units

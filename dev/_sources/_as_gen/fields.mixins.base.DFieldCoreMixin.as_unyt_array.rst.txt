@@ -1,0 +1,6 @@
+fields.mixins.base.DFieldCoreMixin.as\_unyt\_array
+==================================================
+
+.. currentmodule:: fields.mixins.base
+
+.. automethod:: DFieldCoreMixin.as_unyt_array

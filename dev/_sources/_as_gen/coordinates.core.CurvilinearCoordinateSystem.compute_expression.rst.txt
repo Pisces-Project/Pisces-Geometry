@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.compute\_expression
+================================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: CurvilinearCoordinateSystem.compute_expression

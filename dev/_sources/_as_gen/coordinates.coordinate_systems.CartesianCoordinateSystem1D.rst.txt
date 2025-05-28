@@ -1,0 +1,91 @@
+CartesianCoordinateSystem1D
+==========================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoclass:: coordinates.coordinate_systems.CartesianCoordinateSystem1D
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~CartesianCoordinateSystem1D.__init__
+      ~CartesianCoordinateSystem1D.adjust_dense_tensor_signature
+      ~CartesianCoordinateSystem1D.axes_complement
+      ~CartesianCoordinateSystem1D.build_axes_mask
+      ~CartesianCoordinateSystem1D.compute_expression
+      ~CartesianCoordinateSystem1D.compute_expression_from_coordinates
+      ~CartesianCoordinateSystem1D.compute_function_from_coordinates
+      ~CartesianCoordinateSystem1D.convert_axes_to_indices
+      ~CartesianCoordinateSystem1D.convert_indices_to_axes
+      ~CartesianCoordinateSystem1D.convert_to
+      ~CartesianCoordinateSystem1D.coordinate_meshgrid
+      ~CartesianCoordinateSystem1D.create_coordinate_list
+      ~CartesianCoordinateSystem1D.from_cartesian
+      ~CartesianCoordinateSystem1D.from_hdf5
+      ~CartesianCoordinateSystem1D.get_axes_from_mask
+      ~CartesianCoordinateSystem1D.get_axes_latex
+      ~CartesianCoordinateSystem1D.get_axes_order
+      ~CartesianCoordinateSystem1D.get_axes_permutation
+      ~CartesianCoordinateSystem1D.get_axes_units
+      ~CartesianCoordinateSystem1D.get_canonical_axes_order
+      ~CartesianCoordinateSystem1D.get_canonical_axes_permutation
+      ~CartesianCoordinateSystem1D.get_class_expression
+      ~CartesianCoordinateSystem1D.get_conversion_transform
+      ~CartesianCoordinateSystem1D.get_expression
+      ~CartesianCoordinateSystem1D.get_free_fixed
+      ~CartesianCoordinateSystem1D.get_indices_from_mask
+      ~CartesianCoordinateSystem1D.get_mask_from_axes
+      ~CartesianCoordinateSystem1D.get_mask_from_indices
+      ~CartesianCoordinateSystem1D.get_numeric_expression
+      ~CartesianCoordinateSystem1D.has_class_expression
+      ~CartesianCoordinateSystem1D.has_expression
+      ~CartesianCoordinateSystem1D.in_axes_order
+      ~CartesianCoordinateSystem1D.in_canonical_order
+      ~CartesianCoordinateSystem1D.insert_fixed_axes
+      ~CartesianCoordinateSystem1D.is_axes_subset
+      ~CartesianCoordinateSystem1D.is_axes_superset
+      ~CartesianCoordinateSystem1D.is_axis
+      ~CartesianCoordinateSystem1D.lambdify_expression
+      ~CartesianCoordinateSystem1D.list_class_expressions
+      ~CartesianCoordinateSystem1D.list_expressions
+      ~CartesianCoordinateSystem1D.lower_index_dense
+      ~CartesianCoordinateSystem1D.order_axes
+      ~CartesianCoordinateSystem1D.order_axes_canonical
+      ~CartesianCoordinateSystem1D.pprint
+      ~CartesianCoordinateSystem1D.raise_index_dense
+      ~CartesianCoordinateSystem1D.requires_expression
+      ~CartesianCoordinateSystem1D.requires_expression_from_coordinates
+      ~CartesianCoordinateSystem1D.resolve_axes
+      ~CartesianCoordinateSystem1D.set_expression
+      ~CartesianCoordinateSystem1D.substitute_expression
+      ~CartesianCoordinateSystem1D.to_cartesian
+      ~CartesianCoordinateSystem1D.to_hdf5
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~CartesianCoordinateSystem1D.axes
+      ~CartesianCoordinateSystem1D.axes_dimensions
+      ~CartesianCoordinateSystem1D.axes_symbols
+      ~CartesianCoordinateSystem1D.inverse_metric_tensor
+      ~CartesianCoordinateSystem1D.inverse_metric_tensor_symbol
+      ~CartesianCoordinateSystem1D.metric_tensor
+      ~CartesianCoordinateSystem1D.metric_tensor_symbol
+      ~CartesianCoordinateSystem1D.ndim
+      ~CartesianCoordinateSystem1D.parameter_symbols
+      ~CartesianCoordinateSystem1D.parameters
+   
+   

@@ -1,0 +1,6 @@
+fields.base.DenseField.spatial\_shape
+=====================================
+
+.. currentmodule:: fields.base
+
+.. autoproperty:: DenseField.spatial_shape

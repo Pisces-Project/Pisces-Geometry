@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.OblateHomoeoidalCoordinateSystem.coordinate\_meshgrid
+=====================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: OblateHomoeoidalCoordinateSystem.coordinate_meshgrid

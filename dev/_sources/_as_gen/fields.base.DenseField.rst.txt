@@ -1,0 +1,65 @@
+DenseField
+======================
+
+.. currentmodule:: fields.base
+
+.. autoclass:: fields.base.DenseField
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~DenseField.__init__
+      ~DenseField.as_array
+      ~DenseField.as_unyt_array
+      ~DenseField.determine_op_dependence
+      ~DenseField.element_wise_laplacian
+      ~DenseField.element_wise_partial_derivatives
+      ~DenseField.from_array
+      ~DenseField.from_function
+      ~DenseField.full
+      ~DenseField.full_like
+      ~DenseField.ones
+      ~DenseField.ones_like
+      ~DenseField.validate_component
+      ~DenseField.validate_components
+      ~DenseField.zeros
+      ~DenseField.zeros_like
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~DenseField.axes
+      ~DenseField.buffer
+      ~DenseField.components
+      ~DenseField.coordinate_system
+      ~DenseField.dependence
+      ~DenseField.dtype
+      ~DenseField.element_ndim
+      ~DenseField.element_shape
+      ~DenseField.element_size
+      ~DenseField.grid
+      ~DenseField.is_scalar
+      ~DenseField.naxes
+      ~DenseField.ndim
+      ~DenseField.rank
+      ~DenseField.shape
+      ~DenseField.size
+      ~DenseField.spatial_ndim
+      ~DenseField.spatial_shape
+      ~DenseField.spatial_size
+      ~DenseField.units
+   
+   

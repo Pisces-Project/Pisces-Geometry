@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.insert\_fixed\_axes
+===============================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.insert_fixed_axes

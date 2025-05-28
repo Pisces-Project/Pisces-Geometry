@@ -1,0 +1,6 @@
+grids.core.UniformGrid.nvertices
+================================
+
+.. currentmodule:: grids.core
+
+.. autoproperty:: UniformGrid.nvertices

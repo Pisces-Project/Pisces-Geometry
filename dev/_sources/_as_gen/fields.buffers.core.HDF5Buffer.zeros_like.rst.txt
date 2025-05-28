@@ -1,0 +1,6 @@
+fields.buffers.core.HDF5Buffer.zeros\_like
+==========================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: HDF5Buffer.zeros_like

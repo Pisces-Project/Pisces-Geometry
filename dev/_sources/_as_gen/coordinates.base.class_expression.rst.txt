@@ -1,0 +1,6 @@
+coordinates.base.class\_expression
+==================================
+
+.. currentmodule:: coordinates.base
+
+.. autofunction:: class_expression

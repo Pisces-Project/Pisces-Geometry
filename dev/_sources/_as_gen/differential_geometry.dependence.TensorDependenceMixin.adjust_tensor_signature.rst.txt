@@ -1,0 +1,6 @@
+differential\_geometry.dependence.TensorDependenceMixin.adjust\_tensor\_signature
+=================================================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. automethod:: TensorDependenceMixin.adjust_tensor_signature

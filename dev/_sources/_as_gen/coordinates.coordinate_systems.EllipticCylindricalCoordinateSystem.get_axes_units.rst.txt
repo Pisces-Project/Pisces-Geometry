@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.EllipticCylindricalCoordinateSystem.get\_axes\_units
+====================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: EllipticCylindricalCoordinateSystem.get_axes_units

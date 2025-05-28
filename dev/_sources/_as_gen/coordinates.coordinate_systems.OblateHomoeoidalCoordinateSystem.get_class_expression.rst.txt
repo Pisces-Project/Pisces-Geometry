@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.OblateHomoeoidalCoordinateSystem.get\_class\_expression
+=======================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: OblateHomoeoidalCoordinateSystem.get_class_expression

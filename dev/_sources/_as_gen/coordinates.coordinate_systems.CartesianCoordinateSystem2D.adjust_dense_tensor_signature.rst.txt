@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.CartesianCoordinateSystem2D.adjust\_dense\_tensor\_signature
+============================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: CartesianCoordinateSystem2D.adjust_dense_tensor_signature

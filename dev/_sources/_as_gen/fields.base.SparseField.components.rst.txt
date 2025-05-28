@@ -1,0 +1,6 @@
+fields.base.SparseField.components
+==================================
+
+.. currentmodule:: fields.base
+
+.. autoproperty:: SparseField.components

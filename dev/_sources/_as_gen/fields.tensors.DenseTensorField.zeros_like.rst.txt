@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.zeros\_like
+===========================================
+
+.. currentmodule:: fields.tensors
+
+.. automethod:: DenseTensorField.zeros_like

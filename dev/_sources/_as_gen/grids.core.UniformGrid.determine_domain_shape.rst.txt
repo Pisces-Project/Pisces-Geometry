@@ -1,0 +1,6 @@
+grids.core.UniformGrid.determine\_domain\_shape
+===============================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: UniformGrid.determine_domain_shape

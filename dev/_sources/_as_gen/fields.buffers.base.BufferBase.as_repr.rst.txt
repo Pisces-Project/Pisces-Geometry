@@ -1,0 +1,6 @@
+fields.buffers.base.BufferBase.as\_repr
+=======================================
+
+.. currentmodule:: fields.buffers.base
+
+.. automethod:: BufferBase.as_repr

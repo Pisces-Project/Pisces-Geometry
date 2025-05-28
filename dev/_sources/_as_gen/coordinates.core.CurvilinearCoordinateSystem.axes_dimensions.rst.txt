@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.axes\_dimensions
+=============================================================
+
+.. currentmodule:: coordinates.core
+
+.. autoproperty:: CurvilinearCoordinateSystem.axes_dimensions

@@ -1,0 +1,6 @@
+fields.buffers.base.BufferBase.full\_like
+=========================================
+
+.. currentmodule:: fields.buffers.base
+
+.. automethod:: BufferBase.full_like

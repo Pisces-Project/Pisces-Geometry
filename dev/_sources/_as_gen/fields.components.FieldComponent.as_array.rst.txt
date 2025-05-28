@@ -1,0 +1,6 @@
+fields.components.FieldComponent.as\_array
+==========================================
+
+.. currentmodule:: fields.components
+
+.. automethod:: FieldComponent.as_array

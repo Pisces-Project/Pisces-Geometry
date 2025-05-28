@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.CylindricalCoordinateSystem.adjust\_dense\_tensor\_signature
+============================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: CylindricalCoordinateSystem.adjust_dense_tensor_signature

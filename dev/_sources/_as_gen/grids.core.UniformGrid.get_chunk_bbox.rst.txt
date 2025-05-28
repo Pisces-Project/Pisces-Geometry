@@ -1,0 +1,6 @@
+grids.core.UniformGrid.get\_chunk\_bbox
+=======================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: UniformGrid.get_chunk_bbox

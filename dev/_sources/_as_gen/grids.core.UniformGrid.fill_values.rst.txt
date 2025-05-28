@@ -1,0 +1,6 @@
+grids.core.UniformGrid.fill\_values
+===================================
+
+.. currentmodule:: grids.core
+
+.. autoproperty:: UniformGrid.fill_values

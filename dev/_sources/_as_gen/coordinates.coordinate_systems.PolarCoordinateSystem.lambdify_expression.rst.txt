@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.lambdify\_expression
+==========================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: PolarCoordinateSystem.lambdify_expression

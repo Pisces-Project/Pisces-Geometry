@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ProlateSpheroidalCoordinateSystem.parameters
+============================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: ProlateSpheroidalCoordinateSystem.parameters

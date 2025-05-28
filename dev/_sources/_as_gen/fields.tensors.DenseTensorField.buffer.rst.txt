@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.buffer
+======================================
+
+.. currentmodule:: fields.tensors
+
+.. autoproperty:: DenseTensorField.buffer

@@ -1,0 +1,6 @@
+differential\_geometry.dependence.DenseTensorDependence.axes\_symbols
+=====================================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. autoproperty:: DenseTensorDependence.axes_symbols

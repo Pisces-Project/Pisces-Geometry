@@ -1,0 +1,6 @@
+grids.base.GridBase.full\_like\_chunks
+======================================
+
+.. currentmodule:: grids.base
+
+.. automethod:: GridBase.full_like_chunks
