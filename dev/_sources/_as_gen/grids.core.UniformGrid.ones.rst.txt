@@ -1,6 +1,0 @@
-grids.core.UniformGrid.ones
-===========================
-
-.. currentmodule:: grids.core
-
-.. automethod:: UniformGrid.ones

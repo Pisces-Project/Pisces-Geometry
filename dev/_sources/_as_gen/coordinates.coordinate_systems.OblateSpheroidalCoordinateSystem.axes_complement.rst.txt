@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.OblateSpheroidalCoordinateSystem.axes\_complement
-=================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: OblateSpheroidalCoordinateSystem.axes_complement

@@ -1,6 +1,0 @@
-grids.core.UniformGrid.check\_field\_shape
-==========================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: UniformGrid.check_field_shape

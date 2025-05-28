@@ -1,6 +1,0 @@
-grids.core.UniformGrid.axes\_units
-==================================
-
-.. currentmodule:: grids.core
-
-.. autoproperty:: UniformGrid.axes_units

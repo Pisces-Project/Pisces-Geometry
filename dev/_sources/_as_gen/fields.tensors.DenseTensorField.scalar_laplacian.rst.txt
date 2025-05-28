@@ -1,6 +1,0 @@
-fields.tensors.DenseTensorField.scalar\_laplacian
-=================================================
-
-.. currentmodule:: fields.tensors
-
-.. automethod:: DenseTensorField.scalar_laplacian

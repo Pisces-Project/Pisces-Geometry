@@ -1,6 +1,0 @@
-fields.base.DenseField.zeros\_like
-==================================
-
-.. currentmodule:: fields.base
-
-.. automethod:: DenseField.zeros_like

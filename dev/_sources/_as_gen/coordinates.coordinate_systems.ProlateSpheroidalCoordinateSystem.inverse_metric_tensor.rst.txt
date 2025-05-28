@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.ProlateSpheroidalCoordinateSystem.inverse\_metric\_tensor
-=========================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. autoproperty:: ProlateSpheroidalCoordinateSystem.inverse_metric_tensor

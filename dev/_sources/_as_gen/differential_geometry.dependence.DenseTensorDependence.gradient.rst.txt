@@ -1,6 +1,0 @@
-differential\_geometry.dependence.DenseTensorDependence.gradient
-================================================================
-
-.. currentmodule:: differential_geometry.dependence
-
-.. automethod:: DenseTensorDependence.gradient

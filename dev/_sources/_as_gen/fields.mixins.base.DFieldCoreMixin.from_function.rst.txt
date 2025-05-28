@@ -1,6 +1,0 @@
-fields.mixins.base.DFieldCoreMixin.from\_function
-=================================================
-
-.. currentmodule:: fields.mixins.base
-
-.. automethod:: DFieldCoreMixin.from_function

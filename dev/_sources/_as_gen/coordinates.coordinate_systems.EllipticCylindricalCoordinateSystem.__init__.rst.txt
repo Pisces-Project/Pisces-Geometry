@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.EllipticCylindricalCoordinateSystem.\_\_init\_\_
-================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: EllipticCylindricalCoordinateSystem.__init__

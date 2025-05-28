@@ -1,6 +1,0 @@
-grids.mixins.mathops.DenseMathOpsMixin.dense\_contravariant\_gradient
-=====================================================================
-
-.. currentmodule:: grids.mixins.mathops
-
-.. automethod:: DenseMathOpsMixin.dense_contravariant_gradient

@@ -1,6 +1,0 @@
-coordinates.core.CurvilinearCoordinateSystem.get\_numeric\_expression
-=====================================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: CurvilinearCoordinateSystem.get_numeric_expression

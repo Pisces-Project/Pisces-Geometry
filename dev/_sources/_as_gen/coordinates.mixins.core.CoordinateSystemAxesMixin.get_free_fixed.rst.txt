@@ -1,6 +1,0 @@
-coordinates.mixins.core.CoordinateSystemAxesMixin.get\_free\_fixed
-==================================================================
-
-.. currentmodule:: coordinates.mixins.core
-
-.. automethod:: CoordinateSystemAxesMixin.get_free_fixed

@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.CartesianCoordinateSystem3D.has\_class\_expression
-==================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: CartesianCoordinateSystem3D.has_class_expression

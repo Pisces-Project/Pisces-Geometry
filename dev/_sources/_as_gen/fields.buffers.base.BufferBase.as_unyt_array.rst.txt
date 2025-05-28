@@ -1,6 +1,0 @@
-fields.buffers.base.BufferBase.as\_unyt\_array
-==============================================
-
-.. currentmodule:: fields.buffers.base
-
-.. automethod:: BufferBase.as_unyt_array

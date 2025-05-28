@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.EllipticCylindricalCoordinateSystem.compute\_expression
-=======================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: EllipticCylindricalCoordinateSystem.compute_expression

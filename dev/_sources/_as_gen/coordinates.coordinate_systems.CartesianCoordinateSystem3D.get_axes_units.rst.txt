@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.CartesianCoordinateSystem3D.get\_axes\_units
-============================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: CartesianCoordinateSystem3D.get_axes_units

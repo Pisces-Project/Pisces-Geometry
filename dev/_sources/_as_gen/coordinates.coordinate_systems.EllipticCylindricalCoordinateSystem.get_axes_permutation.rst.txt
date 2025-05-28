@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.EllipticCylindricalCoordinateSystem.get\_axes\_permutation
-==========================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: EllipticCylindricalCoordinateSystem.get_axes_permutation

@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.ProlateHomoeoidalCoordinateSystem.raise\_index\_dense
-=====================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: ProlateHomoeoidalCoordinateSystem.raise_index_dense

@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.PolarCoordinateSystem.get\_axes\_permutation
-============================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: PolarCoordinateSystem.get_axes_permutation

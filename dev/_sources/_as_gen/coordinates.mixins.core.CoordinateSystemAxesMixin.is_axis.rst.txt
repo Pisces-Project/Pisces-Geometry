@@ -1,6 +1,0 @@
-coordinates.mixins.core.CoordinateSystemAxesMixin.is\_axis
-==========================================================
-
-.. currentmodule:: coordinates.mixins.core
-
-.. automethod:: CoordinateSystemAxesMixin.is_axis

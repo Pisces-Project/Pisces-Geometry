@@ -1,6 +1,0 @@
-fields.buffers.base.BufferBase.\_\_init\_\_
-===========================================
-
-.. currentmodule:: fields.buffers.base
-
-.. automethod:: BufferBase.__init__

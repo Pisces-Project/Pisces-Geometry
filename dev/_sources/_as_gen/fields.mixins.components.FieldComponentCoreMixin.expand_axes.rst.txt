@@ -1,6 +1,0 @@
-fields.mixins.components.FieldComponentCoreMixin.expand\_axes
-=============================================================
-
-.. currentmodule:: fields.mixins.components
-
-.. automethod:: FieldComponentCoreMixin.expand_axes

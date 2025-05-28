@@ -1,6 +1,0 @@
-grids.core.UniformGrid.bbox
-===========================
-
-.. currentmodule:: grids.core
-
-.. autoproperty:: UniformGrid.bbox

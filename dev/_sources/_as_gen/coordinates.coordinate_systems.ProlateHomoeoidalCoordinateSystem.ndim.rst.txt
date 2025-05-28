@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.ProlateHomoeoidalCoordinateSystem.ndim
-======================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. autoproperty:: ProlateHomoeoidalCoordinateSystem.ndim

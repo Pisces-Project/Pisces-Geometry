@@ -1,6 +1,0 @@
-grids.core.UniformGrid.dense\_vector\_divergence\_covariant
-===========================================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: UniformGrid.dense_vector_divergence_covariant

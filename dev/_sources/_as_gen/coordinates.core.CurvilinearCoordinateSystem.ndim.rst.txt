@@ -1,6 +1,0 @@
-coordinates.core.CurvilinearCoordinateSystem.ndim
-=================================================
-
-.. currentmodule:: coordinates.core
-
-.. autoproperty:: CurvilinearCoordinateSystem.ndim

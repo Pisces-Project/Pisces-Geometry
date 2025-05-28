@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.OblateSpheroidalCoordinateSystem.convert\_to
-============================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: OblateSpheroidalCoordinateSystem.convert_to

@@ -1,6 +1,0 @@
-grids.base.GridBase.iter\_chunk\_slices
-=======================================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.iter_chunk_slices

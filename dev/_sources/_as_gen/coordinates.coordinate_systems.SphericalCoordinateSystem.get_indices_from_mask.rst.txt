@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.SphericalCoordinateSystem.get\_indices\_from\_mask
-==================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: SphericalCoordinateSystem.get_indices_from_mask

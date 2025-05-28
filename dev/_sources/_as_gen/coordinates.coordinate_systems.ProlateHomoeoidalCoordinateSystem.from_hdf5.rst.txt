@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.ProlateHomoeoidalCoordinateSystem.from\_hdf5
-============================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: ProlateHomoeoidalCoordinateSystem.from_hdf5

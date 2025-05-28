@@ -1,6 +1,0 @@
-grids.base.GridBase.dense\_element\_wise\_partial\_derivatives
-==============================================================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.dense_element_wise_partial_derivatives

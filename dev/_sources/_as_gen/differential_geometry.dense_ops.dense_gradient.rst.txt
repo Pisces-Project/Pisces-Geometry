@@ -1,6 +1,0 @@
-differential\_geometry.dense\_ops.dense\_gradient
-=================================================
-
-.. currentmodule:: differential_geometry.dense_ops
-
-.. autofunction:: dense_gradient

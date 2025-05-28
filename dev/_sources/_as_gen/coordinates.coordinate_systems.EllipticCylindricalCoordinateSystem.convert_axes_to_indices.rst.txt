@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.EllipticCylindricalCoordinateSystem.convert\_axes\_to\_indices
-==============================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: EllipticCylindricalCoordinateSystem.convert_axes_to_indices

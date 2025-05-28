@@ -1,6 +1,0 @@
-grids.base.GridBase.fill\_values
-================================
-
-.. currentmodule:: grids.base
-
-.. autoproperty:: GridBase.fill_values

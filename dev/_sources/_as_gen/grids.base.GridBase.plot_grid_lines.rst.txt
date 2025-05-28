@@ -1,6 +1,0 @@
-grids.base.GridBase.plot\_grid\_lines
-=====================================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.plot_grid_lines

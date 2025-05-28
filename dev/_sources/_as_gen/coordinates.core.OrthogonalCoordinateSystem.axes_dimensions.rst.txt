@@ -1,6 +1,0 @@
-coordinates.core.OrthogonalCoordinateSystem.axes\_dimensions
-============================================================
-
-.. currentmodule:: coordinates.core
-
-.. autoproperty:: OrthogonalCoordinateSystem.axes_dimensions

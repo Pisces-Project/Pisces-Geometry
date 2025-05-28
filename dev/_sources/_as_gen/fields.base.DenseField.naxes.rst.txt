@@ -1,6 +1,0 @@
-fields.base.DenseField.naxes
-============================
-
-.. currentmodule:: fields.base
-
-.. autoproperty:: DenseField.naxes

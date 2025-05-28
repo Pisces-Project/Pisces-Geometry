@@ -1,6 +1,0 @@
-coordinates.core.OrthogonalCoordinateSystem.\_\_init\_\_
-========================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: OrthogonalCoordinateSystem.__init__

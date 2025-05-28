@@ -1,6 +1,0 @@
-fields.buffers.core.ArrayBuffer.in\_units
-=========================================
-
-.. currentmodule:: fields.buffers.core
-
-.. automethod:: ArrayBuffer.in_units

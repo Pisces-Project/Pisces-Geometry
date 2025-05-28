@@ -1,6 +1,0 @@
-coordinates.mixins.coords.CoordinateOperationsMixin.create\_coordinate\_list
-============================================================================
-
-.. currentmodule:: coordinates.mixins.coords
-
-.. automethod:: CoordinateOperationsMixin.create_coordinate_list

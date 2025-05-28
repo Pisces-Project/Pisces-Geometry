@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.ProlateSpheroidalCoordinateSystem.get\_axes\_units
-==================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: ProlateSpheroidalCoordinateSystem.get_axes_units

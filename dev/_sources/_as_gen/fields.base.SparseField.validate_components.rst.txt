@@ -1,6 +1,0 @@
-fields.base.SparseField.validate\_components
-============================================
-
-.. currentmodule:: fields.base
-
-.. automethod:: SparseField.validate_components

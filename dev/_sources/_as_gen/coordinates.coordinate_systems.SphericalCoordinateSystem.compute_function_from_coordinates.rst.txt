@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.SphericalCoordinateSystem.compute\_function\_from\_coordinates
-==============================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: SphericalCoordinateSystem.compute_function_from_coordinates

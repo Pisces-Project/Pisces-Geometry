@@ -1,6 +1,0 @@
-grids.mixins.core.GridUtilsMixin.construct\_domain\_interpolator
-================================================================
-
-.. currentmodule:: grids.mixins.core
-
-.. automethod:: GridUtilsMixin.construct_domain_interpolator

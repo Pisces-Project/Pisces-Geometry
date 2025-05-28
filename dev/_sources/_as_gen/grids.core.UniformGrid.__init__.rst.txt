@@ -1,6 +1,0 @@
-grids.core.UniformGrid.\_\_init\_\_
-===================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: UniformGrid.__init__

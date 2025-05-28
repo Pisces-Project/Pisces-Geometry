@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.CartesianCoordinateSystem3D.get\_mask\_from\_axes
-=================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: CartesianCoordinateSystem3D.get_mask_from_axes

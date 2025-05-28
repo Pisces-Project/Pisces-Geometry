@@ -1,6 +1,0 @@
-coordinates.core.OrthogonalCoordinateSystem.resolve\_axes
-=========================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: OrthogonalCoordinateSystem.resolve_axes

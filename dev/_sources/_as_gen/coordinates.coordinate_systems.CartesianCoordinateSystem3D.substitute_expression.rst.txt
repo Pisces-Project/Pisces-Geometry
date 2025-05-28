@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.CartesianCoordinateSystem3D.substitute\_expression
-==================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: CartesianCoordinateSystem3D.substitute_expression

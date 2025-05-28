@@ -1,6 +1,0 @@
-grids.core.GenericGrid.centering
-================================
-
-.. currentmodule:: grids.core
-
-.. autoproperty:: GenericGrid.centering

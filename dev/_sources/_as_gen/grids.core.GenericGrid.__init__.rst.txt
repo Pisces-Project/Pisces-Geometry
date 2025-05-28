@@ -1,6 +1,0 @@
-grids.core.GenericGrid.\_\_init\_\_
-===================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.__init__

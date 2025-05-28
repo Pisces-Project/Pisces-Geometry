@@ -1,6 +1,0 @@
-differential\_geometry.dense\_utils.dense\_compute\_tensor\_trace
-=================================================================
-
-.. currentmodule:: differential_geometry.dense_utils
-
-.. autofunction:: dense_compute_tensor_trace

@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.CartesianCoordinateSystem2D.axes\_complement
-============================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: CartesianCoordinateSystem2D.axes_complement

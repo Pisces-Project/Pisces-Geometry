@@ -1,6 +1,0 @@
-fields.tensors.DenseTensorField.is\_vector
-==========================================
-
-.. currentmodule:: fields.tensors
-
-.. autoproperty:: DenseTensorField.is_vector

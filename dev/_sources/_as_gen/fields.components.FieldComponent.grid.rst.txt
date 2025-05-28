@@ -1,6 +1,0 @@
-fields.components.FieldComponent.grid
-=====================================
-
-.. currentmodule:: fields.components
-
-.. autoproperty:: FieldComponent.grid

@@ -1,6 +1,0 @@
-coordinates.mixins.core.CoordinateSystemAxesMixin.convert\_indices\_to\_axes
-============================================================================
-
-.. currentmodule:: coordinates.mixins.core
-
-.. automethod:: CoordinateSystemAxesMixin.convert_indices_to_axes

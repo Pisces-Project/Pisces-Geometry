@@ -1,6 +1,0 @@
-grids.mixins.mathops.DenseMathOpsMixin.compute\_function\_on\_grid
-==================================================================
-
-.. currentmodule:: grids.mixins.mathops
-
-.. automethod:: DenseMathOpsMixin.compute_function_on_grid

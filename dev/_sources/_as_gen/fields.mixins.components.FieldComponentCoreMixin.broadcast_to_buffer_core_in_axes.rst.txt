@@ -1,6 +1,0 @@
-fields.mixins.components.FieldComponentCoreMixin.broadcast\_to\_buffer\_core\_in\_axes
-======================================================================================
-
-.. currentmodule:: fields.mixins.components
-
-.. automethod:: FieldComponentCoreMixin.broadcast_to_buffer_core_in_axes

@@ -1,6 +1,0 @@
-grids.base.GridBase.ncells
-==========================
-
-.. currentmodule:: grids.base
-
-.. autoproperty:: GridBase.ncells

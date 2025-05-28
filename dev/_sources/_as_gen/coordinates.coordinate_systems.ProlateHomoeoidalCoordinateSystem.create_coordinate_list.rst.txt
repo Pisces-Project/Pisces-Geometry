@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.ProlateHomoeoidalCoordinateSystem.create\_coordinate\_list
-==========================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: ProlateHomoeoidalCoordinateSystem.create_coordinate_list

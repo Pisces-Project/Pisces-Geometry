@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.ProlateSpheroidalCoordinateSystem.pprint
-========================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: ProlateSpheroidalCoordinateSystem.pprint

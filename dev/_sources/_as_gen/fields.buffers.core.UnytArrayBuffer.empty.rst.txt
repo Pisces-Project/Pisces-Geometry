@@ -1,6 +1,0 @@
-fields.buffers.core.UnytArrayBuffer.empty
-=========================================
-
-.. currentmodule:: fields.buffers.core
-
-.. automethod:: UnytArrayBuffer.empty

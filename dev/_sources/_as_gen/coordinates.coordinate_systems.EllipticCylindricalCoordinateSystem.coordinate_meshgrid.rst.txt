@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.EllipticCylindricalCoordinateSystem.coordinate\_meshgrid
-========================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: EllipticCylindricalCoordinateSystem.coordinate_meshgrid

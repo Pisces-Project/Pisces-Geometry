@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.ProlateSpheroidalCoordinateSystem.create\_coordinate\_list
-==========================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: ProlateSpheroidalCoordinateSystem.create_coordinate_list

@@ -1,6 +1,0 @@
-grids.base.GridBase.compute\_domain\_slice
-==========================================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.compute_domain_slice

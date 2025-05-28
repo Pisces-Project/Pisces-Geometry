@@ -1,6 +1,0 @@
-fields.buffers.core.ArrayBuffer.shape
-=====================================
-
-.. currentmodule:: fields.buffers.core
-
-.. autoproperty:: ArrayBuffer.shape

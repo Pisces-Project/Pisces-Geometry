@@ -1,6 +1,0 @@
-fields.mixins.base.SFieldCoreMixin.keys
-=======================================
-
-.. currentmodule:: fields.mixins.base
-
-.. automethod:: SFieldCoreMixin.keys

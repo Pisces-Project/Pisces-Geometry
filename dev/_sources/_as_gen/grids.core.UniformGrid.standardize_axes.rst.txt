@@ -1,6 +1,0 @@
-grids.core.UniformGrid.standardize\_axes
-========================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: UniformGrid.standardize_axes

@@ -1,6 +1,0 @@
-fields.buffers.core.ArrayBuffer.from\_array
-===========================================
-
-.. currentmodule:: fields.buffers.core
-
-.. automethod:: ArrayBuffer.from_array

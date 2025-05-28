@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.SphericalCoordinateSystem.order\_axes
-=====================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: SphericalCoordinateSystem.order_axes
