@@ -1,0 +1,6 @@
+utilities.config.pg\_params
+===========================
+
+.. currentmodule:: utilities.config
+
+.. autodata:: pg_params

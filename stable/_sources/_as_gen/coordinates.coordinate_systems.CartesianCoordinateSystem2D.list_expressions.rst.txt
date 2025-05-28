@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.CartesianCoordinateSystem2D.list\_expressions
+=============================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: CartesianCoordinateSystem2D.list_expressions

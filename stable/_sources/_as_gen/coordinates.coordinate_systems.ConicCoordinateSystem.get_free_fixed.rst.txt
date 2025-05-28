@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ConicCoordinateSystem.get\_free\_fixed
+======================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ConicCoordinateSystem.get_free_fixed

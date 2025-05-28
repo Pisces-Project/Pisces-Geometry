@@ -1,0 +1,6 @@
+fields.mixins.base.DFieldCoreMixin.zeros\_like
+==============================================
+
+.. currentmodule:: fields.mixins.base
+
+.. automethod:: DFieldCoreMixin.zeros_like

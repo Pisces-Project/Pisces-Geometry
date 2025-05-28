@@ -1,0 +1,6 @@
+fields.mixins.base.SFieldCoreMixin.items
+========================================
+
+.. currentmodule:: fields.mixins.base
+
+.. automethod:: SFieldCoreMixin.items

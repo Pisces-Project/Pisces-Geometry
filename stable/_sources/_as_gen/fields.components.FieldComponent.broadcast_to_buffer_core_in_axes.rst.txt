@@ -1,0 +1,6 @@
+fields.components.FieldComponent.broadcast\_to\_buffer\_core\_in\_axes
+======================================================================
+
+.. currentmodule:: fields.components
+
+.. automethod:: FieldComponent.broadcast_to_buffer_core_in_axes

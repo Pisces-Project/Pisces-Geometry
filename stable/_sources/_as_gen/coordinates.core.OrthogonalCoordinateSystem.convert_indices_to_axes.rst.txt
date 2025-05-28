@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.convert\_indices\_to\_axes
+======================================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.convert_indices_to_axes

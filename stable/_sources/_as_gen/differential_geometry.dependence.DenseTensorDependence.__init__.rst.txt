@@ -1,0 +1,6 @@
+differential\_geometry.dependence.DenseTensorDependence.\_\_init\_\_
+====================================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. automethod:: DenseTensorDependence.__init__

@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.rank
+====================================
+
+.. currentmodule:: fields.tensors
+
+.. autoproperty:: DenseTensorField.rank

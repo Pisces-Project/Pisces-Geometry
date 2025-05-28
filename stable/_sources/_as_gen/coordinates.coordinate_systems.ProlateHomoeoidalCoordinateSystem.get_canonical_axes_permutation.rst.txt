@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ProlateHomoeoidalCoordinateSystem.get\_canonical\_axes\_permutation
+===================================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ProlateHomoeoidalCoordinateSystem.get_canonical_axes_permutation

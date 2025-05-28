@@ -1,0 +1,6 @@
+fields.components.FieldComponent.empty
+======================================
+
+.. currentmodule:: fields.components
+
+.. automethod:: FieldComponent.empty

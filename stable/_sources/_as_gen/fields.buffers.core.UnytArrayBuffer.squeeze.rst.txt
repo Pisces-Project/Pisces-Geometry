@@ -1,0 +1,6 @@
+fields.buffers.core.UnytArrayBuffer.squeeze
+===========================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: UnytArrayBuffer.squeeze

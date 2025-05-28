@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.insert\_fixed\_axes
+=========================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: PolarCoordinateSystem.insert_fixed_axes

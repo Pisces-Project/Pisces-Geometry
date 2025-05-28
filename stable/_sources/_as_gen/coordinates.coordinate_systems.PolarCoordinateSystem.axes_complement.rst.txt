@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.axes\_complement
+======================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: PolarCoordinateSystem.axes_complement

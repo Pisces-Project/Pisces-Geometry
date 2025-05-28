@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.SphericalCoordinateSystem.is\_axes\_subset
+==========================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: SphericalCoordinateSystem.is_axes_subset

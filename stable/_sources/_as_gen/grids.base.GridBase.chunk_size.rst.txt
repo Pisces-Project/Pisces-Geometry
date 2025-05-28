@@ -1,0 +1,6 @@
+grids.base.GridBase.chunk\_size
+===============================
+
+.. currentmodule:: grids.base
+
+.. autoproperty:: GridBase.chunk_size

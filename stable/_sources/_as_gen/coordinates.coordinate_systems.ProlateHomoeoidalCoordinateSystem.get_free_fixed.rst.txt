@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ProlateHomoeoidalCoordinateSystem.get\_free\_fixed
+==================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ProlateHomoeoidalCoordinateSystem.get_free_fixed

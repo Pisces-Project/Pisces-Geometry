@@ -1,0 +1,6 @@
+fields.buffers.base.BufferBase.astype
+=====================================
+
+.. currentmodule:: fields.buffers.base
+
+.. automethod:: BufferBase.astype

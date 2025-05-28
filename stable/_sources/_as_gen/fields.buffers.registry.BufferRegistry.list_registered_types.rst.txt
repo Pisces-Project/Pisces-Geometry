@@ -1,0 +1,6 @@
+fields.buffers.registry.BufferRegistry.list\_registered\_types
+==============================================================
+
+.. currentmodule:: fields.buffers.registry
+
+.. automethod:: BufferRegistry.list_registered_types

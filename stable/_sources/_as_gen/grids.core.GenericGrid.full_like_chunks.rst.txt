@@ -1,0 +1,6 @@
+grids.core.GenericGrid.full\_like\_chunks
+=========================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: GenericGrid.full_like_chunks

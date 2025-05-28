@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ProlateSpheroidalCoordinateSystem.resolve\_axes
+===============================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ProlateSpheroidalCoordinateSystem.resolve_axes

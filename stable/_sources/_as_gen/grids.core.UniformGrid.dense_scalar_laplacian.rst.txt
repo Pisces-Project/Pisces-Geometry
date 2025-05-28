@@ -1,0 +1,6 @@
+grids.core.UniformGrid.dense\_scalar\_laplacian
+===============================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: UniformGrid.dense_scalar_laplacian

@@ -1,0 +1,6 @@
+fields.buffers.registry.BufferRegistry.clear
+============================================
+
+.. currentmodule:: fields.buffers.registry
+
+.. automethod:: BufferRegistry.clear

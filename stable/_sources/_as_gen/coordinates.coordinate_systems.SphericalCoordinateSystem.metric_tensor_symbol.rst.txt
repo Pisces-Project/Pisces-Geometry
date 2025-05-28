@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.SphericalCoordinateSystem.metric\_tensor\_symbol
+================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: SphericalCoordinateSystem.metric_tensor_symbol

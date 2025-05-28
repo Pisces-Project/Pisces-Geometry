@@ -1,0 +1,6 @@
+fields.buffers.base.BufferBase.in\_units
+========================================
+
+.. currentmodule:: fields.buffers.base
+
+.. automethod:: BufferBase.in_units

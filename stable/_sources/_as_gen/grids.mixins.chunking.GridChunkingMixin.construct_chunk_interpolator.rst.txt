@@ -1,0 +1,6 @@
+grids.mixins.chunking.GridChunkingMixin.construct\_chunk\_interpolator
+======================================================================
+
+.. currentmodule:: grids.mixins.chunking
+
+.. automethod:: GridChunkingMixin.construct_chunk_interpolator

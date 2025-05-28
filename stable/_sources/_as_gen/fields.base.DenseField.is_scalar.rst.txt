@@ -1,0 +1,6 @@
+fields.base.DenseField.is\_scalar
+=================================
+
+.. currentmodule:: fields.base
+
+.. autoproperty:: DenseField.is_scalar

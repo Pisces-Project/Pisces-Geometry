@@ -1,0 +1,76 @@
+DenseTensorField
+===============================
+
+.. currentmodule:: fields.tensors
+
+.. autoclass:: fields.tensors.DenseTensorField
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~DenseTensorField.__init__
+      ~DenseTensorField.adjust_tensor_signature
+      ~DenseTensorField.as_array
+      ~DenseTensorField.as_unyt_array
+      ~DenseTensorField.contract_with_metric
+      ~DenseTensorField.determine_op_dependence
+      ~DenseTensorField.element_wise_laplacian
+      ~DenseTensorField.element_wise_partial_derivatives
+      ~DenseTensorField.from_array
+      ~DenseTensorField.from_function
+      ~DenseTensorField.full
+      ~DenseTensorField.full_like
+      ~DenseTensorField.gradient
+      ~DenseTensorField.lower_index
+      ~DenseTensorField.ones
+      ~DenseTensorField.ones_like
+      ~DenseTensorField.raise_index
+      ~DenseTensorField.scalar_laplacian
+      ~DenseTensorField.validate_component
+      ~DenseTensorField.validate_components
+      ~DenseTensorField.vector_divergence
+      ~DenseTensorField.zeros
+      ~DenseTensorField.zeros_like
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~DenseTensorField.axes
+      ~DenseTensorField.buffer
+      ~DenseTensorField.components
+      ~DenseTensorField.coordinate_system
+      ~DenseTensorField.dependence
+      ~DenseTensorField.dtype
+      ~DenseTensorField.element_ndim
+      ~DenseTensorField.element_shape
+      ~DenseTensorField.element_size
+      ~DenseTensorField.grid
+      ~DenseTensorField.is_covector
+      ~DenseTensorField.is_scalar
+      ~DenseTensorField.is_vector
+      ~DenseTensorField.naxes
+      ~DenseTensorField.ndim
+      ~DenseTensorField.rank
+      ~DenseTensorField.shape
+      ~DenseTensorField.signature
+      ~DenseTensorField.size
+      ~DenseTensorField.spatial_ndim
+      ~DenseTensorField.spatial_shape
+      ~DenseTensorField.spatial_size
+      ~DenseTensorField.tensor_class
+      ~DenseTensorField.units
+   
+   

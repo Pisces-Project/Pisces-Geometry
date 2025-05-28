@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ProlateSpheroidalCoordinateSystem.lower\_index\_dense
+=====================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ProlateSpheroidalCoordinateSystem.lower_index_dense

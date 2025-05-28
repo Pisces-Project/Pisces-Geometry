@@ -1,0 +1,6 @@
+grids.core.UniformGrid.gbbox
+============================
+
+.. currentmodule:: grids.core
+
+.. autoproperty:: UniformGrid.gbbox

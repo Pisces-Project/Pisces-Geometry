@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ProlateHomoeoidalCoordinateSystem.is\_axes\_superset
+====================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ProlateHomoeoidalCoordinateSystem.is_axes_superset

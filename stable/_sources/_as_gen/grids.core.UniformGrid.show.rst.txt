@@ -1,0 +1,6 @@
+grids.core.UniformGrid.show
+===========================
+
+.. currentmodule:: grids.core
+
+.. automethod:: UniformGrid.show

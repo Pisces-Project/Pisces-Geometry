@@ -1,0 +1,6 @@
+fields.buffers.core.HDF5Buffer.full\_like
+=========================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: HDF5Buffer.full_like

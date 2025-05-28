@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.list\_expressions
+=======================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: PolarCoordinateSystem.list_expressions

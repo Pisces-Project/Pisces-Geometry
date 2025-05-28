@@ -1,0 +1,42 @@
+differential_geometry.dense_utils
+=================================
+
+.. automodule:: differential_geometry.dense_utils
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+
+   
+      dense_adjust_tensor_signature
+      dense_compute_tensor_trace
+      dense_compute_volume_element
+      dense_contract_with_metric
+      dense_lower_index
+      dense_permute_tensor_indices
+      dense_raise_index
+      dense_tensor_product
+      dense_transform_tensor_field
+      infer_metric_type
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   

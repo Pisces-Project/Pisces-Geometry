@@ -1,0 +1,6 @@
+fields.buffers.core.HDF5Buffer.is\_owner
+========================================
+
+.. currentmodule:: fields.buffers.core
+
+.. autoproperty:: HDF5Buffer.is_owner

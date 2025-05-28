@@ -1,0 +1,764 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Geometric Grids: Custom Grid Classes &#8212; PyMetric  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/grids/build_custom_grids';</script>
+    <link rel="icon" href="../../_static/pm_favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Fields: Overview" href="../fields/overview.html" />
+    <link rel="prev" title="Geometric Grids: General Info" href="overview.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">PyMetric  documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_quickstart/index.html">
+    PyMetric Quickstart Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    PyMetric User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api_base.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_quickstart/index.html">
+    PyMetric Quickstart Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    PyMetric User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api_base.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../theory/coordinate_theory.html">Curvilinear Coordinate Systems</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../coordinates/overview.html">Coordinate Systems: General Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coordinates/building_coordinate_systems.html">Coordinate Systems: Building Custom Coordinate Systems</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Geometric Grids: General Info</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Geometric Grids: Custom Grid Classes</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fields/overview.html">Fields: Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fields/numpy.html">Fields: NumPy Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fields/buffers.html">Fields: Data Buffers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fields/components.html">Fields: Field Components</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../differential_geometry/overview.html">Differential Geometry: Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential_geometry/dependence.html">Symbolic Tensor Dependence API</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../coordinates/dev.html">Coordinate Systems: Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Geometric Grids: Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fields/dev.html">Fields: Developers</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">PyMetric User Guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Geometric Grids: Custom Grid Classes</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="geometric-grids-custom-grid-classes">
+<span id="grids-building"></span><h1>Geometric Grids: Custom Grid Classes<a class="headerlink" href="#geometric-grids-custom-grid-classes" title="Link to this heading">#</a></h1>
+<p>Grids (managed in the <a class="reference internal" href="../../_as_gen/grids.html#module-grids" title="grids"><code class="xref py py-mod docutils literal notranslate"><span class="pre">grids</span></code></a> module) are the fundamental objects in Pisces Geometry that define the layout of a
+computational domain. They encapsulate not just the numerical structure of the domain—such as its shape, resolution,
+and physical bounds—but also the coordinate system, ghost zone definitions, chunking behavior, and mechanisms
+to retrieve physical coordinates.</p>
+<p>Grids do not typically store the actual field data directly, but instead provide the interface by which coordinates
+and grid shape are made available to other parts of the framework. There are many types of grids available in Pisces-Geometry by
+default; however, extensibility is a critical aspect of the design approach for Pisces-Geometry (and Pisces in general) and
+therefore, it is quite easy to define custom grid implementations.</p>
+<p>In this guide, we’ll introduce the basics of generating new grid classes.</p>
+<section id="structuring-subclasses">
+<h2>Structuring Subclasses<a class="headerlink" href="#structuring-subclasses" title="Link to this heading">#</a></h2>
+<p>All grid types in Pisces Geometry are subclasses of the abstract base class <code class="docutils literal notranslate"><span class="pre">pymetric.grids.base._BaseGrid</span></code>, which defines the common
+interface and behaviors expected from all grids. This base class should not be used directly, but serves as a foundation
+for building concrete grid types like <code class="xref py py-class docutils literal notranslate"><span class="pre">grids.base.GenericGrid</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">_BaseGrid</span></code> class includes detailed documentation within each method to guide the subclass implementation. Developers
+can refer to these docstrings for the specific attributes that must be initialized and the responsibilities of each method.</p>
+<p>Subclasses may optionally inherit from intermediate classes if available, or directly from <code class="docutils literal notranslate"><span class="pre">_BaseGrid</span></code> when implementing novel grid types.</p>
+<section id="the-initialization-methods">
+<h3>The Initialization Methods<a class="headerlink" href="#the-initialization-methods" title="Link to this heading">#</a></h3>
+<p>Grid initialization is structured into a set of overridable setup routines that configure the various components of the grid.
+Subclasses should override these methods where necessary to define their unique behavior.</p>
+<p>By default, the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method in <code class="docutils literal notranslate"><span class="pre">_BaseGrid</span></code> looks like the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coordinate_system</span><span class="p">:</span> <span class="s2">&quot;_CoordinateSystemBase&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__set_coordinate_system__</span><span class="p">(</span><span class="n">coordinate_system</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">GridInitializationError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Failed to set up coordinate system for grid: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__set_grid_domain__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">GridInitializationError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Failed to set up domain for grid: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__set_grid_boundary__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">GridInitializationError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Failed to set up boundary for grid: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+    <span class="c1"># Run the __post_init__ method afterward.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__post_init__</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Each of the methods called is responsible for a separate aspect of the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> flow and may be overwritten in
+any given subclass.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>No matter what, all grid subclasses must take <code class="docutils literal notranslate"><span class="pre">coordinate_system</span></code> as an argument. Any other arguments may
+be inferred from <code class="docutils literal notranslate"><span class="pre">*args</span></code> or <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> and are then concretely specified in the subclasses.</p>
+</div>
+<p>The initialization methods currently implemented as part of the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> flow are the following:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">__set_coordinate_system__</span></code>
+This method assigns the coordinate system (see e.g. <a class="reference internal" href="../../_as_gen/coordinates.html#module-coordinates" title="coordinates"><code class="xref py py-mod docutils literal notranslate"><span class="pre">coordinates</span></code></a>) object to the grid. Subclasses may override
+it to enforce validation—e.g., requiring that the coordinate system be orthogonal or curvilinear.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The following are required attributes to be set in <code class="docutils literal notranslate"><span class="pre">__set_coordinate_system__</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">self.__cs__</span></code>: An instance of <code class="docutils literal notranslate"><span class="pre">_CoordinateSystemBase</span></code> or its subclass which acts as the
+coordinate system for the grid.</p></li>
+</ul>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__set_grid_domain__</span></code>
+This method controls the domain of the grid that is being generated. Whereas <code class="docutils literal notranslate"><span class="pre">__set_coordinate_system__</span></code> deals which what
+coordinate system is connected to the grid, this method figures out the coordinate boundaries (<code class="docutils literal notranslate"><span class="pre">bbox</span></code>), the grid shape (<code class="docutils literal notranslate"><span class="pre">dd</span></code>),
+and various other aspects of the grid’s structure.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The following are required attributes to be set in <code class="docutils literal notranslate"><span class="pre">__set_grid_domain</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">self.__bbox__</span></code>: A <code class="docutils literal notranslate"><span class="pre">BoundingBox</span></code> specifying the physical limits (without ghost zones). This should be a
+<code class="docutils literal notranslate"><span class="pre">(2,ndim)</span></code> array with the bottom left and top right corners of the coordinate domain specified.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">self.__dd__</span></code>: A <code class="docutils literal notranslate"><span class="pre">DomainDimensions</span></code> object specifying the number of points per axis (excluding ghost cells).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">self.__chunking__</span></code>: Boolean flag for whether chunking is active.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">self.__chunk_size__</span></code>: The shape of a single chunk, if chunking is enabled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">self.__cdd__</span></code>: The number of chunks in each dimension.</p></li>
+</ul>
+</div>
+<p>One of the critical aspects of this method is dealing with the <strong>ghost zones</strong>. These are excess cells to place outside
+of the main grid in order to ensure that boundary effects / conditions are handled correctly. In this method, these cells
+should be explicitly excluded from things like the <code class="docutils literal notranslate"><span class="pre">bbox</span></code> and the <code class="docutils literal notranslate"><span class="pre">dd</span></code>.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__set_grid_boundary__</span></code>
+Responsible for defining the ghost zone regions and the full domain including ghosts.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The following are required attributes to be set in <code class="docutils literal notranslate"><span class="pre">__set_grid_domain</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">self.__ghost_zones__</span></code>: A shape (2, ndim) array of ghost cells per side.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">self.__ghost_bbox__</span></code>: The full bounding box including ghost cells.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">self.__ghost_dd__</span></code>: The full domain dimensions including ghost cells.</p></li>
+</ul>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__post_init__</span></code>
+Optional method used to perform any custom configuration after the rest of the grid initialization is complete.
+Subclasses can use this as a hook to set up derived quantities or verify internal consistency.</p></li>
+</ul>
+<p>These methods are all invoked in sequence by the <code class="docutils literal notranslate"><span class="pre">_BaseGrid.__init__</span></code> method, and errors in any stage are wrapped in a <code class="docutils literal notranslate"><span class="pre">GridInitializationError</span></code> for clarity.</p>
+<p>Subclass authors should ensure that all required internal attributes are correctly set. Failure to do so may result in runtime errors or incorrect behavior in downstream geometry computations.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">In this example, we’ll show the initialization code for the <code class="xref py py-class docutils literal notranslate"><span class="pre">grids.base.GenericGrid</span></code>, which takes arrays
+of coordinates along each axis to generate the grid.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">GenericGrid</span><span class="p">(</span><span class="n">_BaseGrid</span><span class="p">):</span>
+    <span class="c1"># @@ Initialization Procedures @@ #</span>
+    <span class="c1"># These initialization procedures may be overwritten in subclasses</span>
+    <span class="c1"># to specialize the behavior of the grid.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__set_grid_domain__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Configure the shape and physical bounding box of the domain.</span>
+
+<span class="sd">        This method is responsible for defining:</span>
+
+<span class="sd">        - ``self.__bbox__``: The physical bounding box of the domain (without ghost cells). This should be a</span>
+<span class="sd">           valid ``BoundingBox`` instance with shape (2,NDIM) defining first the bottom left corner of the domain</span>
+<span class="sd">           and then the top right corner of the domain.</span>
+<span class="sd">        - ``self.__dd__``: The DomainDimensions object defining the grid shape (without ghost cells). This should be</span>
+<span class="sd">           a valid ``DomainDimensions`` instance with shape ``(NDIM,)``.</span>
+<span class="sd">        - ``self.__chunking__``: boolean flag indicating if chunking is allowed.</span>
+<span class="sd">        - ``self.__chunk_size__``: The DomainDimensions for a single chunk of the grid.</span>
+
+<span class="sd">        Should be overridden in subclasses to support specific grid shape logic.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Validate and define the arrays for the grid. They need to match the</span>
+        <span class="c1"># dimensions of the coordinate system and they need to be increasing.</span>
+        <span class="n">_coordinates_</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_coordinates_</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cs__</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GridInitializationError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Coordinate system </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__cs__</span><span class="si">}</span><span class="s2"> has </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__cs__</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s2"> dimensions but only </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">_coordinates_</span><span class="p">)</span><span class="si">}</span><span class="s2"> were &quot;</span>
+                <span class="s2">&quot;provided.&quot;</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__coordinate_arrays__</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="n">_coordinates_</span>
+        <span class="p">)</span>  <span class="c1"># Ensure each array is 1D and strictly increasing</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">arr</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">_coordinates_</span><span class="p">):</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">arr</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">GridInitializationError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Coordinate array for axis </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> must be 1-dimensional.&quot;</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">GridInitializationError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Coordinate array for axis </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> must be strictly increasing.&quot;</span>
+                <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__coordinate_arrays__</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="k">for</span> <span class="n">arr</span> <span class="ow">in</span> <span class="n">_coordinates_</span><span class="p">)</span>
+
+        <span class="c1"># Now use the coordinate arrays to compute the bounding box. This requires calling out</span>
+        <span class="c1"># to the ghost_zones a little bit early and validating them. The domain dimensions are computed</span>
+        <span class="c1"># from the length of each of the coordinate arrays.</span>
+        <span class="n">_ghost_zones</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ghost_zones&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">_ghost_zones</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">_ghost_zones</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span> <span class="k">if</span> <span class="n">_ghost_zones</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">_ghost_zones</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">_ghost_zones</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">_ghost_zones</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__ghost_zones__</span> <span class="o">=</span> <span class="n">_ghost_zones</span>
+        <span class="k">if</span> <span class="n">_ghost_zones</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__ghost_zones__</span> <span class="o">=</span> <span class="n">_ghost_zones</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;`ghost_zones` is not a valid shape. Expected (2,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s2">), got </span><span class="si">{</span><span class="n">_ghost_zones</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># With the ghost zones set up, we are now in a position to correctly manage the</span>
+        <span class="c1"># bounding box and the domain dimensions.</span>
+        <span class="n">_ghost_zones_per_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__ghost_zones__</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__bbox__</span> <span class="o">=</span> <span class="n">BoundingBox</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__coordinate_arrays__</span><span class="p">[</span><span class="n">_idim</span><span class="p">][</span><span class="n">_ghost_zones</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">_idim</span><span class="p">]],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__coordinate_arrays__</span><span class="p">[</span><span class="n">_idim</span><span class="p">][</span><span class="o">-</span><span class="p">(</span><span class="n">_ghost_zones</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">_idim</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)],</span>
+                <span class="p">]</span>
+                <span class="k">for</span> <span class="n">_idim</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__dd__</span> <span class="o">=</span> <span class="n">DomainDimensions</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__coordinate_arrays__</span><span class="p">[</span><span class="n">_idim</span><span class="p">]</span><span class="o">.</span><span class="n">size</span> <span class="o">-</span> <span class="n">_ghost_zones_per_axis</span><span class="p">[</span><span class="n">_idim</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">_idim</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Manage chunking behaviors. This needs to ensure that the chunk size is set,</span>
+        <span class="c1"># figure out if chunking is even enabled, and then additionally determine if the</span>
+        <span class="c1"># chunks equally divide the shape of the domain (after ghost zones!).</span>
+        <span class="n">_chunk_size_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;chunk_size&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">_chunk_size_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__chunking__</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Validate the chunking.</span>
+            <span class="n">_chunk_size_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">_chunk_size_</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_chunk_size_</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;&#39;chunk_size&#39; had </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">_chunk_size_</span><span class="p">)</span><span class="si">}</span><span class="s2"> dimensions but grid was </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s2"> dimensions.&quot;</span>
+                <span class="p">)</span>
+
+            <span class="k">elif</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__dd__</span> <span class="o">%</span> <span class="n">_chunk_size_</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;&#39;chunk_size&#39; (</span><span class="si">{</span><span class="n">_chunk_size_</span><span class="si">}</span><span class="s2">) must equally divide the grid (shape = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dd</span><span class="si">}</span><span class="s2">).&quot;</span>
+                <span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__chunking__</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__chunking__</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__chunk_size__</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DomainDimensions</span><span class="p">]</span> <span class="o">=</span> <span class="n">DomainDimensions</span><span class="p">(</span>
+                <span class="n">_chunk_size_</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__cdd__</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DomainDimensions</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dd</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">__chunk_size__</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__set_grid_boundary__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Configure boundary-related attributes for the grid.</span>
+
+<span class="sd">        This includes:</span>
+
+<span class="sd">        - ``self.__ghost_zones__``: Number of ghost cells on each side (2, ndim).</span>
+<span class="sd">        - ``self.__ghost_bbox__``: Bounding box including ghost regions.</span>
+<span class="sd">        - ``self.__ghost_dd__``: DomainDimensions object including ghost cells.</span>
+
+<span class="sd">        This is where boundary conditions (periodic, Dirichlet, etc.) and ghost cell layout</span>
+<span class="sd">        should be resolved.</span>
+
+<span class="sd">        Should be overridden in subclasses to implement behavior.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Ghost zones is already set, so that simplifies things a little bit. We now need to</span>
+        <span class="c1"># simply set the __ghost_dd__ and the __ghost_bbox__. These are actually the &quot;natural&quot; bbox and</span>
+        <span class="c1"># ddims given how the grid was specified.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__ghost_bbox__</span> <span class="o">=</span> <span class="n">BoundingBox</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__coordinate_arrays__</span><span class="p">[</span><span class="n">_idim</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__coordinate_arrays__</span><span class="p">[</span><span class="n">_idim</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                <span class="p">]</span>
+                <span class="k">for</span> <span class="n">_idim</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__ghost_dd__</span> <span class="o">=</span> <span class="n">DomainDimensions</span><span class="p">(</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__coordinate_arrays__</span><span class="p">[</span><span class="n">_idim</span><span class="p">]</span><span class="o">.</span><span class="n">size</span> <span class="k">for</span> <span class="n">_idim</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)]</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">coordinate_system</span><span class="p">:</span> <span class="s2">&quot;_CoordinateSystemBase&quot;</span><span class="p">,</span>
+        <span class="n">coordinates</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+        <span class="o">/</span><span class="p">,</span>
+        <span class="n">ghost_zones</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">chunk_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">coordinates</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">]</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;ghost_zones&quot;</span><span class="p">:</span> <span class="n">ghost_zones</span><span class="p">,</span> <span class="s2">&quot;chunk_size&quot;</span><span class="p">:</span> <span class="n">chunk_size</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">}</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">coordinate_system</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details></section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="overview.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Geometric Grids: General Info</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../fields/overview.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Fields: Overview</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structuring-subclasses">Structuring Subclasses</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-initialization-methods">The Initialization Methods</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/reference/grids/build_custom_grids.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Eliza Diggins.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

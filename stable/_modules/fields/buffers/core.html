@@ -1,0 +1,2263 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fields.buffers.core &#8212; PyMetric  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/fields/buffers/core';</script>
+    <link rel="icon" href="../../../_static/pm_favicon.svg"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">PyMetric  documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../auto_quickstart/index.html">
+    PyMetric Quickstart Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../auto_examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../reference/index.html">
+    PyMetric User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_base.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../auto_quickstart/index.html">
+    PyMetric Quickstart Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../auto_examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../reference/index.html">
+    PyMetric User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_base.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">fields.buffers.core</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for fields.buffers.core</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Core buffer types for PyMetric data management.</span>
+
+<span class="sd">This module defines the core buffer backends used by the PyMetric framework.</span>
+<span class="sd">Each buffer subclass implements the shared interface defined in :class:`~fields.buffers.base.BufferBase`,</span>
+<span class="sd">but supports a distinct storage strategy.</span>
+
+<span class="sd">Usage Notes</span>
+<span class="sd">-----------</span>
+
+<span class="sd">These buffers serve as drop-in storage layers for data fields, components, and other high-level PyMetric components.</span>
+<span class="sd">They ensure consistent semantics for field creation, manipulation, and resolution, regardless of backend format.</span>
+
+<span class="sd">All buffer classes:</span>
+
+<span class="sd">See Also</span>
+<span class="sd">--------</span>
+<span class="sd">:class:`~fields.buffers.base.BufferBase`</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">h5py</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">unyt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy.typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArrayLike</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">unyt</span><span class="w"> </span><span class="kn">import</span> <span class="n">Unit</span><span class="p">,</span> <span class="n">unyt_array</span><span class="p">,</span> <span class="n">unyt_quantity</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">unyt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnitConversionError</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.fields.buffers.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BufferBase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.fields.buffers.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">_to_unyt_array</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">unyt</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnitRegistry</span>
+
+
+<div class="viewcode-block" id="ArrayBuffer">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.ArrayBuffer.html#fields.buffers.core.ArrayBuffer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ArrayBuffer</span><span class="p">(</span><span class="n">BufferBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A lightweight buffer wrapper around a plain `NumPy &lt;https://numpy.org/doc/stable/index.html&gt;`__ array.</span>
+
+<span class="sd">    This class provides a minimal, unitless backend for storing field data using</span>
+<span class="sd">    standard :class:`numpy.ndarray` objects. It is designed for general-purpose use cases</span>
+<span class="sd">    where unit handling or advanced I/O (e.g., HDF5) is not required.</span>
+
+<span class="sd">    Because it does not attach physical units, this class is best suited for purely</span>
+<span class="sd">    numerical workflows or as a baseline buffer in performance-sensitive tasks.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Create a buffer from a 2D list:</span>
+
+<span class="sd">    &gt;&gt;&gt; buf = ArrayBuffer.from_array([[1, 2], [3, 4]])</span>
+<span class="sd">    &gt;&gt;&gt; buf</span>
+<span class="sd">    ArrayBuffer(shape=(2, 2), dtype=int64)</span>
+
+<span class="sd">    Create a zero-initialized buffer with shape (3, 3):</span>
+
+<span class="sd">    &gt;&gt;&gt; ArrayBuffer.zeros((3, 3)).as_array()</span>
+<span class="sd">    array([[0., 0., 0.],</span>
+<span class="sd">           [0., 0., 0.],</span>
+<span class="sd">           [0., 0., 0.]])</span>
+
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    UnytArrayBuffer : A unit-aware buffer backend.</span>
+<span class="sd">    HDF5Buffer: HDF5 backed buffer.</span>
+<span class="sd">    ~fields.buffers.base.BufferBase : Abstract interface for all buffer backends.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># === Class Attributes === #</span>
+    <span class="c1"># These attributes configure behavior and registration rules for buffer subclasses.</span>
+    <span class="c1"># All **concrete** buffer classes MUST define these attributes explicitly.</span>
+    <span class="c1">#</span>
+    <span class="c1"># Abstract classes may omit them by setting __is_abc__ = True.</span>
+    <span class="n">__is_abc__</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">__can_resolve__</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]</span>
+    <span class="n">__core_array_types__</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,)</span>
+    <span class="n">__representation_types__</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,)</span>
+    <span class="n">__resolution_priority__</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="ArrayBuffer.__init__">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.ArrayBuffer.__init__.html#fields.buffers.core.ArrayBuffer.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the buffer with a NumPy array.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        array : numpy.ndarray</span>
+<span class="sd">            A NumPy array to wrap. This should already be an instance</span>
+<span class="sd">            of :py:class:`numpy.ndarray`. Use :py:meth:`from_array` or :py:meth:`coerce` for flexible inputs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">array</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ArrayBuffer.from_array">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.ArrayBuffer.from_array.html#fields.buffers.core.ArrayBuffer.from_array">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_array</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ArrayBuffer&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct a new :class:`ArrayBuffer` from an arbitrary array-like input.</span>
+
+<span class="sd">        This method attempts to coerce the input into a valid :class:`numpy.ndarray` and wrap</span>
+<span class="sd">        it in an :class:`ArrayBuffer` instance. It serves as the standard mechanism</span>
+<span class="sd">        for converting raw or structured numerical data (e.g., lists, tuples, or other</span>
+<span class="sd">        array-compatible types) into a compatible buffer for numerical operations.</span>
+
+<span class="sd">        This constructor mimics the behavior of :func:`numpy.array` and accepts</span>
+<span class="sd">        keyword arguments like `dtype`, `order`, and `copy` to control how the data</span>
+<span class="sd">        is materialized. Subclasses may override this method to enforce stricter</span>
+<span class="sd">        requirements or attach additional metadata.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        obj : array-like</span>
+<span class="sd">            Input data to be wrapped. This can include Python lists, tuples,</span>
+<span class="sd">            NumPy arrays, or other objects that support array conversion via</span>
+<span class="sd">            :func:`numpy.array()`.</span>
+<span class="sd">        dtype : data-type, optional</span>
+<span class="sd">            Desired data type for the resulting array. If omitted, the data type</span>
+<span class="sd">            is inferred from `obj`.</span>
+<span class="sd">        *args, **kwargs :</span>
+<span class="sd">            Additional keyword arguments passed to :func:`numpy.array` to control</span>
+<span class="sd">            coercion behavior (e.g., `copy`, `order`, etc.).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ArrayBuffer</span>
+<span class="sd">            A buffer instance wrapping the resulting :class:`numpy.ndarray`.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            If the input cannot be coerced into a NumPy array.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="ArrayBuffer.convert_to_units">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.ArrayBuffer.convert_to_units.html#fields.buffers.core.ArrayBuffer.convert_to_units">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_units</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">unyt</span><span class="o">.</span><span class="n">Unit</span><span class="p">],</span> <span class="n">equivalence</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert this buffer&#39;s data to the specified physical units (in-place).</span>
+
+<span class="sd">        This operation replaces the buffer&#39;s internal data with a unit-converted</span>
+<span class="sd">        equivalent. It modifies the object directly.</span>
+
+<span class="sd">        Not all buffer classes support in-place unit assignment. Subclasses that</span>
+<span class="sd">        do not should override this method to raise an appropriate error.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        units : str or unyt.Unit</span>
+<span class="sd">            Target units to convert the data to.</span>
+<span class="sd">        equivalence : str, optional</span>
+<span class="sd">            Unit equivalence to apply during conversion (e.g., &quot;mass_energy&quot;).</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments forwarded to the equivalence logic.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        UnitConversionError</span>
+<span class="sd">            If the conversion is not dimensionally consistent.</span>
+<span class="sd">        NotImplementedError</span>
+<span class="sd">            If the subclass does not support in-place unit modification.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        If the buffer&#39;s units are `None`, this method assigns the new units directly</span>
+<span class="sd">        without modifying data. Otherwise, it performs a physical conversion.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">convert_to_units</span><span class="p">(</span><span class="n">units</span><span class="p">,</span> <span class="n">equivalence</span><span class="o">=</span><span class="n">equivalence</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ArrayBuffer.zeros">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.ArrayBuffer.zeros.html#fields.buffers.core.ArrayBuffer.zeros">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">zeros</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ArrayBuffer&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a buffer initialized with zeros.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        shape : tuple of int</span>
+<span class="sd">            Shape of the buffer (grid + element dimensions).</span>
+<span class="sd">        *args, **kwargs :</span>
+<span class="sd">            arguments forwarded to :func:`numpy.zeros` (e.g., dtype).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ArrayBuffer</span>
+<span class="sd">            A zero-filled buffer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="ArrayBuffer.ones">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.ArrayBuffer.ones.html#fields.buffers.core.ArrayBuffer.ones">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ones</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ArrayBuffer&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a buffer initialized with ones.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        shape : tuple of int</span>
+<span class="sd">            Shape of the buffer (grid + element dimensions).</span>
+<span class="sd">        *args, **kwargs :</span>
+<span class="sd">            arguments forwarded to :func:`numpy.ones` (e.g., dtype).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ArrayBuffer</span>
+<span class="sd">            A one-filled buffer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="ArrayBuffer.full">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.ArrayBuffer.full.html#fields.buffers.core.ArrayBuffer.full">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">full</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ArrayBuffer&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a buffer filled with a constant value.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        shape : tuple of int</span>
+<span class="sd">            Shape of the buffer (grid + element dimensions).</span>
+<span class="sd">        fill_value : scalar, optional</span>
+<span class="sd">            The constant value to use for every element. By default, this is ``0.0``.</span>
+<span class="sd">        *args, **kwargs :</span>
+<span class="sd">            arguments forwarded to :func:`numpy.full` (e.g., dtype).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ArrayBuffer</span>
+<span class="sd">            A buffer filled with the given value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="ArrayBuffer.empty">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.ArrayBuffer.empty.html#fields.buffers.core.ArrayBuffer.empty">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">empty</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ArrayBuffer&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a new buffer of given shape and type, without initializing entries.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        shape : tuple of int</span>
+<span class="sd">            Shape of the buffer (grid + element dimensions).</span>
+<span class="sd">        *args, **kwargs :</span>
+<span class="sd">            arguments forwarded to :func:`numpy.empty` (e.g., dtype).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ArrayBuffer</span>
+<span class="sd">            An uninitialized buffer (contents may be arbitrary).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="UnytArrayBuffer">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.UnytArrayBuffer.html#fields.buffers.core.UnytArrayBuffer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">UnytArrayBuffer</span><span class="p">(</span><span class="n">BufferBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A buffer that wraps a :py:class:`~unyt.array.unyt_array`, providing unit-aware numerical storage.</span>
+
+<span class="sd">    This buffer is designed for use cases that require physical units. Internally,</span>
+<span class="sd">    it stores data as a :py:class:`~unyt.array.unyt_array` and ensures consistent behavior when interacting</span>
+<span class="sd">    with values that carry or lack units.</span>
+
+<span class="sd">    The class supports coercion from raw array-like types (NumPy arrays, lists, tuples)</span>
+<span class="sd">    and automatically wraps them in a :py:class:`~unyt.array.unyt_array`.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Create an :py:class:`UnytArrayBuffer` from a list of values.</span>
+
+<span class="sd">    &gt;&gt;&gt; UnytArrayBuffer.from_array([1, 2, 3], units=&quot;m&quot;)</span>
+<span class="sd">    UnytArrayBuffer(shape=(3,), dtype=int64)</span>
+
+<span class="sd">    Generate a buffer using the :meth:`ones` method.</span>
+
+<span class="sd">    &gt;&gt;&gt; UnytArrayBuffer.ones((2, 2), units=&quot;kg&quot;).as_core()</span>
+<span class="sd">    unyt_array([[1., 1.],</span>
+<span class="sd">           [1., 1.]], &#39;kg&#39;)</span>
+
+<span class="sd">    Wrap a generic :py:class:`~unyt.array.unyt_array`.</span>
+
+<span class="sd">    &gt;&gt;&gt; UnytArrayBuffer.from_array(unyt_array([1.,1.],units=&#39;keV&#39;))</span>
+<span class="sd">    UnytArrayBuffer(shape=(2,), dtype=float64)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># === Class Attributes === #</span>
+    <span class="c1"># These attributes configure behavior and registration rules for buffer subclasses.</span>
+    <span class="c1"># All **concrete** buffer classes MUST define these attributes explicitly.</span>
+    <span class="c1">#</span>
+    <span class="c1"># Abstract classes may omit them by setting __is_abc__ = True.</span>
+    <span class="n">__is_abc__</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">__can_resolve__</span> <span class="o">=</span> <span class="p">[</span><span class="n">unyt_array</span><span class="p">]</span>
+    <span class="n">__core_array_types__</span> <span class="o">=</span> <span class="p">(</span><span class="n">unyt_array</span><span class="p">,)</span>
+    <span class="n">__representation_types__</span> <span class="o">=</span> <span class="p">(</span><span class="n">unyt_array</span><span class="p">,)</span>
+    <span class="n">__resolution_priority__</span> <span class="o">=</span> <span class="mi">10</span>
+
+<div class="viewcode-block" id="UnytArrayBuffer.__init__">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.UnytArrayBuffer.__init__.html#fields.buffers.core.UnytArrayBuffer.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">:</span> <span class="n">unyt_array</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the buffer with a NumPy array.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        array : unyt.array.unyt_array</span>
+<span class="sd">            An Unyt array to wrap. This should already be an instance</span>
+<span class="sd">            of :py:class:`unyt.array.unyt_array`. Use :py:meth:`from_array` or :py:meth:`coerce` for flexible inputs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">array</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">units</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Physical units attached to the buffer data.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        unyt.unit_registry.Unit</span>
+<span class="sd">            The physical units associated with this buffer’s array values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__array_object__</span><span class="o">.</span><span class="n">units</span>
+
+    <span class="nd">@units</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">units</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unit</span><span class="p">,</span> <span class="nb">str</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the physical units in the HDF5 dataset metadata.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        value : str or unyt.Unit</span>
+<span class="sd">            Unit string / instance to attach.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__array_object__</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">value</span>
+
+<div class="viewcode-block" id="UnytArrayBuffer.from_array">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.UnytArrayBuffer.from_array.html#fields.buffers.core.UnytArrayBuffer.from_array">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_array</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">units</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Unit&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="n">registry</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;UnitRegistry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">bypass_validation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;UnytArrayBuffer&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct a new unit-aware buffer from any array-like input.</span>
+
+<span class="sd">        This method wraps the input in an :class:`~unyt.array.unyt_array`, preserving or applying physical units</span>
+<span class="sd">        as needed. It handles input that is already a :class:`~unyt.array.unyt_array` or :class:`~unyt.array.unyt_quantity`, a plain</span>
+<span class="sd">        :class:`numpy.ndarray`, or any array-like object (e.g., list, tuple) that can be converted via</span>
+<span class="sd">        :func:`numpy.array`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        obj : array-like</span>
+<span class="sd">            The input data to interpret as a buffer. Regardless of the input type,</span>
+<span class="sd">            the data will be coerced to a :class:`~unyt.array.unyt_array` and then wrapped</span>
+<span class="sd">            in :class:`UnytArrayBuffer`.</span>
+<span class="sd">        units : str or :class:`~unyt.unit_object.Unit`, optional</span>
+<span class="sd">            Physical units to attach to the resulting array. If not provided and `obj` has</span>
+<span class="sd">            attached units, they are preserved. Otherwise defaults to dimensionless.</span>
+<span class="sd">        dtype : data-type, optional</span>
+<span class="sd">            Desired data type of the resulting array. If not specified, inferred from input.</span>
+<span class="sd">        registry: :class:`~unyt.unit_registry.UnitRegistry`, optional</span>
+<span class="sd">            Registry to associate with the units, if applicable.</span>
+<span class="sd">        bypass_validation : bool, default False</span>
+<span class="sd">            If True, skip unit and value validation (faster but unsafe for malformed input).</span>
+<span class="sd">        name : str, optional</span>
+<span class="sd">            Optional name for the array (useful for annotation).</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments passed to :func:`numpy.array` if the input must be coerced.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        UnytArrayBuffer</span>
+<span class="sd">            A buffer instance wrapping the resulting :class:`~unyt.array.unyt_array`.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            If the input cannot be converted into a :class:`~unyt.array.unyt_array`.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        **Input Type Behavior:**</span>
+
+<span class="sd">        - If `obj` is already a :class:`~unyt.array.unyt_array` or :class:`~unyt.array.unyt_quantity`, it is forwarded directly</span>
+<span class="sd">          (converted if `units` is specified).</span>
+<span class="sd">        - If `obj` is a :class:`numpy.ndarray`, it is passed to :class:`~unyt.array.unyt_array` with all metadata.</span>
+<span class="sd">        - Otherwise, the input is cast via :func:`numpy.array` and then wrapped.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">unyt_array</span><span class="p">):</span>
+            <span class="c1"># Convert if user has requested a new unit.</span>
+            <span class="k">if</span> <span class="n">units</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">units</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">unyt_quantity</span><span class="p">):</span>
+            <span class="c1"># Promote scalar to unyt_array; preserve or convert units.</span>
+            <span class="n">array</span> <span class="o">=</span> <span class="n">unyt_array</span><span class="p">(</span>
+                <span class="n">obj</span><span class="p">,</span>
+                <span class="n">units</span><span class="o">=</span><span class="n">units</span> <span class="ow">or</span> <span class="n">obj</span><span class="o">.</span><span class="n">units</span><span class="p">,</span>
+                <span class="n">registry</span><span class="o">=</span><span class="n">registry</span><span class="p">,</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+                <span class="n">bypass_validation</span><span class="o">=</span><span class="n">bypass_validation</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="c1"># Wrap numpy arrays directly in unyt_array</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+                <span class="n">unyt_array</span><span class="p">(</span>
+                    <span class="n">obj</span><span class="p">,</span>
+                    <span class="n">units</span><span class="o">=</span><span class="n">units</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="n">registry</span><span class="o">=</span><span class="n">registry</span><span class="p">,</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+                    <span class="n">bypass_validation</span><span class="o">=</span><span class="n">bypass_validation</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Final fallback: try to coerce to np.array first, then wrap</span>
+        <span class="n">coerced</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">unyt_array</span><span class="p">(</span>
+                <span class="n">coerced</span><span class="p">,</span>
+                <span class="n">units</span><span class="o">=</span><span class="n">units</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">registry</span><span class="o">=</span><span class="n">registry</span><span class="p">,</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+                <span class="n">bypass_validation</span><span class="o">=</span><span class="n">bypass_validation</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UnytArrayBuffer.convert_to_units">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.UnytArrayBuffer.convert_to_units.html#fields.buffers.core.UnytArrayBuffer.convert_to_units">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_units</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">unyt</span><span class="o">.</span><span class="n">Unit</span><span class="p">],</span> <span class="n">equivalence</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert the buffer data to the specified physical units in-place.</span>
+
+<span class="sd">        This method performs an in-place conversion of the HDF5 dataset to the target</span>
+<span class="sd">        physical units and updates the unit metadata stored in the HDF5 file. The</span>
+<span class="sd">        conversion is only valid if the target units are dimensionally compatible with</span>
+<span class="sd">        the current units.</span>
+
+<span class="sd">        The method preserves the structure and layout of the underlying dataset while</span>
+<span class="sd">        modifying its numerical values according to the specified units. This is</span>
+<span class="sd">        useful when standardizing units across datasets or applying unit-sensitive</span>
+<span class="sd">        transformations in physical simulations or analysis pipelines.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        units : str or ~unyt.unit_object.Unit</span>
+<span class="sd">            Target units to convert the buffer data to. Can be a unit string (e.g., &quot;km&quot;)</span>
+<span class="sd">            or a :class:`unyt.unit_object.Unit` instance.</span>
+<span class="sd">        equivalence : str, optional</span>
+<span class="sd">            Optional unit equivalence (e.g., &quot;mass_energy&quot;) to use when converting</span>
+<span class="sd">            between units that are not strictly dimensionally identical but are</span>
+<span class="sd">            convertible under certain physical principles.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments forwarded to `unyt`&#39;s unit conversion routines.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        UnitConversionError</span>
+<span class="sd">            If the target units are not compatible with the buffer&#39;s existing units.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__array_object__</span><span class="o">.</span><span class="n">convert_to_units</span><span class="p">(</span><span class="n">units</span><span class="p">,</span> <span class="n">equivalence</span><span class="o">=</span><span class="n">equivalence</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UnytArrayBuffer.zeros">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.UnytArrayBuffer.zeros.html#fields.buffers.core.UnytArrayBuffer.zeros">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">zeros</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">units</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;UnytArrayBuffer&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a buffer filled with zeros and optional units.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        shape : tuple of int</span>
+<span class="sd">            Shape of the array to create.</span>
+<span class="sd">        units : str, optional</span>
+<span class="sd">            Units to assign to the buffer.</span>
+<span class="sd">        *args :</span>
+<span class="sd">            Additional positional arguments forwarded to :func:`numpy.zeros`.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Keyword arguments forwarded to :func:`numpy.zeros`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        UnytArrayBuffer</span>
+<span class="sd">            A zero-filled, unit-tagged buffer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UnytArrayBuffer.ones">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.UnytArrayBuffer.ones.html#fields.buffers.core.UnytArrayBuffer.ones">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ones</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">units</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;UnytArrayBuffer&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a buffer filled with ones and optional units.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        shape : tuple of int</span>
+<span class="sd">            Shape of the array to create.</span>
+<span class="sd">        units : str, optional</span>
+<span class="sd">            Units to assign to the buffer.</span>
+<span class="sd">        *args :</span>
+<span class="sd">            Additional positional arguments forwarded to :func:`numpy.ones`.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Keyword arguments forwarded to :func:`numpy.ones`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        UnytArrayBuffer</span>
+<span class="sd">            A one-filled, unit-tagged buffer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UnytArrayBuffer.full">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.UnytArrayBuffer.full.html#fields.buffers.core.UnytArrayBuffer.full">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">full</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;UnytArrayBuffer&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a buffer filled with a constant value and attached units.</span>
+
+<span class="sd">        This method accepts either scalar values or :class:`~unyt.array.unyt_quantity` inputs for `fill_value`.</span>
+<span class="sd">        If a :class:`~unyt.array.unyt_quantity` is provided, its units are extracted automatically unless</span>
+<span class="sd">        overridden by the `units` keyword.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        shape : tuple of int</span>
+<span class="sd">            Desired shape of the array.</span>
+<span class="sd">        fill_value : scalar or unyt_quantity, default 0.0</span>
+<span class="sd">            The value to fill the array with. Units are inferred if `fill_value` is a :class:`~unyt.array.unyt_quantity`.</span>
+<span class="sd">        *args :</span>
+<span class="sd">            Additional arguments passed to :func:`numpy.full`.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments passed to :func:`numpy.full`. May include:</span>
+<span class="sd">            - units : str — to override or explicitly declare output units.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        UnytArrayBuffer</span>
+<span class="sd">            A buffer filled with the specified value and tagged with physical units.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            If the resulting array cannot be coerced into a `unyt_array`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">units</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;units&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fill_value</span><span class="p">,</span> <span class="n">unyt_quantity</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">units</span><span class="p">:</span>
+                <span class="n">units</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">fill_value</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
+            <span class="n">fill_scalar</span> <span class="o">=</span> <span class="n">fill_value</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fill_scalar</span> <span class="o">=</span> <span class="n">fill_value</span>
+
+        <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">fill_scalar</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UnytArrayBuffer.empty">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.UnytArrayBuffer.empty.html#fields.buffers.core.UnytArrayBuffer.empty">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">empty</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">units</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;UnytArrayBuffer&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a new array of given shape and type, without initializing entries.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        shape : tuple of int</span>
+<span class="sd">            Shape of the array to create.</span>
+<span class="sd">        units : str, optional</span>
+<span class="sd">            Units to assign to the buffer.</span>
+<span class="sd">        *args :</span>
+<span class="sd">            Additional positional arguments forwarded to :func:`numpy.empty`.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Keyword arguments forwarded to :func:`numpy.empty`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        UnytArrayBuffer</span>
+<span class="sd">            A one-filled, unit-tagged buffer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UnytArrayBuffer.as_repr">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.UnytArrayBuffer.as_repr.html#fields.buffers.core.UnytArrayBuffer.as_repr">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArrayLike</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return this buffer as an unyt array.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_core</span><span class="p">()</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="HDF5Buffer">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.html#fields.buffers.core.HDF5Buffer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">HDF5Buffer</span><span class="p">(</span><span class="n">BufferBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A buffer that wraps a lazily-loaded HDF5 dataset using :class:`h5py.Dataset`.</span>
+
+<span class="sd">    This buffer enables disk-backed storage of field data, making it ideal for large datasets</span>
+<span class="sd">    that exceed memory constraints. Internally, it wraps a persistent HDF5 dataset and exposes</span>
+<span class="sd">    a NumPy-compatible interface for slicing, indexing, and arithmetic operations.</span>
+
+<span class="sd">    Unlike in-memory buffers like :class:`ArrayBuffer` or :class:`UnytArrayBuffer`, this buffer</span>
+<span class="sd">    does not eagerly load its contents into memory. Instead, all reads and writes are performed</span>
+<span class="sd">    through a memory-mapped interface, and computations are supported through seamless integration</span>
+<span class="sd">    with NumPy ufuncs.</span>
+
+<span class="sd">    If units are provided (either at creation or via a unit-aware input), they are stored as</span>
+<span class="sd">    a string attribute on the dataset and automatically reapplied when data is accessed.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Create a disk-backed buffer with units:</span>
+
+<span class="sd">    &gt;&gt;&gt; buff = HDF5Buffer.from_array([1, 2, 3],</span>
+<span class="sd">    ...                       &quot;mydata.h5&quot;,</span>
+<span class="sd">    ...                       &quot;dataset&quot;,</span>
+<span class="sd">    ...                       units=None,</span>
+<span class="sd">    ...                       overwrite=True,dtype=&#39;f8&#39;,</span>
+<span class="sd">    ...                       create_file=True)</span>
+<span class="sd">    &gt;&gt;&gt; buff</span>
+<span class="sd">    HDF5Buffer(shape=(3,), dtype=float64, path=&#39;/dataset&#39;)</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    ArrayBuffer : In-memory NumPy array backend.</span>
+<span class="sd">    UnytArrayBuffer : In-memory unit-aware buffer.</span>
+<span class="sd">    ~fields.buffers.base.BufferBase : Abstract buffer interface.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># ------------------------------ #</span>
+    <span class="c1"># Class Flags                    #</span>
+    <span class="c1"># ------------------------------ #</span>
+    <span class="c1"># These attributes configure behavior and</span>
+    <span class="c1"># registration rules for buffer subclasses.</span>
+    <span class="c1"># All **concrete** buffer classes MUST define</span>
+    <span class="c1"># these attributes explicitly.</span>
+    <span class="c1">#</span>
+    <span class="c1"># Abstract classes may omit them by setting __is_abc__ = True.</span>
+    <span class="n">__is_abc__</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">__can_resolve__</span> <span class="o">=</span> <span class="p">[</span><span class="n">h5py</span><span class="o">.</span><span class="n">Dataset</span><span class="p">]</span>
+    <span class="n">__core_array_types__</span> <span class="o">=</span> <span class="p">(</span><span class="n">h5py</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,)</span>
+    <span class="n">__representation_types__</span> <span class="o">=</span> <span class="p">(</span><span class="n">unyt_array</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+    <span class="n">__resolution_priority__</span> <span class="o">=</span> <span class="mi">30</span>
+
+    <span class="c1"># Reduce the scope of directed array dispatching to</span>
+    <span class="c1"># provide a more intuitive behavioral context.</span>
+    <span class="n">__array_function_dispatch__</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1"># Internally defined properties.</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">,</span> <span class="o">**</span><span class="n">__</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">,</span> <span class="o">**</span><span class="n">__</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">,</span> <span class="o">**</span><span class="n">__</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1"># ------------------------------ #</span>
+    <span class="c1"># Initialization                 #</span>
+    <span class="c1"># ------------------------------ #</span>
+    <span class="c1"># The initialization procedure should be meta stable</span>
+    <span class="c1"># in the sense that it always behaves the same way: __init__</span>
+    <span class="c1"># requires a pre-coerced type and simply checks for type compliance.</span>
+    <span class="c1"># Other methods can be used for more adaptive behavior.</span>
+<div class="viewcode-block" id="HDF5Buffer.__init__">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.__init__.html#fields.buffers.core.HDF5Buffer.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">:</span> <span class="n">h5py</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">__is_file_owner__</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create an :class:`HDF5Buffer` object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        array : h5py.Dataset</span>
+<span class="sd">            Open dataset to wrap. *Must* remain valid for the buffer&#39;s lifetime.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__is_owner__</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">__is_file_owner__</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;HDF5Buffer&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Enter the buffer context.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Exit the context: flush and optionally close file if owned.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__array_object__</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__is_owner__</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__array_object__</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="c1"># noinspection PyIncorrectDocstring</span>
+<div class="viewcode-block" id="HDF5Buffer.from_array">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.from_array.html#fields.buffers.core.HDF5Buffer.from_array">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_array</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">,</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">units</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Unit&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;HDF5Buffer&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct an HDF5-backed buffer from an array-like object or existing HDF5 dataset.</span>
+
+<span class="sd">        This method wraps either:</span>
+
+<span class="sd">        - an existing `h5py.Dataset`, or</span>
+<span class="sd">        - arbitrary in-memory data by creating a new dataset in the specified HDF5 file.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        obj : array-like or :class:`~h5py.Dataset`</span>
+<span class="sd">            The data to store. If already a :class:`h5py.Dataset`, it is wrapped directly.</span>
+<span class="sd">            Otherwise, it is coerced to a `unyt_array` and stored in a new dataset.</span>
+<span class="sd">        file : str, Path, or :class:`~h5py.File`, optional</span>
+<span class="sd">            Path to the HDF5 file or an open file object. Required if `obj` is not already a dataset.</span>
+<span class="sd">        path : str, optional</span>
+<span class="sd">            Internal path for the new dataset in the HDF5 file. Required if `obj` is not already a dataset.</span>
+<span class="sd">        dtype : data-type, optional</span>
+<span class="sd">            Desired data type of the dataset. Defaults to the dtype inferred from `obj`.</span>
+<span class="sd">        units : str or :class:`~unyt.unit_object.Unit`, optional</span>
+<span class="sd">            Units to attach to the dataset. If `obj` already has units, this overrides them.</span>
+<span class="sd">        overwrite : bool, default False</span>
+<span class="sd">            If True, any existing dataset at the given path will be deleted and replaced.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments forwarded to :meth:`create_dataset`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        HDF5Buffer</span>
+<span class="sd">            A lazily-loaded buffer backed by an HDF5 dataset.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If `file` or `path` is not specified when required.</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            If input types are not supported or invalid.</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        HDF5Buffer.create_dataset : Core method used for new dataset creation.</span>
+<span class="sd">        buffer_from_array : Registry-based entry point to buffer resolution.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">h5py</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+            <span class="n">__is_file_owner__</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;make_owner&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">__is_file_owner__</span><span class="o">=</span><span class="n">__is_file_owner__</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">file</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;When creating a new dataset, both `file` and `path` must be provided.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">__is_file_owner__</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;make_owner&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span>
+            <span class="n">file</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">__is_file_owner__</span><span class="o">=</span><span class="n">__is_file_owner__</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HDF5Buffer.convert_to_units">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.convert_to_units.html#fields.buffers.core.HDF5Buffer.convert_to_units">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_units</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">unyt</span><span class="o">.</span><span class="n">Unit</span><span class="p">],</span> <span class="n">equivalence</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert the buffer data to the specified physical units in-place.</span>
+
+<span class="sd">        This method performs an in-place conversion of the HDF5 dataset to the target</span>
+<span class="sd">        physical units and updates the unit metadata stored in the HDF5 file. The</span>
+<span class="sd">        conversion is only valid if the target units are dimensionally compatible with</span>
+<span class="sd">        the current units.</span>
+
+<span class="sd">        The method preserves the structure and layout of the underlying dataset while</span>
+<span class="sd">        modifying its numerical values according to the specified units. This is</span>
+<span class="sd">        useful when standardizing units across datasets or applying unit-sensitive</span>
+<span class="sd">        transformations in physical simulations or analysis pipelines.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        units : str or ~unyt.unit_object.Unit</span>
+<span class="sd">            Target units to convert the buffer data to. Can be a unit string (e.g., &quot;km&quot;)</span>
+<span class="sd">            or a :class:`unyt.unit_object.Unit` instance.</span>
+<span class="sd">        equivalence : str, optional</span>
+<span class="sd">            Optional unit equivalence (e.g., &quot;mass_energy&quot;) to use when converting</span>
+<span class="sd">            between units that are not strictly dimensionally identical but are</span>
+<span class="sd">            convertible under certain physical principles.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments forwarded to `unyt`&#39;s unit conversion routines.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        UnitConversionError</span>
+<span class="sd">            If the target units are not compatible with the buffer&#39;s existing units.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__array_object__</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="o">.</span><span class="n">to_value</span><span class="p">(</span>
+            <span class="n">units</span><span class="p">,</span> <span class="n">equivalence</span><span class="o">=</span><span class="n">equivalence</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">units</span></div>
+
+
+    <span class="c1"># === Internal Utilities === #</span>
+<div class="viewcode-block" id="HDF5Buffer.create_dataset">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.create_dataset.html#fields.buffers.core.HDF5Buffer.create_dataset">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_dataset</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">,</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">],</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">shape</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="s2">&quot;unyt_array&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">units</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Unit</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">h5py</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a new HDF5 dataset with optional unit metadata.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        file : str, Path, or :class:`h5py.File`</span>
+<span class="sd">            Path to HDF5 file or open file handle.</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the dataset inside the HDF5 file.</span>
+<span class="sd">        shape : tuple of int, optional</span>
+<span class="sd">            Shape of the dataset, if not using `data`.</span>
+<span class="sd">        dtype : data-type, optional</span>
+<span class="sd">            Desired data type. If not given, inferred from `data`.</span>
+<span class="sd">        data : array-like, optional</span>
+<span class="sd">            Initial values. Will be coerced to a `unyt_array`.</span>
+<span class="sd">        overwrite : bool, default False</span>
+<span class="sd">            Whether to overwrite an existing dataset.</span>
+<span class="sd">        units : str or :class:`~unyt.unit_object.Unit`, optional</span>
+<span class="sd">            Units to attach to the dataset. If not provided and `data` has units, they are preserved.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional arguments to :meth:`~h5py.File.create_dataset`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ~h5py.Dataset</span>
+<span class="sd">            The created dataset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Open the file if it is provided as a path</span>
+        <span class="c1"># and not as an HDF5 file. Ensure it exists before</span>
+        <span class="c1"># proceeding. By default, we will allow the</span>
+        <span class="c1"># creation of the file.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">)):</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+            <span class="c1"># Handle the non-existence options. By default,</span>
+            <span class="c1"># we raise an error unless create_file = True</span>
+            <span class="n">__create_file_flag__</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;create_file&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">__create_file_flag__</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;File &#39;</span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2">&#39; does not exist. To create a new file, ensure create_file=True.&quot;</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">file</span><span class="o">.</span><span class="n">touch</span><span class="p">()</span>
+
+            <span class="c1"># Replace the file with an HDF5 reference.</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r+&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">):</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;create_file&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;`file` must be a file path or an h5py.File, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># With the file open, we need to now resolve the</span>
+        <span class="c1"># path, ensure overwrite conventions are respected</span>
+        <span class="c1"># and prepare to generate the dataset.</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">file</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Dataset &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; already exists. Use `overwrite=True` to replace it.&quot;</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Handle data provided. If we received data, we force it into</span>
+        <span class="c1"># the our conventional unyt type and then grab out the</span>
+        <span class="c1"># true data and the units. Otherwise, we just skip through.</span>
+        <span class="c1"># Normalize units that we got from kwargs.</span>
+        <span class="c1"># Normalize units provided by user</span>
+        <span class="n">raw_data</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Default to None unless data is provided</span>
+        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># We got handed data. We need to standardize units and then</span>
+            <span class="c1"># build the unyt array.</span>
+            <span class="n">arg_units</span> <span class="o">=</span> <span class="n">unyt</span><span class="o">.</span><span class="n">Unit</span><span class="p">(</span><span class="n">units</span><span class="p">)</span> <span class="k">if</span> <span class="n">units</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="n">arr_units</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;units&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">arg_units</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">arr_units</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="n">data_array</span> <span class="o">=</span> <span class="n">_to_unyt_array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">arg_units</span><span class="p">)</span><span class="o">.</span><span class="n">d</span>
+                <span class="n">units</span> <span class="o">=</span> <span class="n">arg_units</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">arg_units</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">arr_units</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="n">data_array</span> <span class="o">=</span> <span class="n">_to_unyt_array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">arg_units</span><span class="p">)</span><span class="o">.</span><span class="n">d</span>
+                <span class="n">units</span> <span class="o">=</span> <span class="n">arg_units</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">arr_units</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">arg_units</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="n">data_array</span> <span class="o">=</span> <span class="n">_to_unyt_array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">d</span>
+                <span class="n">units</span> <span class="o">=</span> <span class="n">arr_units</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">data_array</span> <span class="o">=</span> <span class="n">_to_unyt_array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">d</span>
+                <span class="n">units</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="n">raw_data</span> <span class="o">=</span> <span class="n">data_array</span>
+
+        <span class="c1"># Create the dataset</span>
+        <span class="n">dset</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span>
+            <span class="n">name</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">raw_data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Set units metadata if available</span>
+        <span class="k">if</span> <span class="n">units</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">units</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">dset</span></div>
+
+
+<div class="viewcode-block" id="HDF5Buffer.open">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.open.html#fields.buffers.core.HDF5Buffer.open">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">open</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">,</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">],</span>
+        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;r+&quot;</span><span class="p">,</span>
+        <span class="n">close_on_exit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;HDF5Buffer&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open an existing HDF5 dataset and return it as a buffer.</span>
+
+<span class="sd">        This method provides safe access to datasets within an HDF5 file,</span>
+<span class="sd">        whether the file is passed as a string path or an already opened</span>
+<span class="sd">        :class:`h5py.File` object.</span>
+
+<span class="sd">        When used in a `with` statement (context manager), the file will be</span>
+<span class="sd">        automatically flushed and closed at exit if ``close_on_exit=True``.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        file : str, Path, or h5py.File</span>
+<span class="sd">            File path or an open HDF5 file containing the dataset.</span>
+<span class="sd">        path : str</span>
+<span class="sd">            Path to the dataset inside the HDF5 file (e.g., ``&quot;/my/data&quot;``).</span>
+<span class="sd">        mode : str, default &quot;r+&quot;</span>
+<span class="sd">            File mode to use when `file` is a path. Ignored if `file` is a :class:`h5py.File`.</span>
+<span class="sd">            Common values:</span>
+
+<span class="sd">                - ``&quot;r&quot;``: read-only</span>
+<span class="sd">                - ``&quot;r+&quot;``: read/write</span>
+<span class="sd">                - ``&quot;a&quot;``: read/write or create</span>
+
+<span class="sd">        close_on_exit : bool, default False</span>
+<span class="sd">            If True, the file will be closed when the buffer is used in a context manager.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        HDF5Buffer</span>
+<span class="sd">            A buffer object wrapping the specified dataset.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        FileNotFoundError</span>
+<span class="sd">            If the file or dataset path does not exist.</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            If `file` is neither a path nor an `h5py.File`.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; with HDF5Buffer.open(&quot;data.h5&quot;, &quot;temperature&quot;, close_on_exit=True) as buf:</span>
+<span class="sd">        ...     print(buf.shape)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">)):</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File &#39;</span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2">&#39; does not exist.&quot;</span><span class="p">)</span>
+            <span class="n">file_obj</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">):</span>
+            <span class="n">file_obj</span> <span class="o">=</span> <span class="n">file</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;`file` must be a path or h5py.File, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">file_obj</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dataset &#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&#39; not found in file.&quot;</span><span class="p">)</span>
+
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">file_obj</span><span class="p">[</span><span class="n">path</span><span class="p">]</span>
+        <span class="n">buffer</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">__is_file_owner__</span><span class="o">=</span><span class="n">close_on_exit</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">buffer</span></div>
+
+
+    <span class="c1"># ------------------------------ #</span>
+    <span class="c1"># Properties                     #</span>
+    <span class="c1"># ------------------------------ #</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">units</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Unit</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the physical units stored as an HDF5 attribute.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str or None</span>
+<span class="sd">            The unit string stored in the dataset, or None if not present.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__array_object__</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;units&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">_units</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_units</span>
+        <span class="k">return</span> <span class="n">Unit</span><span class="p">(</span><span class="n">_units</span><span class="p">)</span>
+
+    <span class="nd">@units</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">units</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unit</span><span class="p">,</span> <span class="nb">str</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the physical units in the HDF5 dataset metadata.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        value : str or unyt.Unit</span>
+<span class="sd">            Unit string / instance to attach.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__array_object__</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_open</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;True if the underlying dataset is still attached to an open file.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__array_object__</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">bool</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__array_object__</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">valid</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">filename</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Absolute path to the file backing this buffer.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str or None</span>
+<span class="sd">            Full path of the file, or None if unavailable.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__array_object__</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="s2">&quot;filename&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">file</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The open `h5py.File` object backing this buffer.</span>
+
+<span class="sd">        This provides direct access to the HDF5 file handle used internally.</span>
+<span class="sd">        It is useful for advanced workflows that require access to groups,</span>
+<span class="sd">        attributes, or metadata outside the dataset.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        h5py.File</span>
+<span class="sd">            The HDF5 file containing the dataset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__array_object__</span><span class="o">.</span><span class="n">file</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Internal HDF5 path to the dataset.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            The full dataset path within the HDF5 file (e.g., &quot;/data/temperature&quot;).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__array_object__</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_owner</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Whether this buffer owns the file (i.e., responsible for closing it).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if this buffer should close the file on `__exit__` or `close()`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__is_owner__</span>
+
+    <span class="c1"># ------------------------------ #</span>
+    <span class="c1"># Numpy Semantics                #</span>
+    <span class="c1"># ------------------------------ #</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;HDF5Buffer(shape=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, dtype=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">, path=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__array_object__</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;)&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_unyt_array</span><span class="p">()</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the values of the buffer for a specified index.</span>
+
+<span class="sd">        If units are defined, return a :class:`~unyt.array.unyt_array` that preserves the correct metadata.</span>
+<span class="sd">        This guarantees safe behavior even for scalar slices or dtype edge cases.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        idx : int, slice, or tuple</span>
+<span class="sd">            Index expression.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray or unyt_array</span>
+<span class="sd">            Data slice, optionally wrapped with units.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__array_object__</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="s2">&quot;shape&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="p">():</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="n">unyt_quantity</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">bypass_validation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="n">unyt_array</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">bypass_validation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">ret</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span>
+        <span class="k">return</span> <span class="n">ret</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># Handle the units first to ensure that we are not changing</span>
+        <span class="c1"># units.</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;units&quot;</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">_raw_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">to_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">UnitConversionError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Cannot use __setitem__ with inconsistent units. To replace the entire array with &quot;</span>
+                    <span class="s2">&quot;one of new units, use `.replace`.&quot;</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_raw_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+        <span class="c1"># Avoid broadcasting if value is scalar#</span>
+        <span class="k">if</span> <span class="n">_raw_value</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">_raw_value</span> <span class="o">=</span> <span class="n">_raw_value</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__array_object__</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">_raw_value</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__array_ufunc__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ufunc</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Override BufferBase.__array_ufunc__ to catch instances where HDF5Buffer</span>
+<span class="sd">        is a specified output of the operation. Because HDF5 Dataset types cannot</span>
+<span class="sd">        handle in place operations, we use a sleight of hand to perform the comp.</span>
+<span class="sd">        in memory and then assign under the hood.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Extract the `out` kwarg if it is present.</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;out&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">out</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Normalize to tuple for uniform handling</span>
+            <span class="n">is_tuple</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span>
+            <span class="n">out_tuple</span> <span class="o">=</span> <span class="n">out</span> <span class="k">if</span> <span class="n">is_tuple</span> <span class="k">else</span> <span class="p">(</span><span class="n">out</span><span class="p">,)</span>
+
+            <span class="c1"># Run the operation and capture result(s).</span>
+            <span class="c1"># This doesn&#39;t have `out` in it because of .pop() so</span>
+            <span class="c1"># we&#39;re just forwarding.</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__array_ufunc__</span><span class="p">(</span><span class="n">ufunc</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+            <span class="c1"># Coerce the typing and check that the lengths are</span>
+            <span class="c1"># correctly matched.</span>
+            <span class="n">result_tuple</span> <span class="o">=</span> <span class="n">result</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="n">result</span><span class="p">,)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result_tuple</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">out_tuple</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Expected </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">out_tuple</span><span class="p">)</span><span class="si">}</span><span class="s2"> outputs, got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">result_tuple</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Assign results into HDF5-backed targets</span>
+            <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">o</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">result_tuple</span><span class="p">,</span> <span class="n">out_tuple</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">):</span>
+                    <span class="n">o</span><span class="o">.</span><span class="n">__array_object__</span><span class="p">[</span>
+                        <span class="o">...</span>
+                    <span class="p">]</span> <span class="o">=</span> <span class="n">r</span>  <span class="c1"># assign in-memory result into HDF5 buffer</span>
+
+                    <span class="n">unit</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="s2">&quot;units&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">o</span><span class="o">.</span><span class="n">__array_object__</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;All `out=` targets must be HDF5Buffer instances&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Pass result through based on the typing.</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">out_tuple</span>
+            <span class="k">elif</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">out_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># No `out` to catch, simply push on to the super method.</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__array_ufunc__</span><span class="p">(</span><span class="n">ufunc</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="c1"># ------------------------------ #</span>
+    <span class="c1"># Generator Methods              #</span>
+    <span class="c1"># ------------------------------ #</span>
+<div class="viewcode-block" id="HDF5Buffer.zeros">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.zeros.html#fields.buffers.core.HDF5Buffer.zeros">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">zeros</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;HDF5Buffer&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create an HDF5-backed buffer filled with zeros.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        shape : tuple of int</span>
+<span class="sd">            Desired shape of the dataset.</span>
+<span class="sd">        dtype : data-type, default float</span>
+<span class="sd">            Element type of the dataset.</span>
+<span class="sd">        *args :</span>
+<span class="sd">            Additional positional arguments passed to `create_dataset`.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Keyword arguments forwarded to `create`, such as:</span>
+
+<span class="sd">            - parent : h5py.File or h5py.Group</span>
+<span class="sd">            - dataset_name : str</span>
+<span class="sd">            - overwrite : bool</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        HDF5Buffer</span>
+<span class="sd">            A buffer wrapping a zero-filled HDF5 dataset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HDF5Buffer.ones">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.ones.html#fields.buffers.core.HDF5Buffer.ones">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ones</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;HDF5Buffer&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create an HDF5-backed buffer filled with ones.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        shape : tuple of int</span>
+<span class="sd">            Desired shape of the dataset.</span>
+<span class="sd">        dtype : data-type, default float</span>
+<span class="sd">            Element type of the dataset.</span>
+<span class="sd">        *args :</span>
+<span class="sd">            Additional positional arguments passed to `create_dataset`.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Keyword arguments forwarded to `create`, such as:</span>
+
+<span class="sd">            - parent : h5py.File or h5py.Group</span>
+<span class="sd">            - dataset_name : str</span>
+<span class="sd">            - overwrite : bool</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        HDF5Buffer</span>
+<span class="sd">            A buffer wrapping a one-filled HDF5 dataset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HDF5Buffer.full">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.full.html#fields.buffers.core.HDF5Buffer.full">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">full</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="n">fill_value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;HDF5Buffer&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create an HDF5-backed buffer filled with a constant value or quantity.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        shape : tuple of int</span>
+<span class="sd">            Desired shape of the dataset.</span>
+<span class="sd">        fill_value : scalar, array-like, or unyt_quantity, default 0.0</span>
+<span class="sd">            Value to initialize the dataset with. Can be:</span>
+<span class="sd">            - A plain scalar (e.g., 3.14)</span>
+<span class="sd">            - A NumPy array or similar array-like object</span>
+<span class="sd">            - A :class:`~unyt.array.unyt_quantity` with units</span>
+<span class="sd">        dtype : data-type, default float</span>
+<span class="sd">            Element type of the dataset.</span>
+<span class="sd">        *args :</span>
+<span class="sd">            Additional positional arguments passed to `create_dataset`.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Keyword arguments forwarded to `create`, such as:</span>
+
+<span class="sd">            - parent : h5py.File or h5py.Group</span>
+<span class="sd">            - dataset_name : str</span>
+<span class="sd">            - overwrite : bool</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        HDF5Buffer</span>
+<span class="sd">            A buffer wrapping a constant-filled HDF5 dataset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span>
+                <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HDF5Buffer.empty">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.empty.html#fields.buffers.core.HDF5Buffer.empty">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">empty</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;HDF5Buffer&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create an HDF5-backed buffer filled with zeros. Equivalent to :meth:`zeros`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">file</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="HDF5Buffer.as_array">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.as_array.html#fields.buffers.core.HDF5Buffer.as_array">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_array</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a NumPy array view of the full dataset (units stripped).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="p">[:])</span></div>
+
+
+<div class="viewcode-block" id="HDF5Buffer.as_unyt_array">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.as_unyt_array.html#fields.buffers.core.HDF5Buffer.as_unyt_array">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_unyt_array</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">unyt_array</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a unit-aware unyt_array view of the full dataset.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[:]</span>  <span class="c1"># __getitem__ already wraps in unyt_array if needed</span></div>
+
+
+<div class="viewcode-block" id="HDF5Buffer.as_repr">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.as_repr.html#fields.buffers.core.HDF5Buffer.as_repr">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return this buffer as an :class:`~unyt.array.unyt_array` if</span>
+<span class="sd">        the buffer has units; otherwise as a :class:`~numpy.ndarray`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Use a memory-mapped view, but preserve units if defined</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__array_object__</span><span class="p">[:]</span>
+        <span class="k">return</span> <span class="n">unyt_array</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span> <span class="k">else</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="HDF5Buffer.close">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.close.html#fields.buffers.core.HDF5Buffer.close">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Close the underlying HDF5 file, if owned by this buffer.</span>
+
+<span class="sd">        This method closes the file used by this buffer if:</span>
+<span class="sd">        - It was opened by the buffer (i.e., the buffer owns it), or</span>
+<span class="sd">        - `force=True` is explicitly specified.</span>
+
+<span class="sd">        After calling this method, the buffer becomes invalid for further</span>
+<span class="sd">        access or modification. Attempting to access data will raise errors.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        force : bool, default False</span>
+<span class="sd">            If True, closes the file regardless of ownership.</span>
+<span class="sd">            Use with care to avoid interfering with shared file handles.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        AttributeError</span>
+<span class="sd">            If the file handle is already invalid or closed.</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        flush : For non-destructive persistence.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__is_owner__</span> <span class="ow">or</span> <span class="n">force</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="HDF5Buffer.flush">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.flush.html#fields.buffers.core.HDF5Buffer.flush">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">flush</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Flush any buffered data to disk without closing the file.</span>
+
+<span class="sd">        This method ensures that any pending write operations are committed</span>
+<span class="sd">        to the backing HDF5 file. It is safe to call multiple times and does</span>
+<span class="sd">        nothing if the file is read-only or already closed.</span>
+
+<span class="sd">        This is useful in long-running operations where intermediate data</span>
+<span class="sd">        should be saved but the file should remain open.</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        close : For final closure of the file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span></div>
+
+
+    <span class="c1"># ---------------------------------- #</span>
+    <span class="c1"># Reconstructed array manip. methods #</span>
+    <span class="c1"># ---------------------------------- #</span>
+<div class="viewcode-block" id="HDF5Buffer.replace_dataset">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.replace_dataset.html#fields.buffers.core.HDF5Buffer.replace_dataset">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">replace_dataset</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">shape</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="s2">&quot;unyt_array&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">units</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Unit</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;HDF5Buffer&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Replace the current HDF5 dataset with a newly created one.</span>
+
+<span class="sd">        This method deletes and recreates the dataset at the same internal HDF5 path (`self.name`)</span>
+<span class="sd">        with optionally modified shape, dtype, data, and units. It is useful for performing</span>
+<span class="sd">        operations like `reshape`, `astype`, or structural updates in-place, without requiring</span>
+<span class="sd">        the caller to manage HDF5 file I/O manually.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        shape : tuple of int, optional</span>
+<span class="sd">            New shape for the dataset. If not provided, uses the current shape.</span>
+<span class="sd">        dtype : data-type, optional</span>
+<span class="sd">            Desired data type for the new dataset. Defaults to the current dtype.</span>
+<span class="sd">        data : array-like, optional</span>
+<span class="sd">            Data to populate the new dataset. If not provided, the current buffer data is reused.</span>
+<span class="sd">        units : str or unyt.Unit, optional</span>
+<span class="sd">            Units to assign to the new dataset. If not provided, preserves the current units.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments passed to :meth:`create_dataset`, such as compression options.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        HDF5Buffer</span>
+<span class="sd">            The same buffer instance, now referencing the newly created dataset.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        - The underlying HDF5 file must be writable.</span>
+<span class="sd">        - This will *delete* the existing dataset at `self.name`.</span>
+<span class="sd">        - Units are preserved by default unless explicitly overridden.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">new_dataset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span>
+            <span class="n">file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">data</span> <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_repr</span><span class="p">(),</span>
+            <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">units</span><span class="o">=</span><span class="n">units</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__array_object__</span> <span class="o">=</span> <span class="n">new_dataset</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+    <span class="c1"># ------------------------------ #</span>
+    <span class="c1"># Standard Numpy Transformations #</span>
+    <span class="c1"># ------------------------------ #</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_apply_numpy_transform_on_repr</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">fargs</span><span class="p">,</span> <span class="n">fkwargs</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BufferBase&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply a NumPy-compatible transformation to the buffer&#39;s representation.</span>
+
+<span class="sd">        This method is used to wrap high-level NumPy functions or methods (e.g., `np.reshape`,</span>
+<span class="sd">        `np.copy`, `np.squeeze`) that operate on the buffer&#39;s `as_repr()` array, which may be</span>
+<span class="sd">        a NumPy array or a unit-tagged `unyt_array`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        func : Callable</span>
+<span class="sd">            The NumPy-compatible function or method to apply.</span>
+<span class="sd">        fargs : tuple</span>
+<span class="sd">            Positional arguments for the function (not for `from_array`).</span>
+<span class="sd">        fkwargs : dict</span>
+<span class="sd">            Keyword arguments for the function (not for `from_array`).</span>
+<span class="sd">        *args :</span>
+<span class="sd">            Positional arguments passed to `.from_array()` after transformation.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Keyword arguments passed to `.from_array()` after transformation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        BufferBase</span>
+<span class="sd">            A new buffer wrapping the transformed representation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">repr_view</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_repr</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">replace_dataset</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">func</span><span class="p">(</span><span class="n">repr_view</span><span class="p">,</span> <span class="o">*</span><span class="n">fargs</span><span class="p">,</span> <span class="o">**</span><span class="n">fkwargs</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span>
+            <span class="n">func</span><span class="p">(</span><span class="n">repr_view</span><span class="p">,</span> <span class="o">*</span><span class="n">fargs</span><span class="p">,</span> <span class="o">**</span><span class="n">fkwargs</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_apply_numpy_transform_on_core</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">fargs</span><span class="p">,</span> <span class="n">fkwargs</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BufferBase&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply a transformation to the raw backend array (`as_core()`).</span>
+
+<span class="sd">        This method applies the given NumPy-compatible function directly to the</span>
+<span class="sd">        buffer’s raw storage (e.g., `np.ndarray`, `unyt_array`, `h5py.Dataset`),</span>
+<span class="sd">        and wraps the result in a new buffer instance.</span>
+
+<span class="sd">        This is useful when you want to preserve the underlying structure and avoid</span>
+<span class="sd">        unnecessary coercion to a representation type (e.g., for memory efficiency or</span>
+<span class="sd">        backend-specific manipulations).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        func : Callable</span>
+<span class="sd">            The function or method to apply to the core array.</span>
+<span class="sd">        fargs : tuple</span>
+<span class="sd">            Positional arguments for the function (not for `from_array`).</span>
+<span class="sd">        fkwargs : dict</span>
+<span class="sd">            Keyword arguments for the function (not for `from_array`).</span>
+<span class="sd">        *args :</span>
+<span class="sd">            Positional arguments passed to `.from_array()` after transformation.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Keyword arguments passed to `.from_array()` after transformation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        BufferBase</span>
+<span class="sd">            A new buffer wrapping the transformed core array.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">repr_view</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_core</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">replace_dataset</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">func</span><span class="p">(</span><span class="n">repr_view</span><span class="p">,</span> <span class="o">*</span><span class="n">fargs</span><span class="p">,</span> <span class="o">**</span><span class="n">fkwargs</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span>
+            <span class="n">func</span><span class="p">(</span><span class="n">repr_view</span><span class="p">,</span> <span class="o">*</span><span class="n">fargs</span><span class="p">,</span> <span class="o">**</span><span class="n">fkwargs</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="HDF5Buffer.astype">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.astype.html#fields.buffers.core.HDF5Buffer.astype">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">astype</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BufferBase&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a copy of this buffer with a different data type.</span>
+
+<span class="sd">        This performs a type conversion using the underlying array and returns</span>
+<span class="sd">        a new buffer of the same class with the updated `dtype`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dtype : data-type</span>
+<span class="sd">            The target data type for the returned array.</span>
+<span class="sd">        *args :</span>
+<span class="sd">            Additional positional arguments forwarded to :meth:`from_array`.</span>
+<span class="sd">        inplace : bool, optional</span>
+<span class="sd">            If `True`, values for `file`, `name`, and `overwrite` are ignored; the</span>
+<span class="sd">            dataset underlying the calling buffer is directly replaced and the object is</span>
+<span class="sd">            updated and returned in-place.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments forwarded to and :meth:`from_array`. If `inplace` is</span>
+<span class="sd">            ``True``, then these are forwarded to :meth:`replace_dataset`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        BufferBase</span>
+<span class="sd">            A new buffer instance with the specified data type.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">replace_dataset</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">as_repr</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HDF5Buffer.reshape">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.reshape.html#fields.buffers.core.HDF5Buffer.reshape">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reshape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BufferBase&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a reshaped copy of this buffer.</span>
+
+<span class="sd">        This reshapes the buffer into a new shape and returns a new buffer instance.</span>
+<span class="sd">        The reshaping is done using the NumPy-compatible view returned by `as_repr()`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        shape : tuple of int</span>
+<span class="sd">            Target shape for the new buffer.</span>
+<span class="sd">        *args :</span>
+<span class="sd">            Additional positional arguments forwarded to :meth:`from_array`.</span>
+<span class="sd">        inplace : bool, optional</span>
+<span class="sd">            If `True`, values for `file`, `name`, and `overwrite` are ignored; the</span>
+<span class="sd">            dataset underlying the calling buffer is directly replaced and the object is</span>
+<span class="sd">            updated and returned in-place.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments forwarded to and :meth:`from_array`. If `inplace` is</span>
+<span class="sd">            ``True``, then these are forwarded to :meth:`replace_dataset`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        BufferBase</span>
+<span class="sd">            A new buffer with reshaped data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">replace_dataset</span><span class="p">(</span>
+                <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">as_repr</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">as_repr</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HDF5Buffer.transpose">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.transpose.html#fields.buffers.core.HDF5Buffer.transpose">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">transpose</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BufferBase&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a transposed copy of this buffer.</span>
+
+<span class="sd">        The transposition is performed using the NumPy-compatible array returned by `as_repr()`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        axes : tuple of int, optional</span>
+<span class="sd">            By default, reverses the dimensions. If specified, reorders the axes accordingly.</span>
+<span class="sd">        *args :</span>
+<span class="sd">            Additional positional arguments forwarded to :meth:`from_array`.</span>
+<span class="sd">        inplace : bool, optional</span>
+<span class="sd">            If `True`, values for `file`, `name`, and `overwrite` are ignored; the</span>
+<span class="sd">            dataset underlying the calling buffer is directly replaced and the object is</span>
+<span class="sd">            updated and returned in-place.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments forwarded to and :meth:`from_array`. If `inplace` is</span>
+<span class="sd">            ``True``, then these are forwarded to :meth:`replace_dataset`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        BufferBase</span>
+<span class="sd">            A new transposed buffer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">replace_dataset</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">as_repr</span><span class="p">()</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">axes</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">as_repr</span><span class="p">()</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">axes</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HDF5Buffer.flatten">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.flatten.html#fields.buffers.core.HDF5Buffer.flatten">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">flatten</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BufferBase&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a flattened 1D view of this buffer.</span>
+
+<span class="sd">        This flattens the buffer using the specified memory layout and returns a new buffer instance.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        order : {&#39;C&#39;, &#39;F&#39;, &#39;A&#39;, &#39;K&#39;}, default &#39;C&#39;</span>
+<span class="sd">            Memory layout to use when flattening:</span>
+<span class="sd">            - &#39;C&#39; → row-major (C-style),</span>
+<span class="sd">            - &#39;F&#39; → column-major (Fortran-style),</span>
+<span class="sd">            - &#39;A&#39; → &#39;F&#39; if input is Fortran contiguous, else &#39;C&#39;,</span>
+<span class="sd">            - &#39;K&#39; → as close to input layout as possible.</span>
+
+<span class="sd">        *args :</span>
+<span class="sd">            Additional positional arguments forwarded to :meth:`from_array`.</span>
+<span class="sd">        inplace : bool, optional</span>
+<span class="sd">            If `True`, values for `file`, `name`, and `overwrite` are ignored; the</span>
+<span class="sd">            dataset underlying the calling buffer is directly replaced and the object is</span>
+<span class="sd">            updated and returned in-place.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments forwarded to and :meth:`from_array`. If `inplace` is</span>
+<span class="sd">            ``True``, then these are forwarded to :meth:`replace_dataset`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        BufferBase</span>
+<span class="sd">            A new 1D buffer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">replace_dataset</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">as_repr</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">as_repr</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HDF5Buffer.squeeze">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.squeeze.html#fields.buffers.core.HDF5Buffer.squeeze">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">squeeze</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BufferBase&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove singleton dimensions from this buffer.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        axis : int or tuple of int, optional</span>
+<span class="sd">            If specified, only squeezes the given axes. Otherwise, all single-dim axes are removed.</span>
+<span class="sd">        *args :</span>
+<span class="sd">            Additional positional arguments forwarded to :meth:`from_array`.</span>
+<span class="sd">        inplace : bool, optional</span>
+<span class="sd">            If `True`, values for `file`, `name`, and `overwrite` are ignored; the</span>
+<span class="sd">            dataset underlying the calling buffer is directly replaced and the object is</span>
+<span class="sd">            updated and returned in-place.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments forwarded to and :meth:`from_array`. If `inplace` is</span>
+<span class="sd">            ``True``, then these are forwarded to :meth:`replace_dataset`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        BufferBase</span>
+<span class="sd">            A squeezed buffer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">replace_dataset</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">as_repr</span><span class="p">()</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">as_repr</span><span class="p">()</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HDF5Buffer.expand_dims">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.expand_dims.html#fields.buffers.core.HDF5Buffer.expand_dims">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">expand_dims</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BufferBase&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Expand the shape of this buffer by inserting a new axis.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        axis : int</span>
+<span class="sd">            Position at which to insert the new axis.</span>
+<span class="sd">        *args :</span>
+<span class="sd">            Additional positional arguments forwarded to :meth:`from_array`.</span>
+<span class="sd">        inplace : bool, optional</span>
+<span class="sd">            If `True`, values for `file`, `name`, and `overwrite` are ignored; the</span>
+<span class="sd">            dataset underlying the calling buffer is directly replaced and the object is</span>
+<span class="sd">            updated and returned in-place.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments forwarded to and :meth:`from_array`. If `inplace` is</span>
+<span class="sd">            ``True``, then these are forwarded to :meth:`replace_dataset`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        BufferBase</span>
+<span class="sd">            A buffer with the expanded shape.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">replace_dataset</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">as_repr</span><span class="p">(),</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">as_repr</span><span class="p">(),</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HDF5Buffer.broadcast_to">
+<a class="viewcode-back" href="../../../_as_gen/fields.buffers.core.HDF5Buffer.broadcast_to.html#fields.buffers.core.HDF5Buffer.broadcast_to">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">broadcast_to</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BufferBase&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Broadcast an array to a new shape.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        shape : tuple or int</span>
+<span class="sd">            The shape of the desired output array. A single integer ``i`` is interpreted</span>
+<span class="sd">            as ``(i,)``.</span>
+<span class="sd">        *args :</span>
+<span class="sd">            Additional positional arguments forwarded to :meth:`from_array`.</span>
+<span class="sd">        inplace : bool, optional</span>
+<span class="sd">            If `True`, values for `file`, `name`, and `overwrite` are ignored; the</span>
+<span class="sd">            dataset underlying the calling buffer is directly replaced and the object is</span>
+<span class="sd">            updated and returned in-place.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional keyword arguments forwarded to and :meth:`from_array`. If `inplace` is</span>
+<span class="sd">            ``True``, then these are forwarded to :meth:`replace_dataset`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        broadcast : BufferBase</span>
+<span class="sd">            A readonly view on the original array with the given shape. It is</span>
+<span class="sd">            typically not contiguous. Furthermore, more than one element of a</span>
+<span class="sd">            broadcasted array may refer to a single memory location.</span>
+
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If the array is not compatible with the new shape according to NumPy&#39;s</span>
+<span class="sd">            broadcasting rules.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_apply_numpy_transform_on_repr</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">,</span> <span class="p">[</span><span class="n">shape</span><span class="p">],</span> <span class="p">{},</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Eliza Diggins.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

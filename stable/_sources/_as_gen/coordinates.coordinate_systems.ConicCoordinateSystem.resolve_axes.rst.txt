@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ConicCoordinateSystem.resolve\_axes
+===================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ConicCoordinateSystem.resolve_axes

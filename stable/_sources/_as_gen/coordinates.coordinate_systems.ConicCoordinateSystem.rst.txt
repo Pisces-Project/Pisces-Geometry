@@ -1,0 +1,91 @@
+ConicCoordinateSystem
+====================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoclass:: coordinates.coordinate_systems.ConicCoordinateSystem
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~ConicCoordinateSystem.__init__
+      ~ConicCoordinateSystem.adjust_dense_tensor_signature
+      ~ConicCoordinateSystem.axes_complement
+      ~ConicCoordinateSystem.build_axes_mask
+      ~ConicCoordinateSystem.compute_expression
+      ~ConicCoordinateSystem.compute_expression_from_coordinates
+      ~ConicCoordinateSystem.compute_function_from_coordinates
+      ~ConicCoordinateSystem.convert_axes_to_indices
+      ~ConicCoordinateSystem.convert_indices_to_axes
+      ~ConicCoordinateSystem.convert_to
+      ~ConicCoordinateSystem.coordinate_meshgrid
+      ~ConicCoordinateSystem.create_coordinate_list
+      ~ConicCoordinateSystem.from_cartesian
+      ~ConicCoordinateSystem.from_hdf5
+      ~ConicCoordinateSystem.get_axes_from_mask
+      ~ConicCoordinateSystem.get_axes_latex
+      ~ConicCoordinateSystem.get_axes_order
+      ~ConicCoordinateSystem.get_axes_permutation
+      ~ConicCoordinateSystem.get_axes_units
+      ~ConicCoordinateSystem.get_canonical_axes_order
+      ~ConicCoordinateSystem.get_canonical_axes_permutation
+      ~ConicCoordinateSystem.get_class_expression
+      ~ConicCoordinateSystem.get_conversion_transform
+      ~ConicCoordinateSystem.get_expression
+      ~ConicCoordinateSystem.get_free_fixed
+      ~ConicCoordinateSystem.get_indices_from_mask
+      ~ConicCoordinateSystem.get_mask_from_axes
+      ~ConicCoordinateSystem.get_mask_from_indices
+      ~ConicCoordinateSystem.get_numeric_expression
+      ~ConicCoordinateSystem.has_class_expression
+      ~ConicCoordinateSystem.has_expression
+      ~ConicCoordinateSystem.in_axes_order
+      ~ConicCoordinateSystem.in_canonical_order
+      ~ConicCoordinateSystem.insert_fixed_axes
+      ~ConicCoordinateSystem.is_axes_subset
+      ~ConicCoordinateSystem.is_axes_superset
+      ~ConicCoordinateSystem.is_axis
+      ~ConicCoordinateSystem.lambdify_expression
+      ~ConicCoordinateSystem.list_class_expressions
+      ~ConicCoordinateSystem.list_expressions
+      ~ConicCoordinateSystem.lower_index_dense
+      ~ConicCoordinateSystem.order_axes
+      ~ConicCoordinateSystem.order_axes_canonical
+      ~ConicCoordinateSystem.pprint
+      ~ConicCoordinateSystem.raise_index_dense
+      ~ConicCoordinateSystem.requires_expression
+      ~ConicCoordinateSystem.requires_expression_from_coordinates
+      ~ConicCoordinateSystem.resolve_axes
+      ~ConicCoordinateSystem.set_expression
+      ~ConicCoordinateSystem.substitute_expression
+      ~ConicCoordinateSystem.to_cartesian
+      ~ConicCoordinateSystem.to_hdf5
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~ConicCoordinateSystem.axes
+      ~ConicCoordinateSystem.axes_dimensions
+      ~ConicCoordinateSystem.axes_symbols
+      ~ConicCoordinateSystem.inverse_metric_tensor
+      ~ConicCoordinateSystem.inverse_metric_tensor_symbol
+      ~ConicCoordinateSystem.metric_tensor
+      ~ConicCoordinateSystem.metric_tensor_symbol
+      ~ConicCoordinateSystem.ndim
+      ~ConicCoordinateSystem.parameter_symbols
+      ~ConicCoordinateSystem.parameters
+   
+   

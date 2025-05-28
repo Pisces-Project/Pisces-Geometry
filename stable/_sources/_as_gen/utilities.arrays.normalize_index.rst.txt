@@ -1,0 +1,6 @@
+utilities.arrays.normalize\_index
+=================================
+
+.. currentmodule:: utilities.arrays
+
+.. autofunction:: normalize_index

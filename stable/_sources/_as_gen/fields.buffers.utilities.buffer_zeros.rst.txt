@@ -1,0 +1,6 @@
+fields.buffers.utilities.buffer\_zeros
+======================================
+
+.. currentmodule:: fields.buffers.utilities
+
+.. autofunction:: buffer_zeros

@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.OblateSpheroidalCoordinateSystem.ndim
+=====================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: OblateSpheroidalCoordinateSystem.ndim

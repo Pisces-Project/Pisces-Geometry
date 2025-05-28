@@ -1,0 +1,6 @@
+differential\_geometry.dependence.TensorDependenceMixin.gradient
+================================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. automethod:: TensorDependenceMixin.gradient

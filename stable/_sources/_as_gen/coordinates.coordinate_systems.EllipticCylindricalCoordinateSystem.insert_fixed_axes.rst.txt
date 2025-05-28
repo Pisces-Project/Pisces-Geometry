@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.EllipticCylindricalCoordinateSystem.insert\_fixed\_axes
+=======================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: EllipticCylindricalCoordinateSystem.insert_fixed_axes

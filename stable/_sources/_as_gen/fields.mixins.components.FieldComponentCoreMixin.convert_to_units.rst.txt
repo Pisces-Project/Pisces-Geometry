@@ -1,0 +1,6 @@
+fields.mixins.components.FieldComponentCoreMixin.convert\_to\_units
+===================================================================
+
+.. currentmodule:: fields.mixins.components
+
+.. automethod:: FieldComponentCoreMixin.convert_to_units

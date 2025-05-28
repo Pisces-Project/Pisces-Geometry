@@ -1,0 +1,6 @@
+fields.buffers.core.HDF5Buffer.resolve
+======================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: HDF5Buffer.resolve

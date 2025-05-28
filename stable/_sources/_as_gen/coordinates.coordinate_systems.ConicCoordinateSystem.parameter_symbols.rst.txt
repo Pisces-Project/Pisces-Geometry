@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ConicCoordinateSystem.parameter\_symbols
+========================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: ConicCoordinateSystem.parameter_symbols

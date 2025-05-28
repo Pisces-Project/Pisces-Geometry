@@ -1,0 +1,6 @@
+grids.core.GenericGrid.compute\_domain\_slice
+=============================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: GenericGrid.compute_domain_slice

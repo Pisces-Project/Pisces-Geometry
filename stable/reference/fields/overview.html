@@ -1,0 +1,857 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Fields: Overview &#8212; PyMetric  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/fields/overview';</script>
+    <link rel="icon" href="../../_static/pm_favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Fields: NumPy Compatibility" href="numpy.html" />
+    <link rel="prev" title="Geometric Grids: Custom Grid Classes" href="../grids/build_custom_grids.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">PyMetric  documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_quickstart/index.html">
+    PyMetric Quickstart Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    PyMetric User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api_base.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_quickstart/index.html">
+    PyMetric Quickstart Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    PyMetric User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api_base.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../theory/coordinate_theory.html">Curvilinear Coordinate Systems</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../coordinates/overview.html">Coordinate Systems: General Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coordinates/building_coordinate_systems.html">Coordinate Systems: Building Custom Coordinate Systems</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../grids/overview.html">Geometric Grids: General Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../grids/build_custom_grids.html">Geometric Grids: Custom Grid Classes</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Fields: Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numpy.html">Fields: NumPy Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="buffers.html">Fields: Data Buffers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="components.html">Fields: Field Components</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../differential_geometry/overview.html">Differential Geometry: Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential_geometry/dependence.html">Symbolic Tensor Dependence API</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../coordinates/dev.html">Coordinate Systems: Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../grids/dev.html">Geometric Grids: Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Fields: Developers</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">PyMetric User Guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Fields: Overview</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="fields-overview">
+<span id="fields"></span><h1>Fields: Overview<a class="headerlink" href="#fields-overview" title="Link to this heading">#</a></h1>
+<p>In Pymetric, <strong>fields</strong> (<a class="reference internal" href="../../_as_gen/fields.html#module-fields" title="fields"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fields</span></code></a>) are the most important data structure for representing
+numerical quantities defined over geometric grids. They provide a uniform interface
+for scalar, vector, and tensor-valued data in arbitrary coordinate systems.</p>
+<p>Operationally, fields behave similarly to <a class="reference external" href="https://numpy.org/doc/stable/index.html">NumPy</a> arrays. They support arithmetic,
+slicing, unit-aware computation (via <a class="reference external" href="https://unyt.readthedocs.io/en/stable/">unyt</a>), and broadcasting—
+but with full awareness of the spatial domain and coordinate system they inhabit.</p>
+<p>This document provides an introductory look at these objects and some of the things you can do with them!</p>
+<section id="what-is-a-field">
+<h2>What is a Field?<a class="headerlink" href="#what-is-a-field" title="Link to this heading">#</a></h2>
+<p>Fields are high-level objects in PyMetric which hold structured data on a specific
+geometric grid (see <a class="reference internal" href="../../_as_gen/grids.html#module-grids" title="grids"><code class="xref py py-mod docutils literal notranslate"><span class="pre">grids</span></code></a> and <a class="reference internal" href="../grids/overview.html#grids"><span class="std std-ref">Geometric Grids: General Info</span></a>), which in turn contains an underlying
+coordinate system (see <a class="reference internal" href="../../_as_gen/coordinates.html#module-coordinates" title="coordinates"><code class="xref py py-mod docutils literal notranslate"><span class="pre">coordinates</span></code></a> and <a class="reference internal" href="../coordinates/overview.html#coordinates-user"><span class="std std-ref">Coordinate Systems: General Info</span></a>). They abstract away the complexity
+of differential geometry and provide:</p>
+<ul class="simple">
+<li><p>Grid-aligned storage and shape metadata</p></li>
+<li><p>Physical units (if present) and element-wise structure (e.g., tensors)</p></li>
+<li><p>Support for arithmetic, reduction, reshaping, and numerical operations</p></li>
+<li><p>Integration with symbolic and numerical differential operators</p></li>
+</ul>
+<p>Each field consists of one or more <strong>components</strong> (<a class="reference internal" href="../../_as_gen/fields.components.FieldComponent.html#fields.components.FieldComponent" title="fields.components.FieldComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldComponent</span></code></a>), and each component stores
+its data in a <strong>buffer</strong> (<a class="reference internal" href="../../_as_gen/fields.buffers.base.BufferBase.html#fields.buffers.base.BufferBase" title="fields.buffers.base.BufferBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">BufferBase</span></code></a>). The field manages how those components are laid out
+and ensures consistency with the grid.</p>
+<section id="sparse-fields-vs-dense-fields">
+<h3>Sparse Fields vs. Dense Fields<a class="headerlink" href="#sparse-fields-vs-dense-fields" title="Link to this heading">#</a></h3>
+<p>Pymetric currently supports <strong>two</strong> major field representations:</p>
+<ul>
+<li><p><strong>Dense Fields</strong> (<a class="reference internal" href="../../_as_gen/fields.base.DenseField.html#fields.base.DenseField" title="fields.base.DenseField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DenseField</span></code></a> and descendants):</p>
+<p>Are composed of a <strong>single component</strong> of a specific shape. For example,
+in spherical coordinate system (3D), a vector field would be densely represented with a single
+component of shape <code class="docutils literal notranslate"><span class="pre">(...,</span> <span class="pre">3)</span></code>.</p>
+<p>For tensor fields specifically, <strong>dense representations</strong> are required to have <strong>all</strong> of the
+necessary indices, even if they are zero. Thus, dense fields are often simpler to work with and
+have more efficient numerical operations; however, in cases where only some components are relevant,
+a large memory and computation overhead is incurred to handle data that isn’t necessary.</p>
+</li>
+<li><p><strong>Sparse Fields</strong> (<a class="reference internal" href="../../_as_gen/fields.base.SparseField.html#fields.base.SparseField" title="fields.base.SparseField"><code class="xref py py-class docutils literal notranslate"><span class="pre">SparseField</span></code></a> and descendants)(planned):</p>
+<p>Are composed of <strong>multiple components</strong> all of which are <strong>scalar components</strong>
+on the grid. Thus, for a vector field in spherical coordinates, there would be 3 separate components
+in a sparse representation, one for each direction.</p>
+<p>For tensor fields, the great advantage of <strong>sparse representation</strong> is that missing components
+can be treated as implicitly zero. Thus, a vector field with only a <span class="math notranslate nohighlight">\(\hat{\bf r}\)</span> component
+would only need one scalar component.</p>
+</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Support for sparse operations is planned but not yet implemented.</p>
+</div>
+</section>
+<section id="buffers-and-components">
+<h3>Buffers and Components<a class="headerlink" href="#buffers-and-components" title="Link to this heading">#</a></h3>
+<p>Each field consists of one or more <strong>components</strong> (<a class="reference internal" href="../../_as_gen/fields.components.FieldComponent.html#fields.components.FieldComponent" title="fields.components.FieldComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldComponent</span></code></a>), and each component stores
+its data in a <strong>buffer</strong> (<a class="reference internal" href="../../_as_gen/fields.buffers.base.BufferBase.html#fields.buffers.base.BufferBase" title="fields.buffers.base.BufferBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">BufferBase</span></code></a>). Here’s how they relate:</p>
+<ul class="simple">
+<li><p><strong>Buffers</strong> are the raw data containers. They abstract over memory/storage
+backends (e.g., NumPy arrays, <cite>unyt</cite> arrays with units, or HDF5-backed arrays).
+Buffers provide arithmetic, indexing, and I/O functionality.</p></li>
+<li><p><strong>FieldComponents</strong> wrap a buffer and associate it with a subset of the grid axes
+and an element shape. This allows them to represent scalar values, vectors, or tensors.</p></li>
+<li><p><strong>Fields</strong> manage one or more components and provide the full user interface.</p></li>
+</ul>
+<p>This design separates memory layout (buffers), spatial semantics (components),
+and user interaction (fields), enabling modularity and extensibility.</p>
+<p>For the most part, users won’t have need to interact with buffers at all and with components only rarely. They
+are largely just logical separators for code maintainability. Nonetheless, some operations do expose lower level
+backends and it is useful to understand the classes involved when such instances arise.</p>
+</section>
+<section id="special-types-of-fields">
+<h3>Special Types of Fields<a class="headerlink" href="#special-types-of-fields" title="Link to this heading">#</a></h3>
+<p>There are two “parent field classes”: <a class="reference internal" href="../../_as_gen/fields.base.SparseField.html#fields.base.SparseField" title="fields.base.SparseField"><code class="xref py py-class docutils literal notranslate"><span class="pre">SparseField</span></code></a> and <a class="reference internal" href="../../_as_gen/fields.base.DenseField.html#fields.base.DenseField" title="fields.base.DenseField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DenseField</span></code></a>. In turn,
+various special field types descent from these two archetypes. The most important of these are <strong>tensor fields</strong>,
+which provide marginally more structure to their base classes while allowing for fully covariant computations like
+divergences, curls, etc. These are stored in the <a class="reference internal" href="../../_as_gen/fields.tensors.html#module-fields.tensors" title="fields.tensors"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fields.tensors</span></code></a> module.</p>
+<p>For most scientific workflows, users should use the <a class="reference internal" href="../../_as_gen/fields.tensors.DenseTensorField.html#fields.tensors.DenseTensorField" title="fields.tensors.DenseTensorField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DenseTensorField</span></code></a> class which provides
+all of the relevant structure for things like vectors, co-vectors, scalar fields, etc.</p>
+</section>
+</section>
+<section id="creating-fields">
+<h2>Creating Fields<a class="headerlink" href="#creating-fields" title="Link to this heading">#</a></h2>
+<p>There are a number of ways to create fields in PyMetric, largely depending on what information the user wishes
+to provide in creating the instance. In this section, we’ll walk through some of the various options that are most
+common.</p>
+<section id="building-a-field-from-components">
+<h3>Building a Field from Components<a class="headerlink" href="#building-a-field-from-components" title="Link to this heading">#</a></h3>
+<p>Perhaps the most direct way to construct a field is to first create one or more instances of
+<a class="reference internal" href="../../_as_gen/fields.components.FieldComponent.html#fields.components.FieldComponent" title="fields.components.FieldComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldComponent</span></code></a>. This is especially true when using the default
+constructor—i.e., calling <code class="docutils literal notranslate"><span class="pre">DenseField(...)</span></code>—which expects the data to already be wrapped
+in a fully-formed <a class="reference internal" href="../../_as_gen/fields.components.FieldComponent.html#fields.components.FieldComponent" title="fields.components.FieldComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldComponent</span></code></a>. The constructor does not accept raw arrays,
+functions, or other input types directly. For those use cases, convenience constructors should be used instead (see below).</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="ftype" data-sync-id="Dense" for="sd-tab-item-0">
+Dense Field</label><div class="sd-tab-content docutils">
+<p>To construct a dense field (<a class="reference internal" href="../../_as_gen/fields.base.DenseField.html#fields.base.DenseField" title="fields.base.DenseField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DenseField</span></code></a>) directly, the user must provide
+a grid (see <a class="reference internal" href="../../_as_gen/grids.html#module-grids" title="grids"><code class="xref py py-mod docutils literal notranslate"><span class="pre">grids</span></code></a>) and a <strong>single</strong> component:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pymetric</span><span class="w"> </span><span class="kn">import</span> <span class="n">DenseField</span><span class="p">,</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">,</span> <span class="n">GenericGrid</span><span class="p">,</span> <span class="n">FieldComponent</span>
+
+<span class="n">cs</span> <span class="o">=</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">()</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">GenericGrid</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+<span class="n">component</span> <span class="o">=</span> <span class="n">FieldComponent</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">g</span><span class="p">,[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">])</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">DenseField</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="ftype" data-sync-id="DenseTensor" for="sd-tab-item-1">
+Dense Tensor Field</label><div class="sd-tab-content docutils">
+<p>To construct a dense tensor field (<a class="reference internal" href="../../_as_gen/fields.tensors.DenseTensorField.html#fields.tensors.DenseTensorField" title="fields.tensors.DenseTensorField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DenseTensorField</span></code></a>) directly, the user must provide
+a grid (see <a class="reference internal" href="../../_as_gen/grids.html#module-grids" title="grids"><code class="xref py py-mod docutils literal notranslate"><span class="pre">grids</span></code></a>), a <strong>single</strong> component, <strong>and</strong> (optionally) the signature of the tensor. For example,
+a scalar field can be created with</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pymetric</span><span class="w"> </span><span class="kn">import</span> <span class="n">DenseField</span><span class="p">,</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">,</span> <span class="n">GenericGrid</span><span class="p">,</span> <span class="n">FieldComponent</span>
+
+<span class="n">cs</span> <span class="o">=</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">()</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">GenericGrid</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+<span class="n">component</span> <span class="o">=</span> <span class="n">FieldComponent</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">g</span><span class="p">,[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">])</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">DenseField</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>A valid tensor field component must have an element shape like <code class="docutils literal notranslate"><span class="pre">(Ndim,</span> <span class="pre">Ndim,</span> <span class="pre">...)</span></code> or
+an error is raised. This is reflective of the dense representation convention where all indices
+are required.</p>
+</div>
+<p>A vector field looks like</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pymetric</span><span class="w"> </span><span class="kn">import</span> <span class="n">DenseField</span><span class="p">,</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">,</span> <span class="n">GenericGrid</span><span class="p">,</span> <span class="n">FieldComponent</span>
+
+<span class="n">cs</span> <span class="o">=</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">()</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">GenericGrid</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+<span class="n">component</span> <span class="o">=</span> <span class="n">FieldComponent</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">g</span><span class="p">,[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">],</span><span class="n">element_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,))</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">DenseField</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To create a <strong>covector</strong> field, <code class="docutils literal notranslate"><span class="pre">signature</span></code> should be specified:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pymetric</span><span class="w"> </span><span class="kn">import</span> <span class="n">DenseField</span><span class="p">,</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">,</span> <span class="n">GenericGrid</span><span class="p">,</span> <span class="n">FieldComponent</span>
+
+<span class="n">cs</span> <span class="o">=</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">()</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">GenericGrid</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+<span class="n">component</span> <span class="o">=</span> <span class="n">FieldComponent</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">g</span><span class="p">,[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">],</span><span class="n">element_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,))</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">DenseField</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">component</span><span class="p">,</span><span class="n">signature</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,))</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="ftype" data-sync-id="Sparse" for="sd-tab-item-2">
+Sparse Field</label><div class="sd-tab-content docutils">
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Not yet implemented.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="building-a-generic-field">
+<h3>Building a Generic Field<a class="headerlink" href="#building-a-generic-field" title="Link to this heading">#</a></h3>
+<p>Like most array-manipulation libraries, PyMetric provides a number of field entry points for building
+empty fields as well as fields filled with either <code class="docutils literal notranslate"><span class="pre">0</span></code> or <code class="docutils literal notranslate"><span class="pre">1</span></code>. These mirror the standard behavior of functions
+like <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.zeros.html#numpy.zeros" title="(in NumPy v2.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.zeros()</span></code></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ones.html#numpy.ones" title="(in NumPy v2.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.ones()</span></code></a>, etc.</p>
+<p>Many classes in PyMetric implement these as methods (i.e. <a class="reference internal" href="../../_as_gen/fields.buffers.base.BufferBase.html#fields.buffers.base.BufferBase" title="fields.buffers.base.BufferBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">BufferBase</span></code></a>, <a class="reference internal" href="../../_as_gen/grids.base.GridBase.html#grids.base.GridBase" title="grids.base.GridBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridBase</span></code></a>,
+and <a class="reference internal" href="../../_as_gen/fields.components.FieldComponent.html#fields.components.FieldComponent" title="fields.components.FieldComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldComponent</span></code></a>), including <strong>all of the field classes</strong>. The call signatures vary somewhat
+between methods to account for differences in structure:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="ftype" data-sync-id="Dense" for="sd-tab-item-3">
+Dense Field</label><div class="sd-tab-content docutils">
+<p>For dense fields, the operations works just like one would expect.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pymetric</span><span class="w"> </span><span class="kn">import</span> <span class="n">DenseField</span><span class="p">,</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">,</span> <span class="n">GenericGrid</span><span class="p">,</span> <span class="n">FieldComponent</span>
+
+<span class="n">cs</span> <span class="o">=</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">()</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">GenericGrid</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+<span class="n">component</span> <span class="o">=</span> <span class="n">FieldComponent</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">g</span><span class="p">,[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">])</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">DenseField</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">])</span> <span class="c1"># Create scalar field over x axis of g.</span>
+</pre></div>
+</div>
+<p>A number of options are available to determine how the underlying buffer behaves, what
+shape the field has, etc. For details, look at <a class="reference internal" href="../../_as_gen/fields.base.DenseField.zeros.html#fields.base.DenseField.zeros" title="fields.base.DenseField.zeros"><code class="xref py py-meth docutils literal notranslate"><span class="pre">zeros()</span></code></a>.</p>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="ftype" data-sync-id="DenseTensor" for="sd-tab-item-4">
+Dense Tensor Field</label><div class="sd-tab-content docutils">
+<p>For tensor fields, the operations works a little bit different than for <a class="reference internal" href="../../_as_gen/fields.base.DenseField.html#fields.base.DenseField" title="fields.base.DenseField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DenseField</span></code></a>.
+Instead of controlling the shape of the field with the <code class="docutils literal notranslate"><span class="pre">element_shape=</span></code> kwarg, <a class="reference internal" href="../../_as_gen/fields.tensors.DenseTensorField.zeros.html#fields.tensors.DenseTensorField.zeros" title="fields.tensors.DenseTensorField.zeros"><code class="xref py py-meth docutils literal notranslate"><span class="pre">zeros()</span></code></a>
+takes 1 additional positional argument: <code class="docutils literal notranslate"><span class="pre">rank</span></code> (the rank of the tensor) and uses that to determine the
+correct (dense) shape. Additionally, <code class="docutils literal notranslate"><span class="pre">signature=</span></code> may be used to specify the variance.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pymetric</span><span class="w"> </span><span class="kn">import</span> <span class="n">DenseTensorField</span><span class="p">,</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">,</span> <span class="n">GenericGrid</span><span class="p">,</span> <span class="n">FieldComponent</span>
+
+<span class="n">cs</span> <span class="o">=</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">()</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">GenericGrid</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+<span class="n">component</span> <span class="o">=</span> <span class="n">FieldComponent</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">g</span><span class="p">,[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">])</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">DenseTensorField</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># Create rank 2 field over x axis of g.</span>
+
+<span class="c1"># For a covector, you might need:</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">DenseTensorField</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">signature</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,))</span>
+</pre></div>
+</div>
+<p>A number of options are available to determine how the underlying buffer behaves, what
+shape the field has, etc. For details, look at <a class="reference internal" href="../../_as_gen/fields.tensors.DenseTensorField.zeros.html#fields.tensors.DenseTensorField.zeros" title="fields.tensors.DenseTensorField.zeros"><code class="xref py py-meth docutils literal notranslate"><span class="pre">zeros()</span></code></a>.</p>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="ftype" data-sync-id="Sparse" for="sd-tab-item-5">
+Sparse Field</label><div class="sd-tab-content docutils">
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Not yet implemented.</p>
+</div>
+</div>
+</div>
+<p>In addition to the standard <a class="reference internal" href="../../_as_gen/fields.base.DenseField.ones.html#fields.base.DenseField.ones" title="fields.base.DenseField.ones"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ones()</span></code></a>, <a class="reference internal" href="../../_as_gen/fields.base.DenseField.zeros.html#fields.base.DenseField.zeros" title="fields.base.DenseField.zeros"><code class="xref py py-meth docutils literal notranslate"><span class="pre">zeros()</span></code></a>, and
+<a class="reference internal" href="../../_as_gen/fields.base.DenseField.full.html#fields.base.DenseField.full" title="fields.base.DenseField.full"><code class="xref py py-meth docutils literal notranslate"><span class="pre">full()</span></code></a>, all <strong>dense</strong> field representations also implement a <a class="reference internal" href="../../_as_gen/fields.base.DenseField.from_array.html#fields.base.DenseField.from_array" title="fields.base.DenseField.from_array"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_array()</span></code></a>
+method to allow users to provide a generic buffer as the basis for a new field.</p>
+</section>
+<section id="advanced-construction-methods">
+<h3>Advanced Construction Methods<a class="headerlink" href="#advanced-construction-methods" title="Link to this heading">#</a></h3>
+<p>In addition to the core construction methods presented above, a few additional methods are available to construct fields
+from more esoteric origins. The most significant of these is the <a class="reference internal" href="../../_as_gen/fields.base.DenseField.from_function.html#fields.base.DenseField.from_function" title="fields.base.DenseField.from_function"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_function()</span></code></a> which allows
+users to create fields by specifying directly a function <span class="math notranslate nohighlight">\(f(x^1,x^2,\ldots,x^n)\)</span>. The following example illustrates
+the basic usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymetric</span><span class="w"> </span><span class="kn">import</span> <span class="n">DenseField</span><span class="p">,</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">,</span> <span class="n">GenericGrid</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Create the coordinate system and the grid.</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">()</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">GenericGrid</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+
+<span class="c1"># Define a function of the coords.</span>
+<span class="n">func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_x</span><span class="p">,</span><span class="n">_y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">_x</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">_y</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># Create the dense field from the function.</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">DenseField</span><span class="o">.</span><span class="n">from_function</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">])</span>
+
+<span class="n">fig</span><span class="p">,</span><span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>(<a class="reference download internal" download="" href="../../_downloads/4afa24bf698020b237c138073c086ebc/overview-1.py"><code class="xref download docutils literal notranslate"><span class="pre">Source</span> <span class="pre">code</span></code></a>, <a class="reference download internal" download="" href="../../_downloads/41dbcbf20ffa1a53e1daa957617af5c2/overview-1.png"><code class="xref download docutils literal notranslate"><span class="pre">png</span></code></a>, <a class="reference download internal" download="" href="../../_downloads/5193498ee4759de4e7de8c4bca03d2c8/overview-1.hires.png"><code class="xref download docutils literal notranslate"><span class="pre">hires.png</span></code></a>, <a class="reference download internal" download="" href="../../_downloads/4c37eb57944a6bab313a882bd299ef46/overview-1.pdf"><code class="xref download docutils literal notranslate"><span class="pre">pdf</span></code></a>)</p>
+<figure class="align-default">
+<img alt="../../_images/overview-1.png" class="plot-directive" src="../../_images/overview-1.png" />
+</figure>
+</section>
+</section>
+<section id="field-properties-and-data-access">
+<h2>Field Properties and Data Access<a class="headerlink" href="#field-properties-and-data-access" title="Link to this heading">#</a></h2>
+<p>Once fields are created, they offer a rich interface for interacting with both their
+geometric context and numerical data. This section explains the core capabilities
+fields provide for data access, metadata retrieval, and computational manipulation.</p>
+<section id="properties-of-fields">
+<h3>Properties of Fields<a class="headerlink" href="#properties-of-fields" title="Link to this heading">#</a></h3>
+<p>Fields are built on top of structured grids and are deeply
+aware of their spatial and element-wise structure. Every field, whether
+sparse or dense, encodes both where data lives (i.e., the grid and its axes)
+and what kind of data it holds (e.g., scalars, vectors, tensors).</p>
+<ul class="simple">
+<li><p>Linkage to grid, axes (dense), and coordinate system.</p></li>
+<li><p>element_shape, spatial_shape,element_ndim, spatial_ndim, etc.</p></li>
+<li><p>Point readers to the API documentation for more details.</p></li>
+</ul>
+<p>Some key properties include:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../_as_gen/fields.base.DenseField.grid.html#fields.base.DenseField.grid" title="fields.base.DenseField.grid"><code class="xref py py-attr docutils literal notranslate"><span class="pre">grid</span></code></a>: The underlying <a class="reference internal" href="../../_as_gen/grids.base.GridBase.html#grids.base.GridBase" title="grids.base.GridBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridBase</span></code></a> instance that
+the field lives on. This contains coordinate information, dimensions, and domain metadata.</p></li>
+<li><p><a class="reference internal" href="../../_as_gen/fields.base.DenseField.axes.html#fields.base.DenseField.axes" title="fields.base.DenseField.axes"><code class="xref py py-attr docutils literal notranslate"><span class="pre">axes</span></code></a>: A list of the axes over which the field spans.</p></li>
+<li><p><a class="reference internal" href="../../_as_gen/fields.base.DenseField.spatial_shape.html#fields.base.DenseField.spatial_shape" title="fields.base.DenseField.spatial_shape"><code class="xref py py-attr docutils literal notranslate"><span class="pre">spatial_shape</span></code></a>: The shape of the field over its spatial axes.</p></li>
+<li><p><a class="reference internal" href="../../_as_gen/fields.base.DenseField.element_shape.html#fields.base.DenseField.element_shape" title="fields.base.DenseField.element_shape"><code class="xref py py-attr docutils literal notranslate"><span class="pre">element_shape</span></code></a>: The trailing shape of the data, representing its tensor structure .</p></li>
+<li><p><a class="reference internal" href="../../_as_gen/fields.base.DenseField.units.html#fields.base.DenseField.units" title="fields.base.DenseField.units"><code class="xref py py-attr docutils literal notranslate"><span class="pre">units</span></code></a>: If unit-aware buffers (e.g., via unyt) are used, this indicates the physical units attached to the field.</p></li>
+</ul>
+</section>
+<section id="accessing-field-data">
+<h3>Accessing Field Data<a class="headerlink" href="#accessing-field-data" title="Link to this heading">#</a></h3>
+<p>A major difference between sparse and dense field representations is the syntax for data access. The tabs
+below summarize how data access behaves in each case:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-6">
+Dense Fields</label><div class="sd-tab-content docutils">
+<p>Dense fields behave very much like regular NumPy arrays. Indexing directly into a field returns the corresponding
+data slice from the single component buffer. This means you can treat dense fields as array-like objects
+for most numerical and visualization operations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">val</span> <span class="o">=</span> <span class="n">field</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>           <span class="c1"># Scalar or element value at grid index (i, j)</span>
+<span class="nb">slice</span> <span class="o">=</span> <span class="n">field</span><span class="p">[::</span><span class="mi">2</span><span class="p">,</span> <span class="p">::</span><span class="mi">2</span><span class="p">]</span>     <span class="c1"># Subsampled field</span>
+<span class="n">comp</span> <span class="o">=</span> <span class="n">field</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>        <span class="c1"># Slice of a vector/tensor component</span>
+</pre></div>
+</div>
+<p>All operations are performed on the raw buffer data (NumPy, unyt, or HDF5), and indexing reflects that behavior.
+If the field has a unit-aware backend (e.g., <cite>unyt_array</cite>), the result will preserve units.</p>
+<p>You can explicitly retrieve representations using:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../_as_gen/fields.components.FieldComponent.as_array.html#fields.components.FieldComponent.as_array" title="fields.components.FieldComponent.as_array"><code class="xref py py-meth docutils literal notranslate"><span class="pre">as_array()</span></code></a>: returns a NumPy array (units stripped).</p></li>
+<li><p><a class="reference internal" href="../../_as_gen/fields.components.FieldComponent.as_unyt_array.html#fields.components.FieldComponent.as_unyt_array" title="fields.components.FieldComponent.as_unyt_array"><code class="xref py py-meth docutils literal notranslate"><span class="pre">as_unyt_array()</span></code></a>: returns a <cite>unyt_array</cite> with units.</p></li>
+<li><p><a class="reference internal" href="../../_as_gen/fields.components.FieldComponent.as_buffer_core.html#fields.components.FieldComponent.as_buffer_core" title="fields.components.FieldComponent.as_buffer_core"><code class="xref py py-meth docutils literal notranslate"><span class="pre">as_buffer_core()</span></code></a>: returns the native backend array (e.g., <cite>h5py.Dataset</cite>).</p></li>
+<li><p><a class="reference internal" href="../../_as_gen/fields.components.FieldComponent.as_buffer_repr.html#fields.components.FieldComponent.as_buffer_repr" title="fields.components.FieldComponent.as_buffer_repr"><code class="xref py py-meth docutils literal notranslate"><span class="pre">as_buffer_repr()</span></code></a>: returns a NumPy-compatible representation for ufuncs.</p></li>
+</ul>
+<p>These methods are particularly useful when exporting to disk, performing raw NumPy operations, or applying custom logic
+where backend control is needed.</p>
+</div>
+<input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-7">
+Sparse Fields</label><div class="sd-tab-content docutils">
+<p>Sparse fields (planned) contain multiple components, each aligned with a subset of axes and representing a scalar value.
+Accessing the field returns an individual <a class="reference internal" href="../../_as_gen/fields.components.FieldComponent.html#fields.components.FieldComponent" title="fields.components.FieldComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldComponent</span></code></a>, which must then be indexed:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">component</span> <span class="o">=</span> <span class="n">field</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>        <span class="c1"># Return the first component</span>
+<span class="n">value</span> <span class="o">=</span> <span class="n">component</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>       <span class="c1"># Access value at spatial index</span>
+</pre></div>
+</div>
+<p>Sparse fields are useful when only a few components of a tensor are needed or when symbolic sparsity is important
+(e.g., fields with known zeros). While dense fields always store <em>all</em> components (even if zero), sparse fields
+can reduce memory and computation by omitting unnecessary entries.</p>
+<p><strong>Note</strong>: Because sparse field support is not yet implemented, the behavior outlined above is aspirational and may change.</p>
+</div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>When accessing fields in user constructed pipelines, it is often useful to be conscious of how
+access patterns impact memory usage; particularly for buffers which have lazy-loading behaviors.</p>
+</div>
+<section id="broadcasting-and-iteration">
+<h4>Broadcasting and Iteration<a class="headerlink" href="#broadcasting-and-iteration" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Talk about the ability to broadcast to arrays and other buffer types in
+new axes and also as general base types.</p></li>
+<li><p>Talk about broadcasting to new axes and reducing to new axes.</p></li>
+<li><p>In addition, a couple other access patterns:</p></li>
+<li><p>Iterating through chunks of the data;</p></li>
+<li><p>casting to axes (Dense -&gt; sparse can do the same with each component separately)</p></li>
+<li><p>cutting to axes (Dense -&gt; sparse can do the same with each component seperately.)</p></li>
+<li><p>Field iterpolation.</p></li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../grids/build_custom_grids.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Geometric Grids: Custom Grid Classes</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="numpy.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Fields: NumPy Compatibility</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-field">What is a Field?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparse-fields-vs-dense-fields">Sparse Fields vs. Dense Fields</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#buffers-and-components">Buffers and Components</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#special-types-of-fields">Special Types of Fields</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-fields">Creating Fields</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-field-from-components">Building a Field from Components</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-generic-field">Building a Generic Field</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-construction-methods">Advanced Construction Methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#field-properties-and-data-access">Field Properties and Data Access</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-fields">Properties of Fields</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-field-data">Accessing Field Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#broadcasting-and-iteration">Broadcasting and Iteration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/reference/fields/overview.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Eliza Diggins.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

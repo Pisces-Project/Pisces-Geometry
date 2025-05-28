@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.CylindricalCoordinateSystem.pprint
+==================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: CylindricalCoordinateSystem.pprint

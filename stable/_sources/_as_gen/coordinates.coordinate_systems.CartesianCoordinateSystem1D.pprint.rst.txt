@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.CartesianCoordinateSystem1D.pprint
+==================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: CartesianCoordinateSystem1D.pprint

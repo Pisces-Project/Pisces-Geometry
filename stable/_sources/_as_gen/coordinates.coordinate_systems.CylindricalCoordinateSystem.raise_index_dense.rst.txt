@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.CylindricalCoordinateSystem.raise\_index\_dense
+===============================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: CylindricalCoordinateSystem.raise_index_dense

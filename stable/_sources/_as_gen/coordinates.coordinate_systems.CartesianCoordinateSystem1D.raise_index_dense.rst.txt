@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.CartesianCoordinateSystem1D.raise\_index\_dense
+===============================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: CartesianCoordinateSystem1D.raise_index_dense

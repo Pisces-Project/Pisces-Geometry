@@ -1,0 +1,6 @@
+grids.base.GridBase.iter\_chunk\_coords
+=======================================
+
+.. currentmodule:: grids.base
+
+.. automethod:: GridBase.iter_chunk_coords

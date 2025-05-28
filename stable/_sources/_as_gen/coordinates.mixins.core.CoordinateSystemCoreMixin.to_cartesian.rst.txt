@@ -1,0 +1,6 @@
+coordinates.mixins.core.CoordinateSystemCoreMixin.to\_cartesian
+===============================================================
+
+.. currentmodule:: coordinates.mixins.core
+
+.. automethod:: CoordinateSystemCoreMixin.to_cartesian

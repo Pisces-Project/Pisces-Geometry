@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.inverse\_metric\_tensor
+=============================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: PolarCoordinateSystem.inverse_metric_tensor

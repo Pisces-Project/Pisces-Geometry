@@ -1,0 +1,6 @@
+coordinates.mixins.core.CoordinateSystemIOMixin.from\_hdf5
+==========================================================
+
+.. currentmodule:: coordinates.mixins.core
+
+.. automethod:: CoordinateSystemIOMixin.from_hdf5

@@ -1,0 +1,6 @@
+fields.buffers.core.ArrayBuffer.convert\_to\_units
+==================================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: ArrayBuffer.convert_to_units

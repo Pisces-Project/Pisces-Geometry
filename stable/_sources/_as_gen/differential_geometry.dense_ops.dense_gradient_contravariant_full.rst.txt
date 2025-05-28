@@ -1,0 +1,6 @@
+differential\_geometry.dense\_ops.dense\_gradient\_contravariant\_full
+======================================================================
+
+.. currentmodule:: differential_geometry.dense_ops
+
+.. autofunction:: dense_gradient_contravariant_full

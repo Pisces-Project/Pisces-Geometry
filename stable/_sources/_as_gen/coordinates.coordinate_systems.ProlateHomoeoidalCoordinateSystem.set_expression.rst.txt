@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ProlateHomoeoidalCoordinateSystem.set\_expression
+=================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ProlateHomoeoidalCoordinateSystem.set_expression

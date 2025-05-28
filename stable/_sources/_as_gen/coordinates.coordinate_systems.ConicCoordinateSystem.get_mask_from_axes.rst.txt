@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ConicCoordinateSystem.get\_mask\_from\_axes
+===========================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ConicCoordinateSystem.get_mask_from_axes

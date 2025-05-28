@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ProlateSpheroidalCoordinateSystem.get\_indices\_from\_mask
+==========================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ProlateSpheroidalCoordinateSystem.get_indices_from_mask

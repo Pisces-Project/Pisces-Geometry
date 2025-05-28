@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.CartesianCoordinateSystem2D.from\_hdf5
+======================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: CartesianCoordinateSystem2D.from_hdf5

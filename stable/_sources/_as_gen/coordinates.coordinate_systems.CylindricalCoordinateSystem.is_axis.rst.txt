@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.CylindricalCoordinateSystem.is\_axis
+====================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: CylindricalCoordinateSystem.is_axis

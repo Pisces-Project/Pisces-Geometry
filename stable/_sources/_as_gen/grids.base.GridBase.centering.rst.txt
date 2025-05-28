@@ -1,0 +1,6 @@
+grids.base.GridBase.centering
+=============================
+
+.. currentmodule:: grids.base
+
+.. autoproperty:: GridBase.centering

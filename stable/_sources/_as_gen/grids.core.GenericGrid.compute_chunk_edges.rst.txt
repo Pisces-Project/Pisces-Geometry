@@ -1,0 +1,6 @@
+grids.core.GenericGrid.compute\_chunk\_edges
+============================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: GenericGrid.compute_chunk_edges

@@ -1,0 +1,24 @@
+differential_geometry.sparse_utils
+==================================
+
+.. automodule:: differential_geometry.sparse_utils
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   

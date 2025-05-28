@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.OblateSpheroidalCoordinateSystem.get\_indices\_from\_mask
+=========================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: OblateSpheroidalCoordinateSystem.get_indices_from_mask

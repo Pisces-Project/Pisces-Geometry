@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.EllipticCylindricalCoordinateSystem.list\_class\_expressions
+============================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: EllipticCylindricalCoordinateSystem.list_class_expressions

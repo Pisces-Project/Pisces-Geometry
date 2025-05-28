@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.get\_axes\_permutation
+===================================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: CurvilinearCoordinateSystem.get_axes_permutation

@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ProlateHomoeoidalCoordinateSystem.is\_axis
+==========================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ProlateHomoeoidalCoordinateSystem.is_axis

@@ -1,0 +1,35 @@
+DependenceObject
+=================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. autoclass:: differential_geometry.dependence.DependenceObject
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~DependenceObject.__init__
+      ~DependenceObject.from_symbolic_proxy
+      ~DependenceObject.to_symbolic_proxy
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~DependenceObject.coordinate_system
+      ~DependenceObject.coordinates_ndim
+      ~DependenceObject.symbolic_proxy
+   
+   

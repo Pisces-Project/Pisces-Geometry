@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.parameter\_symbols
+==============================================================
+
+.. currentmodule:: coordinates.core
+
+.. autoproperty:: OrthogonalCoordinateSystem.parameter_symbols

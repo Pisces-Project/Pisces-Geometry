@@ -1,0 +1,6 @@
+fields.components.FieldComponent.ones
+=====================================
+
+.. currentmodule:: fields.components
+
+.. automethod:: FieldComponent.ones

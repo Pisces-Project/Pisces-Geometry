@@ -1,0 +1,6 @@
+fields.buffers.core.ArrayBuffer.transpose
+=========================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: ArrayBuffer.transpose

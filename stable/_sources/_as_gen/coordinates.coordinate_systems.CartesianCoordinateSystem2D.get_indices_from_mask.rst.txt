@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.CartesianCoordinateSystem2D.get\_indices\_from\_mask
+====================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: CartesianCoordinateSystem2D.get_indices_from_mask

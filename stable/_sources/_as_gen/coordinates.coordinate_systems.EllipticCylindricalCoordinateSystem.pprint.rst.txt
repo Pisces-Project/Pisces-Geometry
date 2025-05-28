@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.EllipticCylindricalCoordinateSystem.pprint
+==========================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: EllipticCylindricalCoordinateSystem.pprint

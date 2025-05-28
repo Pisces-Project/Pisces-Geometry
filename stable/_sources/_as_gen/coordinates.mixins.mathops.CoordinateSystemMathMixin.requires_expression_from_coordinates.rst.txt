@@ -1,0 +1,6 @@
+coordinates.mixins.mathops.CoordinateSystemMathMixin.requires\_expression\_from\_coordinates
+============================================================================================
+
+.. currentmodule:: coordinates.mixins.mathops
+
+.. automethod:: CoordinateSystemMathMixin.requires_expression_from_coordinates

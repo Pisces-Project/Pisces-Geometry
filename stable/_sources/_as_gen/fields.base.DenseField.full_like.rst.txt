@@ -1,0 +1,6 @@
+fields.base.DenseField.full\_like
+=================================
+
+.. currentmodule:: fields.base
+
+.. automethod:: DenseField.full_like

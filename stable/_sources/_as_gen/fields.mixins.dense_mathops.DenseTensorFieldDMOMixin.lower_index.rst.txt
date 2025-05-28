@@ -1,0 +1,6 @@
+fields.mixins.dense\_mathops.DenseTensorFieldDMOMixin.lower\_index
+==================================================================
+
+.. currentmodule:: fields.mixins.dense_mathops
+
+.. automethod:: DenseTensorFieldDMOMixin.lower_index

@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.\_\_init\_\_
+=========================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: CurvilinearCoordinateSystem.__init__

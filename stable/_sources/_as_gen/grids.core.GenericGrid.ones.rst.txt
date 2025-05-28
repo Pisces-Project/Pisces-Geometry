@@ -1,0 +1,6 @@
+grids.core.GenericGrid.ones
+===========================
+
+.. currentmodule:: grids.core
+
+.. automethod:: GenericGrid.ones

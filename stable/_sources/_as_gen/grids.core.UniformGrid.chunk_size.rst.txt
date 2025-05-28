@@ -1,0 +1,6 @@
+grids.core.UniformGrid.chunk\_size
+==================================
+
+.. currentmodule:: grids.core
+
+.. autoproperty:: UniformGrid.chunk_size

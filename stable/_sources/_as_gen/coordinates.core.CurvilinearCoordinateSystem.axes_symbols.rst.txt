@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.axes\_symbols
+==========================================================
+
+.. currentmodule:: coordinates.core
+
+.. autoproperty:: CurvilinearCoordinateSystem.axes_symbols

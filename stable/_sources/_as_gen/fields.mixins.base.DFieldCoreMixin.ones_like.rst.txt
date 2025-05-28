@@ -1,0 +1,6 @@
+fields.mixins.base.DFieldCoreMixin.ones\_like
+=============================================
+
+.. currentmodule:: fields.mixins.base
+
+.. automethod:: DFieldCoreMixin.ones_like

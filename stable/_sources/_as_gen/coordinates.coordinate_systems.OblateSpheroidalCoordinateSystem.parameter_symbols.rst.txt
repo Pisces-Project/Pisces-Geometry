@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.OblateSpheroidalCoordinateSystem.parameter\_symbols
+===================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: OblateSpheroidalCoordinateSystem.parameter_symbols

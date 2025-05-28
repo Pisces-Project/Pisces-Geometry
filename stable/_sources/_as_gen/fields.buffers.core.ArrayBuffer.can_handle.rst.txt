@@ -1,0 +1,6 @@
+fields.buffers.core.ArrayBuffer.can\_handle
+===========================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: ArrayBuffer.can_handle

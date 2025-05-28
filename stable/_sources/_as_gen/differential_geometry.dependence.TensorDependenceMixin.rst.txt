@@ -1,0 +1,31 @@
+TensorDependenceMixin
+======================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. autoclass:: differential_geometry.dependence.TensorDependenceMixin
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~TensorDependenceMixin.__init__
+      ~TensorDependenceMixin.adjust_tensor_signature
+      ~TensorDependenceMixin.divergence
+      ~TensorDependenceMixin.element_wise_gradient
+      ~TensorDependenceMixin.element_wise_laplacian
+      ~TensorDependenceMixin.gradient
+      ~TensorDependenceMixin.laplacian
+      ~TensorDependenceMixin.lower_index
+      ~TensorDependenceMixin.raise_index
+   
+   
+
+   
+   
+   

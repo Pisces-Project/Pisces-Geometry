@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.ConicCoordinateSystem.raise\_index\_dense
+=========================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: ConicCoordinateSystem.raise_index_dense

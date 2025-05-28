@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.full\_like
+==========================================
+
+.. currentmodule:: fields.tensors
+
+.. automethod:: DenseTensorField.full_like

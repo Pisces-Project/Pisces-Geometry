@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.OblateHomoeoidalCoordinateSystem.axes\_complement
+=================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: OblateHomoeoidalCoordinateSystem.axes_complement

@@ -1,0 +1,6 @@
+grids.core.UniformGrid.ones\_like\_chunks
+=========================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: UniformGrid.ones_like_chunks

@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.validate\_component
+===================================================
+
+.. currentmodule:: fields.tensors
+
+.. automethod:: DenseTensorField.validate_component

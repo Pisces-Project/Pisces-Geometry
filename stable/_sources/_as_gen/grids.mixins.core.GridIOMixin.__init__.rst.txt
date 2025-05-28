@@ -1,0 +1,6 @@
+grids.mixins.core.GridIOMixin.\_\_init\_\_
+==========================================
+
+.. currentmodule:: grids.mixins.core
+
+.. automethod:: GridIOMixin.__init__

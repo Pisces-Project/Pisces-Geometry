@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.OblateHomoeoidalCoordinateSystem.get\_axes\_units
+=================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: OblateHomoeoidalCoordinateSystem.get_axes_units

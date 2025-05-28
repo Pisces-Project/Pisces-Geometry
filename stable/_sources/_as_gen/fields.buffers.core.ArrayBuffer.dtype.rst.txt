@@ -1,0 +1,6 @@
+fields.buffers.core.ArrayBuffer.dtype
+=====================================
+
+.. currentmodule:: fields.buffers.core
+
+.. autoproperty:: ArrayBuffer.dtype

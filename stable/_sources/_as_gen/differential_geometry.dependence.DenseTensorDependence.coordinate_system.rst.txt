@@ -1,0 +1,6 @@
+differential\_geometry.dependence.DenseTensorDependence.coordinate\_system
+==========================================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. autoproperty:: DenseTensorDependence.coordinate_system

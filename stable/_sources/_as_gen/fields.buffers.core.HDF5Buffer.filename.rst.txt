@@ -1,0 +1,6 @@
+fields.buffers.core.HDF5Buffer.filename
+=======================================
+
+.. currentmodule:: fields.buffers.core
+
+.. autoproperty:: HDF5Buffer.filename

@@ -1,0 +1,875 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PyMetric Quickstart Guide &#8212; PyMetric  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'auto_quickstart/index';</script>
+    <link rel="icon" href="../_static/pm_favicon.svg"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Cookbook" href="cookbook/index.html" />
+    <link rel="prev" title="PyMetric" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">PyMetric  documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    PyMetric Quickstart Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    PyMetric User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api_base.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    PyMetric Quickstart Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    PyMetric User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api_base.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="cookbook/index.html">Cookbook</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorials/index.html">Tutorials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/plot_building_fields.html">Building Fields</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">PyMetric Quickstart Guide</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <a class="reference internal image-reference" href="../_images/PyMetric.png"><img alt="../_images/PyMetric.png" class="align-center" src="../_images/PyMetric.png" style="width: 300px;" />
+</a>
+<section id="pymetric-quickstart-guide">
+<span id="quickstart"></span><h1>PyMetric Quickstart Guide<a class="headerlink" href="#pymetric-quickstart-guide" title="Link to this heading">#</a></h1>
+<p>Welcome to the <strong>PyMetric Quickstart Guide</strong>!</p>
+<p>This guide helps you quickly install, configure, and begin using <strong>PyMetric</strong>. Pymetric is a
+flexible framework for geometry-aware scientific computing. Whether you’re installing
+it for development, documentation, or basic usage, this guide will get you up and running.</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#installation" id="id4">Installation</a></p>
+<ul>
+<li><p><a class="reference internal" href="#dependencies" id="id5">Dependencies</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#getting-help" id="id6">Getting Help</a></p></li>
+<li><p><a class="reference internal" href="#help-develop-pymetric" id="id7">Help Develop PyMetric</a></p></li>
+<li><p><a class="reference internal" href="#cookbook" id="id8">Cookbook</a></p>
+<ul>
+<li><p><a class="reference internal" href="#what-you-ll-find" id="id9">What You’ll Find</a></p></li>
+<li><p><a class="reference internal" href="#contributions" id="id10">Contributions</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#tutorials" id="id11">Tutorials</a></p>
+<ul>
+<li><p><a class="reference internal" href="#topics-covered" id="id12">Topics Covered</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="installation">
+<span id="id1"></span><h2><a class="toc-backref" href="#id4" role="doc-backlink">Installation</a><a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<p>Currently, PyMetric is hosted on PyPI and on github. For standard installations,
+we suggest installing the stable package version from PyPI using pip or conda. To
+install the development version of the package, you can install directly from the source
+code on github:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+📦 PyPI (Stable)</label><div class="sd-tab-content docutils">
+<p>The recommended way to install <strong>PyMetric</strong> is via PyPI:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pymetric
+</pre></div>
+</div>
+<p>This installs the latest stable release, suitable for most users. Additional
+options are available (see advanced installation).</p>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+🧪 Development (GitHub)</label><div class="sd-tab-content docutils">
+<p>To install the latest development version directly from GitHub:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/pisces-project/pymetric
+</pre></div>
+</div>
+<p>Alternatively, clone and install locally:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>https://github.com/pisces-project/pymetric
+<span class="nb">cd</span><span class="w"> </span>pymetric
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+<p>This is the suggested approach if you are intent on developing the
+code base.</p>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+📚 Conda (Experimental)</label><div class="sd-tab-content docutils">
+<p>If you’re using <strong>Conda</strong>, you can install via <cite>pip</cite> in a conda environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>pymetric-env<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11
+conda<span class="w"> </span>activate<span class="w"> </span>pymetric-env
+pip<span class="w"> </span>install<span class="w"> </span>pymetric
+</pre></div>
+</div>
+<p>(A native conda package is not yet maintained, so this uses pip within conda.)</p>
+</div>
+</div>
+<section id="dependencies">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">Dependencies</a><a class="headerlink" href="#dependencies" title="Link to this heading">#</a></h3>
+<p>In order to use pymetric, the following core dependencies are required:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Package</p></th>
+<th class="head"><p>Version</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>numpy</p></td>
+<td><p>&gt;=1.22</p></td>
+<td><p>Core numerical array processing</p></td>
+</tr>
+<tr class="row-odd"><td><p>scipy</p></td>
+<td><p>&gt;=1.10</p></td>
+<td><p>Scientific computing and numerical tools</p></td>
+</tr>
+<tr class="row-even"><td><p>unyt</p></td>
+<td><p>&gt;=2.9</p></td>
+<td><p>Unit-aware arrays for physical computations</p></td>
+</tr>
+<tr class="row-odd"><td><p>h5py</p></td>
+<td><p>&gt;=3.0</p></td>
+<td><p>HDF5 file format support</p></td>
+</tr>
+<tr class="row-even"><td><p>sympy</p></td>
+<td><p>&gt;=1.14.0</p></td>
+<td><p>Symbolic mathematics and algebra</p></td>
+</tr>
+<tr class="row-odd"><td><p>matplotlib</p></td>
+<td><p>any</p></td>
+<td><p>Plotting and visualization</p></td>
+</tr>
+<tr class="row-even"><td><p>tqdm</p></td>
+<td><p>any</p></td>
+<td><p>Progress bars for loops and scripts</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>In addition, a number of additional dependency groups are available for more
+advanced needs. Specifically,</p>
+<p>PyMetric supports several <strong>optional dependency groups</strong> for specific workflows:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+🧪 Development <cite>[dev]</cite></label><div class="sd-tab-content docutils">
+<p>To install:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pymetric<span class="o">[</span>dev<span class="o">]</span>
+</pre></div>
+</div>
+<p>Includes tools for formatting, linting, and development workflows.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Package</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>pytest</p></td>
+<td><p>Test framework</p></td>
+</tr>
+<tr class="row-odd"><td><p>pytest-cov</p></td>
+<td><p>Test coverage reporting</p></td>
+</tr>
+<tr class="row-even"><td><p>black</p></td>
+<td><p>Code formatter</p></td>
+</tr>
+<tr class="row-odd"><td><p>mypy</p></td>
+<td><p>Static type checker</p></td>
+</tr>
+<tr class="row-even"><td><p>pre-commit</p></td>
+<td><p>Git hook management</p></td>
+</tr>
+<tr class="row-odd"><td><p>jupyter</p></td>
+<td><p>Interactive notebooks</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+📚 Documentation <cite>[docs]</cite></label><div class="sd-tab-content docutils">
+<p>To install:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pymetric<span class="o">[</span>docs<span class="o">]</span>
+</pre></div>
+</div>
+<p>Includes packages required to build, style, and preview documentation.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Package</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>sphinx</p></td>
+<td><p>Core documentation generator</p></td>
+</tr>
+<tr class="row-odd"><td><p>numpydoc</p></td>
+<td><p>NumPy-style docstring parser</p></td>
+</tr>
+<tr class="row-even"><td><p>myst-parser</p></td>
+<td><p>Markdown support via MyST</p></td>
+</tr>
+<tr class="row-odd"><td><p>sphinx-gallery</p></td>
+<td><p>Auto-build galleries from example scripts</p></td>
+</tr>
+<tr class="row-even"><td><p>sphinx-design</p></td>
+<td><p>Responsive design components (tabs, etc.)</p></td>
+</tr>
+<tr class="row-odd"><td><p>jupyter</p></td>
+<td><p>Notebook integration</p></td>
+</tr>
+<tr class="row-even"><td><p>sphinxcontrib-*</p></td>
+<td><p>Various builder integrations (HTML, Qt)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
+🧪 Testing <cite>[test]</cite></label><div class="sd-tab-content docutils">
+<p>To install:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pymetric<span class="o">[</span>test<span class="o">]</span>
+</pre></div>
+</div>
+<p>A minimal environment to run the test suite and property-based tests.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Package</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>pytest</p></td>
+<td><p>Core test runner</p></td>
+</tr>
+<tr class="row-odd"><td><p>pytest-xdist</p></td>
+<td><p>Parallel test execution</p></td>
+</tr>
+<tr class="row-even"><td><p>pytest-cov</p></td>
+<td><p>Test coverage metrics</p></td>
+</tr>
+<tr class="row-odd"><td><p>hypothesis</p></td>
+<td><p>Property-based testing</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>To confirm that pymetric has been installed correctly, use</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>show<span class="w"> </span>pymetric
+
+Name:<span class="w"> </span>pymetric
+Version:<span class="w"> </span><span class="m">0</span>.1.dev22+g0f5941d
+Summary:<span class="w"> </span>A<span class="w"> </span>high-performance<span class="w"> </span>library<span class="w"> </span><span class="k">for</span><span class="w"> </span>structured<span class="w"> </span>differential<span class="w"> </span>geometry<span class="w"> </span>and<span class="w"> </span>physical<span class="w"> </span>field<span class="w"> </span>manipulation.
+Home-page:
+Author:
+Author-email:<span class="w"> </span>Eliza<span class="w"> </span>Diggins<span class="w"> </span>&lt;eliza.diggins@berkeley.edu&gt;
+License:<span class="w"> </span>GPL-3.0-or-later
+Location:<span class="w"> </span>/Users/ediggins/Dev/pymetric/.venv/lib/python3.12/site-packages
+Editable<span class="w"> </span>project<span class="w"> </span>location:<span class="w"> </span>/Users/ediggins/Dev/pymetric
+Requires:<span class="w"> </span>h5py,<span class="w"> </span>matplotlib,<span class="w"> </span>numpy,<span class="w"> </span>scipy,<span class="w"> </span>sympy,<span class="w"> </span>tqdm,<span class="w"> </span>unyt
+Required-by:
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="getting-help">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Getting Help</a><a class="headerlink" href="#getting-help" title="Link to this heading">#</a></h2>
+<p>If you encounter issues using <strong>PyMetric</strong>, or have questions about its functionality:</p>
+<ul class="simple">
+<li><p>💬 <strong>Search or open an issue</strong> on our GitHub issue tracker:
+<a class="github reference external" href="https://github.com/pisces-project/pymetric/issues">pisces-project/pymetric#issues</a></p></li>
+<li><p>📧 <strong>Contact us directly</strong>:
+You can reach the maintainer, Eliza Diggins, by email at
+<code class="docutils literal notranslate"><span class="pre">eliza.diggins&#64;berkeley.edu</span></code> for questions, bug reports, or suggestions.</p></li>
+<li><p>📖 Refer to the full documentation for API details, examples, and conceptual guides.</p></li>
+</ul>
+<p>We’re happy to help you resolve installation problems, clarify behavior, or explore new use cases!</p>
+</section>
+<section id="help-develop-pymetric">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Help Develop PyMetric</a><a class="headerlink" href="#help-develop-pymetric" title="Link to this heading">#</a></h2>
+<p>Contributions are welcome and encouraged!</p>
+<p>Whether you’re fixing typos, adding examples, writing tests, or developing new features,
+you can help improve <strong>PyMetric</strong> for everyone.</p>
+<p>To contribute:</p>
+<ol class="arabic">
+<li><p>📂 <strong>Fork the repository</strong> from the <a class="reference external" href="https://github.com/pisces-project/pymetric">github</a></p></li>
+<li><p>🧪 Install the development dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pymetric<span class="o">[</span>dev,test,docs<span class="o">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>🧼 Run formatting and lint checks:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files
+</pre></div>
+</div>
+</li>
+<li><p>🧪 Run the test suite:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>-n<span class="w"> </span>auto
+</pre></div>
+</div>
+</li>
+<li><p>📚 Build the documentation locally:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>docs
+make<span class="w"> </span>html
+</pre></div>
+</div>
+</li>
+<li><p>🔁 Submit a pull request with a clear description of the change.</p></li>
+</ol>
+<p>If you’re not sure where to start, check the
+<a class="reference external" href="https://github.com/pisces-project/pymetric/issues">GitHub issues</a> labeled <strong>`good first issue`</strong> or feel
+free to ask questions by opening a discussion or emailing the maintainer directly <a class="reference external" href="mailto:eliza&#46;diggins&#37;&#52;&#48;berkeley&#46;edu">here</a>.
+We’d love your help building a powerful, flexible tool for computational geometry and physical modeling!</p>
+<div class="sphx-glr-thumbnails"></div></section>
+<section id="cookbook">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Cookbook</a><a class="headerlink" href="#cookbook" title="Link to this heading">#</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This section of documentation is under development.</p>
+</div>
+<p>Welcome to the <strong>PyMetric Cookbook</strong> — a curated collection of short, practical examples
+designed to illustrate common tasks, patterns, and utilities within the PyMetric ecosystem.</p>
+<p>Unlike full tutorials, each recipe focuses on a <strong>specific task</strong> or use case and is
+meant to be <strong>easy to read and directly usable</strong> in your own workflows.</p>
+<nav class="contents local" id="id2">
+<ul class="simple">
+<li><p><a class="reference internal" href="#what-you-ll-find" id="id13">What You’ll Find</a></p></li>
+<li><p><a class="reference internal" href="#contributions" id="id14">Contributions</a></p></li>
+</ul>
+</nav>
+<section id="what-you-ll-find">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">What You’ll Find</a><a class="headerlink" href="#what-you-ll-find" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>📐 Coordinate system manipulations (e.g., create custom orthogonal systems)</p></li>
+<li><p>🧮 Grid setup for structured domains (uniform, scaled, and ghost-zoned)</p></li>
+<li><p>📊 Field initialization, slicing, and unit handling</p></li>
+<li><p>📤 Buffer conversions and HDF5-backed I/O</p></li>
+<li><p>⚙️ Applying differential geometry operations (gradient, divergence, Laplacian)</p></li>
+<li><p>🧪 Testing and validating geometric correctness</p></li>
+</ul>
+<p>Each recipe is self-contained and includes minimal setup, input/output descriptions, and
+short code blocks. Think of these as your “how do I…?” reference section.</p>
+</section>
+<section id="contributions">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">Contributions</a><a class="headerlink" href="#contributions" title="Link to this heading">#</a></h3>
+<p>Want to add a recipe? Fork the repository and submit a pull request, or email us at
+<code class="docutils literal notranslate"><span class="pre">eliza.diggins&#64;berkeley.edu</span></code>.</p>
+<div class="sphx-glr-thumbnails"></div></section>
+</section>
+<section id="tutorials">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Tutorials</a><a class="headerlink" href="#tutorials" title="Link to this heading">#</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This section of documentation is under development.</p>
+</div>
+<p>The <strong>PyMetric Tutorials</strong> provide guided, narrative-based walkthroughs that
+cover broader topics and workflows. They’re ideal for:</p>
+<ul class="simple">
+<li><p>🧠 Learning concepts behind structured differential geometry and physical fields</p></li>
+<li><p>🛠️ Building intuition about PyMetric’s abstractions</p></li>
+<li><p>🧪 Developing domain-specific simulations or visualizations</p></li>
+</ul>
+<p>These tutorials go beyond isolated examples by combining multiple features of
+PyMetric into coherent, real-world scenarios.</p>
+<nav class="contents local" id="id3">
+<ul class="simple">
+<li><p><a class="reference internal" href="#topics-covered" id="id15">Topics Covered</a></p></li>
+</ul>
+</nav>
+<section id="topics-covered">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Topics Covered</a><a class="headerlink" href="#topics-covered" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>🔰 Getting started with coordinate systems, grids, and fields</p></li>
+<li><p>🧭 Constructing curvilinear coordinate systems</p></li>
+<li><p>🧬 Working with symbolic tensors and metrics</p></li>
+<li><p>📉 Visualizing data fields and derivatives</p></li>
+<li><p>📦 Saving, loading, and transforming physical data</p></li>
+</ul>
+<p>Each tutorial includes:</p>
+<ul class="simple">
+<li><p>Explanatory text</p></li>
+<li><p>Live examples (or Jupyter integration, where applicable)</p></li>
+<li><p>Step-by-step commentary and plots</p></li>
+</ul>
+<p>Happy modeling! 🎉</p>
+<p>If you’d like to contribute or request a tutorial, contact:
+📧 <code class="docutils literal notranslate"><span class="pre">eliza.diggins&#64;berkeley.edu</span></code> or open an issue on
+<a class="github reference external" href="https://github.com/pisces-project/pymetric/issues">pisces-project/pymetric#issues</a></p>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Building Fields"><img alt="" src="../_images/sphx_glr_plot_building_fields_thumb.png" />
+<p><a class="reference internal" href="tutorials/plot_building_fields.html#sphx-glr-auto-quickstart-tutorials-plot-building-fields-py"><span class="std std-ref">Building Fields</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Building Fields</div>
+</div></div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-footer sphx-glr-footer-gallery docutils container">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/809ad9571cca32dfd57f6be4f8552751/auto_quickstart_python.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">auto_quickstart_python.zip</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/c31beab8048da3debdd9a098301e4674/auto_quickstart_jupyter.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Jupyter</span> <span class="pre">notebooks:</span> <span class="pre">auto_quickstart_jupyter.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PyMetric</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="cookbook/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Cookbook</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dependencies">Dependencies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-help">Getting Help</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#help-develop-pymetric">Help Develop PyMetric</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cookbook">Cookbook</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-ll-find">What You’ll Find</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contributions">Contributions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tutorials">Tutorials</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topics-covered">Topics Covered</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/auto_quickstart/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Eliza Diggins.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
