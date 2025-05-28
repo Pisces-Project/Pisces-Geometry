@@ -12,7 +12,6 @@ and are designed to integrate cleanly with NumPy and scientific Python workflows
 
 See Also
 --------
-
 :class:`~fields.base.DenseField`
 :class:`~fields.tensors.DenseTensorField`
 :class:`~fields.buffers.base.BufferBase`
@@ -91,6 +90,7 @@ class FieldComponent(
     ~grids.base.GridBase :
         Structured grid object that defines spatial coordinates and chunking.
     """
+
     # --- Class Level Flags --- #
     # These are logical flags for determining
     # finer details of class behavior and triage.

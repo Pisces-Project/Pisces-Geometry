@@ -115,7 +115,6 @@ def dense_gradient_covariant(
 
     Examples
     --------
-
     In a simple 1-D case, we can use this function to compute the gradient.
 
     >>> import numpy as np
@@ -322,7 +321,6 @@ def dense_gradient_contravariant_full(
 
     Examples
     --------
-
     >>> import numpy as np
     >>> from pymetric.differential_geometry.dense_ops import (
     ...     dense_gradient_contravariant_full,
@@ -557,7 +555,6 @@ def dense_gradient_contravariant_diag(
 
     Examples
     --------
-
     As a more advanced example, let's look at the co. versus contra. components of a gradient case:
 
     .. plot::
@@ -759,7 +756,6 @@ def dense_gradient(
 
     Examples
     --------
-
     As a demonstration of the difference between covariant and contravariant gradients, let's consider the
     gradient in spherical coordinates using the scalar function:
 
@@ -982,7 +978,6 @@ def dense_vector_divergence_contravariant(
 
     Examples
     --------
-
     In the most basic case, we only need to supply the D-field and the vector field.
 
     >>> import numpy as np
@@ -1682,7 +1677,6 @@ def dense_scalar_laplacian_diag(
 
     Examples
     --------
-
     This example demonstrates computing the Laplace-Beltrami operator for a scalar field
     in 2D **spherical coordinates** :math:`(r, \theta)`.
 
@@ -1987,7 +1981,6 @@ def dense_scalar_laplacian_full(
 
     Examples
     --------
-
     This example demonstrates computing the Laplace-Beltrami operator for a scalar field
     in 2D **spherical coordinates** :math:`(r, \theta)`.
 

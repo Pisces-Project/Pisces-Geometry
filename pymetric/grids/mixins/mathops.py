@@ -85,6 +85,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
     - Support for lazy-loading or memory-intensive buffers through optional chunked execution.
     - Compatibility with ghost zones and progress bars.
     """
+
     # TODO: This can probably be unified... Priority: low
 
     # ======================================= #
@@ -196,11 +197,6 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
             Dictionary mapping each fixed axis to its default value as specified in
             `self.fill_values`.
 
-        Examples
-        --------
-        >>> fixed_axes, fixed_values = self.compute_fixed_axes_and_values(["x", "y"])
-        >>> print(fixed_axes)      # ['z'] (for example)
-        >>> print(fixed_values)    # {'z': 0.0}
         """
         fixed_axes = self.__cs__.axes_complement(free_axes)
         fixed_values = {k: v for k, v in self.fill_values.items() if k in fixed_axes}
@@ -214,7 +210,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
         value: Optional[np.ndarray] = None,
     ):
         """
-        Returns a chunk-aware getter function for a grid expression.
+        Return a chunk-aware getter function for a grid expression.
 
         If `value` is None, computes the expression on-the-fly for each chunk using the coordinate system.
         Otherwise, slices into the precomputed array.
@@ -498,17 +494,12 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
         -------
         array-like
             The computed partial derivatives. he returned array has shape:
-
-            .. code-block:: python
-
-                (...grid_shape over `output_axes`, ...element_shape of `field`, ndim)
-
+            ``(...grid_shape over `output_axes`, ...element_shape of `field`, ndim)``
             The final axis contains the partial derivatives with respect to each coordinate axis
             in the grid’s coordinate system.
 
         Notes
         -----
-
         **Broadcasting and Array Shapes**:
 
         The input ``field`` must have a very precise shape to be valid for this operation. If the underlying grid
@@ -545,7 +536,6 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
 
         Examples
         --------
-
         **Derivatives of a scalar field**:
 
         The easiest example is the derivative of a generic scalar field.
@@ -1212,7 +1202,6 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
         dense_covariant_gradient : Computes the full covariant gradient of a tensor.
         ~differential_geometry.dense_utils.dense_contract_with_metric : Low-level backend for index contraction.
         """
-
         # --- Preparing axes --- #
         # To prepare the axes, we need to ensure that they are standardized and
         # then check for subsets. We also extract the indices so that they
@@ -1419,7 +1408,6 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
 
         Notes
         -----
-
         **Signature Logic**
 
         For each index `k` in `indices`, this method compares the target signature with
@@ -1875,7 +1863,6 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
 
         Notes
         -----
-
         **Broadcasting and Array Shapes**:
 
         The input ``tensor_field`` must have a very precise shape to be valid for this operation. If the underlying grid
@@ -1913,7 +1900,6 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
 
         Examples
         --------
-
         **Covariant Gradient of a Scalar Field**
 
         The easiest example is the derivative of a generic scalar field.
@@ -2197,7 +2183,6 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
 
         Notes
         -----
-
         **Broadcasting and Array Shapes**:
 
         The input ``tensor_field`` must have a very precise shape to be valid for this operation. If the underlying grid
@@ -2244,7 +2229,6 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
 
         Examples
         --------
-
         **Contravariant Gradient of a Scalar Field**
 
         The easiest example is the derivative of a generic scalar field. In cartesian coordinates, this should
@@ -2261,7 +2245,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
             >>> cs = CartesianCoordinateSystem2D()
             >>>
             >>> # Create the grid
-            >>> grid = UniformGrid(cs,[[-1,-1],[1,1]],[500,500],chunk_size=[50,50],ghost_zones=[[2,2],[2,2]])
+            >>> grid = UniformGrid(cs,[[-1,-1],[1,1]],[500,500],chunk_size=[50,50],ghost_zones=[[2,2],[2,2]],center='cell')
             >>>
             >>> # Create the field
             >>> X,Y = grid.compute_domain_mesh(origin='global')
@@ -2309,7 +2293,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
             >>> grid = UniformGrid(cs,[[0,1],[0,np.pi],[0,2*np.pi]],
             ...                   [500,50,50],
             ...                   chunk_size=[50,50,50],
-            ...                   ghost_zones=[[2,2],[2,2],[2,2]])
+            ...                   ghost_zones=[2,2,2],center='cell')
             >>>
             >>> # Create the field
             >>> R, THETA = grid.compute_domain_mesh(origin='global',axes=['r','theta'])
@@ -2550,7 +2534,6 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
 
         Notes
         -----
-
         **Broadcasting and Array Shapes**:
 
         The input ``tensor_field`` must have a very precise shape to be valid for this operation. If the underlying grid
@@ -2598,7 +2581,6 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
 
         Examples
         --------
-
         **Contravariant Gradient of a Scalar Field**
 
         The easiest example is the derivative of a generic scalar field. In cartesian coordinates, this should
@@ -2615,7 +2597,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
             >>> cs = CartesianCoordinateSystem2D()
             >>>
             >>> # Create the grid
-            >>> grid = UniformGrid(cs,[[-1,-1],[1,1]],[500,500],chunk_size=[50,50],ghost_zones=[[2,2],[2,2]])
+            >>> grid = UniformGrid(cs,[[-1,-1],[1,1]],[500,500],chunk_size=[50,50],ghost_zones=[[2,2],[2,2]],center='cell')
             >>>
             >>> # Create the field
             >>> X,Y = grid.compute_domain_mesh(origin='global')
@@ -2663,7 +2645,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
             >>> grid = UniformGrid(cs,[[0,1],[0,np.pi],[0,2*np.pi]],
             ...                   [500,50,50],
             ...                   chunk_size=[50,50,50],
-            ...                   ghost_zones=[[2,2],[2,2],[2,2]])
+            ...                   ghost_zones=[2,2,2],center='cell')
             >>>
             >>> # Create the field
             >>> R, THETA = grid.compute_domain_mesh(origin='global',axes=['r','theta'])
@@ -2812,7 +2794,6 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
 
         Notes
         -----
-
         **Broadcasting and Array Shapes**:
 
         The input ``vector_field`` must have a very precise shape to be valid for this operation. If the underlying grid
@@ -2849,7 +2830,6 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
 
         Examples
         --------
-
         In Spherical Coordinates, the divergence is
 
         .. math::
@@ -3184,7 +3164,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
         ...     Vcov, ['rho', 'z'])
         >>> div.shape
         (402, 202)
-        >>> np.isclose(div.mean(),3.0)   # → analytical result for this field is constant 3
+        >>> bool(np.isclose(div.mean(),3.0))   # → analytical result for this field is constant 3
         True
         """
         # --- Preparing axes --- #
@@ -3466,7 +3446,6 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
 
         Notes
         -----
-
         - The divergence formula used depends on the input `basis`. The `contravariant` case requires only the vector field
           and optionally its derivatives. The `covariant` case requires the inverse metric for contraction.
 

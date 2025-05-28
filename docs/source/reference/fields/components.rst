@@ -141,7 +141,7 @@ and allows explicit backend selection.
 Convenience Constructors
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Like `NumPy <https://numpy.org/doc/stable/index.html>`_, PyMetric supports generating
+Like `NumPy <https://numpy.org/doc/stable/index.html>`__, PyMetric supports generating
 a number of simple components with direct functions:
 
 - :meth:`~fields.components.FieldComponent.zeros`
@@ -321,10 +321,10 @@ Field components provide multiple methods for accessing the raw data stored in t
 These methods return views or copies of the internal data in forms that are compatible
 with NumPy and related tools:
 
-- :meth:`~fields.components.FieldComponent.as_array()` — Returns the data as a plain `numpy.ndarray` without units.
-- :meth:`~fields.components.FieldComponent.as_unyt_array()` — Returns a `unyt_array` with attached physical units.
-- :meth:`~fields.components.FieldComponent.as_buffer_core()` — Returns the core backend buffer (e.g., raw NumPy or HDF5 dataset).
-- :meth:`~fields.components.FieldComponent.as_buffer_repr()` — Returns the preferred array-like representation for external use, respecting units or formatting.
+- :meth:`~fields.components.FieldComponent.as_array` — Returns the data as a plain `numpy.ndarray` without units.
+- :meth:`~fields.components.FieldComponent.as_unyt_array` — Returns a `unyt_array` with attached physical units.
+- :meth:`~fields.components.FieldComponent.as_buffer_core` — Returns the core backend buffer (e.g., raw NumPy or HDF5 dataset).
+- :meth:`~fields.components.FieldComponent.as_buffer_repr` — Returns the preferred array-like representation for external use, respecting units or formatting.
 
 These methods allow seamless integration with common scientific Python tools such as Matplotlib, SciPy, or custom numerical routines.
 

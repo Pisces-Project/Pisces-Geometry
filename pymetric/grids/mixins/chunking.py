@@ -48,7 +48,7 @@ class GridChunkingMixin(Generic[_SupGridChunking]):
     # common inputs like chunks, axes, halo offsets, etc.
     def _ensure_supports_chunking(self: _SupGridChunking):
         """
-        Raises an error if chunking is not enabled on this grid.
+        Raise an error if chunking is not enabled on this grid.
 
         This method is used internally to ensure that chunking-related methods
         are only called on grids that support chunking.
@@ -983,7 +983,6 @@ class GridChunkingMixin(Generic[_SupGridChunking]):
         tuple of np.ndarray
             A tuple of meshgrid arrays, one for each selected axis.
         """
-
         coords = self.compute_chunk_coords(
             chunks,
             axes=axes,

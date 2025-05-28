@@ -64,7 +64,7 @@ Whether you're using built-in systems or designing your own, this is the place t
     :glob:
 
     ./coordinates/overview
-    ./coordinates/build_coordinate_systems
+    ./coordinates/building_coordinate_systems
 
 Grids
 ++++++++++++++++++
@@ -104,7 +104,7 @@ In support of the 3 core modules of the library, there are a number of auxiliary
 described briefly in the following documents.
 
 Low-Level Differential Geometry
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+++++++++++++++++++++++++++++++++
 
 .. toctree::
     :titlesonly:

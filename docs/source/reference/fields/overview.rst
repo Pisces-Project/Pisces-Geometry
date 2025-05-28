@@ -8,8 +8,8 @@ In Pymetric, **fields** (:mod:`fields`) are the most important data structure fo
 numerical quantities defined over geometric grids. They provide a uniform interface
 for scalar, vector, and tensor-valued data in arbitrary coordinate systems.
 
-Operationally, fields behave similarly to `NumPy <https://numpy.org/doc/stable/index.html>`_ arrays. They support arithmetic,
-slicing, unit-aware computation (via `unyt <https://unyt.readthedocs.io/en/stable/>`_), and broadcasting—
+Operationally, fields behave similarly to `NumPy <https://numpy.org/doc/stable/index.html>`__ arrays. They support arithmetic,
+slicing, unit-aware computation (via `unyt <https://unyt.readthedocs.io/en/stable/>`__), and broadcasting—
 but with full awareness of the spatial domain and coordinate system they inhabit.
 
 This document provides an introductory look at these objects and some of the things you can do with them!

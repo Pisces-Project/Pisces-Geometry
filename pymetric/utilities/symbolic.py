@@ -15,7 +15,7 @@ def lambdify_expression(
     parameters: Optional[Dict[str, Any]] = None,
 ) -> Callable:
     r"""
-    Convert a `Sympy <https://docs.sympy.org/latest/index.html>`_ expression (scalar, Matrix, or N-dimensional Array) or a string
+    Convert a `Sympy <https://docs.sympy.org/latest/index.html>`__ expression (scalar, Matrix, or N-dimensional Array) or a string
     into a callable function. The returned function depends on the given ``axes``
     and optional ``parameters``, and returns either:
 
@@ -66,7 +66,6 @@ def lambdify_expression(
 
     Examples
     --------
-
     >>> import sympy as sp
     >>> x = sp.Symbol('x')
     >>> expr = sp.Matrix([[1, 0], [x, 1]])

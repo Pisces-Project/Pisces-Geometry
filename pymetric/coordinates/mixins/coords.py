@@ -46,7 +46,7 @@ class CoordinateOperationsMixin(Generic[_SupCSAxes]):
         copy: bool = True,
         sparse: bool = False,
     ):
-        """
+        r"""
         Construct a coordinate-aligned meshgrid from 1D coordinate arrays.
 
         This method returns a tuple of N-D coordinate arrays aligned with the coordinate system’s
@@ -92,7 +92,6 @@ class CoordinateOperationsMixin(Generic[_SupCSAxes]):
 
         Examples
         --------
-
         Create a grid in spherical coordinates composed of :math:`r` and :math:`\theta`
         coordinates.
 

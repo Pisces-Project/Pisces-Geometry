@@ -54,7 +54,7 @@ DEFAULT_COORDINATE_REGISTRY: Dict[str, Any] = {}
 # noinspection PyTypeChecker
 def class_expression(name: Optional[str] = None) -> classmethod:
     """
-    Decorator to mark a class method as a symbolic expression ("class expression") in a coordinate system.
+    Mark a class method as a symbolic expression ("class expression") in a coordinate system.
 
     Class expressions are symbolic methods that define expressions such as metric tensors,
     Jacobians, or differential geometry terms. When decorated with this function, the method
@@ -101,9 +101,7 @@ def class_expression(name: Optional[str] = None) -> classmethod:
     """
 
     def decorator(func):
-        """
-        The decorator that adds the wrapper around the class expression.
-        """
+        """Add the wrapper around the class expression."""
         if not isinstance(func, classmethod):
             raise TypeError(
                 "The @class_expression decorator must be applied to a @classmethod."
@@ -113,7 +111,7 @@ def class_expression(name: Optional[str] = None) -> classmethod:
 
         @wraps(original_func)
         def wrapper(*args, **kwargs):
-            """Wrapper that preserves class method behavior."""
+            """Wrap original function."""
             return original_func(*args, **kwargs)
 
         # Rewrap as a classmethod
@@ -162,8 +160,10 @@ class _CoordinateMeta(ABCMeta):
     @staticmethod
     def validate_coordinate_system_class(cls):
         """
-        Validate a new coordinate system class. This includes determining the number of
-        dimensions and ensuring that bounds and coordinates are all accurate.
+        Validate a new coordinate system class.
+
+        This includes determining the number of dimensions and ensuring
+        that bounds and coordinates are all accurate.
         """
         # Check the new class for the required attributes that all classes should have.
         __required_elements__ = [
@@ -204,9 +204,10 @@ class _CoordinateSystemBase(
     metaclass=_CoordinateMeta,
 ):
     """
-    Base class for allPyMetric coordinate system classes. :py:class:`CoordinateSystemBase` provides the backbone
-    for the symbolic / numerical structure of coordinate systems and also acts as a template for developers to use
-    when developing custom coordinate system classes.
+    Base class for allPyMetric coordinate system classes.
+
+    :py:class:`CoordinateSystemBase` provides the backbone for the symbolic / numerical structure
+    of coordinate systems and also acts as a template for developers to use when developing custom coordinate system classes.
 
     Attributes
     ----------
@@ -402,14 +403,15 @@ class _CoordinateSystemBase(
         -----
         This method is typically overridden in `_OrthogonalCoordinateSystemBase` to avoid computing the inverse directly.
         """
+        # Bugfix: 05/27/25 -- enforce __class_expressions__ to prevent corruption.
+        cls.__class_expressions__ = {
+            "metric_tensor": cls.__construct_metric_tensor_symbol__(
+                *cls.__axes_symbols__, **cls.__parameter_symbols__
+            )
+        }
         # Derive the metric, inverse metric, and the metric density. We call to the
         # __construct_metric_tensor_symbol__ and then take the inverse and the determinant of
         # the matrices.
-        cls.__class_expressions__[
-            "metric_tensor"
-        ] = cls.__construct_metric_tensor_symbol__(
-            *cls.__axes_symbols__, **cls.__parameter_symbols__
-        )
         cls.__class_expressions__["inverse_metric_tensor"] = cls.__class_expressions__[
             "metric_tensor"
         ].inv()
@@ -503,9 +505,7 @@ class _CoordinateSystemBase(
         return _parameters
 
     def _setup_explicit_expressions(self):
-        """
-        Set up any special symbolic expressions or numerical instances.
-        """
+        """Set up any special symbolic expressions or numerical instances."""
         # Setup the metric, inverse_metric, and the metric density at the instance level.
         self.__expressions__["metric_tensor"] = self.substitute_expression(
             self.__class_expressions__["metric_tensor"]
@@ -585,7 +585,7 @@ class _CoordinateSystemBase(
 
     def __len__(self) -> int:
         """
-        Returns the number of axes in the coordinate system.
+        Return the number of axes in the coordinate system.
 
         Example
         -------
@@ -613,7 +613,7 @@ class _CoordinateSystemBase(
 
     def __getitem__(self, index: int) -> str:
         """
-        Returns the axis name at the specified index.
+        Return the axis name at the specified index.
 
         Parameters
         ----------
@@ -641,7 +641,7 @@ class _CoordinateSystemBase(
 
     def __contains__(self, axis_name: str) -> bool:
         """
-        Checks whether a given axis name is part of the coordinate system.
+        Check whether a given axis name is part of the coordinate system.
 
         Parameters
         ----------
@@ -663,7 +663,7 @@ class _CoordinateSystemBase(
 
     def __eq__(self, other: object) -> bool:
         """
-        Checks equality between two coordinate system instances.
+        Check equality between two coordinate system instances.
 
         Returns True if:
           1. They are instances of the same class.
@@ -699,7 +699,7 @@ class _CoordinateSystemBase(
 
     def __copy__(self):
         """
-        Creates a shallow copy of the coordinate system.
+        Create a shallow copy of the coordinate system.
 
         Returns
         -------
@@ -723,16 +723,12 @@ class _CoordinateSystemBase(
     # These should not be altered in subclasses.
     @property
     def ndim(self) -> int:
-        """
-        The number of dimensions spanned by this coordinate system.
-        """
+        """The number of dimensions spanned by this coordinate system."""
         return self.__NDIM__
 
     @property
     def axes(self) -> List[str]:
-        """
-        The axes (strings) present in this coordinate system.
-        """
+        """The axes names present in this coordinate system."""
         return self.__AXES__[:]
 
     @property
@@ -745,9 +741,7 @@ class _CoordinateSystemBase(
 
     @property
     def metric_tensor_symbol(self) -> _ExpressionType:
-        """
-        The symbolic metric tensor for this coordinate system instance.
-        """
+        """The symbolic metric tensor for this coordinate system instance."""
         return self.__class_expressions__["metric_tensor"]
 
     @property
@@ -871,7 +865,7 @@ class _CoordinateSystemBase(
     @abstractmethod
     def __construct_metric_tensor_symbol__(*args, **kwargs) -> sp.Matrix:
         r"""
-        Constructs the metric tensor for the coordinate system.
+        Construct the metric tensor for the coordinate system.
 
         The metric tensor defines the way distances and angles are measured in the given coordinate system.
         It is used extensively in differential geometry and tensor calculus, particularly in transformations
@@ -918,7 +912,7 @@ class _CoordinateSystemBase(
     @classmethod
     def __compute_Dterm__(cls, *_, **__):
         r"""
-        Computes the D-term :math:`(1/\rho)\partial_\mu \rho` for use in
+        Compute the D-term :math:`(1/\rho)\partial_\mu \rho` for use in
         computing the divergence numerically.
         """
         _metric_density = cls.__class_expressions__["metric_density"]
@@ -930,7 +924,7 @@ class _CoordinateSystemBase(
     @classmethod
     def __compute_Lterm__(cls, *_, **__):
         r"""
-        Computes the D-term :math:`(1/\rho)\partial_\mu \rho` for use in
+        Compute the D-term :math:`(1/\rho)\partial_\mu \rho` for use in
         computing the divergence numerically.
         """
         _metric_density = cls.__class_expressions__["metric_density"]
@@ -943,7 +937,7 @@ class _CoordinateSystemBase(
     # These methods allow the user to interact with derived, symbolic, and numeric expressions.
     def substitute_expression(self, expression: _ExpressionType) -> _ExpressionType:
         """
-        Replaces symbolic parameters with numerical values in an expression.
+        Replace symbolic parameters with numerical values in an expression.
 
         This method takes a symbolic expression that may include parameter symbols and
         substitutes them with the numerical values assigned at instantiation.
@@ -1086,7 +1080,7 @@ class _CoordinateSystemBase(
 
     def get_expression(self, expression_name: str) -> _ExpressionType:
         """
-        Retrieves an instance-specific symbolic expression.
+        Retrieve an instance-specific symbolic expression.
 
         Unlike :py:meth:`get_class_expression`, this method returns an expression where
         parameter values have been substituted. The returned expression retains symbolic
@@ -1248,3 +1242,10 @@ class _CoordinateSystemBase(
     @abstractmethod
     def _convert_cartesian_to_native(self, *args):
         pass
+
+
+if __name__ == "__main__":
+    from pymetric import CartesianCoordinateSystem1D, ConicCoordinateSystem
+
+    cs1 = CartesianCoordinateSystem1D()
+    cs2 = ConicCoordinateSystem()

@@ -387,7 +387,7 @@ class DenseField(_FieldBase, DFieldCoreMixin, DenseFieldDMOMixin, NumpyArithmeti
     @property
     def rank(self) -> int:
         """
-        The rank (number of indices) of the tensor.
+        The rank [number of indices] of the tensor.
 
         Returns
         -------
@@ -564,6 +564,38 @@ class DenseField(_FieldBase, DFieldCoreMixin, DenseFieldDMOMixin, NumpyArithmeti
 
     @property
     def dependence(self) -> DenseDependenceObject:
+        """
+        The symbolic coordinate dependence object for this tensor field.
+
+        This property returns a :class:`~differential_geometry.dependence.DenseDependenceObject`
+        instance that encodes the symbolic dependence of each component of the field
+        on the coordinate axes. It is used in symbolic differential geometry operations
+        (e.g., gradient, divergence, Laplacian) to track and propagate analytical dependence
+        information through transformations.
+
+        The object is lazily constructed on first access, using:
+
+        - the coordinate system associated with the grid
+        - the tensor rank of the field
+        - the set of grid axes on which the field is defined
+
+        Returns
+        -------
+        DenseDependenceObject
+            Symbolic dependence tracker for this tensor field.
+
+        Notes
+        -----
+        - This object is automatically populated with the correct tensor rank.
+        - The `dependent_axes` argument is inferred from the field’s spatial axes.
+        - This is used internally for symbolic propagation in operations like `gradient()` or `raise_index()`.
+
+        See Also
+        --------
+        :class:`~differential_geometry.symbolic.DenseTensorDependence`
+        :meth:`DenseTensorField.gradient`
+        :meth:`DenseTensorField.raise_index`
+        """
         if self.__dependence__ is None:
             self.__dependence__ = DenseDependenceObject(
                 self.__grid__.__cs__, self.element_shape, dependent_axes=self.axes

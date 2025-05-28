@@ -70,7 +70,7 @@ because the underlying differential geometry is derived from the metric.
 The Symbolic / Numerical Duality
 ''''''''''''''''''''''''''''''''
 
-A key part of this system is its reliance on symbolic mathematics through `sympy <docs.sympy.org>`_, which allows PyMetric to:
+A key part of this system is its reliance on symbolic mathematics through `sympy <docs.sympy.org>`__, which allows PyMetric to:
 
 - Build symbolic expressions for differential operators, tensors, and coordinate transformations.
 - Substitute parameter values and simplify expressions at runtime.
@@ -122,7 +122,7 @@ If the coordinate system is orthogonal, the orthogonal base class will take care
 In the following sections, we'll walk through how to set up a subclass using either approach.
 
 Setting the Class Parameters
-++++++++++++++++++++++++++++
+'''''''''''''''''''''''''''''
 
 When creating a new coordinate system subclass, you must define a set of class-level attributes that specify how the
 coordinate system behaves. These attributes control initialization, dimensionality, parameter handling, and symbolic expression generation.
@@ -206,12 +206,12 @@ When a subclass is instantiated, the following steps occur:
 2. The class remains **partially initialized** until the user **instantiates it for the first time**.
 3. The system generates symbolic axis symbols and parameter symbols using :py:class:`sympy.core.symbol.Symbol`.
 4. The metric tensor and inverse metric tensor are constructed using user-defined logic.
-5. Any registered class expressions (see :ref:Class Expressions) are discovered and stored for lazy evaluation.
+5. Any registered class expressions (see Class Expressions) are discovered and stored for lazy evaluation.
 6. Parameter values passed during instantiation (or taken from defaults) are substituted into symbolic expressions to create instance-level expressions and callables.
 
 
 Setting up Conversion Standards
-+++++++++++++++++++++++++++++++
+''''''''''''''''''''''''''''''''
 
 All coordinate system classes in PyMetric must define how to convert between the native coordinate system and
 standard Cartesian coordinates. This is especially important for visualization, interoperation with external tools, and validating geometric behavior numerically.
@@ -257,7 +257,7 @@ of the coordinate system. It should return a tuple of values ``z_1,z_2,...`` cor
             return x,y,z
 
 Setting up The Metric
-+++++++++++++++++++++
+'''''''''''''''''''''''''
 
 Every coordinate system in PyMetric must define a metric tensor, which encodes how distances and derivatives are
 computed. The metric defines the inner product structure of the space, and is central to computing gradients, divergence,
@@ -265,7 +265,7 @@ Laplacians, and performing index manipulations.
 
 Pisces supports both general curvilinear and orthogonal coordinate systems. The structure of the metric depends on which type you are building.
 
-If you are subclassing from :py:class:~pymetric.coordinates.base.CoordinateSystemBase, you must implement both of the following:
+If you are subclassing from :py:class:`~pymetric.coordinates.base.CoordinateSystemBase`, you must implement both of the following:
 
 - ``@staticmethod def __construct_metric_tensor_symbol__(*args, **kwargs) -> sp.Matrix``
 - ``@staticmethod def __construct_inverse_metric_tensor_symbol__(*args, **kwargs) -> sp.Matrix``
@@ -346,7 +346,7 @@ your coordinate system, as long as the expected structure is maintained.
 Additionally, you can extend coordinate systems to interact with external systems (e.g., visualization tools, mesh generators, simulation frameworks) by exposing additional utility methods.
 
 Class Expressions
-+++++++++++++++++
+'''''''''''''''''''''''''
 
 In many coordinate systems, it's helpful to define reusable symbolic expressions — like Jacobians, divergence terms,
 or scale factors. PyMetric provides a decorator-based mechanism to define these as **class expressions**.
@@ -375,7 +375,7 @@ To define a class expression, decorate a ``classmethod`` using ``@class_expressi
             return sp.sqrt(sp.det(cls.__class_metric_tensor__))
 
 Adding Methods
-++++++++++++++
+'''''''''''''''''''''''''
 
 Coordinate systems in PyMetric are fully extensible Python classes. You are free to define any instance or class methods that help support your use case. This might include:
 

@@ -98,13 +98,23 @@ minversion = "6.0"
 addopts = "-ra -q --strict-markers"
 testpaths = ["tests"]
 markers = [
+  # Buffer Type Markers
   "array: mark tests for ArrayBuffer",
   "unyt: mark tests for UnytArrayBuffer",
   "hdf5: mark tests for HDF5Buffer",
-  "spherical: Marks tests using spherical coordinates",
-  "cartesian: Marks tests using cartesian coordinates.",
-  "obns: Marks tests using oblate non-spherical coordinates.",
-  "obs: Marks tests using oblate spherical coordinates."
+  # Coordinate system markers.
+  'cartesian1D: 1D Cartesian coordinates.',
+  'cartesian2D: 2D Cartesian coordinates.',
+  'cartesian3D: 3D Cartesian coordinates.',
+  'spherical: Spherical coordinates.',
+  'cylindrical: Cylindrical coordinates.',
+  'polar: Polar coordinates',
+  'oblate_sph: Oblate spheroidal coordinates',
+  'prolate_sph: Prolate spheroidal coordinates',
+  'elliptic: Elliptic coordinates.',
+  'oblate_homo: Oblate homoeoidal coordinates.',
+  'prolate_homo: Prolate homoeoidal coordinates.',
+  'conic: Conic coordinates.'
 ]
 
 

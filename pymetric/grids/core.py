@@ -64,13 +64,11 @@ class GenericGrid(GridBase):
 
     Notes
     -----
-
     The provided ``coordinates`` are interpreted as either vertices or cell
-    centers depending on the ``center=`` argument to ``__init__`.
+    centers depending on the ``center=`` argument to ``__init__``.
 
     Examples
     --------
-
     Construct a uniformly spaced grid in Cartesian coordinates:
 
     .. code-block:: python
@@ -401,6 +399,7 @@ class GenericGrid(GridBase):
         oob_behavior=None,
         **kwargs,
     ) -> "GenericGrid":
+        # flake8: noqa
         # Ensure that OOB is valid.
         if oob_behavior not in {"raise", "clip"}:
             raise ValueError("oob_behavior must be 'raise' or 'clip'")
@@ -451,7 +450,6 @@ class GenericGrid(GridBase):
 
         Notes
         -----
-
         The structure of the resulting HDF5 file will look something like the following:
 
         .. code-block::
@@ -525,7 +523,7 @@ class GenericGrid(GridBase):
                 for axis_name, arr in zip(self.axes, self.__coordinate_arrays__):
                     coord_group.create_dataset(axis_name, data=arr)
             except Exception as e:
-                raise IOError(f"Failed to write the coordinate arrays to disk: {e}")
+                raise OSError(f"Failed to write the coordinate arrays to disk: {e}")
 
         # Finally, the coordinate system itself must now be saved to disk. We leave
         # the context manager to ensure that everything flushes correctly.
@@ -558,7 +556,6 @@ class GenericGrid(GridBase):
 
         Notes
         -----
-
         The structure of the input HDF5 file will look something like the following:
 
         .. code-block::
@@ -598,7 +595,7 @@ class GenericGrid(GridBase):
 
         filename = Path(filename)
         if not filename.exists():
-            raise IOError(f"HDF5 file '{filename}' does not exist.")
+            raise OSError(f"HDF5 file '{filename}' does not exist.")
 
         # Open the hdf5 file in read mode and start parsing the
         # data from it.
@@ -618,7 +615,7 @@ class GenericGrid(GridBase):
 
             # Check that coordinate datasets are present
             if "coordinates" not in group:
-                raise IOError(f"No 'coordinates' group found in '{group.name}'.")
+                raise OSError(f"No 'coordinates' group found in '{group.name}'.")
 
             coord_group = group["coordinates"]
             coord_arrays = {key: coord_group[key][...] for key in coord_group.keys()}
@@ -633,7 +630,7 @@ class GenericGrid(GridBase):
             ]
         except KeyError as e:
             missing = e.args[0]
-            raise IOError(
+            raise OSError(
                 f"Missing coordinate array for axis '{missing}' required by coordinate system '{coordinate_system}'."
             ) from e
 
@@ -675,22 +672,21 @@ class UniformGrid(GridBase):
     .. code-block:: python
 
         >>> from pymetric.coordinates import CartesianCoordinateSystem2D
+        >>> from pymetric.grids import UniformGrid
         >>> import numpy as np
         >>>
         >>> coord_sys = CartesianCoordinateSystem2D()
         >>> bbox = np.array([[0.0, 0.0], [1.0, 2.0]])
         >>> shape = [11, 21]  # 11 x 21 grid points
-        >>> grid = UniformGrid(coord_sys, bbox, shape)
-        >>> grid.get_coordinates((0, 0))
-        [0.0, 0.0]
+        >>> grid = UniformGrid(coord_sys, bbox, shape, center='cell')
 
     Construct a cell-centered grid with ghost zones:
 
     .. code-block:: python
 
         >>> ghost = [[1, 1], [1, 1]]
-        >>> grid = UniformGrid(coord_sys, bbox, shape, ghost_zones=ghost, cell_centered=True)
-        >>> grid.get_coordinate_arrays(include_ghosts=True)[0][:3]
+        >>> grid = UniformGrid(coord_sys, bbox, shape, ghost_zones=ghost,center='cell')
+        >>> grid.compute_domain_coords(origin='global')[0][:3]
         array([-0.04545455,  0.04545455,  0.13636364])
 
     Notes
@@ -903,7 +899,7 @@ class UniformGrid(GridBase):
             If ``"cell"``, then the positions of the coordinates are placed at the centers
             of each cell. There are then `domain_dimensions` cells along each axis and
             `domain_dimensions + 1` edges.
-        *args,**kwargs:
+        *args, **kwargs:
             Additional keyword arguments forwarded to subclass initialization routines,
             such as boundary condition configuration or field metadata. These are currently
             ignored.
@@ -963,6 +959,7 @@ class UniformGrid(GridBase):
         oob_behavior=None,
         **kwargs,
     ) -> "UniformGrid":
+        # flake8: noqa
         # Ensure that OOB is valid.
         if oob_behavior not in {"raise", "clip"}:
             raise ValueError("oob_behavior must be 'raise' or 'clip'")
@@ -1152,7 +1149,7 @@ class UniformGrid(GridBase):
 
         filename = Path(filename)
         if not filename.exists():
-            raise IOError(f"HDF5 file '{filename}' does not exist.")
+            raise OSError(f"HDF5 file '{filename}' does not exist.")
 
         # Open the hdf5 file in read mode and start parsing the
         # data from it.

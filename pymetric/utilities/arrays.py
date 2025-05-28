@@ -104,11 +104,11 @@ def broadcast_labels(*inputs):
         axis_sizes = np.array([shp[axis_index] for shp in padded_shapes], dtype=int)
 
         # Filter labels that come from non-singleton dimensions
-        dominant_labels = set(
+        dominant_labels = {
             lbl
             for lbl, sz in zip(axis_labels, axis_sizes)
             if sz != 1 and lbl is not None
-        )
+        }
 
         if len(dominant_labels) > 1:
             raise ValueError(
@@ -145,20 +145,22 @@ def apply_ufunc_to_labels(
         'reduceat', 'accumulate', 'outer', or 'at'.
     *inputs :
         One or more (shape, label) pairs.
+
         - `shape` must be a sequence of integers representing the array shape.
         - `labels` must be a sequence of strings or `None` with the same length
           as the shape, or `None` to indicate an unlabeled input.
     **kwargs :
         Additional keyword arguments specific to the ufunc method:
+
         - axis : int or tuple of int (for 'reduce', 'reduceat')
         - keepdims : bool (for 'reduce')
         - indices : sequence of int (for 'reduceat')
 
     Returns
     -------
-    output_shape : Tuple[int, ...]
+    output_shape : tuple of int
         The resulting shape after applying the ufunc method.
-    output_labels : Tuple[Optional[str], ...]
+    output_labels : tuple of str or None
         The axis labels associated with the resulting shape. Labels are propagated
         from inputs where possible, with singleton-suppression and axis elimination
         rules enforced appropriately.

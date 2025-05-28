@@ -35,7 +35,6 @@ class CurvilinearCoordinateSystem(_CoordinateSystemBase, ABC):
 
     Features
     --------
-
     - Symbolic representation and evaluation of the full (non-diagonal) metric tensor
     - Placeholder for extension to general differential geometry operations (gradient, divergence, etc.)
     - Support for user-defined coordinate systems with custom metric behavior
@@ -49,7 +48,6 @@ class CurvilinearCoordinateSystem(_CoordinateSystemBase, ABC):
 
     See Also
     --------
-
     OrthogonalCoordinateSystem : Specialized base class for systems with diagonal metrics.
     _CoordinateSystemBase : Internal base class that defines the shared core logic.
     """
@@ -58,7 +56,7 @@ class CurvilinearCoordinateSystem(_CoordinateSystemBase, ABC):
 
 
 class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
-    """
+    r"""
     Base class for orthogonal curvilinear coordinate systems.
 
     This class provides the foundational symbolic and numerical machinery for defining and working
@@ -76,7 +74,6 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
 
     Features
     --------
-
     - Symbolic and numeric computation of metric, inverse metric, and metric density
     - Raising and lowering of tensor indices using orthogonal metric contractions
     - Computation of gradient, divergence, and Laplacian in both covariant and contravariant bases
@@ -155,11 +152,13 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
         # Derive the metric, inverse metric, and the metric density. We call to the
         # __construct_metric_tensor_symbol__ and then take the inverse and the determinant of
         # the matrices.
-        cls.__class_expressions__[
-            "metric_tensor"
-        ] = cls.__construct_metric_tensor_symbol__(
-            *cls.__axes_symbols__, **cls.__parameter_symbols__
-        )
+        # Bugfix: 05/27/25 -- enforce __class_expressions__ to prevent corruption.
+        cls.__class_expressions__ = {
+            "metric_tensor": cls.__construct_metric_tensor_symbol__(
+                *cls.__axes_symbols__, **cls.__parameter_symbols__
+            )
+        }
+
         cls.__class_expressions__["inverse_metric_tensor"] = sp.Array(
             [1 / _element for _element in cls.__class_expressions__["metric_tensor"]]
         )
@@ -241,7 +240,7 @@ class OrthogonalCoordinateSystem(_CoordinateSystemBase, ABC):
     @abstractmethod
     def __construct_metric_tensor_symbol__(*args, **kwargs) -> sp.Array:
         r"""
-        Constructs the metric tensor for the coordinate system.
+        Construct the metric tensor for the coordinate system.
 
         The metric tensor defines the way distances and angles are measured in the given coordinate system.
         It is used extensively in differential geometry and tensor calculus, particularly in transformations

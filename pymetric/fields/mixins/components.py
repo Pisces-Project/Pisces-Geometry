@@ -594,7 +594,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
             buffer will have an overall shape of ``(*spatial_shape, *element_shape)``.
         buffer_class : str or ~fields.buffers.base.BufferBase, optional
             The buffer class to use for holding the data. This may be specified as a string, in which
-            case the ``buffer_registry` is queried for a matching class or it may be a specific buffer class.
+            case the ``buffer_registry`` is queried for a matching class or it may be a specific buffer class.
 
             The relevant ``*args`` and ``**kwargs`` arguments will be passed underlying
             buffer class's ``.zeros()`` method.
@@ -660,7 +660,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
             buffer will have an overall shape of ``(*spatial_shape, *element_shape)``.
         buffer_class : str or ~fields.buffers.base.BufferBase, optional
             The buffer class to use for holding the data. This may be specified as a string, in which
-            case the ``buffer_registry` is queried for a matching class or it may be a specific buffer class.
+            case the ``buffer_registry`` is queried for a matching class or it may be a specific buffer class.
 
             The relevant ``*args`` and ``**kwargs`` arguments will be passed underlying
             buffer class's ``.ones()`` method.
@@ -684,12 +684,79 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         # Now determine the shape given the axes.
         axes = grid.standardize_axes(axes)
         axes_indices = grid.__cs__.convert_axes_to_indices(axes)
-        spatial_shape = grid.gdd[axes_indices]
+        spatial_shape = tuple(grid.gdd[axes_indices])
         element_shape = tuple() if element_shape is None else tuple(element_shape)
         shape = spatial_shape + element_shape
 
         # Now construct the buffer with the relevant args and kwargs.
         buff = buffer_class.ones(shape, *args, **kwargs)
+
+        # return the resulting object.
+        return cls(grid, buff, axes)
+
+    @classmethod
+    def empty(
+        cls: Type[_SupFCCore],
+        grid: "GridBase",
+        axes: Sequence[str],
+        *args,
+        element_shape: Optional[Sequence[int]] = None,
+        buffer_class: Optional[Type[_SupFCCore]] = None,
+        buffer_registry: Optional["BufferRegistry"] = None,
+        **kwargs,
+    ) -> _SupFCCore:
+        """
+        Create a component with an empty buffer.
+
+        This is a convenience constructor that builds a ones-initialized :class:`~fields.components.FieldComponent`.
+
+        Parameters
+        ----------
+        grid : ~grids.base.GridBase
+            The structured grid over which the field is defined.
+        axes : list of str
+            The spatial axes of the underlying coordinate system over which the field is
+            defined. This must be some subset of the axes available in the coordinate system
+            of `grid`.
+        *args :
+            Additional positional arguments forwarded to the buffer constructor. The specific
+            available args will depend on ``buffer_class`` and ``buffer_registry``.
+        element_shape : tuple of int, optional
+            Shape of the element-wise data structure (e.g., vector or tensor dimensions). This
+            does **not** include the spatial shape, which is fixed by the grid. The resulting
+            buffer will have an overall shape of ``(*spatial_shape, *element_shape)``.
+        buffer_class : str or ~fields.buffers.base.BufferBase, optional
+            The buffer class to use for holding the data. This may be specified as a string, in which
+            case the ``buffer_registry`` is queried for a matching class or it may be a specific buffer class.
+
+            The relevant ``*args`` and ``**kwargs`` arguments will be passed underlying
+            buffer class's ``.ones()`` method.
+        buffer_registry : ~fields.buffer.registry.BufferRegistry, optional
+            Custom registry to use for resolving buffer class strings. By default, the standard
+            registry is used.
+        **kwargs :
+            Additional keyword arguments forwarded to the buffer constructor (e.g., `dtype`, `units`).
+
+        Returns
+        -------
+        ~fields.components.FieldComponent
+            A new field component with an empty buffer and defined over the specified grid and axes.
+        """
+        # Identify a buffer class.
+        # noinspection DuplicatedCode
+        buffer_class: Type["BufferBase"] = resolve_buffer_class(
+            buffer_class, buffer_registry=buffer_registry, default=ArrayBuffer
+        )
+
+        # Now determine the shape given the axes.
+        axes = grid.standardize_axes(axes)
+        axes_indices = grid.__cs__.convert_axes_to_indices(axes)
+        spatial_shape = tuple(grid.gdd[axes_indices])
+        element_shape = tuple() if element_shape is None else tuple(element_shape)
+        shape = spatial_shape + element_shape
+
+        # Now construct the buffer with the relevant args and kwargs.
+        buff = buffer_class.empty(shape, *args, **kwargs)
 
         # return the resulting object.
         return cls(grid, buff, axes)
@@ -731,7 +798,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
             buffer will have an overall shape of ``(*spatial_shape, *element_shape)``.
         buffer_class : str or ~fields.buffers.base.BufferBase, optional
             The buffer class to use for holding the data. This may be specified as a string, in which
-            case the ``buffer_registry` is queried for a matching class or it may be a specific buffer class.
+            case the ``buffer_registry`` is queried for a matching class or it may be a specific buffer class.
 
             The relevant ``*args`` and ``**kwargs`` arguments will be passed underlying
             buffer class's ``.full()`` method.
@@ -755,7 +822,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         # Now determine the shape given the axes.
         axes = grid.standardize_axes(axes)
         axes_indices = grid.__cs__.convert_axes_to_indices(axes)
-        spatial_shape = grid.gdd[axes_indices]
+        spatial_shape = tuple(grid.gdd[axes_indices])
         element_shape = tuple() if element_shape is None else tuple(element_shape)
         shape = spatial_shape + element_shape
 
@@ -810,6 +877,29 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         # Extract the other's grid, axes, and shape.
         grid, axes, shape = other.grid, other.axes, other.element_shape
         return cls.ones(grid, axes, *args, element_shape=shape, **kwargs)
+
+    @classmethod
+    def empty_like(
+        cls: Type[_SupFCCore], other: Type[_SupFCCore], *args, **kwargs
+    ) -> _SupFCCore:
+        """
+        Create an empty component with the same grid, axes, and element shape as another.
+
+        Parameters
+        ----------
+        other : FieldComponent
+            The reference component whose layout is used.
+        *args, **kwargs:
+            Forwarded to the :meth:`ones` constructor.
+
+        Returns
+        -------
+        FieldComponent
+            A new component with the same layout as `other` and uninitialized data.
+        """
+        # Extract the other's grid, axes, and shape.
+        grid, axes, shape = other.grid, other.axes, other.element_shape
+        return cls.empty(grid, axes, *args, element_shape=shape, **kwargs)
 
     @classmethod
     def full_like(

@@ -15,7 +15,7 @@ PyMetric
 | **PyPi**          | |PyPi| |PyVersion| |Wheel| |License|                     |
 +-------------------+----------------------------------------------------------+
 
-PyMetric began as the backend for the `Pisces project <https://github.com/Pisces-Project/Pisces>`_ and has grown
+PyMetric began as the backend for the `Pisces project <https://github.com/Pisces-Project/Pisces>`__ and has grown
 into a self-contained package. It provides a seamless interface for performing coordinate-dependent operations in Python—ranging
 from coordinate transformations and differential operations to solving equations of motion. In addition, it offers robust
 data structures that natively respect and understand underlying coordinate systems and grid architectures, enabling efficient
@@ -41,12 +41,12 @@ Dependencies
 
 PyMetric depends on several packages, which will be installed automatically:
 
-- `unyt <http://unyt.readthedocs.org>`_: Unit and quantity manipulations
-- `numpy <http://www.numpy.org>`_: Numerical operations
-- `scipy <http://www.scipy.org>`_: Interpolation and curve fitting
-- `h5py <http://www.h5py.org>`_: HDF5 file interaction
-- `tqdm <https://tqdm.github.io>`_: Progress bars
-- `sympy <https://docs.sympy.org/latest/index.html>`_: Symbolic mathematics.
+- `unyt <http://unyt.readthedocs.org>`__: Unit and quantity manipulations
+- `numpy <http://www.numpy.org>`__: Numerical operations
+- `scipy <http://www.scipy.org>`__: Interpolation and curve fitting
+- `h5py <http://www.h5py.org>`__: HDF5 file interaction
+- `tqdm <https://tqdm.github.io>`__: Progress bars
+- `sympy <https://docs.sympy.org/latest/index.html>`__: Symbolic mathematics.
 
 In addition to the standard versions of the codebase, there are a few special dependency versions
 of the code.

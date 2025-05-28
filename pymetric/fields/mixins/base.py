@@ -361,7 +361,7 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
             buffer will have an overall shape of ``(*spatial_shape, *element_shape)``.
         buffer_class : str or ~fields.buffers.base.BufferBase, optional
             The buffer class to use for holding the data. This may be specified as a string, in which
-            case the ``buffer_registry` is queried for a matching class or it may be a specific buffer class.
+            case the ``buffer_registry`` is queried for a matching class or it may be a specific buffer class.
 
             The relevant ``*args`` and ``**kwargs`` arguments will be passed underlying
             buffer class's ``.zeros()`` method.
@@ -406,7 +406,7 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
             buffer will have an overall shape of ``(*spatial_shape, *element_shape)``.
         buffer_class : str or ~fields.buffers.base.BufferBase, optional
             The buffer class to use for holding the data. This may be specified as a string, in which
-            case the ``buffer_registry` is queried for a matching class or it may be a specific buffer class.
+            case the ``buffer_registry`` is queried for a matching class or it may be a specific buffer class.
 
             The relevant ``*args`` and ``**kwargs`` arguments will be passed underlying
             buffer class's ``.ones()`` method.
@@ -451,7 +451,7 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
             buffer will have an overall shape of ``(*spatial_shape, *element_shape)``.
         buffer_class : str or ~fields.buffers.base.BufferBase, optional
             The buffer class to use for holding the data. This may be specified as a string, in which
-            case the ``buffer_registry` is queried for a matching class or it may be a specific buffer class.
+            case the ``buffer_registry`` is queried for a matching class or it may be a specific buffer class.
 
             The relevant ``*args`` and ``**kwargs`` arguments will be passed underlying
             buffer class's ``.full()`` method.
@@ -692,7 +692,7 @@ class DTensorFieldCoreMixin(DFieldCoreMixin, Generic[_SupDTFieldCore]):
             contravariant form.
         buffer_class : str or ~fields.buffers.base.BufferBase, optional
             The buffer class to use for holding the data. This may be specified as a string, in which
-            case the ``buffer_registry` is queried for a matching class or it may be a specific buffer class.
+            case the ``buffer_registry`` is queried for a matching class or it may be a specific buffer class.
 
             The relevant ``*args`` and ``**kwargs`` arguments will be passed underlying
             buffer class's ``.zeros()`` method.
@@ -757,7 +757,7 @@ class DTensorFieldCoreMixin(DFieldCoreMixin, Generic[_SupDTFieldCore]):
             contravariant form.
         buffer_class : str or ~fields.buffers.base.BufferBase, optional
             The buffer class to use for holding the data. This may be specified as a string, in which
-            case the ``buffer_registry` is queried for a matching class or it may be a specific buffer class.
+            case the ``buffer_registry`` is queried for a matching class or it may be a specific buffer class.
 
             The relevant ``*args`` and ``**kwargs`` arguments will be passed underlying
             buffer class's ``.ones()`` method.
@@ -822,7 +822,7 @@ class DTensorFieldCoreMixin(DFieldCoreMixin, Generic[_SupDTFieldCore]):
             contravariant form.
         buffer_class : str or ~fields.buffers.base.BufferBase, optional
             The buffer class to use for holding the data. This may be specified as a string, in which
-            case the ``buffer_registry` is queried for a matching class or it may be a specific buffer class.
+            case the ``buffer_registry`` is queried for a matching class or it may be a specific buffer class.
 
             The relevant ``*args`` and ``**kwargs`` arguments will be passed underlying
             buffer class's ``.full()`` method.

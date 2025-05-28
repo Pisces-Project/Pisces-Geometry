@@ -502,38 +502,38 @@ def lower_index(
     axis: int,
 ) -> _TensorType:
     r"""
-     Lower a single index of a tensor using the provided metric.
+    Lower a single index of a tensor using the provided metric.
 
-     This function supports:
+    This function supports:
 
-     - A **full** metric :math:`g_{\mu\nu}` (shape ``(n,n)``).
-     - A **diagonal** metric (1D array of length ``n``) for orthogonal coordinates.
+    - A **full** metric :math:`g_{\mu\nu}` (shape ``(n,n)``).
+    - A **diagonal** metric (1D array of length ``n``) for orthogonal coordinates.
 
-     **General Formula** (when `metric` is a full matrix):
+    **General Formula** (when `metric` is a full matrix):
 
-     .. math::
+    .. math::
 
-         T_{\ldots\nu\ldots} \;=\; T^{\ldots\mu\ldots}\; g_{\mu\nu},
+        T_{\ldots\nu\ldots} \;=\; T^{\ldots\mu\ldots}\; g_{\mu\nu},
 
-     **Orthogonal Diagonal Case** (1D array):
+    **Orthogonal Diagonal Case** (1D array):
 
-     .. math::
+    .. math::
 
-         T_{\ldots\mu\ldots} \;=\; T^{\ldots\mu\ldots} \;\times\; g_{\mu\mu}.
+        T_{\ldots\mu\ldots} \;=\; T^{\ldots\mu\ldots} \;\times\; g_{\mu\mu}.
 
-     Parameters
-     ----------
-     tensor : ~sympy.tensor.array.MutableDenseNDimArray
-         A symbolic tensor of arbitrary rank.
-     metric : ~sympy.matrices.dense.MutableDenseMatrix or~sympy.tensor.array.MutableDenseNDimArray
-         The metric used to lower the index. Either a full ``(n x n)`` matrix or a 1D array of length ``n``.
-     axis : int
-         The index position to lower.
+    Parameters
+    ----------
+    tensor : ~sympy.tensor.array.MutableDenseNDimArray
+     A symbolic tensor of arbitrary rank.
+    metric : ~sympy.matrices.dense.MutableDenseMatrix or~sympy.tensor.array.MutableDenseNDimArray
+     The metric used to lower the index. Either a full ``(n x n)`` matrix or a 1D array of length ``n``.
+    axis : int
+     The index position to lower.
 
-     Returns
-     -------
+    Returns
+    -------
     ~sympy.tensor.array.MutableDenseNDimArray
-         A new tensor with the specified index lowered.
+     A new tensor with the specified index lowered.
 
     See Also
     --------
@@ -558,8 +558,7 @@ def lower_index(
         ... ])
         >>>
         >>> lower_index(T, g, axis=1)
-        [[T0(r, theta), r^2*T1(r, theta)],
-        [T2(r, theta), r^2*T3(r, theta)]]
+        [[T0(r, theta), r**2*T1(r, theta)], [T2(r, theta), r**2*T3(r, theta)]]
 
     2) **Orthogonal diagonal** usage (just multiply each slice):
 
@@ -567,8 +566,7 @@ def lower_index(
 
         >>> g_diag = sp.Array([1, r**2])
         >>> lower_index(T, g_diag, axis=1)
-        [[T0(r, theta), r^2*T1(r, theta)],
-        [T2(r, theta), r^2*T3(r, theta)]]
+        [[T0(r, theta), r**2*T1(r, theta)], [T2(r, theta), r**2*T3(r, theta)]]
     """
     ndim = tensor.rank()
     if not (0 <= axis < ndim):

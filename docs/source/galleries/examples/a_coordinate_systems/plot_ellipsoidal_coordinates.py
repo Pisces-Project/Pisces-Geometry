@@ -5,6 +5,7 @@ Oblate Spheroidal Coordinates: Effect of Eccentricity
 
 Visualize how the radial coordinate lines (R-contours) in the OblateSpheroidalCoordinateSystem
 change as a function of eccentricity.
+
 """
 import matplotlib.pyplot as plt
 

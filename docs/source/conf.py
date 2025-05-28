@@ -1,3 +1,4 @@
+"""Testing configuration file for sphinx."""
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -82,6 +83,12 @@ napoleon_use_param = True
 napoleon_preprocess_types = True
 
 sphinx_gallery_conf = {
-    "examples_dirs": "./galleries/examples",  # path to your example scripts
-    "gallery_dirs": "auto_examples",  # path to where to save gallery generated output
+    "examples_dirs": [
+        "./galleries/examples",
+        "./galleries/quick_start",
+    ],  # path to your example scripts
+    "gallery_dirs": [
+        "auto_examples",
+        "auto_quickstart",
+    ],  # path to where to save gallery generated output
 }

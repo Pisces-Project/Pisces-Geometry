@@ -164,7 +164,6 @@ def buffer(
 
     Examples
     --------
-
     Convert a list to an :class:`~fields.buffers.core.ArrayBuffer`:
 
     >>> from pymetric.fields.buffers.utilities import buffer

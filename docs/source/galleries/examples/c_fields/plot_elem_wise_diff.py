@@ -1,7 +1,7 @@
 r"""
-========================================
+==========================================
 Elementwise Partial Derivative (2D Cosine)
-========================================
+==========================================
 
 This example demonstrates how to compute the **elementwise partial derivatives**
 of a scalar field in a Cartesian coordinate system using PyMetric’s high-level

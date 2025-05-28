@@ -178,7 +178,6 @@ class DenseTensorField(DTensorFieldCoreMixin, DenseTensorFieldDMOMixin, DenseFie
 
         Notes
         -----
-
         - This object is automatically populated with the correct tensor rank.
         - The `dependent_axes` argument is inferred from the field’s spatial axes.
         - This is used internally for symbolic propagation in operations like `gradient()` or `raise_index()`.

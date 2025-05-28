@@ -21,20 +21,20 @@ def _dense_contract_index_with_metric(
     out: Optional[np.ndarray] = None,
     **kwargs,
 ) -> np.ndarray:
-    """
+    r"""
     Contract a tensor index with a metric (or inverse metric) using :py:func:`numpy.einsum`.
 
     This operation performs the index contraction:
 
     .. math::
 
-        T^{\\ldots\\mu\\ldots} = g^{\\mu\\nu} T^{\\ldots}_{\\ldots\\nu\\ldots}
+        T^{\ldots\mu\ldots} = g^{\mu\nu} T^{\ldots}_{\ldots\nu\ldots}
 
     or
 
     .. math::
 
-        T_{\\ldots\\mu\\ldots} = g_{\\mu\\nu} T_{\\ldots}^{\\ldots\\nu\\ldots}
+        T_{\ldots\mu\ldots} = g_{\mu\nu} T_{\ldots}^{\ldots\nu\ldots}
 
     depending on context and whether the provided metric is the metric tensor or its inverse.
     The contraction is performed over a single tensor index (specified by `index`), replacing it
@@ -104,7 +104,6 @@ def _dense_contract_index_with_metric(
 
     Examples
     --------
-
     Contract a random tensor with an identity metric:
 
     >>> import numpy as np
@@ -235,7 +234,6 @@ def _dense_contract_index_with_diagonal_metric(
 
     Examples
     --------
-
     Contract a vector field with a diagonal inverse metric tensor:
 
     >>> import numpy as np
@@ -422,7 +420,7 @@ def _dense_adjust_tensor_signature(
     **kwargs,
 ) -> Tuple[np.ndarray, np.ndarray]:
     """
-    Adjusts multiple tensor indices (simultaneously) using einsum with appropriate metric or inverse metric.
+    Adjust multiple tensor indices (simultaneously) using einsum with appropriate metric or inverse metric.
 
     Parameters
     ----------
@@ -528,7 +526,7 @@ def _dense_adjust_tensor_signature_diagonal_metric(
     **kwargs,
 ) -> Tuple[np.ndarray, np.ndarray]:
     """
-    Adjusts specified tensor indices by scaling with diagonal metric components (or inverse).
+    Adjust specified tensor indices by scaling with diagonal metric components (or inverse).
 
     This function applies index raising or lowering on the specified tensor indices
     assuming a diagonal metric. It avoids full matrix multiplication and instead uses
@@ -565,7 +563,6 @@ def _dense_adjust_tensor_signature_diagonal_metric(
 
     Examples
     --------
-
     >>> import numpy as np
     >>> from pymetric.differential_geometry.dense_utils import dense_adjust_tensor_signature
     >>>
@@ -832,7 +829,6 @@ def dense_contract_with_metric(
 
     Examples
     --------
-
     Contract a rank-1 tensor field with a full metric (identity):
 
     >>> import numpy as np
@@ -932,7 +928,7 @@ def dense_raise_index(
     **kwargs,
 ) -> np.ndarray:
     r"""
-    Raises a specified index of a tensor field using the inverse metric tensor.
+    Raise a specified index of a tensor field using the inverse metric tensor.
 
     Parameters
     ----------
@@ -1193,7 +1189,7 @@ def dense_adjust_tensor_signature(
     **kwargs,
 ) -> Tuple[np.ndarray, np.ndarray]:
     r"""
-    Adjusts multiple indices of a tensor field by raising or lowering them using the metric or inverse metric.
+    Adjust multiple indices of a tensor field by raising or lowering them using the metric or inverse metric.
 
     This function modifies the variance (covariant vs. contravariant) of selected tensor indices
     by contracting them with either the metric tensor or its inverse. The transformation can be
@@ -1272,7 +1268,6 @@ def dense_adjust_tensor_signature(
 
     Examples
     --------
-
     Consider a tensor defined in spherical coordinates :math:`(r,\theta,\phi)` with a rank-2 structure.
     The metric tensor in these coordinates is diagonal:
 
@@ -1575,7 +1570,7 @@ def dense_tensor_product(
     type_b: tuple[int, int],
 ) -> np.ndarray:
     """
-    Computes the tensor product of two tensor fields with specified (p, q) types,
+    Compute the tensor product of two tensor fields with specified (p, q) types,
     ensuring that the result has contravariant indices first and covariant indices last.
 
     Parameters

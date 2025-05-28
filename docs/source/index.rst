@@ -11,7 +11,7 @@ PyMetric
 
    <hr style="height:2px;background-color:black">
 
-PyMetric began as the backend for the `Pisces project <https://github.com/Pisces-Project/Pisces>`_ and has grown
+PyMetric began as the backend for the `Pisces project <https://github.com/Pisces-Project/Pisces>`__ and has grown
 into a self-contained package. It provides a seamless interface for performing coordinate-dependent operations in Python—ranging
 from coordinate transformations and differential operations to solving equations of motion. In addition, it offers robust
 data structures that natively respect and understand underlying coordinate systems and grid architectures, enabling efficient
@@ -26,7 +26,7 @@ Installation
 ============
 
 PyMetric is written for Python 3.8+ (with continued support for older versions). For detailed installation instructions
-and a quick start guide, please see the :ref:`getting_started` page.
+and a quick start guide, please see the :ref:`quickstart` page.
 
 Resources
 =========
@@ -48,7 +48,7 @@ Resources
 
         +++
 
-        .. button-ref:: getting_started
+        .. button-ref:: auto_quickstart/index
             :expand:
             :color: secondary
             :click-parent:
@@ -68,7 +68,7 @@ Resources
 
         +++
 
-        .. button-ref:: examples
+        .. button-ref:: auto_examples/index
             :expand:
             :color: secondary
             :click-parent:
@@ -108,7 +108,7 @@ Resources
 
         +++
 
-        .. button-ref:: api
+        .. button-ref:: api_base
             :expand:
             :color: secondary
             :click-parent:
@@ -126,10 +126,10 @@ Contents
 .. toctree::
    :maxdepth: 1
 
-   getting_started
+   auto_quickstart/index
    auto_examples/index
    reference/index
-   api
+   api_base
 
 - **Getting Started** — A quick guide to installation, basic setup, and your first field.
 - **Examples** — Real-world use cases showing how to use PyMetric in practice.

@@ -69,7 +69,7 @@ class CoordinateSystemCoreMixin(Generic[_SupCoordSystemBase]):
     # -------------------------- #
     def pprint(self: _SupCoordSystemBase) -> None:
         """
-        Prints a detailed description of the coordinate system, including its axes, parameters, and expressions.
+        Print a detailed description of the coordinate system, including its axes, parameters, and expressions.
 
         Example
         -------
@@ -267,7 +267,7 @@ class CoordinateSystemIOMixin(Generic[_SupCoordSystemCore]):
             # relevant to do so.
             if (not overwrite) and (group_name is None):
                 # We can't overwrite and there is data. Raise an error.
-                raise IOError(
+                raise OSError(
                     f"File '{filename}' already exists and overwrite=False. "
                     "To store data in a specific group, provide `group_name`."
                 )
@@ -298,7 +298,7 @@ class CoordinateSystemIOMixin(Generic[_SupCoordSystemCore]):
                         del f[group_name]
                         group = f.create_group(group_name)
                     else:
-                        raise IOError(
+                        raise OSError(
                             f"Group '{group_name}' already exists in '{filename}' and overwrite=False."
                         )
                 else:
@@ -348,7 +348,7 @@ class CoordinateSystemIOMixin(Generic[_SupCoordSystemCore]):
         # actually open it in hdf5.
         filename = Path(filename)
         if not filename.exists():
-            raise IOError(f"File '{filename}' does not exist.")
+            raise OSError(f"File '{filename}' does not exist.")
 
         # Now open the hdf5 file and look for the group name.
         with h5py.File(filename, "r") as f:
@@ -359,7 +359,7 @@ class CoordinateSystemIOMixin(Generic[_SupCoordSystemCore]):
                 if group_name in f:
                     group = f[group_name]
                 else:
-                    raise IOError(
+                    raise OSError(
                         f"Group '{group_name}' does not exist in '{filename}'."
                     )
 
@@ -380,7 +380,7 @@ class CoordinateSystemIOMixin(Generic[_SupCoordSystemCore]):
         try:
             _cls = registry[__class_name__]
         except KeyError:
-            raise IOError(
+            raise OSError(
                 f"Failed to find the coordinate system class {__class_name__}. Ensure you have imported any"
                 " relevant coordinate system modules."
             )
@@ -446,7 +446,6 @@ class CoordinateSystemAxesMixin(Generic[_SupCoordSystemCore]):
 
         Examples
         --------
-
         This method allows for various index to axes conversions. Notably, if
         the input is scalar, the output will also be scalar and if the input is
         an iterable, then so too will the output. For example, if ``0`` is put in,

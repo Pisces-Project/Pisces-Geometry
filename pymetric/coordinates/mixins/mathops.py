@@ -147,7 +147,6 @@ class CoordinateSystemMathMixin(Generic[_SupCSCoords]):
 
         Examples
         --------
-
         In spherical coordinates, the metric density is :math:`r^2\sin \theta`. Thus, we can
         fairly easily create a plot of this!
 
@@ -365,7 +364,6 @@ class CoordinateSystemMathMixin(Generic[_SupCSCoords]):
 
         Examples
         --------
-
         In spherical coordinates, the vector :math:`V_\mu = (r^2,r^2,0)` becomes
 
         .. math::
@@ -493,7 +491,6 @@ class CoordinateSystemMathMixin(Generic[_SupCSCoords]):
 
         Examples
         --------
-
         In spherical coordinates, the vector :math:`V^\mu = (r^2,r^{-2},0)` becomes
 
         .. math::
@@ -628,7 +625,6 @@ class CoordinateSystemMathMixin(Generic[_SupCSCoords]):
 
         Examples
         --------
-
         Raise slot 0 and lower slot 1 of a rank-2 tensor in cylindrical
         coordinates:
 

@@ -6,8 +6,8 @@ Fields: Data Buffers
 
 The Pisces Geometry **buffer system** provides an abstraction layer over data storage backends
 for field components. It allows field operations to remain agnostic to whether data is stored in memory
-(via `NumPy <https://numpy.org/doc/stable/index.html>`_), with units
-(via `unyt <https://unyt.readthedocs.io/en/stable/>`_), or on disk (e.g., HDF5). This enables modular,
+(via `NumPy <https://numpy.org/doc/stable/index.html>`__), with units
+(via `unyt <https://unyt.readthedocs.io/en/stable/>`__), or on disk (e.g., HDF5). This enables modular,
 extensible, and backend-agnostic scientific computing.
 
 This document provides an overview of the buffer architecture, key classes, resolution mechanisms, and subclassing guidelines.
@@ -54,9 +54,9 @@ of requiring that the user knows that their data is compatible with the particul
 .. hint::
 
     In addition to :meth:`~fields.buffers.base.BufferBase.from_array`, there are
-    also :meth:`~fields.buffers.base.BufferBase.zeros()`, :meth:`~fields.buffers.base.BufferBase.ones()`,
-    :meth:`~fields.buffers.base.BufferBase.full()`,
-    and :meth:`~fields.buffers.base.BufferBase.empty()` attached to each buffer class.
+    also :meth:`~fields.buffers.base.BufferBase.zeros`, :meth:`~fields.buffers.base.BufferBase.ones`,
+    :meth:`~fields.buffers.base.BufferBase.full`,
+    and :meth:`~fields.buffers.base.BufferBase.empty` attached to each buffer class.
 
 Resolving Buffer Classes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -140,20 +140,20 @@ Representation Types and Views
 
 Buffers offer several methods to extract the internal array in various formats:
 
-- :meth:`~fields.buffers.base.BufferBase.as_core()` returns the raw array as stored by
+- :meth:`~fields.buffers.base.BufferBase.as_core` returns the raw array as stored by
   the backend (e.g., :class:`~numpi.ndarray`, :class:`~unyt.array.unyt_array`, or :class:`h5py.Dataset`).
-- :meth:`~fields.buffers.base.BufferBase.as_array()` returns a standard NumPy array (units stripped if needed).
-- :meth:`~fields.buffers.base.BufferBase.as_unyt_array()` returns a unit-tagged array (if available).
-- :meth:`~fields.buffers.base.BufferBase.as_repr()` is a general-purpose method that returns the
+- :meth:`~fields.buffers.base.BufferBase.as_array` returns a standard NumPy array (units stripped if needed).
+- :meth:`~fields.buffers.base.BufferBase.as_unyt_array` returns a unit-tagged array (if available).
+- :meth:`~fields.buffers.base.BufferBase.as_repr` is a general-purpose method that returns the
   buffer’s preferred array representation (unyt if possible, raw NumPy otherwise).
 
 These allow flexible interop in numerical code:
 
 .. code-block:: python
 
-    arr = buffer.as_array()         # always NumPy
-    tagged = buffer.as_unyt_array() # only works if units are defined
-    view = buffer.as_repr()         # representation-aware fallback
+    arr = buffer.as_array         # always NumPy
+    tagged = buffer.as_unyt_array # only works if units are defined
+    view = buffer.as_repr         # representation-aware fallback
 
 Numpy Semantics: Universal Functions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -164,7 +164,7 @@ Buffers support full ufunc behavior through the :meth:`~fields.buffers.base.Buff
 
 PyMetric’s behavior follows these principles:
 
-- All buffer arguments are **converted to their representation type** via :meth:`~fields.buffers.base.BufferBase.as_repr()` before the operation.
+- All buffer arguments are **converted to their representation type** via :meth:`~fields.buffers.base.BufferBase.as_repr` before the operation.
 - The operation is performed directly on those values.
 - If an ``out=`` argument is specified and targets another buffer, PyMetric attempts to:
   - Validate the target buffer’s compatibility.
@@ -259,7 +259,7 @@ All buffers (and by extension fields and components) in PyMetric support **units
 - Be *unit-aware*, in which case its :attr:`~fields.buffers.base.BufferBase.units` property is a :class:`unyt.unit_object.Unit`,
   and its *representation class* is :class:`~unyt.array.unyt_array`.
 
-All of the unit management is performed via `Unyt <https://unyt.readthedocs.io/en/stable/#>`_. There are two paradigms for
+All of the unit management is performed via `Unyt <https://unyt.readthedocs.io/en/stable/#>`__. There are two paradigms for
 unit manipulation of buffers:
 
 1. For *specific* buffer classes which support units, the units of a buffer may be changed in place via *conversion*.
@@ -420,7 +420,7 @@ You must also implement:
 
 - ``__init__(self, array)`` to wrap the storage object
 - ``from_array(cls, obj, **kwargs)`` to construct your buffer from flexible input
-- Optional: ``zeros()``, ``ones()``, ``full()``, ``empty()``, and I/O methods
+- Optional: ``zeros``, ``ones``, ``full``, ``empty``, and I/O methods
 - Optional: ``units`` property if your buffer handles units
 
 Example stub:
@@ -440,7 +440,7 @@ Example stub:
             tensor = torch.tensor(obj)
             return cls(tensor)
 
-Once defined, your buffer will be automatically registered and resolvable by `buffer_from_array()`.
+Once defined, your buffer will be automatically registered and resolvable by `buffer_from_array`.
 
 .. note::
 

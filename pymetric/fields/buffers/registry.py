@@ -33,6 +33,9 @@ class BufferRegistry:
     """
 
     def __init__(self):
+        """
+        Initialize the registry.
+        """
         self._registry: List[Type["BufferBase"]] = []
 
     def __getitem__(self, key: Union[str, Type["BufferBase"]]) -> Type["BufferBase"]:

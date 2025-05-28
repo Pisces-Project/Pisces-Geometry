@@ -1,5 +1,5 @@
 """
-Core mixins for thePyMetric grid infrastructure.
+Core mixins for the PyMetric grid infrastructure.
 
 This module contains mixin classes that are included (by default) in the core :py:class:`~grids.base.GridBase`
 class and are therefore structural elements of the base class. These are primarily a method
@@ -1241,7 +1241,7 @@ class GridUtilsMixin(Generic[_SupGridCore]):
         axes_out : str or list of str
             Target axes to broadcast against. The returned array will have dimensions
             aligned with these axes.
-         **kwargs:
+        **kwargs:
             Any kwargs to pass to the array's `.reshape` method.
 
         Returns
@@ -1795,7 +1795,7 @@ class GridIOMixin(Generic[_SupGridIO]):
         if filename.exists():
             if group_name is None:
                 if not overwrite:
-                    raise IOError(
+                    raise OSError(
                         f"HDF5 file '{filename}' exists. Pass `overwrite=True` to overwrite."
                     )
                 filename.unlink()
@@ -1832,7 +1832,7 @@ class GridIOMixin(Generic[_SupGridIO]):
             if overwrite:
                 del f[group_name]
             else:
-                raise IOError(
+                raise OSError(
                     f"Group '{group_name}' already exists in '{f.filename}'. Use overwrite=True to replace it."
                 )
         return f.require_group(group_name)
@@ -1922,7 +1922,7 @@ class GridIOMixin(Generic[_SupGridIO]):
             Loaded coordinate system object.
         """
         # noinspection PyProtectedMember
-        from coordinates.base import _CoordinateSystemBase
+        from pymetric.coordinates.base import _CoordinateSystemBase
 
         subgroup = "coord_systm" if group_name is None else f"{group_name}/coord_systm"
         return _CoordinateSystemBase.from_hdf5(filename, subgroup)

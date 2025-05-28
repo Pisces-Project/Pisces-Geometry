@@ -119,8 +119,7 @@ class DenseFieldDMOMixin(Generic[_SupDFDMOs]):
         **kwargs,
     ):
         """
-        This helper method allows the output of a grid-level operation to
-        be cast upward to a field on its own. It incorporates the various buffer
+        Cast output from a grid level operation up to a field. It incorporates the various buffer
         arguments and keywords as well as the as_array argument.
         """
         # Check if the as_array option is True. If it is,
@@ -194,7 +193,6 @@ class DenseFieldDMOMixin(Generic[_SupDFDMOs]):
             This wraps the grid-level method :meth:`~grids.base.GridBase.dense_element_wise_partial_derivatives`,
             which in turn calls the low-level routine
             :func:`~differential_geometry.general_ops.dense_element_wise_partial_derivatives`.
-
 
         Parameters
         ----------
@@ -579,6 +577,7 @@ class DenseTensorFieldDMOMixin(DenseFieldDMOMixin, Generic[_SupDTFDMOs]):
         buffer_kwargs: Optional[Dict] = None,
         **kwargs,
     ) -> "_SupDTFDMOs":
+        # flake8: noqa
         result = super().element_wise_partial_derivatives(
             out=out,
             output_axes=output_axes,

@@ -11,7 +11,7 @@ and Laplacians in curved spaces.
 
 This module is designed to be low-level, flexible, and composable—targeted at users who need fine-grained
 control over coordinate system behavior, metric tensors, and tensorial representations. It supports both
-symbolic workflows (e.g., with `SymPy <https://docs.sympy.org/latest/index.html>`_) and numerical workflows
+symbolic workflows (e.g., with `SymPy <https://docs.sympy.org/latest/index.html>`__) and numerical workflows
 using dense array operations.
 
 Key features of the module include:

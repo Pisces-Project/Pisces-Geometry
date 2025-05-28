@@ -36,7 +36,7 @@ if TYPE_CHECKING:
 
 class ArrayBuffer(BufferBase):
     """
-    A lightweight buffer wrapper around a plain `NumPy <https://numpy.org/doc/stable/index.html>`_ array.
+    A lightweight buffer wrapper around a plain `NumPy <https://numpy.org/doc/stable/index.html>`__ array.
 
     This class provides a minimal, unitless backend for storing field data using
     standard :class:`numpy.ndarray` objects. It is designed for general-purpose use cases
@@ -225,7 +225,7 @@ class ArrayBuffer(BufferBase):
         ArrayBuffer
             A buffer filled with the given value.
         """
-        return cls(np.full(shape, fill_value=fill_value, *args, **kwargs))
+        return cls(np.full(shape, fill_value, *args, **kwargs))
 
     @classmethod
     def empty(cls, shape, *args, **kwargs) -> "ArrayBuffer":
@@ -377,7 +377,6 @@ class UnytArrayBuffer(BufferBase):
 
         Notes
         -----
-
         **Input Type Behavior:**
 
         - If `obj` is already a :class:`~unyt.array.unyt_array` or :class:`~unyt.array.unyt_quantity`, it is forwarded directly
@@ -432,6 +431,36 @@ class UnytArrayBuffer(BufferBase):
     def convert_to_units(
         self, units: Union[str, unyt.Unit], equivalence=None, **kwargs
     ):
+        """
+        Convert the buffer data to the specified physical units in-place.
+
+        This method performs an in-place conversion of the HDF5 dataset to the target
+        physical units and updates the unit metadata stored in the HDF5 file. The
+        conversion is only valid if the target units are dimensionally compatible with
+        the current units.
+
+        The method preserves the structure and layout of the underlying dataset while
+        modifying its numerical values according to the specified units. This is
+        useful when standardizing units across datasets or applying unit-sensitive
+        transformations in physical simulations or analysis pipelines.
+
+        Parameters
+        ----------
+        units : str or ~unyt.unit_object.Unit
+            Target units to convert the buffer data to. Can be a unit string (e.g., "km")
+            or a :class:`unyt.unit_object.Unit` instance.
+        equivalence : str, optional
+            Optional unit equivalence (e.g., "mass_energy") to use when converting
+            between units that are not strictly dimensionally identical but are
+            convertible under certain physical principles.
+        **kwargs :
+            Additional keyword arguments forwarded to `unyt`'s unit conversion routines.
+
+        Raises
+        ------
+        UnitConversionError
+            If the target units are not compatible with the buffer's existing units.
+        """
         self.__array_object__.convert_to_units(units, equivalence=equivalence, **kwargs)
 
     @classmethod
@@ -549,6 +578,9 @@ class UnytArrayBuffer(BufferBase):
         return cls.from_array(np.empty(shape, *args, **kwargs), units=units)
 
     def as_repr(self) -> ArrayLike:
+        """
+        Return this buffer as an unyt array.
+        """
         return self.as_core()
 
 
@@ -714,6 +746,36 @@ class HDF5Buffer(BufferBase):
     def convert_to_units(
         self, units: Union[str, unyt.Unit], equivalence=None, **kwargs
     ):
+        """
+        Convert the buffer data to the specified physical units in-place.
+
+        This method performs an in-place conversion of the HDF5 dataset to the target
+        physical units and updates the unit metadata stored in the HDF5 file. The
+        conversion is only valid if the target units are dimensionally compatible with
+        the current units.
+
+        The method preserves the structure and layout of the underlying dataset while
+        modifying its numerical values according to the specified units. This is
+        useful when standardizing units across datasets or applying unit-sensitive
+        transformations in physical simulations or analysis pipelines.
+
+        Parameters
+        ----------
+        units : str or ~unyt.unit_object.Unit
+            Target units to convert the buffer data to. Can be a unit string (e.g., "km")
+            or a :class:`unyt.unit_object.Unit` instance.
+        equivalence : str, optional
+            Optional unit equivalence (e.g., "mass_energy") to use when converting
+            between units that are not strictly dimensionally identical but are
+            convertible under certain physical principles.
+        **kwargs :
+            Additional keyword arguments forwarded to `unyt`'s unit conversion routines.
+
+        Raises
+        ------
+        UnitConversionError
+            If the target units are not compatible with the buffer's existing units.
+        """
         self.__array_object__[...] = self[...].to_value(
             units, equivalence=equivalence, **kwargs
         )
@@ -850,23 +912,25 @@ class HDF5Buffer(BufferBase):
 
         This method provides safe access to datasets within an HDF5 file,
         whether the file is passed as a string path or an already opened
-        `h5py.File` object.
+        :class:`h5py.File` object.
 
         When used in a `with` statement (context manager), the file will be
-        automatically flushed and closed at exit if `close_on_exit=True`.
+        automatically flushed and closed at exit if ``close_on_exit=True``.
 
         Parameters
         ----------
         file : str, Path, or h5py.File
             File path or an open HDF5 file containing the dataset.
         path : str
-            Path to the dataset inside the HDF5 file (e.g., "/my/data").
+            Path to the dataset inside the HDF5 file (e.g., ``"/my/data"``).
         mode : str, default "r+"
-            File mode to use when `file` is a path. Ignored if `file` is a `h5py.File`.
+            File mode to use when `file` is a path. Ignored if `file` is a :class:`h5py.File`.
             Common values:
-                - "r": read-only
-                - "r+": read/write
-                - "a": read/write or create
+
+                - ``"r"``: read-only
+                - ``"r+"``: read/write
+                - ``"a"``: read/write or create
+
         close_on_exit : bool, default False
             If True, the file will be closed when the buffer is used in a context manager.
 
@@ -1052,7 +1116,7 @@ class HDF5Buffer(BufferBase):
 
     def __array_ufunc__(self, ufunc, method, *inputs, **kwargs):
         """
-        Overrides BufferBase.__array_ufunc__ to catch instances where HDF5Buffer
+        Override BufferBase.__array_ufunc__ to catch instances where HDF5Buffer
         is a specified output of the operation. Because HDF5 Dataset types cannot
         handle in place operations, we use a sleight of hand to perform the comp.
         in memory and then assign under the hood.
@@ -1229,6 +1293,10 @@ class HDF5Buffer(BufferBase):
         return self[:]  # __getitem__ already wraps in unyt_array if needed
 
     def as_repr(self):
+        """
+        Return this buffer as an :class:`~unyt.array.unyt_array` if
+        the buffer has units; otherwise as a :class:`~numpy.ndarray`.
+        """
         # Use a memory-mapped view, but preserve units if defined
         out = self.__array_object__[:]
         return unyt_array(out, self.units) if self.units else out

@@ -3,10 +3,11 @@
 Curvilinear Coordinate Systems
 ===============================
 
-In the `Pisces Project <https://www.github.com/Pisces-Project/Pisces>`_, every physical model you can generate is backed
-up by a specific coordinate system defined here in Pisces-Geometry. These coordinate systems play a critical role in determining
+In the `Pisces Project <https://www.github.com/Pisces-Project/Pisces>`__, every physical model you can generate is backed
+up by a specific coordinate system defined here in PyMetric. These coordinate systems play a critical role in determining
 the behavior of various operations and are a necessary step towards doing physics in these exotic coordinate systems. In this
-guide, we'll introduce the theory of coordinate systems in a manner akin to that seen in the study of `differential geometry <https://en.wikipedia.org/wiki/Differential_geometry>`_.
+guide, we'll introduce the theory of coordinate systems in a manner akin to that seen in the study
+of `differential geometry <https://en.wikipedia.org/wiki/Differential_geometry>`__.
 
 What is a Curvilinear Coordinate System?
 ----------------------------------------
@@ -28,7 +29,7 @@ Mathematically, we describe a curvilinear system by a **coordinate map**:
    \mathbf{x} = \mathbf{x}(q^1, q^2, \dots, q^n)
 
 This map transforms from curvilinear coordinates :math:`(q^1, q^2, \dots, q^n)` to Cartesian space :math:`\mathbf{x} \in \mathbb{R}^n`.
-The coordinate curves are traced by holding all but one :math:` q^i ` constant and letting :math:`q^i` vary.
+The coordinate curves are traced by holding all but one :math:`q^i` constant and letting :math:`q^i` vary.
 
 The **tangent vectors** to these curves form the **coordinate basis**:
 
@@ -36,11 +37,12 @@ The **tangent vectors** to these curves form the **coordinate basis**:
 
    \mathbf{e}_i = \frac{\partial \mathbf{x}}{\partial q^i}
 
-These basis vectors vary across space and are generally **not unit vectors** and **not orthogonal**. Their inner products define the components of the **metric tensor**:
+These basis vectors vary across space and are generally **not unit vectors** and **not orthogonal**.
+Their inner products define the components of the **metric tensor**:
 
 .. math::
 
-   g_{ij} = \mathbf{e}_i \cdot \mathbf{e}_j
+    g_{ij} = \mathbf{e}_i \cdot \mathbf{e}_j
 
 This tensor captures how distances, angles, and volumes behave locally in the curvilinear space.
 
@@ -48,7 +50,7 @@ This tensor captures how distances, angles, and volumes behave locally in the cu
 Defining a Coordinate System
 ----------------------------
 
-A coordinate system in Pisces-Geometry is defined by a smooth, invertible mapping from a set of curvilinear coordinates to Cartesian space:
+A coordinate system in PyMetric is defined by a smooth, invertible mapping from a set of curvilinear coordinates to Cartesian space:
 
 .. math::
 
@@ -70,11 +72,11 @@ These vectors span the **tangent space** at each point and vary smoothly across 
 
     More formally, we state that for any point :math:`p \in \mathbb{R}^N`, there is a tangent space :math:`T_p \mathbb{R}^N` which
     is a vector space composed of all of the tangent vectors to all of the curves passing through :math:`p`. This can be made more
-    rigorous in the context of differentiable manifolds (see `Tangent Spaces <https://en.wikipedia.org/wiki/Tangent_space>`_) and leads
-    to the notion of the `Tangent Bundle <https://en.wikipedia.org/wiki/Tangent_bundle>`_.
+    rigorous in the context of differentiable manifolds (see `Tangent Spaces <https://en.wikipedia.org/wiki/Tangent_space>`__) and leads
+    to the notion of the `Tangent Bundle <https://en.wikipedia.org/wiki/Tangent_bundle>`__.
 
 As is the case for **all vector spaces**, the space of all **linear maps** :math:`f: T_p \mathbb{R}^N \to \mathbb{R}` also forms
-a vector space called the `dual space <https://en.wikipedia.org/wiki/Dual_space>`_ denoted :math:`T^\star_p \mathbb{R}^N`. It is a
+a vector space called the `dual space <https://en.wikipedia.org/wiki/Dual_space>`__ denoted :math:`T^\star_p \mathbb{R}^N`. It is a
 special result that for Euclidean space, the **dual space** is equivalent to the Euclidean space itself (seen as a vector space). We therefore
 inherit two Euclidean vector spaces at each point in space:
 
@@ -141,7 +143,7 @@ defining geometric operations like gradients, divergences, and Laplacians in cur
 
 .. note::
 
-   In Pisces-Geometry, the metric is represented as a tensor field defined by the coordinate system. This enables differential
+   In PyMetric, the metric is represented as a tensor field defined by the coordinate system. This enables differential
    operators and field transformations to be expressed in a coordinate-aware and mathematically rigorous way.
 
 

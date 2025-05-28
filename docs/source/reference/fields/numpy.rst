@@ -73,7 +73,7 @@ the fact that one need now handle not only the ``buffer``, but also the ``axes``
 NumPy Universal Functions on Components
 '''''''''''''''''''''''''''''''''''''''
 
-Numpy provides a number of **universal functions** called `ufuncs <https://numpy.org/doc/stable/reference/ufuncs.html>`_,
+Numpy provides a number of **universal functions** called `ufuncs <https://numpy.org/doc/stable/reference/ufuncs.html>`__,
 which have very well controlled behavior. These operations occur element-by-element with broadcasting, type casting, etc. For
 each ufunc, there are a variety of "modes", which can alter behavior.
 

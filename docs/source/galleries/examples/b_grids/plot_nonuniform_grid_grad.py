@@ -143,9 +143,9 @@ plt.tight_layout()
 plt.show()
 
 # %%
-# ----------------------------
+# ---------------------------------
 # Compare with Analytical Gradient
-# ----------------------------
+# ---------------------------------
 #
 # The analytical gradient is:
 #

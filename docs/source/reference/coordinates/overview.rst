@@ -60,7 +60,7 @@ Each coordinate system class inherits from a common abstract base and defines:
 
 1. **Axes**: Named coordinate directions (e.g., ``["r", "theta", "phi"]``).
 2. **Symbolic infrastructure**: Metric tensors, derivatives, and other expressions are computed symbolically
-   using `SymPy <https://www.sympy.org/>`_.
+   using `SymPy <https://www.sympy.org/>`__.
 3. **Numerical evaluation**: Expressions are compiled into NumPy-compatible functions for high-performance evaluation
    on structured grids or unstructured inputs.
 4. **Parameter support**: Some systems are parameterized (e.g., ellipsoidal focus distance ``a``),
@@ -255,7 +255,7 @@ Symbolic Manipulations
 Coordinate systems in PyMetric utilize a mixed design in which symbolic (CAS) based manipulations are favored for deriving
 analytical quantities in the coordinate system (metrics, Christoffel Symbols, etc.) but then provides numerical access to
 these quantities via efficient numpy conversion. The symbolic side of PyMetric coordinate systems is handled by
-`SymPy <https://docs.sympy.org/latest/index.html>`_.
+`SymPy <https://docs.sympy.org/latest/index.html>`__.
 
 These symbolic representations form the foundation for both analytical exploration and numerical computations,
 allowing you to derive differential operators like gradients or divergences while respecting the geometry

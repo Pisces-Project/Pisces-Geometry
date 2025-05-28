@@ -64,8 +64,8 @@ def signature_to_tensor_class(signature: "SignatureInput") -> Tuple[int, int]:
     The :math:`(p, q)` notation describes the number of contravariant (upper) and
     covariant (lower) indices in a tensor:
 
-    - `p`: number of `1`s in the signature (contravariant indices)
-    - `q`: number of `-1`s in the signature (covariant indices)
+    - ``p``: number of ``1``'s in the signature (contravariant indices)
+    - ``q``: number of ``-1``'s in the signature (covariant indices)
 
     Parameters
     ----------

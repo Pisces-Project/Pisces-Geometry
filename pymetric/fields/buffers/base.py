@@ -1054,7 +1054,7 @@ class BufferBase(NumpyArithmeticMixin, ABC, metaclass=_BufferMeta):
 
     def transpose(self, axes=None, *args, **kwargs) -> "BufferBase":
         """
-        Returns this buffer with axes transposed. See :func:`numpy.transpose`.
+        Return this buffer with axes transposed. See :func:`numpy.transpose`.
 
         Parameters
         ----------
@@ -1518,7 +1518,6 @@ def buffer_from_array(
 
     Examples
     --------
-
     By default, the correct buffer class is resolved vis-a-vis the registry. As such,
     if you simply support an array-like input, a valid buffer will be constructed:
 

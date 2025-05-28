@@ -5,23 +5,35 @@ the correctness of the dependence tracking support in PyMetric.
 import pytest
 import sympy as sp
 
-from pymetric.coordinates import (
-    CartesianCoordinateSystem2D,
-    OblateHomoeoidalCoordinateSystem,
-    SphericalCoordinateSystem,
-)
 from pymetric.differential_geometry import dependence as dep
 
 # ================================== #
 # Setup                              #
 # ================================== #
-__all_coordinate_systems_params__ = [
-    pytest.param("spherical", marks=pytest.mark.spherical),
-    pytest.param("cartesian", marks=pytest.mark.cartesian),
-    pytest.param("oblate_spherical", marks=pytest.mark.obs),
-    pytest.param("oblate_non_spherical", marks=pytest.mark.obns),
-]
-
+__answer_key__ = {
+    "elementwise_derivatives_dependence": {
+        "spherical": dict(co=["theta"], contra=["r", "theta"]),
+        "cartesian2D": dict(co=["y"], contra=["y"]),
+        "oblate_homoeoidal": dict(co=["theta"], contra=["xi", "theta"]),
+    },
+    "elementwise_laplacian_dependence": {
+        "spherical": ["r", "theta"],
+        "cartesian2D": ["y"],
+        "oblate_homoeoidal": ["xi", "theta"],
+    },
+    "tensor_index_raising_lowering_updates_dependence": {
+        "cartesian2D": ["x"],
+        "spherical": ["r", "theta"],
+        "oblate_homoeoidal": ["xi", "theta"],
+    },
+    "tensor_gradient_and_laplacian": {
+        "cartesian2D": dict(co=["y"], contra=["y"], lap=["y"]),
+        "spherical": dict(co=["theta"], contra=["r", "theta"], lap=["r", "theta"]),
+        "oblate_homoeoidal": dict(
+            co=["theta"], contra=["xi", "theta"], lap=["xi", "theta"]
+        ),
+    },
+}
 
 # ================================== #
 # Fixtures                           #
@@ -32,15 +44,6 @@ __all_coordinate_systems_params__ = [
 # metrics.
 #
 # To avoid reloading coordinate systems, we load them all as fixtures.
-@pytest.fixture(scope="module")
-def coordinate_systems():
-    """The test coordinate systems."""
-    return {
-        "spherical": SphericalCoordinateSystem(),
-        "cartesian": CartesianCoordinateSystem2D(),
-        "oblate_spherical": OblateHomoeoidalCoordinateSystem(ecc=0),
-        "oblate_non_spherical": OblateHomoeoidalCoordinateSystem(ecc=0.5),
-    }
 
 
 # ================================== #
@@ -48,14 +51,13 @@ def coordinate_systems():
 # ================================== #
 # The tests here are for the DenseDependenceObject and
 # test the non-tensorial methods of the class.
-@pytest.mark.parametrize("cs_key", __all_coordinate_systems_params__)
-def test_dense_scalar_construction_and_proxy(coordinate_systems, cs_key):
+def test_dense_scalar_construction_and_proxy(cs_flag, coordinate_systems):
     """
     Test that we can correctly construct scalar dependence objects from
     each of the coordinate systems.
     """
     # Extract the coordinate systems.
-    cs = coordinate_systems[cs_key]
+    cs = coordinate_systems[cs_flag]
 
     # Construct the scalar dependence.
     dep_obj = dep.DenseDependenceObject(cs, (), dependent_axes=cs.__AXES__[:1])
@@ -71,9 +73,8 @@ def test_dense_scalar_construction_and_proxy(coordinate_systems, cs_key):
     assert all(str(sym) in str(proxy) for sym in dep_obj.axes_symbols)
 
 
-@pytest.mark.parametrize("cs_key", __all_coordinate_systems_params__)
-def test_dense_array_construction_and_proxy(coordinate_systems, cs_key):
-    cs = coordinate_systems[cs_key]
+def test_dense_array_construction_and_proxy(cs_flag, coordinate_systems):
+    cs = coordinate_systems[cs_flag]
     dep_obj = dep.DenseDependenceObject(cs, (3, 3, 3), dependent_axes=cs.__AXES__[:1])
 
     # Confirm properties
@@ -87,16 +88,19 @@ def test_dense_array_construction_and_proxy(coordinate_systems, cs_key):
     assert all(str(sym) in str(proxy) for sym in dep_obj.axes_symbols)
 
 
-@pytest.mark.parametrize("cs_key", __all_coordinate_systems_params__)
-def test_elementwise_derivatives_dependence(coordinate_systems, cs_key):
+def test_elementwise_derivatives_dependence(cs_flag, coordinate_systems):
     """
     In this test, we confirm that all of the coordinate systems preserve
     their dependence under elementwise differentiation. We check that
     the covariant case preserves and the contravariant case changes.
     """
-    # Setup coordinate systems and
-    # dependence objects.
-    cs = coordinate_systems[cs_key]
+    # Extract the answer key for this test so that we know which
+    # coordinate systems are relevant.
+    __test_key__ = __answer_key__["elementwise_derivatives_dependence"]
+    if cs_flag not in __test_key__:
+        pytest.skip(f"Not Implemented: {cs_flag}.")
+
+    cs = coordinate_systems[cs_flag]
     dep_obj = dep.DenseDependenceObject(cs, (3,), dependent_axes=cs.__AXES__[1])
 
     # -- Compute gradient dependence -- #
@@ -106,28 +110,22 @@ def test_elementwise_derivatives_dependence(coordinate_systems, cs_key):
     # -- Perform Checks -- #
     # The covariant case should have exactly the same dependence as
     # the original dense object did.
-    __answer_key__ = {
-        "spherical": dict(co=["theta"], contra=["r", "theta"]),
-        "cartesian": dict(co=["y"], contra=["y"]),
-        "oblate_spherical": dict(co=["theta"], contra=["xi", "theta"]),
-        "oblate_non_spherical": dict(co=["theta"], contra=["xi", "theta"]),
-    }
-
-    __answer__ = __answer_key__[cs_key]
-
-    assert set(__answer__["co"]) == set(co_grad_obj.dependent_axes)
-    assert set(__answer__["contra"]) == set(contra_grad_obj.dependent_axes)
+    __answer__ = __test_key__[cs_flag]
+    if __answer__ is not None:
+        assert set(__answer__["co"]) == set(co_grad_obj.dependent_axes)
+        assert set(__answer__["contra"]) == set(contra_grad_obj.dependent_axes)
 
 
-@pytest.mark.parametrize("cs_key", __all_coordinate_systems_params__)
-def test_elementwise_laplacian_dependence(coordinate_systems, cs_key):
+def test_elementwise_laplacian_dependence(cs_flag, coordinate_systems):
     """
     In this test, we confirm the dependence changes when computing
     elementwise Laplacians.
     """
-    # Setup coordinate systems and
-    # dependence objects.
-    cs = coordinate_systems[cs_key]
+    __test_key__ = __answer_key__["elementwise_laplacian_dependence"]
+    if cs_flag not in __test_key__:
+        pytest.skip(f"Not Implemented: {cs_flag}.")
+
+    cs = coordinate_systems[cs_flag]
     dep_obj = dep.DenseDependenceObject(cs, (3,), dependent_axes=cs.__AXES__[1])
 
     # -- Compute gradient dependence -- #
@@ -136,15 +134,7 @@ def test_elementwise_laplacian_dependence(coordinate_systems, cs_key):
     # -- Perform Checks -- #
     # The covariant case should have exactly the same dependence as
     # the original dense object did.
-    __answer_key__ = {
-        "spherical": ["r", "theta"],
-        "cartesian": ["y"],
-        "oblate_spherical": ["xi", "theta"],
-        "oblate_non_spherical": ["xi", "theta"],
-    }
-
-    __answer__ = __answer_key__[cs_key]
-
+    __answer__ = __test_key__[cs_flag]
     assert set(__answer__) == set(lap_obj.dependent_axes)
 
 
@@ -153,17 +143,16 @@ def test_elementwise_laplacian_dependence(coordinate_systems, cs_key):
 # ================================== #
 # The tests here are for the DenseTensorDependence and
 # test the tensorial methods of the class.
-@pytest.mark.parametrize("cs_key", __all_coordinate_systems_params__)
-def test_tensor_dependence_construction_and_proxy(coordinate_systems, cs_key):
+def test_tensor_dependence_construction_and_proxy(cs_flag, coordinate_systems):
     """
     Confirm that DenseTensorDependence can be constructed with correct shape and symbolic proxy.
     """
-    cs = coordinate_systems[cs_key]
-    tensor = dep.DenseTensorDependence(cs, 2, dependent_axes=cs.__AXES__[:2])
+    cs = coordinate_systems[cs_flag]
+    tensor = dep.DenseTensorDependence(cs, 2, dependent_axes=cs.__AXES__)
 
     assert tensor.rank == 2
     assert tensor.shape == (cs.ndim, cs.ndim)
-    assert tensor.dependent_axes == cs.__AXES__[:2]
+    assert tensor.dependent_axes == cs.__AXES__
 
     proxy = tensor.symbolic_proxy
     assert isinstance(proxy, sp.DenseNDimArray)
@@ -171,8 +160,7 @@ def test_tensor_dependence_construction_and_proxy(coordinate_systems, cs_key):
     assert all(str(sym) in str(proxy) for sym in tensor.axes_symbols)
 
 
-@pytest.mark.parametrize("cs_key", __all_coordinate_systems_params__)
-def test_tensor_index_raising_lowering_updates_dependence(coordinate_systems, cs_key):
+def test_tensor_index_raising_lowering_updates_dependence(cs_flag, coordinate_systems):
     """
     Test that raising and lowering a tensor index modifies the dependence
     appropriately by incorporating metric dependence.
@@ -185,26 +173,23 @@ def test_tensor_index_raising_lowering_updates_dependence(coordinate_systems, cs
     Oblate Spherical:   ['xi']          -> ['xi', 'theta']
     Oblate Non-Spherical: ['xi']        -> ['xi', 'theta']
     """
-    cs = coordinate_systems[cs_key]
-    original = dep.DenseTensorDependence(cs, 1, dependent_axes=[cs.__AXES__[0]])
+    __test_key__ = __answer_key__["tensor_index_raising_lowering_updates_dependence"]
+    if cs_flag not in __test_key__:
+        pytest.skip(f"Not Implemented: {cs_flag}.")
 
-    raised = original.raise_index(0)
+    cs = coordinate_systems[cs_flag]
+    dep_obj = dep.DenseTensorDependence(cs, 1, dependent_axes=cs.__AXES__[0])
+
+    raised = dep_obj.raise_index(0)
     lowered = raised.lower_index(0)
 
     # Expected dependence sets after metric contraction
-    expected_dependence = {
-        "cartesian": ["x"],
-        "spherical": ["r", "theta"],
-        "oblate_spherical": ["xi", "theta"],
-        "oblate_non_spherical": ["xi", "theta"],
-    }
-
-    assert set(raised.dependent_axes) == set(expected_dependence[cs_key])
-    assert set(lowered.dependent_axes) == set(expected_dependence[cs_key])
+    expected_dependence = __test_key__[cs_flag]
+    assert set(raised.dependent_axes) == set(expected_dependence)
+    assert set(lowered.dependent_axes) == set(expected_dependence)
 
 
-@pytest.mark.parametrize("cs_key", __all_coordinate_systems_params__)
-def test_tensor_gradient_and_laplacian(coordinate_systems, cs_key):
+def test_tensor_gradient_and_laplacian(cs_flag, coordinate_systems):
     """
     Test that tensor gradient and Laplacian return valid dependence objects
     and that their symbolic coordinate dependence is correctly updated.
@@ -225,23 +210,27 @@ def test_tensor_gradient_and_laplacian(coordinate_systems, cs_key):
     """
     # Create the coordinate system and
     # the dependence objects.
-    cs = coordinate_systems[cs_key]
-    tensor = dep.DenseTensorDependence(cs, 1, dependent_axes=[cs.__AXES__[1]])
+    __test_key__ = __answer_key__["tensor_gradient_and_laplacian"]
+    if cs_flag not in __test_key__:
+        pytest.skip(f"Not Implemented: {cs_flag}.")
+
+    cs = coordinate_systems[cs_flag]
+    dep_obj = dep.DenseTensorDependence(cs, 1, dependent_axes=cs.__AXES__[1])
 
     # --- Perform the computations --- #
-    co_grad_obj, contra_grad_obj = tensor.gradient(basis="covariant"), tensor.gradient(
-        basis="contravariant"
-    )
-    lap_obj = tensor.laplacian()
+    co_grad_obj, contra_grad_obj = dep_obj.gradient(
+        basis="covariant"
+    ), dep_obj.gradient(basis="contravariant")
+    lap_obj = dep_obj.laplacian()
 
     # --- Structural assertions --- #
     assert isinstance(co_grad_obj, dep.DenseTensorDependence)
     assert isinstance(contra_grad_obj, dep.DenseTensorDependence)
     assert isinstance(lap_obj, dep.DenseTensorDependence)
 
-    assert co_grad_obj.rank == tensor.rank + 1
-    assert contra_grad_obj.rank == tensor.rank + 1
-    assert lap_obj.rank == tensor.rank
+    assert co_grad_obj.rank == dep_obj.rank + 1
+    assert contra_grad_obj.rank == dep_obj.rank + 1
+    assert lap_obj.rank == dep_obj.rank
 
     # --- Symbolic structure checks --- #
     assert isinstance(co_grad_obj.symbolic_proxy, sp.DenseNDimArray)
@@ -249,37 +238,26 @@ def test_tensor_gradient_and_laplacian(coordinate_systems, cs_key):
     assert isinstance(lap_obj.symbolic_proxy, sp.DenseNDimArray)
 
     # --- Coordinate dependence expectations --- #
-    expected_dependence = {
-        "cartesian": dict(co=["y"], contra=["y"], lap=["y"]),
-        "spherical": dict(co=["theta"], contra=["r", "theta"], lap=["r", "theta"]),
-        "oblate_spherical": dict(
-            co=["theta"], contra=["xi", "theta"], lap=["xi", "theta"]
-        ),
-        "oblate_non_spherical": dict(
-            co=["theta"], contra=["xi", "theta"], lap=["xi", "theta"]
-        ),
-    }
 
-    expected = expected_dependence[cs_key]
+    expected = __test_key__[cs_flag]
 
     # --- Check that the dependent axes match expectation --- #
     assert set(co_grad_obj.dependent_axes) == set(
         expected["co"]
-    ), f"Co gradient mismatch for {cs_key}"
+    ), f"Co gradient mismatch for {[cs_flag]}"
     assert set(contra_grad_obj.dependent_axes) == set(
         expected["contra"]
-    ), f"Contra gradient mismatch for {cs_key}"
+    ), f"Contra gradient mismatch for {[cs_flag]}"
     assert set(lap_obj.dependent_axes) == set(
         expected["lap"]
-    ), f"Laplacian mismatch for {cs_key}"
+    ), f"Laplacian mismatch for {[cs_flag]}"
 
 
-@pytest.mark.parametrize("cs_key", __all_coordinate_systems_params__)
-def test_tensor_divergence_on_vector_only(coordinate_systems, cs_key):
+def test_tensor_divergence_on_vector_only(cs_flag, coordinate_systems):
     """
     Test divergence is valid for rank-1 tensors and raises for others.
     """
-    cs = coordinate_systems[cs_key]
+    cs = coordinate_systems[cs_flag]
 
     # Valid case: rank 1
     v = dep.DenseTensorDependence(cs, 1, dependent_axes=cs.__AXES__[:1])

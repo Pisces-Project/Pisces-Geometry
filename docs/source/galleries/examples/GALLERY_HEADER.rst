@@ -1,3 +1,5 @@
+:orphan:
+
 .. image:: ../images/PyMetric.png
    :width: 300px
    :align: center

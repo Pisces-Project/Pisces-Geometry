@@ -80,7 +80,7 @@ def nfw_density_spherical(r, _rho0=rho0, _Rs=Rs):
 
 # %%
 # Construct Coordinate System and Grid
-# -----------------------------------
+# -------------------------------------
 #
 # We define an oblate homoeoidal coordinate system with a given eccentricity.
 # The computational grid is constructed over three axes:

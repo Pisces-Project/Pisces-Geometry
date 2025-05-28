@@ -1045,7 +1045,6 @@ class GridBase(
 
         Notes
         -----
-
         For all subclasses of :class:`GridBase`, this method should be overwritten to ensure
         that all of the necessary metadata is saved / loaded to / from HDF5 properly. There
         are various helper methods for setting up the HDF5 group object, saving unit systems, and

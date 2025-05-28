@@ -26,7 +26,7 @@ will, in the general case depend on additional coordinates.
 To contend with this, :class:`~fields.components.FieldComponent` objects and fields themselves pay
 attention to the dependence of the operations they perform so that results are **automatically cast
 to the correct axes**. Supporting this capability is the :mod:`differential_geometry.dependence` module,
-which uses `SymPy <https://docs.sympy.org/latest/index.html>`_ to determine operational dependencies.
+which uses `SymPy <https://docs.sympy.org/latest/index.html>`__ to determine operational dependencies.
 
 
 .. contents::
@@ -60,7 +60,7 @@ A **dependence object** is a symbolic representation of a field’s dependence o
 within a given coordinate system. It encapsulates three core components:
 
 - A reference to a **coordinate system**, which provides the geometric context.
-- A **symbolic proxy**, constructed using `SymPy <https://www.sympy.org>`_, that mimics the behavior
+- A **symbolic proxy**, constructed using `SymPy <https://www.sympy.org>`__, that mimics the behavior
   of the actual field. For scalars, this is a SymPy function; for tensors, it is a multidimensional
   array of symbolic functions.
 - A set of **dependent axes** that describe which coordinates the field depends on.

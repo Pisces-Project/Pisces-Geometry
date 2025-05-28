@@ -1,7 +1,7 @@
 """
 Symbolic operational dependence manager classes.
 
-This module contains `SymPy <https://docs.sympy.org/latest/index.html>`_ based handlers
+This module contains `SymPy <https://docs.sympy.org/latest/index.html>`__ based handlers
 for keeping track of dependence in differential operations.
 """
 import operator
@@ -195,15 +195,19 @@ class OperatorsMixin(Generic[_DepA]):
         )
 
     def __add__(self, other):
+        """Add two dependence objects."""
         return self.__binary_operation__(other, operator.add, "__add__")
 
     def __sub__(self, other):
+        """Subtract two dependence objects."""
         return self.__binary_operation__(other, operator.sub, "__sub__")
 
     def __mul__(self, other):
+        """Multiply two dependence objects."""
         return self.__binary_operation__(other, operator.mul, "__mul__")
 
     def __truediv__(self, other):
+        """Divide two dependence objects."""
         return self.__binary_operation__(other, operator.truediv, "__truediv__")
 
     # @@ Element Wise Differential Operations @@ #
@@ -577,6 +581,7 @@ class DependenceObject(ABC):
         return f"<{self.__class__.__name__} | {self.coordinate_system}>"
 
     def __str__(self) -> str:
+        """Return a str version of the object."""
         return self.__repr__()
 
     # @@ Universal Properties @@ #
@@ -812,7 +817,7 @@ class DenseDependenceObject(DependenceObject, OperatorsMixin):
     @property
     def rank(self) -> int:
         """
-        The tensor rank (number of indices) of this field.
+        The tensor rank [number of indices] of this field.
 
         Returns
         -------
@@ -1023,7 +1028,7 @@ class DenseTensorDependence(DenseDependenceObject, TensorDependenceMixin):
     @property
     def rank(self) -> int:
         """
-        The tensor rank (number of indices) of this field.
+        The tensor rank [number of indices] of this field.
 
         Returns
         -------
