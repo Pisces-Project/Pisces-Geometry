@@ -1,6 +1,0 @@
-fields.buffers.base.BufferBase.ndim
-===================================
-
-.. currentmodule:: fields.buffers.base
-
-.. autoproperty:: BufferBase.ndim

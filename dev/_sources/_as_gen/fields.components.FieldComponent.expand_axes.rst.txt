@@ -1,6 +1,0 @@
-fields.components.FieldComponent.expand\_axes
-=============================================
-
-.. currentmodule:: fields.components
-
-.. automethod:: FieldComponent.expand_axes

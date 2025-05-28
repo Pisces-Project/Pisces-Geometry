@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.OblateSpheroidalCoordinateSystem.is\_axes\_subset
-=================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: OblateSpheroidalCoordinateSystem.is_axes_subset

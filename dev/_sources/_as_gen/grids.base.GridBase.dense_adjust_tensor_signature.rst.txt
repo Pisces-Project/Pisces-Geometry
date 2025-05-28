@@ -1,6 +1,0 @@
-grids.base.GridBase.dense\_adjust\_tensor\_signature
-====================================================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.dense_adjust_tensor_signature

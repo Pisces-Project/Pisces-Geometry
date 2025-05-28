@@ -1,6 +1,0 @@
-grids.core.GenericGrid.standardize\_axes
-========================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.standardize_axes

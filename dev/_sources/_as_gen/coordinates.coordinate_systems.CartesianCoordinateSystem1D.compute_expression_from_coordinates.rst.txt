@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.CartesianCoordinateSystem1D.compute\_expression\_from\_coordinates
-==================================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: CartesianCoordinateSystem1D.compute_expression_from_coordinates

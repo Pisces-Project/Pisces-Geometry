@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.PolarCoordinateSystem.get\_mask\_from\_axes
-===========================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: PolarCoordinateSystem.get_mask_from_axes

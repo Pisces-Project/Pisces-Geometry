@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.OblateHomoeoidalCoordinateSystem.to\_hdf5
-=========================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: OblateHomoeoidalCoordinateSystem.to_hdf5

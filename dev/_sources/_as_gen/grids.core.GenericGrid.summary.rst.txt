@@ -1,6 +1,0 @@
-grids.core.GenericGrid.summary
-==============================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.summary

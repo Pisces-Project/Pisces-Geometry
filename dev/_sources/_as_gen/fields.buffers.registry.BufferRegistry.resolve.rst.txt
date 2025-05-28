@@ -1,6 +1,0 @@
-fields.buffers.registry.BufferRegistry.resolve
-==============================================
-
-.. currentmodule:: fields.buffers.registry
-
-.. automethod:: BufferRegistry.resolve

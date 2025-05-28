@@ -1,6 +1,0 @@
-grids.mixins.mathops.DenseMathOpsMixin.dense\_element\_wise\_laplacian
-======================================================================
-
-.. currentmodule:: grids.mixins.mathops
-
-.. automethod:: DenseMathOpsMixin.dense_element_wise_laplacian

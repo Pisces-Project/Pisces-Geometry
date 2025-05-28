@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.PolarCoordinateSystem.create\_coordinate\_list
-==============================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: PolarCoordinateSystem.create_coordinate_list

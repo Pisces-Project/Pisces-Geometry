@@ -1,6 +1,0 @@
-grids.core.GenericGrid.iter\_chunk\_slices
-==========================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.iter_chunk_slices

@@ -1,6 +1,0 @@
-differential\_geometry.dense\_utils.dense\_permute\_tensor\_indices
-===================================================================
-
-.. currentmodule:: differential_geometry.dense_utils
-
-.. autofunction:: dense_permute_tensor_indices

@@ -1,6 +1,0 @@
-coordinates.core.CurvilinearCoordinateSystem.get\_axes\_latex
-=============================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: CurvilinearCoordinateSystem.get_axes_latex

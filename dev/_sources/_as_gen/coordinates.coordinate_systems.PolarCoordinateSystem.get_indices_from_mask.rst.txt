@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.PolarCoordinateSystem.get\_indices\_from\_mask
-==============================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: PolarCoordinateSystem.get_indices_from_mask

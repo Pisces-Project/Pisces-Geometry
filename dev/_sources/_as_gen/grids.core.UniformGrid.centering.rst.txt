@@ -1,6 +1,0 @@
-grids.core.UniformGrid.centering
-================================
-
-.. currentmodule:: grids.core
-
-.. autoproperty:: UniformGrid.centering

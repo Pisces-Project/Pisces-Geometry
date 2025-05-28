@@ -1,6 +1,0 @@
-grids.core.GenericGrid.broadcast\_shapes\_to\_axes
-==================================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.broadcast_shapes_to_axes

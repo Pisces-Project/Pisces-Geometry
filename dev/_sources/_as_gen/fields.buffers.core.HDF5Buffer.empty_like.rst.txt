@@ -1,6 +1,0 @@
-fields.buffers.core.HDF5Buffer.empty\_like
-==========================================
-
-.. currentmodule:: fields.buffers.core
-
-.. automethod:: HDF5Buffer.empty_like

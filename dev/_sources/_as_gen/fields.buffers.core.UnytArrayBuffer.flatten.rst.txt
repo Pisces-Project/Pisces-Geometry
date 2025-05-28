@@ -1,6 +1,0 @@
-fields.buffers.core.UnytArrayBuffer.flatten
-===========================================
-
-.. currentmodule:: fields.buffers.core
-
-.. automethod:: UnytArrayBuffer.flatten

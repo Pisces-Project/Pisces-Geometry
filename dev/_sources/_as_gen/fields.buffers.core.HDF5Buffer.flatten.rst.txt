@@ -1,6 +1,0 @@
-fields.buffers.core.HDF5Buffer.flatten
-======================================
-
-.. currentmodule:: fields.buffers.core
-
-.. automethod:: HDF5Buffer.flatten

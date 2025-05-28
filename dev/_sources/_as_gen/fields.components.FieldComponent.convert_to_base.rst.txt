@@ -1,6 +1,0 @@
-fields.components.FieldComponent.convert\_to\_base
-==================================================
-
-.. currentmodule:: fields.components
-
-.. automethod:: FieldComponent.convert_to_base

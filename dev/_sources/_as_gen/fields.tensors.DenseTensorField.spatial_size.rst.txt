@@ -1,6 +1,0 @@
-fields.tensors.DenseTensorField.spatial\_size
-=============================================
-
-.. currentmodule:: fields.tensors
-
-.. autoproperty:: DenseTensorField.spatial_size

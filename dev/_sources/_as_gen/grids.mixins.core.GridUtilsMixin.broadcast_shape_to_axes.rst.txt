@@ -1,6 +1,0 @@
-grids.mixins.core.GridUtilsMixin.broadcast\_shape\_to\_axes
-===========================================================
-
-.. currentmodule:: grids.mixins.core
-
-.. automethod:: GridUtilsMixin.broadcast_shape_to_axes

@@ -1,6 +1,0 @@
-grids.mixins.chunking.GridChunkingMixin.compute\_chunk\_mesh
-============================================================
-
-.. currentmodule:: grids.mixins.chunking
-
-.. automethod:: GridChunkingMixin.compute_chunk_mesh

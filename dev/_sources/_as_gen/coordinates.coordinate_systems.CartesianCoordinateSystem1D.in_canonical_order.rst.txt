@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.CartesianCoordinateSystem1D.in\_canonical\_order
-================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: CartesianCoordinateSystem1D.in_canonical_order

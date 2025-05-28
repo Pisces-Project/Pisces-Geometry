@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.CartesianCoordinateSystem1D.requires\_expression
-================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: CartesianCoordinateSystem1D.requires_expression

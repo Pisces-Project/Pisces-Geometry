@@ -1,6 +1,0 @@
-grids.base.GridBase.zeros
-=========================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.zeros

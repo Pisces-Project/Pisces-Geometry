@@ -1,6 +1,0 @@
-grids.base.GridBase.full
-========================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.full

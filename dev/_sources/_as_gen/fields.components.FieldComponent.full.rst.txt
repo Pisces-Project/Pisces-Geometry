@@ -1,6 +1,0 @@
-fields.components.FieldComponent.full
-=====================================
-
-.. currentmodule:: fields.components
-
-.. automethod:: FieldComponent.full

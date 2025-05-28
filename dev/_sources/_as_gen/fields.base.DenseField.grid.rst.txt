@@ -1,6 +1,0 @@
-fields.base.DenseField.grid
-===========================
-
-.. currentmodule:: fields.base
-
-.. autoproperty:: DenseField.grid

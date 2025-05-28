@@ -1,6 +1,0 @@
-fields.buffers.core.UnytArrayBuffer.transpose
-=============================================
-
-.. currentmodule:: fields.buffers.core
-
-.. automethod:: UnytArrayBuffer.transpose

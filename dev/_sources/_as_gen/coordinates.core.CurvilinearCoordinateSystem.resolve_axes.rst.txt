@@ -1,6 +1,0 @@
-coordinates.core.CurvilinearCoordinateSystem.resolve\_axes
-==========================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: CurvilinearCoordinateSystem.resolve_axes

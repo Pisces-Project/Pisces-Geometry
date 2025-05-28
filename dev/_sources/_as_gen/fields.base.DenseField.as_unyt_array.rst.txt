@@ -1,6 +1,0 @@
-fields.base.DenseField.as\_unyt\_array
-======================================
-
-.. currentmodule:: fields.base
-
-.. automethod:: DenseField.as_unyt_array

@@ -1,6 +1,0 @@
-coordinates.core.CurvilinearCoordinateSystem.requires\_expression
-=================================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: CurvilinearCoordinateSystem.requires_expression

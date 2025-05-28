@@ -1,6 +1,0 @@
-fields.buffers.core.ArrayBuffer.ndim
-====================================
-
-.. currentmodule:: fields.buffers.core
-
-.. autoproperty:: ArrayBuffer.ndim

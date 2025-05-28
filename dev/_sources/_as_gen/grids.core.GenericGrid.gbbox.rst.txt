@@ -1,6 +1,0 @@
-grids.core.GenericGrid.gbbox
-============================
-
-.. currentmodule:: grids.core
-
-.. autoproperty:: GenericGrid.gbbox

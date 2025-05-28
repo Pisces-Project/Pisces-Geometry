@@ -1,6 +1,0 @@
-fields.tensors.DenseTensorField.ones\_like
-==========================================
-
-.. currentmodule:: fields.tensors
-
-.. automethod:: DenseTensorField.ones_like

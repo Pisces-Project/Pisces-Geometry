@@ -1,6 +1,0 @@
-utilities.arrays.apply\_ufunc\_to\_labels
-=========================================
-
-.. currentmodule:: utilities.arrays
-
-.. autofunction:: apply_ufunc_to_labels

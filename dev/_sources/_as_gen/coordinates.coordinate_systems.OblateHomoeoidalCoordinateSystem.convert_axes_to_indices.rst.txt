@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.OblateHomoeoidalCoordinateSystem.convert\_axes\_to\_indices
-===========================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: OblateHomoeoidalCoordinateSystem.convert_axes_to_indices

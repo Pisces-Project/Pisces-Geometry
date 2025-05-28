@@ -1,6 +1,0 @@
-fields.mixins.components.FieldComponentCoreMixin.to\_value
-==========================================================
-
-.. currentmodule:: fields.mixins.components
-
-.. automethod:: FieldComponentCoreMixin.to_value

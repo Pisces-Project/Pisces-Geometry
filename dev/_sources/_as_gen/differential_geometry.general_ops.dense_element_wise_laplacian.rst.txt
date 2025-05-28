@@ -1,6 +1,0 @@
-differential\_geometry.general\_ops.dense\_element\_wise\_laplacian
-===================================================================
-
-.. currentmodule:: differential_geometry.general_ops
-
-.. autofunction:: dense_element_wise_laplacian

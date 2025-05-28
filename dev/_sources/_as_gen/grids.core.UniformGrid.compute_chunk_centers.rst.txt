@@ -1,6 +1,0 @@
-grids.core.UniformGrid.compute\_chunk\_centers
-==============================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: UniformGrid.compute_chunk_centers

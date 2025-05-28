@@ -1,6 +1,0 @@
-fields.components.FieldComponent.size
-=====================================
-
-.. currentmodule:: fields.components
-
-.. autoproperty:: FieldComponent.size

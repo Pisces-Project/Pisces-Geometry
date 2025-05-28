@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.ConicCoordinateSystem.build\_axes\_mask
-=======================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: ConicCoordinateSystem.build_axes_mask

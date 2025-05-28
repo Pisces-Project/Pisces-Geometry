@@ -1,6 +1,0 @@
-fields.mixins.base.FieldCoreMixin.validate\_components
-======================================================
-
-.. currentmodule:: fields.mixins.base
-
-.. automethod:: FieldCoreMixin.validate_components

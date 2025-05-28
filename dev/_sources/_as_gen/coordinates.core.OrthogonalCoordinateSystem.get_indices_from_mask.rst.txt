@@ -1,6 +1,0 @@
-coordinates.core.OrthogonalCoordinateSystem.get\_indices\_from\_mask
-====================================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: OrthogonalCoordinateSystem.get_indices_from_mask

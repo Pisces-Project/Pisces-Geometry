@@ -1,6 +1,0 @@
-differential\_geometry.dependence.DependenceObject.coordinates\_ndim
-====================================================================
-
-.. currentmodule:: differential_geometry.dependence
-
-.. autoproperty:: DependenceObject.coordinates_ndim

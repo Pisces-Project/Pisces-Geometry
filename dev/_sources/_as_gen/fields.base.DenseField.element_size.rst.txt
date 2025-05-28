@@ -1,6 +1,0 @@
-fields.base.DenseField.element\_size
-====================================
-
-.. currentmodule:: fields.base
-
-.. autoproperty:: DenseField.element_size

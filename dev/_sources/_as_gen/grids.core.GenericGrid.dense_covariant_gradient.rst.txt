@@ -1,6 +1,0 @@
-grids.core.GenericGrid.dense\_covariant\_gradient
-=================================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.dense_covariant_gradient

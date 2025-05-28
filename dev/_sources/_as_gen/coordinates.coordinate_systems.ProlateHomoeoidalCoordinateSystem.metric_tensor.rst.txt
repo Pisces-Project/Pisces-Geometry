@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.ProlateHomoeoidalCoordinateSystem.metric\_tensor
-================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. autoproperty:: ProlateHomoeoidalCoordinateSystem.metric_tensor

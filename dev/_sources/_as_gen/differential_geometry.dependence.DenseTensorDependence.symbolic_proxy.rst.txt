@@ -1,6 +1,0 @@
-differential\_geometry.dependence.DenseTensorDependence.symbolic\_proxy
-=======================================================================
-
-.. currentmodule:: differential_geometry.dependence
-
-.. autoproperty:: DenseTensorDependence.symbolic_proxy

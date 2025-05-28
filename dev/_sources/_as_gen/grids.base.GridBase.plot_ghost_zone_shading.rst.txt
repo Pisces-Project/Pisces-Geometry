@@ -1,6 +1,0 @@
-grids.base.GridBase.plot\_ghost\_zone\_shading
-==============================================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.plot_ghost_zone_shading

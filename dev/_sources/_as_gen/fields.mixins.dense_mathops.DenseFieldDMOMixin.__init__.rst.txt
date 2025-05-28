@@ -1,6 +1,0 @@
-fields.mixins.dense\_mathops.DenseFieldDMOMixin.\_\_init\_\_
-============================================================
-
-.. currentmodule:: fields.mixins.dense_mathops
-
-.. automethod:: DenseFieldDMOMixin.__init__

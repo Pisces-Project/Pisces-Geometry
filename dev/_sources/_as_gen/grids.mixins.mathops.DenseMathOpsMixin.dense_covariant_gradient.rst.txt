@@ -1,6 +1,0 @@
-grids.mixins.mathops.DenseMathOpsMixin.dense\_covariant\_gradient
-=================================================================
-
-.. currentmodule:: grids.mixins.mathops
-
-.. automethod:: DenseMathOpsMixin.dense_covariant_gradient

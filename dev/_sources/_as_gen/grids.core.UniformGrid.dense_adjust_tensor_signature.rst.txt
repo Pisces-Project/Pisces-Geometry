@@ -1,6 +1,0 @@
-grids.core.UniformGrid.dense\_adjust\_tensor\_signature
-=======================================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: UniformGrid.dense_adjust_tensor_signature

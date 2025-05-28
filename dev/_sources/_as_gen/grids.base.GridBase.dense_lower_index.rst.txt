@@ -1,6 +1,0 @@
-grids.base.GridBase.dense\_lower\_index
-=======================================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.dense_lower_index

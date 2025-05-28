@@ -1,6 +1,0 @@
-grids.mixins.mathops.DenseMathOpsMixin.dense\_adjust\_tensor\_signature
-=======================================================================
-
-.. currentmodule:: grids.mixins.mathops
-
-.. automethod:: DenseMathOpsMixin.dense_adjust_tensor_signature

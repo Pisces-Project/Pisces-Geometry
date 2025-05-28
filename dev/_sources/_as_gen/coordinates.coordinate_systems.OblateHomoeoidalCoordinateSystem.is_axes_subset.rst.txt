@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.OblateHomoeoidalCoordinateSystem.is\_axes\_subset
-=================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: OblateHomoeoidalCoordinateSystem.is_axes_subset

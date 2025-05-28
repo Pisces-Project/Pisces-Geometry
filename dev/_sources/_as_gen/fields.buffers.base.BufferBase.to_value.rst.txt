@@ -1,6 +1,0 @@
-fields.buffers.base.BufferBase.to\_value
-========================================
-
-.. currentmodule:: fields.buffers.base
-
-.. automethod:: BufferBase.to_value

@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.SphericalCoordinateSystem.parameter\_symbols
-============================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. autoproperty:: SphericalCoordinateSystem.parameter_symbols

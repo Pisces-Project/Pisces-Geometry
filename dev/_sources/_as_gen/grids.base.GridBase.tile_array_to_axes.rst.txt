@@ -1,6 +1,0 @@
-grids.base.GridBase.tile\_array\_to\_axes
-=========================================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.tile_array_to_axes

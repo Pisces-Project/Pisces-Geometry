@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.CylindricalCoordinateSystem.get\_class\_expression
-==================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: CylindricalCoordinateSystem.get_class_expression

@@ -1,6 +1,0 @@
-fields.mixins.components.FieldComponentCoreMixin.ones\_like
-===========================================================
-
-.. currentmodule:: fields.mixins.components
-
-.. automethod:: FieldComponentCoreMixin.ones_like

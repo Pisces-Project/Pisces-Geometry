@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.OblateHomoeoidalCoordinateSystem.parameters
-===========================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. autoproperty:: OblateHomoeoidalCoordinateSystem.parameters

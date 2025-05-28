@@ -1,6 +1,0 @@
-fields.buffers.core.ArrayBuffer.c
-=================================
-
-.. currentmodule:: fields.buffers.core
-
-.. autoproperty:: ArrayBuffer.c

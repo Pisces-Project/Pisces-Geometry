@@ -1,6 +1,0 @@
-coordinates.core.CurvilinearCoordinateSystem.convert\_to
-========================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: CurvilinearCoordinateSystem.convert_to

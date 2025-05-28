@@ -1,6 +1,0 @@
-grids.core.UniformGrid.construct\_chunk\_interpolator
-=====================================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: UniformGrid.construct_chunk_interpolator

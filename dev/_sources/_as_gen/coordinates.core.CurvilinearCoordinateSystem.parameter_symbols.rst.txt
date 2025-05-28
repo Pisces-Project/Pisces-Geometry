@@ -1,6 +1,0 @@
-coordinates.core.CurvilinearCoordinateSystem.parameter\_symbols
-===============================================================
-
-.. currentmodule:: coordinates.core
-
-.. autoproperty:: CurvilinearCoordinateSystem.parameter_symbols

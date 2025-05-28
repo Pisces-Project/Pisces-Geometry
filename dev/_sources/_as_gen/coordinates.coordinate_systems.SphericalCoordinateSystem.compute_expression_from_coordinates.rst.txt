@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.SphericalCoordinateSystem.compute\_expression\_from\_coordinates
-================================================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: SphericalCoordinateSystem.compute_expression_from_coordinates

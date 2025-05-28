@@ -1,6 +1,0 @@
-fields.base.DenseField.ndim
-===========================
-
-.. currentmodule:: fields.base
-
-.. autoproperty:: DenseField.ndim

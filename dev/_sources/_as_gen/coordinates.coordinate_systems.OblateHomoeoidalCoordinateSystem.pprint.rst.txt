@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.OblateHomoeoidalCoordinateSystem.pprint
-=======================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: OblateHomoeoidalCoordinateSystem.pprint

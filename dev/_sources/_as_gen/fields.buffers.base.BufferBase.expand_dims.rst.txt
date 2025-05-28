@@ -1,6 +1,0 @@
-fields.buffers.base.BufferBase.expand\_dims
-===========================================
-
-.. currentmodule:: fields.buffers.base
-
-.. automethod:: BufferBase.expand_dims

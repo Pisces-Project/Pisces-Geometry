@@ -1,6 +1,0 @@
-fields.base.DenseField.rank
-===========================
-
-.. currentmodule:: fields.base
-
-.. autoproperty:: DenseField.rank

@@ -1,6 +1,0 @@
-fields.base.DenseField.units
-============================
-
-.. currentmodule:: fields.base
-
-.. autoproperty:: DenseField.units
