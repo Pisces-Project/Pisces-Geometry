@@ -75,7 +75,7 @@ class _FieldBase(FieldCoreMixin):
     """
     The priority of the component class in numpy operations.
     """
-    __array_function_dispatch__: Optional[Dict[Callable, Callable]] = None
+    __array_function_dispatch__: Optional[Dict[Callable, Callable]] = {}
     """
     `__array_function_dispatch__` is a dictionary which can optionally map
     NumPy callables to internal implementations to allow overriding of default behavior.

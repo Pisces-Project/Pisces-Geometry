@@ -265,10 +265,12 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
             The buffer backend used to hold data.
         buffer_registry : ~fields.buffers.registry.BufferRegistry, optional
             Registry used to resolve buffer class strings.
-        buffer_kwargs : dict, optional
-            Extra keyword arguments passed to the buffer constructor (e.g., units).
-        **kwargs :
-            Additional keyword arguments forwarded to the function `func`.
+        buffer_args:
+            Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
+        buffer_kwargs :
+            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
+        *args, **kwargs :
+            Additional arguments forwarded to the function `func`.
 
         Returns
         -------
@@ -306,7 +308,9 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
             If not provided, defaults to `ArrayBuffer`.
         buffer_registry : ~fields.buffers.registry.BufferRegistry, optional
             Custom registry to use for resolving string buffer types.
-        *args, **kwargs :
+        buffer_args:
+            Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
+        buffer_kwargs :
             Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
 
         Returns
@@ -354,8 +358,10 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
         buffer_registry : ~fields.buffer.registry.BufferRegistry, optional
             Custom registry to use for resolving buffer class strings. By default, the standard
             registry is used.
-        **kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `dtype`, `units`).
+        buffer_args:
+            Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
+        buffer_kwargs :
+            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
 
         Returns
         -------
@@ -399,8 +405,10 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
         buffer_registry : ~fields.buffer.registry.BufferRegistry, optional
             Custom registry to use for resolving buffer class strings. By default, the standard
             registry is used.
-        **kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `dtype`, `units`).
+        buffer_args:
+            Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
+        buffer_kwargs :
+            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
 
         Returns
         -------
@@ -444,8 +452,10 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
         buffer_registry : ~fields.buffer.registry.BufferRegistry, optional
             Custom registry to use for resolving buffer class strings. By default, the standard
             registry is used.
-        **kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `dtype`, `units`).
+        buffer_args:
+            Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
+        buffer_kwargs :
+            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
 
         Returns
         -------

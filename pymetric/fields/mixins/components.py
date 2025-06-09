@@ -332,10 +332,10 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         array_like: Any,
         grid: "GridBase",
         axes: Sequence[str],
-        *args,
+        buffer_args: Sequence[Any] = (),
         buffer_class: Optional[Type["BufferBase"]] = None,
         buffer_registry: Optional["BufferRegistry"] = None,
-        **kwargs,
+        buffer_kwargs: Optional[Dict[str, Any]] = None,
     ) -> _SupFCCore:
         """
         Construct a :class:`~fields.components.FieldComponent` from an existing array-like object.
@@ -358,7 +358,9 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
             If not provided, defaults to `ArrayBuffer`.
         buffer_registry : ~fields.buffers.registry.BufferRegistry, optional
             Custom registry to use for resolving string buffer types.
-        *args, **kwargs :
+        buffer_args:
+            Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
+        buffer_kwargs :
             Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
 
         Returns
@@ -372,6 +374,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
             If the input array shape is incompatible with the grid and axes.
         """
         # Resolve the buffer class.
+        buffer_kwargs = buffer_kwargs or {}
         buffer_class: Type["BufferBase"] = resolve_buffer_class(
             buffer_class, buffer_registry=buffer_registry, default=ArrayBuffer
         )
@@ -390,7 +393,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
             )
 
         # Compute element shape and wrap in buffer.
-        buff = buffer_class.from_array(array_like, *args, **kwargs)
+        buff = buffer_class.from_array(array_like, *buffer_args, **buffer_kwargs)
 
         return cls(grid, buff, axes)
 
@@ -400,10 +403,10 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         func: Callable[..., Any],
         grid: "GridBase",
         axes: Sequence[str],
-        *args,
         result_shape: Optional[Sequence[int]] = None,
         buffer_class: Optional[Type["BufferBase"]] = None,
         buffer_registry: Optional["BufferRegistry"] = None,
+        buffer_args: Sequence[Any] = (),
         buffer_kwargs: Optional[Dict[str, Any]] = None,
         **kwargs,
     ) -> _SupFCCore:
@@ -423,16 +426,16 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
             The grid over which to evaluate the function.
         axes : list of str
             Coordinate axes along which the field is defined.
-        *args :
-            Additional arguments forwarded to the buffer constructor (e.g., dtype).
         result_shape : tuple of int, optional
             Shape of trailing element-wise structure (e.g., for vectors/tensors). Defaults to scalar `()`.
         buffer_class : str or ~fields.buffers.base.BufferBase, optional
             The buffer backend used to hold data.
         buffer_registry : ~fields.buffers.registry.BufferRegistry, optional
             Registry used to resolve buffer class strings.
-        buffer_kwargs : dict, optional
-            Extra keyword arguments passed to the buffer constructor (e.g., units).
+        buffer_args:
+            Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
+        buffer_kwargs :
+            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
         **kwargs :
             Additional keyword arguments forwarded to the function `func`.
 
@@ -453,11 +456,11 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         buff = cls.zeros(
             grid,
             axes,
-            *args,
+            buffer_args=buffer_args,
             element_shape=result_shape,
             buffer_class=buffer_class,
             buffer_registry=buffer_registry,
-            **buffer_kwargs,
+            buffer_kwargs=buffer_kwargs,
         )
 
         # Evaluate the function and store the result in the buffer
@@ -473,11 +476,11 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         cls: Type[_SupFCCore],
         grid: "GridBase",
         axes: Sequence[str],
-        *args,
         element_shape: Optional[Sequence[int]] = None,
         buffer_class: Optional[Type[_SupFCCore]] = None,
         buffer_registry: Optional["BufferRegistry"] = None,
-        **kwargs,
+        buffer_args: Optional[Sequence[Any]] = None,
+        buffer_kwargs: Optional[Dict[str, Any]] = None,
     ) -> _SupFCCore:
         """
         Create a component filled with zeros.
@@ -492,9 +495,6 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
             The spatial axes of the underlying coordinate system over which the field is
             defined. This must be some subset of the axes available in the coordinate system
             of `grid`.
-        *args :
-            Additional positional arguments forwarded to the buffer constructor. The specific
-            available args will depend on ``buffer_class`` and ``buffer_registry``.
         element_shape : tuple of int, optional
             Shape of the element-wise data structure (e.g., vector or tensor dimensions). This
             does **not** include the spatial shape, which is fixed by the grid. The resulting
@@ -508,8 +508,10 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         buffer_registry : ~fields.buffer.registry.BufferRegistry, optional
             Custom registry to use for resolving buffer class strings. By default, the standard
             registry is used.
-        **kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `dtype`, `units`).
+        buffer_args:
+            Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
+        buffer_kwargs :
+            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
 
         Returns
         -------
@@ -517,6 +519,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
             A new field component filled with zeros and defined over the specified grid and axes.
         """
         # Identify a buffer class.
+        buffer_kwargs = buffer_kwargs or {}
         buffer_class: Type["BufferBase"] = resolve_buffer_class(
             buffer_class, buffer_registry=buffer_registry, default=ArrayBuffer
         )
@@ -529,7 +532,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         shape = spatial_shape + element_shape
 
         # Now construct the buffer with the relevant args and kwargs.
-        buff = buffer_class.zeros(shape, *args, **kwargs)
+        buff = buffer_class.zeros(shape, *buffer_args, **buffer_kwargs)
 
         # return the resulting object.
         return cls(grid, buff, axes)
@@ -539,11 +542,11 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         cls: Type[_SupFCCore],
         grid: "GridBase",
         axes: Sequence[str],
-        *args,
         element_shape: Optional[Sequence[int]] = None,
         buffer_class: Optional[Type[_SupFCCore]] = None,
         buffer_registry: Optional["BufferRegistry"] = None,
-        **kwargs,
+        buffer_args: Optional[Sequence[Any]] = None,
+        buffer_kwargs: Optional[Dict[str, Any]] = None,
     ) -> _SupFCCore:
         """
         Create a component filled with ones.
@@ -558,9 +561,6 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
             The spatial axes of the underlying coordinate system over which the field is
             defined. This must be some subset of the axes available in the coordinate system
             of `grid`.
-        *args :
-            Additional positional arguments forwarded to the buffer constructor. The specific
-            available args will depend on ``buffer_class`` and ``buffer_registry``.
         element_shape : tuple of int, optional
             Shape of the element-wise data structure (e.g., vector or tensor dimensions). This
             does **not** include the spatial shape, which is fixed by the grid. The resulting
@@ -574,8 +574,10 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         buffer_registry : ~fields.buffer.registry.BufferRegistry, optional
             Custom registry to use for resolving buffer class strings. By default, the standard
             registry is used.
-        **kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `dtype`, `units`).
+        buffer_args:
+            Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
+        buffer_kwargs :
+            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
 
         Returns
         -------
@@ -584,6 +586,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         """
         # Identify a buffer class.
         # noinspection DuplicatedCode
+        buffer_kwargs = buffer_kwargs or {}
         buffer_class: Type["BufferBase"] = resolve_buffer_class(
             buffer_class, buffer_registry=buffer_registry, default=ArrayBuffer
         )
@@ -596,7 +599,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         shape = spatial_shape + element_shape
 
         # Now construct the buffer with the relevant args and kwargs.
-        buff = buffer_class.ones(shape, *args, **kwargs)
+        buff = buffer_class.ones(shape, *buffer_args, **buffer_kwargs)
 
         # return the resulting object.
         return cls(grid, buff, axes)
@@ -606,11 +609,11 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         cls: Type[_SupFCCore],
         grid: "GridBase",
         axes: Sequence[str],
-        *args,
         element_shape: Optional[Sequence[int]] = None,
         buffer_class: Optional[Type[_SupFCCore]] = None,
         buffer_registry: Optional["BufferRegistry"] = None,
-        **kwargs,
+        buffer_args: Optional[Sequence[Any]] = None,
+        buffer_kwargs: Optional[Dict[str, Any]] = None,
     ) -> _SupFCCore:
         """
         Create a component with an empty buffer.
@@ -625,9 +628,6 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
             The spatial axes of the underlying coordinate system over which the field is
             defined. This must be some subset of the axes available in the coordinate system
             of `grid`.
-        *args :
-            Additional positional arguments forwarded to the buffer constructor. The specific
-            available args will depend on ``buffer_class`` and ``buffer_registry``.
         element_shape : tuple of int, optional
             Shape of the element-wise data structure (e.g., vector or tensor dimensions). This
             does **not** include the spatial shape, which is fixed by the grid. The resulting
@@ -641,8 +641,10 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         buffer_registry : ~fields.buffer.registry.BufferRegistry, optional
             Custom registry to use for resolving buffer class strings. By default, the standard
             registry is used.
-        **kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `dtype`, `units`).
+        buffer_args:
+            Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
+        buffer_kwargs :
+            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
 
         Returns
         -------
@@ -651,6 +653,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         """
         # Identify a buffer class.
         # noinspection DuplicatedCode
+        buffer_kwargs = buffer_kwargs or {}
         buffer_class: Type["BufferBase"] = resolve_buffer_class(
             buffer_class, buffer_registry=buffer_registry, default=ArrayBuffer
         )
@@ -663,7 +666,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         shape = spatial_shape + element_shape
 
         # Now construct the buffer with the relevant args and kwargs.
-        buff = buffer_class.empty(shape, *args, **kwargs)
+        buff = buffer_class.empty(shape, *buffer_args, **buffer_kwargs)
 
         # return the resulting object.
         return cls(grid, buff, axes)
@@ -673,12 +676,12 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         cls: Type[_SupFCCore],
         grid: "GridBase",
         axes: Sequence[str],
-        *args,
         fill_value: float = 0.0,
         element_shape: Optional[Sequence[int]] = None,
         buffer_class: Optional[Type[_SupFCCore]] = None,
         buffer_registry: Optional["BufferRegistry"] = None,
-        **kwargs,
+        buffer_args: Optional[Sequence[Any]] = None,
+        buffer_kwargs: Optional[Dict[str, Any]] = None,
     ) -> _SupFCCore:
         """
         Create a component filled with a particular fill value.
@@ -693,9 +696,6 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
             The spatial axes of the underlying coordinate system over which the field is
             defined. This must be some subset of the axes available in the coordinate system
             of `grid`.
-        *args :
-            Additional positional arguments forwarded to the buffer constructor. The specific
-            available args will depend on ``buffer_class`` and ``buffer_registry``.
         fill_value : float, optional
             The fill value to fill the newly initialized component with. This should be a floating point
             value. By default, the fill value is 0.0.
@@ -712,8 +712,10 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         buffer_registry : ~fields.buffer.registry.BufferRegistry, optional
             Custom registry to use for resolving buffer class strings. By default, the standard
             registry is used.
-        **kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `dtype`, `units`).
+        buffer_args:
+            Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
+        buffer_kwargs :
+            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
 
         Returns
         -------
@@ -722,6 +724,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         """
         # Identify a buffer class.
         # noinspection DuplicatedCode
+        buffer_kwargs = buffer_kwargs or {}
         buffer_class: Type["BufferBase"] = resolve_buffer_class(
             buffer_class, buffer_registry=buffer_registry, default=ArrayBuffer
         )
@@ -734,7 +737,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         shape = spatial_shape + element_shape
 
         # Now construct the buffer with the relevant args and kwargs.
-        buff = buffer_class.full(shape, *args, fill_value=fill_value, **kwargs)
+        buff = buffer_class.full(shape, *buffer_args, fill_value=fill_value, **buffer_kwargs)
 
         # return the resulting object.
         return cls(grid, buff, axes)

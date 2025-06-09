@@ -1,5 +1,5 @@
 """
-Testing suite for field components.
+Testing suite for testing the creation of component objects.
 """
 import os
 
@@ -8,11 +8,8 @@ import pytest
 
 from pymetric import (
     ArrayBuffer,
-    CartesianCoordinateSystem3D,
     FieldComponent,
     HDF5Buffer,
-    SphericalCoordinateSystem,
-    UniformGrid,
 )
 
 # Create fixture class lists for easier, more readable
@@ -54,14 +51,15 @@ def test_comp_constructors(
 
     # --- Factory and kwargs --- #
     factory = getattr(FieldComponent, method)
-    factory_args = []
-    factory_kwargs = dict(dtype=np.float64)
+    buffer_args = []
+    buffer_kwargs = dict(dtype=np.float64)
+    factory_kwargs = {}
 
     if buffer_class is HDF5Buffer:
-        factory_args.extend(
+        buffer_args.extend(
             [os.path.join(tempdir, f"{method}_{cs_flag}.hdf5"), f"field_component"]
         )
-        factory_kwargs["create_file"] = True
+        buffer_kwargs["create_file"] = True
 
     if method == "full":
         factory_kwargs["fill_value"] = 3.14
@@ -72,7 +70,7 @@ def test_comp_constructors(
 
     # --- Construct the component --- #
     component = factory(
-        grid, axes, *factory_args, buffer_class=buffer_class, **factory_kwargs
+        grid, axes, buffer_args=buffer_args, buffer_class=buffer_class, buffer_kwargs=buffer_kwargs, **factory_kwargs
     )
 
     # --- Validations --- #
@@ -91,8 +89,8 @@ def test_comp_constructors(
         np.testing.assert_allclose(array, 1.0)
     elif method == "full":
         # Default fill value assumed; modify if needed
-        factory_kwargs.setdefault("fill_value", 3.14)
-        np.testing.assert_allclose(array, factory_kwargs["fill_value"])
+        buffer_kwargs.setdefault("fill_value", 3.14)
+        np.testing.assert_allclose(array, buffer_kwargs["fill_value"])
     elif method == "empty":
         assert array.shape == component.shape  # content undefined, just check shape
 
@@ -125,7 +123,7 @@ def test_comp_from_function(buffer_class, tmp_path_factory, uniform_grids):
         func,
         cartesian_grid,
         ["x", "y", "z"],
-        *args,
+        buffer_args=args,
         buffer_class=buffer_class,
         buffer_kwargs=buffer_kwargs,
     )

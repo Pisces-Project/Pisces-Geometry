@@ -97,7 +97,7 @@ class FieldComponent(
     """
     The priority of the component class in numpy operations.
     """
-    __array_function_dispatch__: Optional[Dict[Callable, Callable]] = None
+    __array_function_dispatch__: Optional[Dict[Callable, Callable]] = {}
     """
     `__array_function_dispatch__` is a dictionary which can optionally map
     NumPy callables to internal implementations to allow overriding of default behavior.
@@ -471,7 +471,7 @@ class FieldComponent(
     @property
     def is_scalar(self) -> bool:
         """Return True if the field has no element-wise structure."""
-        return self.element_ndim == ()
+        return self.element_ndim == 0
 
     @property
     def size(self) -> int:
