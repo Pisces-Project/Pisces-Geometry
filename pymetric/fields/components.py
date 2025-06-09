@@ -31,7 +31,6 @@ from typing import (
 )
 
 import numpy as np
-import unyt
 from numpy.typing import ArrayLike
 
 from pymetric.fields.buffers import buffer_from_array
@@ -237,9 +236,7 @@ class FieldComponent(
         unwrapped_inputs = []
         for _i, inp in enumerate(inputs):
             if isinstance(inp, FieldComponent):
-                unwrapped_inputs.append(
-                    inp.broadcast_to_buffer_repr_in_axes(broadcast_axes)
-                )
+                unwrapped_inputs.append(inp.broadcast_buffer_to_axes(broadcast_axes))
                 input_axes[_i] = broadcast_axes
             else:
                 unwrapped_inputs.append(inp)
@@ -380,51 +377,6 @@ class FieldComponent(
         """
         return self.__buffer__.as_array()
 
-    def as_unyt_array(self) -> unyt.unyt_array:
-        """
-        Return the buffer as a unit-aware `unyt_array`.
-
-        This includes the physical units associated with the buffer (if any),
-        allowing for unit-aware operations using the `unyt` library.
-
-        Returns
-        -------
-        unyt.unyt_array
-            A `unyt` array view of the buffer, with units preserved.
-        """
-        return self.__buffer__.as_unyt_array()
-
-    def as_buffer_core(self) -> Any:
-        """
-        Return the raw backend array (e.g., `np.ndarray`, `unyt_array`, `h5py.Dataset`).
-
-        This gives direct access to the underlying array-like object stored in the buffer,
-        allowing low-level operations or access to backend-specific APIs.
-
-        Returns
-        -------
-        Any
-            The native backend array object wrapped by the buffer.
-        """
-        return self.__buffer__.as_core()
-
-    def as_buffer_repr(self) -> Any:
-        """
-        Return a NumPy-compatible representation of the buffer.
-
-        This representation is used for NumPy ufunc compatibility and typically
-        returns a view or copy of the data suitable for elementwise operations.
-
-        For unit-aware buffers, this may return a `unyt_array`; for others,
-        a NumPy array.
-
-        Returns
-        -------
-        Any
-            A NumPy-compatible array suitable for broadcasting and ufunc evaluation.
-        """
-        return self.__buffer__.as_repr()
-
     # --- Attributes --- #
     # Standardized attributes for component classes.
     @property
@@ -522,22 +474,6 @@ class FieldComponent(
         return self.element_ndim == ()
 
     @property
-    def units(self) -> Optional[unyt.Unit]:
-        """
-        Physical units attached to the buffer data, if defined.
-
-        Returns
-        -------
-        unyt.unit_registry.Unit or None
-            The units attached to this field’s buffer.
-        """
-        return self.__buffer__.units
-
-    @units.setter
-    def units(self, value):
-        self.__buffer__.units = value
-
-    @property
     def size(self) -> int:
         """
         Total number of elements in the buffer.
@@ -608,3 +544,16 @@ class FieldComponent(
             The NumPy dtype or equivalent backend type.
         """
         return self.__buffer__.dtype
+
+    @property
+    def c(self):
+        """
+        Shorthand to obtain the underlying buffer's core
+        object.
+
+        Returns
+        -------
+        ArrayLike
+            The backend-native data structure stored in this buffer.
+        """
+        return self.__buffer__.__array_object__

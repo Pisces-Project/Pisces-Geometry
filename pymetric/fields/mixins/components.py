@@ -15,7 +15,6 @@ from typing import (
 )
 
 import numpy as np
-import unyt
 
 from pymetric.fields.buffers import ArrayBuffer, resolve_buffer_class
 
@@ -77,86 +76,6 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
             self.as_array(), self.__axes__, axes, **kwargs
         )
 
-    def broadcast_to_unyt_array_in_axes(
-        self: _SupFCCore, axes: "AxesInput", **kwargs
-    ) -> unyt.unyt_array:
-        """
-        Return the field data as a unit-aware `unyt_array` broadcasted to specified axes.
-
-        This reshapes the array to match the specified `axes`, preserving any attached units.
-
-        Parameters
-        ----------
-        axes : list of str
-            Target axes to broadcast over.
-        **kwargs :
-            Additional keyword arguments passed to `np.broadcast_to`.
-
-        Returns
-        -------
-        unyt.unyt_array
-            The field data as a unit-aware array aligned with the given axes.
-        """
-        axes = self.__grid__.standardize_axes(axes)
-        return unyt.unyt_array(
-            self.__grid__.broadcast_array_to_axes(
-                self.as_array(), self.__axes__, axes, **kwargs
-            ),
-            self.units,
-        )
-
-    def broadcast_to_buffer_core_in_axes(
-        self: _SupFCCore, axes: "AxesInput", **kwargs
-    ) -> Any:
-        """
-        Return the core backend array (e.g., NumPy, HDF5) broadcasted to a specified set of axes.
-
-        This method reshapes the raw backend representation of the buffer so its axes
-        align with `axes`.
-
-        Parameters
-        ----------
-        axes : list of str
-            Target axes to broadcast over.
-        **kwargs :
-            Additional keyword arguments passed to `np.broadcast_to`.
-
-        Returns
-        -------
-        Any
-            The core array representation (e.g., `np.ndarray`, `unyt_array`) aligned with `axes`.
-        """
-        axes = self.__grid__.standardize_axes(axes)
-        return self.__grid__.broadcast_array_to_axes(
-            self.as_buffer_core(), self.__axes__, axes, **kwargs
-        )
-
-    def broadcast_to_buffer_repr_in_axes(
-        self: _SupFCCore, axes: "AxesInput", **kwargs
-    ) -> Any:
-        """
-        Return the NumPy-compatible buffer representation broadcasted to specified axes.
-
-        This reshapes the representation returned by `as_buffer_repr()` to match the
-        given axes, enabling safe elementwise operations or broadcasting.
-
-        Parameters
-        ----------
-        axes : list of str
-            Target axes to broadcast over.
-        **kwargs :
-            Additional keyword arguments passed to `np.broadcast_to`.
-
-        Returns
-        -------
-        Any
-            A NumPy-compatible array (e.g., `np.ndarray`, `unyt_array`) aligned with `axes`.
-        """
-        axes = self.__grid__.standardize_axes(axes)
-        return self.__grid__.broadcast_array_to_axes(
-            self.as_buffer_repr(), self.__axes__, axes, **kwargs
-        )
-
     def broadcast_buffer_to_axes(
         self: _SupFCCore,
         axes: "AxesInput",
@@ -191,7 +110,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
 
         # Broadcast underlying data to new axes
         data = self.__grid__.broadcast_array_to_axes(
-            self.as_buffer_repr(), self.__axes__, axes
+            self.as_array(), self.__axes__, axes
         )
 
         # Use default or override buffer type
@@ -208,7 +127,6 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         out: Optional[Union[_SupFCCore, "BufferBase"]] = None,
         buffer_class: Optional[Type["BufferBase"]] = None,
         buffer_registry: Optional["BufferRegistry"] = None,
-        check_units: bool = False,
         **kwargs,
     ) -> _SupFCCore:
         """
@@ -227,8 +145,6 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
             If no `out` is given, this buffer class is used to construct a new one.
         buffer_registry : BufferRegistry, optional
             Registry used to resolve string buffer types.
-        check_units : bool, default False
-            If True and `out` is a FieldComponent, units must match.
         *args, **kwargs :
             Forwarded to buffer constructor if a new one is created.
 
@@ -251,7 +167,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         # Determine how to perform the expansion in the
         # context of the necessary output.
         expanded_data = self.grid.tile_array_to_axes(
-            self.as_buffer_repr(), self.__axes__, axes, include_ghosts=True
+            self.as_array(), self.__axes__, axes, include_ghosts=True
         )
 
         # Reconstruct the necessary downstream wrappers
@@ -273,10 +189,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
                 raise ValueError(
                     f"Output buffer shape mismatch: expected {expanded_data.shape}, got {out.shape}."
                 )
-            if check_units and (out.units != self.units):
-                raise ValueError(
-                    f"Output buffer unit mismatch: expected {self.units}, got {out.units}."
-                )
+
             out[...] = expanded_data
             return out
 
@@ -288,7 +201,6 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         buffer_class: Optional[Type["BufferBase"]] = None,
         buffer_registry: Optional["BufferRegistry"] = None,
         out: Optional[Union[_SupFCCore, "BufferBase"]] = None,
-        check_units: bool = False,
         **kwargs,
     ) -> _SupFCCore:
         """
@@ -308,8 +220,6 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
             Registry to resolve string-based buffer classes.
         out : FieldComponent or BufferBase, optional
             Optional destination for the result. Can be a FieldComponent or buffer.
-        check_units : bool, default False
-            If True, check that `out` matches this component’s units.
         *args, **kwargs :
             Forwarded to buffer constructor if a new buffer is created.
 
@@ -339,7 +249,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         # Slice down the array with the provided indices. Because we are
         # ensured canonical order, we simply index the axes.
         slc_map = {ax: idx for ax, idx in zip(axes, indices)}
-        reduced_array = self.as_buffer_repr()[
+        reduced_array = self.as_array()[
             tuple(slice(None) if ax not in slc_map else slc_map[ax] for ax in self.axes)
         ]
 
@@ -358,10 +268,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
                 raise ValueError(
                     f"Output shape mismatch: expected {reduced_array.shape}, got {out.shape}."
                 )
-            if check_units and out.units != self.units:
-                raise ValueError(
-                    f"Output units mismatch: expected {self.units}, got {out.units}."
-                )
+
             out[...] = reduced_array
             return out
 
@@ -923,203 +830,3 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         # Extract the other's grid, axes, and shape.
         grid, axes, shape = other.grid, other.axes, other.element_shape
         return cls.full(grid, axes, *args, element_shape=shape, **kwargs)
-
-    # ------------------------------ #
-    # Unit Handling                  #
-    # ------------------------------ #
-    # These method supplement those above to help with
-    # unit handling.
-
-    # === Inplace unit manipulation === #
-    def convert_to_units(
-        self: _SupFCCore,
-        units: Union[str, unyt.Unit],
-        equivalence: Optional[str] = None,
-        **kwargs,
-    ):
-        """
-        Convert the component’s buffer to the specified units (in-place).
-
-        This operation modifies the underlying buffer directly and permanently
-        converts all data to the given units. This is only valid if the buffer
-        supports in-place unit reassignment or conversion.
-
-        Parameters
-        ----------
-        units : str or unyt.Unit
-            Target units to convert the buffer to.
-        equivalence : str, optional
-            Optional equivalence name (e.g., "mass_energy").
-        **kwargs :
-            Additional keyword arguments passed to the equivalence logic.
-
-        Raises
-        ------
-        UnitConversionError
-            If the conversion is invalid or dimensionally inconsistent.
-        NotImplementedError
-            If the buffer does not support unit conversion.
-        """
-        self.buffer.convert_to_units(units, equivalence=equivalence, **kwargs)
-
-    def convert_to_base(
-        self: _SupFCCore,
-        unit_system: Optional[str] = None,
-        equivalence: Optional[str] = None,
-        **kwargs,
-    ):
-        """
-        Convert the buffer to base units of a given system (in-place).
-
-        This is shorthand for converting to the base unit equivalent
-        using `unyt` logic.
-
-        Parameters
-        ----------
-        unit_system : str, optional
-            Target unit system ("mks", "cgs", etc.). Defaults to MKS if not given.
-        equivalence : str, optional
-            Optional equivalence to apply.
-        **kwargs :
-            Extra options forwarded to the equivalence logic.
-
-        Raises
-        ------
-        UnitConversionError
-            If base unit conversion is invalid.
-        NotImplementedError
-            If the buffer does not support unit conversion.
-        """
-        self.buffer.convert_to_base(unit_system, equivalence=equivalence, **kwargs)
-
-    # === Casting Unit Manipulation === #
-
-    def in_units(
-        self: _SupFCCore,
-        units: Union[str, unyt.Unit],
-        *args,
-        as_array: bool = False,
-        equivalence: Optional[str] = None,
-        buffer_class: Optional[Type["BufferBase"]] = None,
-        buffer_registry: Optional["BufferRegistry"] = None,
-        equiv_kw: Optional[dict] = None,
-        **kwargs,
-    ):
-        """
-        Return a version of this component in the specified physical units.
-
-        This returns a **new component** or a unit-tagged array depending on `as_array`.
-        It delegates to the underlying buffer and wraps the result if needed.
-
-        Parameters
-        ----------
-        units : str or unyt.Unit
-            Target units to cast the buffer into.
-        as_array : bool, default False
-            If True, return a `unyt_array`. If False, return a new FieldComponent.
-        equivalence : str, optional
-            Optional equivalence for unit conversion.
-        buffer_class : type, optional
-            Override for buffer resolution (if wrapping).
-        buffer_registry : BufferRegistry, optional
-            If resolving, specify which registry to use.
-        equiv_kw : dict, optional
-            Additional arguments to the equivalence logic.
-        *args, **kwargs :
-            Forwarded to the buffer constructor if wrapping.
-
-        Returns
-        -------
-        FieldComponent or unyt_array
-            A new component (or array) in the desired units.
-
-        Raises
-        ------
-        UnitConversionError
-            If the conversion is invalid.
-        """
-        converted = self.buffer.in_units(
-            units,
-            *args,
-            as_array=as_array,
-            equivalence=equivalence,
-            buffer_class=buffer_class,
-            buffer_registry=buffer_registry,
-            equiv_kw=equiv_kw,
-            **kwargs,
-        )
-        if as_array:
-            return converted
-        return self.__class__(self.grid, converted, self.axes)
-
-    def to(
-        self: _SupFCCore,
-        units: Union[str, unyt.Unit],
-        *args,
-        equivalence: Optional[str] = None,
-        buffer_class: Optional[Type["BufferBase"]] = None,
-        buffer_registry: Optional["BufferRegistry"] = None,
-        as_array: bool = False,
-        **kwargs,
-    ):
-        """
-        Alias for `in_units`.
-
-        Returns a new buffer or array in the desired units.
-
-        Parameters
-        ----------
-        units : str or unyt.Unit
-            Target units.
-        as_array : bool, default False
-            If True, return a raw array instead of a FieldComponent.
-        equivalence : str, optional
-            Unit conversion equivalence.
-        buffer_class : type, optional
-            Explicit buffer type override.
-        buffer_registry : BufferRegistry, optional
-            Custom registry for resolution.
-        *args, **kwargs :
-            Passed to `.in_units`.
-
-        Returns
-        -------
-        FieldComponent or unyt_array
-        """
-        return self.in_units(
-            units,
-            *args,
-            equivalence=equivalence,
-            buffer_class=buffer_class,
-            buffer_registry=buffer_registry,
-            as_array=as_array,
-            **kwargs,
-        )
-
-    def to_value(
-        self: _SupFCCore,
-        units: Union[str, unyt.Unit],
-        equivalence: Optional[str] = None,
-        **kwargs,
-    ) -> np.ndarray:
-        """
-        Return the buffer contents in the specified units, stripped of unit tags.
-
-        This is useful for exporting to numerical formats or plotting libraries
-        that do not understand units.
-
-        Parameters
-        ----------
-        units : str or unyt.Unit
-            Target units to convert to.
-        equivalence : str, optional
-            Unit conversion equivalence.
-        **kwargs :
-            Forwarded to the unit conversion logic.
-
-        Returns
-        -------
-        numpy.ndarray
-            The plain numerical array in the target units.
-        """
-        return self.as_unyt_array().to_value(units, equivalence=equivalence, **kwargs)

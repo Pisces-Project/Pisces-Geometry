@@ -101,67 +101,6 @@ class GridBase(
         self.__cs__: "_CoordinateSystemBase" = coordinate_system
 
     # noinspection PyTypeChecker
-    def __configure_unit_system__(self, units: Optional[Dict[str, str]] = None) -> None:
-        """
-        Configure the internal unit system for the grid.
-
-        Parameters
-        ----------
-        units : dict[str, str], optional
-            A dictionary mapping physical dimensions (e.g., "length", "time", "mass", "angle")
-            to string unit names (e.g., "cm", "s", "g", "rad"). If None, the CGS unit system is used.
-
-        Notes
-        -----
-        The unit system is built by copying the CGS unit system and overriding any
-        specified dimensions with user-defined units. Invalid entries will raise
-        a GridInitializationError to ensure safety and correctness.
-
-        Raises
-        ------
-        TypeError
-            If the provided `units` argument is not a dictionary.
-        ValueError
-            If any unit string cannot be parsed by `unyt`.
-        GridInitializationError
-            If the unit system fails to initialize.
-        """
-        try:
-            if units is None:
-                self.__unit_system__ = unyt.unit_systems.cgs_unit_system
-                return
-
-            if not isinstance(units, dict):
-                raise TypeError(
-                    "`units` must be a dictionary mapping dimensions to unit strings."
-                )
-
-            # Start from CGS and override with user-defined units
-            base_units = {"length": "cm", "mass": "g", "time": "s"}
-            for dim, unit_str in units.items():
-                if not isinstance(dim, str) or not isinstance(unit_str, str):
-                    raise TypeError(
-                        "Both dimension names and unit strings must be strings."
-                    )
-                try:
-                    base_units[dim] = unyt.Unit(unit_str)
-                except Exception as e:
-                    raise ValueError(
-                        f"Invalid unit string for dimension '{dim}': {unit_str}"
-                    ) from e
-
-            # Create new unit system with correct keyword names (e.g., length_unit, time_unit, etc.)
-            formatted_units = {f"{dim}_unit": unit for dim, unit in base_units.items()}
-            self.__unit_system__ = unyt.unit_systems.UnitSystem(
-                "_grid_units", **formatted_units
-            )
-
-        except Exception as e:
-            raise GridInitializationError(
-                f"Failed to configure unit system: {e}"
-            ) from e
-
-    # noinspection PyTypeChecker
     def __configure_domain__(self, *args, **kwargs):
         """
         Configure the shape, resolution, and physical extent of the grid domain.
@@ -238,7 +177,6 @@ class GridBase(
         self,
         coordinate_system: "_CoordinateSystemBase",
         *args,
-        units: Optional[Dict[str, Union[str, unyt.Unit]]] = None,
         **kwargs,
     ):
         """
@@ -317,11 +255,6 @@ class GridBase(
             raise GridInitializationError(
                 f"Failed to set up coordinate system for grid: {e}"
             ) from e
-
-        # Now that the coordinate system has been initialized, we want to
-        # manage the unit system. By default, the grid comes with general (CGS) units
-        # but we want to parse the kwargs to set the units.
-        self.__configure_unit_system__(units=units)
 
         # Now configure the grid domain and the boundary via the
         # other initialization dispatches.
@@ -519,34 +452,6 @@ class GridBase(
         associated with each axis.
         """
         return self.__cs__.get_axes_units(self.__unit_system__)
-
-    @property
-    def unit_system(self) -> unyt.UnitSystem:
-        """
-        The unit system associated with the grid.
-
-        This unit system determines how physical quantities such as coordinates,
-        gradients, basis vectors, and differential operators are interpreted and
-        scaled. By default, this is the CGS unit system unless explicitly overridden
-        during grid initialization via the `units` keyword argument.
-
-        Returns
-        -------
-        unyt.UnitSystem
-            The internal `unyt.UnitSystem` instance defining the base units for
-            length, time, mass, angle, and other physical dimensions.
-
-        Notes
-        -----
-        This property is typically used to:
-
-        - Interpret coordinate values (e.g., in centimeters or meters)
-        - Scale gradients and derivatives correctly
-        - Generate unit-aware fields and tensors
-
-        The unit system is constructed during grid initialization and is immutable thereafter.
-        """
-        return self.__unit_system__
 
     @property
     def gbbox(self) -> BoundingBox:

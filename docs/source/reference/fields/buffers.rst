@@ -4,13 +4,37 @@
 Fields: Data Buffers
 ====================
 
-The Pisces Geometry **buffer system** provides an abstraction layer over data storage backends
-for field components. It allows field operations to remain agnostic to whether data is stored in memory
-(via `NumPy <https://numpy.org/doc/stable/index.html>`__), with units
-(via `unyt <https://unyt.readthedocs.io/en/stable/>`__), or on disk (e.g., HDF5). This enables modular,
-extensible, and backend-agnostic scientific computing.
+PyMetric is a scientific computing library focused on performing differential geometry operations on structured grids.
+To support flexible and scalable numerical workflows, PyMetric employs a unified buffer abstraction that decouples
+mathematical logic from the details of in-memory or on-disk data storage.
 
-This document provides an overview of the buffer architecture, key classes, resolution mechanisms, and subclassing guidelines.
+This buffer system enables seamless integration with multiple backend array storage solutions, including:
+
+- `NumPy <https://numpy.org/doc/stable/index.html>`__ for standard in-memory arrays,
+- HDF5 datasets via `h5py <https://docs.h5py.org/>`__ for efficient on-disk access and large-scale data persistence.
+
+Rather than directly operating on raw array types, PyMetric introduces a lightweight buffer API layer,
+into which different array libraries can be plugged. This API abstracts away the specific behavior of each backend
+while maintaining NumPy compatibility and enabling advanced features such as lazy loading, unit tracking, and
+backend-specific transforms.
+
+All numerical field data in PyMetric—such as scalars, vectors, and tensors defined over coordinate grids—
+is backed by a concrete implementation of a :class:`~fields.buffers.base.BufferBase` subclass, such as
+:class:`~fields.buffers.core.ArrayBuffer`, or :class:`~fields.buffers.base.HDF5Buffer`. These buffers provide
+a uniform interface for:
+
+- Element-wise and indexed access,
+- Broadcasting and assignment,
+- Participation in NumPy operations and universal functions (ufuncs),
+- Serialization, transformation, and type-aware metadata inspection.
+
+High-level interfaces such as :class:`~grids.core.GenericField` automatically wrap user-provided arrays into
+conforming buffer types when necessary, ensuring a consistent and extensible interface throughout the PyMetric library.
+
+This document provides a comprehensive overview of the buffer architecture, including its design philosophy,
+core protocol, indexing semantics, transformation logic, NumPy integration, and subclassing guidelines.
+It is intended for developers implementing custom buffers, as well as advanced users who need fine-grained control
+over memory layout, or file I/O.
 
 .. contents::
    :local:
@@ -22,7 +46,7 @@ Overview
 Buffers are the low-level storage abstraction in the :mod:`~fields` module. They are responsible for:
 
 - Managing actual data (values and memory layout)
-- Interfacing with array backends (e.g., NumPy, `unyt`, HDF5)
+- Interfacing with array backends (e.g., NumPy, HDF5)
 - Supporting broadcasting, NumPy semantics, and I/O
 - Providing a clean interface for the :class:`~fields.components.FieldComponent` system
 
@@ -31,22 +55,21 @@ Each buffer class inherits from :class:`~fields.buffers.base.BufferBase`, which 
 Creating Buffers of Different Types
 -----------------------------------
 
-There are currently **three core buffer types**:
+There are currently **two core buffer types**:
 
 - :class:`~fields.buffers.core.ArrayBuffer` — an in-memory buffer for plain :class:`~numpy.ndarray`.
-- :class:`~fields.buffers.core.UnytArrayBuffer` — an in-memory buffer for :class:`~unyt.array.unyt_array` objects with physical units.
 - :class:`~fields.buffers.core.HDF5Buffer` — a persistent, disk-backed buffer based on :class:`h5py.Dataset`.
 
 Buffers can be created in multiple ways, depending on the format of your input data and your desired backend. The most
 generic of these approaches is the :meth:`~fields.buffers.base.BufferBase.from_array`. This tries to coerce an input object
-(:class:`list`, :class:`~numpy.ndarray`, :class:`~unyt.array.unyt_array`, etc.) into a compatible buffer type:
+(:class:`list`, :class:`~numpy.ndarray`, etc.) into a compatible buffer type:
 
 .. code-block:: python
 
-    from pymetric.fields.buffers import UnytArrayBuffer
+    from pymetric.fields.buffers import ArrayBuffer
 
     data = [[1, 2], [3, 4]]
-    buf = UnytArrayBuffer.from_array(data,units='keV',dtype='f8')
+    buf = ArrayBuffer.from_array(data,dtype='f8')
 
 This approach has the distinct advantage of clarifying the buffer that will be returned at the expense
 of requiring that the user knows that their data is compatible with the particular buffer class.
@@ -92,317 +115,395 @@ and wrapped by the buffer class. There are a number of ways to enter the buffer 
     Custom buffer registries can be used to override the default (``__DEFAULT_BUFFER_REGISTRY__``); into which all new subclasses
     are placed when then are first read by the interpreter.
 
-
 Operations on Buffers
 -------------------------
 
 At their core, buffers behave like "fancy" NumPy arrays. They can be indexed, broadcast,
 operated on using NumPy functions, and manipulated using standard array-like semantics.
 This allows PyMetric users to interact with buffers in a highly intuitive and flexible way
-while preserving backend-specific advantages like unit tracking or disk persistence.
+while preserving backend-specific advantages like disk persistence.
 
-To understand buffer operations, it's important to keep track of 3 important classes:
-
-- The **buffer class**: subclass of :class:`~fields.buffers.base.BufferBase` representing some
-  dataset.
-- The **core class**: the class that the **buffer class** is actually wrapped around. This is what
-  the buffer sees behind the scenes.
-- The **representation class(es)**: the classes that are actually represented by the buffer.
-
-For example, the :class:`~fields.buffers.core.HDF5Buffer` has only a single **core class**: :class:`h5py.Dataset`,
-but its **representation classes** are both :class:`numpy.ndarray` and :class:`unyt.array.unyt_array` depending on whether
-or not the underlying dataset has units attached to it.
-
-Operations on buffers hinge very specifically on the nature of these 3 classes.
+Operationally, computations on buffers act as if they were performed on an equivalent NumPy array.
 
 Indexing and Slicing Behavior
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Indexing and slicing relies on both the **core class** and the **representation classes**. The approach is pretty simple:
-the buffer will forward the indexing operation to the **core class** and then coerce the result into the correct **representation class**.
-
-In most cases, the core class and the representation class are the same; but for classes like :class:`~fields.buffers.core.HDF5Buffer`,
-an indexing operation ``buff[0]`` will first fetch ``buff.__array_object__[0]`` (which indexes into the underlying HDF5 dataset) and then
-wraps the result to convert it to a :class:`float` or :class:`~unyt.array.unyt_quantity`.
+Indexing and slicing are pretty simple:
+the buffer will forward the indexing operation to the **core class** and then coerce the result into a numpy array.
 
 .. code-block:: python
 
-    buf = UnytArrayBuffer.full((4, 4), fill_value=10, units="keV")
+    buf = ArrayBuffer.full((4, 4), fill_value=10)
     sub = buf[1:3, 1:3]
 
-    assert isinstance(sub, unyt.unyt_array)
+    assert isinstance(sub, np.ndarray)
     assert sub.shape == (2, 2)
 
-If units are present (as in :class:`~UnytArrayBuffer` and :class:`~HDF5Buffer`), they are preserved in the sliced result unless dimensionality collapses to a scalar, in which case a :class:`~unyt.unyt_quantity` is returned.
 
-Representation Types and Views
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The Buffer API Protocol
+-----------------------
 
-Buffers offer several methods to extract the internal array in various formats:
+This section defines the formal contract that all PyMetric buffer implementations must follow.
 
-- :meth:`~fields.buffers.base.BufferBase.as_core` returns the raw array as stored by
-  the backend (e.g., :class:`~numpi.ndarray`, :class:`~unyt.array.unyt_array`, or :class:`h5py.Dataset`).
-- :meth:`~fields.buffers.base.BufferBase.as_array` returns a standard NumPy array (units stripped if needed).
-- :meth:`~fields.buffers.base.BufferBase.as_unyt_array` returns a unit-tagged array (if available).
-- :meth:`~fields.buffers.base.BufferBase.as_repr` is a general-purpose method that returns the
-  buffer’s preferred array representation (unyt if possible, raw NumPy otherwise).
+The PyMetric buffer protocol is designed to be both rigorous and extensible, enabling consistent behavior across
+a variety of numerical backends—including in-memory arrays, unit-aware buffers, and disk-backed datasets—while
+retaining full compatibility with NumPy operations and user expectations.
 
-These allow flexible interop in numerical code:
+Any custom buffer class used within the PyMetric ecosystem must subclass from :class:`~fields.buffers.base.BufferBase` and implement
+the methods, properties, and behaviors described below. These requirements ensure that buffers can participate
+uniformly in field operations, differential geometry routines, serialization, and broadcasting logic.
+
+This section serves as the authoritative reference for the PyMetric buffer API. It specifies:
+
+- Required indexing behaviors and access patterns,
+- Attribute interface compatibility with NumPy (`shape`, `dtype`, etc.),
+- Participation in NumPy ufuncs and `__array_function__` overrides,
+- Semantics of transformation methods like `reshape`, `transpose`, etc.,
+- How and when buffers should materialize into NumPy arrays,
+- Expected fallback behaviors and error signaling.
+
+While PyMetric’s high-level APIs provide convenient wrappers and automatic coercion of raw arrays into buffer instances,
+this section is intended for buffer implementers and advanced users who need fine-grained control over backend behavior
+and interface guarantees.
+
+Following these guidelines ensures that all buffers can interoperate smoothly across the PyMetric field system, regardless of
+their storage format or implementation details.
+
+Buffer Resolution and Creation
+++++++++++++++++++++++++++++++
+
+The process of constructing buffers in PyMetric is designed to be both user-friendly and extensible across a variety
+of numerical backends. This section describes how buffer instances are created from array-like data, and how PyMetric
+resolves the appropriate backend when no explicit buffer type is provided.
+
+Buffer construction in PyMetric follows one of two main paths:
+
+1. **Direct instantiation** via a known buffer class (e.g., `ArrayBuffer.from_array(...)`),
+2. **Dynamic resolution** via a global or user-defined buffer registry.
+
+All concrete subclasses of :class:`~fields.buffers.base.BufferBase` must implement a class method:
 
 .. code-block:: python
 
-    arr = buffer.as_array         # always NumPy
-    tagged = buffer.as_unyt_array # only works if units are defined
-    view = buffer.as_repr         # representation-aware fallback
+    @classmethod
+    def from_array(cls, obj, *args, **kwargs) -> BufferBase:
+        ...
 
-Numpy Semantics: Universal Functions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+This method should take an arbitrary array-like object (list, NumPy array, etc.), coerce it into a
+backend-compatible form, and return a valid buffer instance. This is the preferred entry point for constructing
+buffers from untrusted or heterogeneous input data.
 
-Universal functions (ufuncs) are core to NumPy’s performance and expressiveness.
-Examples include :func:`~numpy.add`, :func:`~numpy.sin`, :func:`~numpy.sqrt`, and many others.
-Buffers support full ufunc behavior through the :meth:`~fields.buffers.base.BufferBase.__array_ufunc__` protocol.
+For convenience, buffer classes should internally distinguish between already-correct types and types that need
+conversion, so that users can pass in native arrays directly without needing to wrap or preprocess them.
 
-PyMetric’s behavior follows these principles:
+Example usage:
 
-- All buffer arguments are **converted to their representation type** via :meth:`~fields.buffers.base.BufferBase.as_repr` before the operation.
-- The operation is performed directly on those values.
-- If an ``out=`` argument is specified and targets another buffer, PyMetric attempts to:
-  - Validate the target buffer’s compatibility.
-  - Avoid allocation by performing the operation **in-place** using the buffer’s internal storage.
-- If no ``out=`` argument is provided, the result is returned as an instance of the appropriate representation type (e.g., `unyt_array`).
+.. code-block:: python
+
+    buffer = ArrayBuffer.from_array(np.zeros((10, 10)))
+    buffer = ArrayBuffer.from_array([[1.0, 2.0]])
+
+Registry-Based Resolution
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When the buffer class is not explicitly specified, PyMetric uses a dynamic resolution system to automatically determine
+the most appropriate backend. This is handled by the :class:`~fields.buffers.registry.BufferRegistry` class, which
+maintains a list of registered buffer classes and their resolution preferences.
+
+The resolution process works as follows:
+
+1. Iterate over all registered buffer classes.
+2. For each class, check whether the input object matches a supported backend type, as defined by:
+
+   - ``__buffer_resolution_compatible_classes__``: A tuple of supported array-like types (e.g., `(np.ndarray,)`)
+   - ``__buffer_resolution_priority__``: An integer indicating resolution precedence (lower = higher priority)
+
+3. Select the first compatible class with the highest priority.
+4. Call the class's `from_array()` method to construct the buffer.
+
+This logic allows backends to be registered and prioritized without tightly coupling them to field logic.
 
 Example:
 
 .. code-block:: python
 
-    from pymetric.fields.buffers import UnytArrayBuffer
-    import numpy as np
-    import unyt
+    from fields.buffers.registry import resolve_buffer
 
-    # Create a generic unit carrying buffer and take the
-    # sqrt.
-    buf = UnytArrayBuffer.ones((3, 3), units="m")
-    out = np.sqrt(buf) # ! NOT A BUFFER ANYMORE.
+    buffer = resolve_buffer(data)  # Automatically dispatches to the right backend
 
-    # In-place example
-    out_buf = UnytArrayBuffer.empty((3, 3), units="m")
-    out = np.add(buf, 5 * unyt.Unit("km"), out=out_buf) # STILL A BUFFER.
+    # Optionally provide a custom registry
+    buffer = resolve_buffer(data, registry=my_registry)
 
-.. hint::
+Manual and automatic resolution are both valid depending on context. When in doubt, use `from_array()` explicitly for
+clarity and control.
 
-    The TLDR of this behavior is as follows: If you use ``out=``, you'll **get another buffer**. Otherwise,
-    you're going to get the buffer's **representation type** (the type it represents).
+Key Resolution Attributes
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following class-level attributes control registry-based dispatch:
+
+- ``__buffer_resolution_compatible_classes__``: Tuple of types that the buffer can wrap. Required for resolution.
+- ``__buffer_resolution_priority__``: Integer priority used to resolve conflicts when multiple backends can accept the same object.
+
+Concrete buffer classes must set both attributes to participate in registry-based resolution.
+
+Buffer Access Patterns
+++++++++++++++++++++++
+
+All PyMetric buffer classes must implement NumPy-compatible data access using the
+``__getitem__`` and ``__setitem__`` methods. These methods provide direct read and
+write access to the buffer's underlying array and are expected to follow the standard
+semantics of `NumPy indexing <https://numpy.org/devdocs/user/basics.indexing.html>`_.
+
+The following indexing behaviors must be supported:
+
+- **Basic indexing** with integers, slices, and ellipsis (e.g., ``buffer[0]``, ``buffer[1:5]``, ``buffer[..., -1]``)
+- **Boolean masking** (e.g., ``buffer[mask]`` where ``mask`` is a boolean array)
+- **Integer array indexing** (e.g., ``buffer[[0, 2, 4]]``)
+- **Multidimensional indexing** (e.g., ``buffer[:, [1, 3]]``)
+
+Assignments via ``__setitem__`` must correctly apply NumPy broadcasting semantics. For example:
+
+.. code-block:: python
+
+    buffer[1:4, :] = 0.0               # Scalar broadcast
+    buffer[:, 0] = np.arange(N)       # 1D vector assignment
+    buffer[rows, cols] = values       # Indexed writes with broadcasting
+
+Return values from ``__getitem__`` must be NumPy-compatible arrays (typically ``numpy.ndarray``),
+or the backend-native array type used in the buffer's representation. Returned slices are not
+required to be buffer instances.
 
 .. note::
 
-    The convention behind this behavior is that the principle priority of buffers is to be
-    *backend agnostic*; as such, the safest way to guarantee that behavior is to require users
-    to be explicit when working at the buffer level.
+    While the formal PyMetric API only mandates compatibility with the slightly restricted
+    indexing semantics described in `h5py fancy indexing <https://docs.h5py.org/en/stable/high/dataset.html#dataset-fancy>`_,
+    all buffer implementations are **strongly encouraged** to support the full range of NumPy fancy
+    indexing whenever feasible. This ensures consistency across backends and improves user ergonomics.
 
-Numpy Semantics: NumPy Functions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Implementations that do not fully support NumPy indexing must document their limitations clearly,
+and should raise appropriate exceptions (e.g., ``IndexError``, ``ValueError``) when unsupported
+access patterns are attempted.
 
-To provide full support for NumPy operations, most numpy functions can operate on buffers. The behavior
-of this depends somewhat on semantics and on the details of different buffer types. In general, the following
-principles should be understood:
+Buffer Parameters
++++++++++++++++++
 
-- By default, a numpy function called on a buffer will strip the buffer and operation on the
-  **representation class**.
+All buffer instances in PyMetric must expose the standard structural attributes expected of NumPy-compatible array-like objects.
+These attributes enable introspection, broadcasting, and downstream operations without requiring knowledge of the
+underlying backend implementation.
 
-  - This is true of *all* numpy functions which operate on multiple arrays in some respect or
-    which are not "simple" transformations. While there are some cases where this may be
-    a nuisance, the benefit of a standardized behavior considerably outweighs the costs.
+Each subclass of :class:`~fields.buffers.base.BufferBase` must implement the following read-only properties:
 
-- Many standard transformation methods (i.e. :func:`numpy.transpose`, :func:`numpy.reshape`, etc.) are implemented
-  as methods of the buffer class. These will (in general) return buffers as output.
+- :attr:`~fields.buffers.base.BufferBase.shape` (:class:`tuple` of :class:`int`)
+  The shape of the buffer, describing the dimensions of the wrapped array. This must match
+  ``buffer.as_core().shape`` and is used throughout the system for indexing, broadcasting, reshaping,
+  and compatibility with grid structures.
 
-  - When called as a **method**, the buffer is transformed to its representation class,
-    the operation is performed on that class, and it is then passed back into :meth:`~fields.buffers.base.BufferBase.from_array`.
-  - When the equivalent **function** in numpy is called, the same operation occurs; however,
-    due to the nature of numpy forwarding, any relevant keyword arguments for :meth:`~fields.buffers.base.BufferBase.from_array`
-    are lost. As such, it is generally preferable to simply use the method.
+- :attr:`~fields.buffers.base.BufferBase.ndim` (:class:`int`)
+  The number of dimensions (i.e., the rank) of the buffer. Equivalent to ``len(buffer.shape)``.
 
-  .. important::
+- :attr:`~fields.buffers.base.BufferBase.size` (:class:`int`)
+  The total number of elements in the buffer. Computed as the product of all elements in ``shape``.
 
-        This behavior can be somewhat odd. For example,
+- :attr:`~fields.buffers.base.BufferBase.dtype` (:class:`numpy.dtype` or equivalent)
+  The data type of elements contained in the buffer. Controls precision, casting behavior,
+  and memory layout.
 
-        .. code-block::
+- :attr:`~fields.buffers.base.BufferBase.c` (Any)
+  The underlying *core* array object used by the buffer backend. This is equivalent to
+  :meth:`~fields.buffers.base.BufferBase.as_core` and provides direct access to the backend-native
+  representation (e.g., :class:`numpy.ndarray`, or :class:`h5py.Dataset`).
 
-            buf = HDF5Buffer.from_array(...)
-            np.transpose(buf,units=...)
+These attributes must behave consistently with their NumPy equivalents, even if the internal data
+structure is backed by a more complex or disk-based format.
 
-        will raise an error because ``units=`` is not a permitted keyword argument, but
+Backends that wrap proxy arrays—such as unit-tagged buffers or memory-mapped files—must ensure that
+these properties return logical dimensions and types, rather than physical storage details.
 
-        .. code-block::
+These parameters are used throughout PyMetric’s field and geometry infrastructure to:
+- Validate layout compatibility,
+- Infer broadcasting rules,
+- Apply transformations,
+- Normalize buffer shapes during differential operations.
 
-            buf = HDF5Buffer.from_array(...)
-            buf.transpose(units=...)
+**Correct and consistent implementation is critical** for PyMetric’s array interoperability model to function as intended.
 
-        will work. Thus, the rule of thumb is that the **method provides fine control** and
-        the numpy function provides **superficial control**.
+Buffer Operations
++++++++++++++++++
 
-.. hint::
+Buffer instances in PyMetric are designed to behave as NumPy-compatible arrays while maintaining the flexibility
+of backend-specific semantics. This allows PyMetric fields and numerical operations to work seamlessly across
+in-memory and on-disk representations.
 
-      For the HDF5 buffer (:class:`~fields.buffers.core.HDF5Buffer`), :meth:`~fields.buffers.core.HDF5Buffer.from_array`
-      requires the user to explicitly provide `file` and `name` arguments. As such, numpy functions like :func:`numpy.ravel`
-      cannot be forwarded in the manner described above and therefore fallback to the default behavior.
+Default Semantics
+^^^^^^^^^^^^^^^^^
 
-      This class **does** implement ``inplace=`` in all of its method transformations to expedite
-      common use cases. See, for example, :meth:`~fields.buffers.core.HDF5Buffer.reshape`.
+By default, **all arithmetic and functional operations** (e.g., ``+``, ``*``, ``np.sin``, ``np.mean``) operate by:
 
-Buffer Unit Management
-----------------------
+1. **Materializing** the buffer into a NumPy array via ``as_array()``,
+2. **Performing the operation** on the unwrapped array using standard NumPy logic,
+3. **Returning the result** either as:
+   - a plain NumPy array (default behavior),
+   - or a new buffer of the same type if explicitly requested.
 
-All buffers (and by extension fields and components) in PyMetric support **units** in a backend-agnostic way. A buffer may either:
+This ensures that even non-NumPy-compatible backends, such as HDF5-backed datasets, can fully participate in
+mathematical operations without requiring direct NumPy interoperability.
 
-- Be *unitless*, in which case its :attr:`~fields.buffers.base.BufferBase.units` property is ``None``, and its *representation class* is :class:`numpy.ndarray`.
-- Be *unit-aware*, in which case its :attr:`~fields.buffers.base.BufferBase.units` property is a :class:`unyt.unit_object.Unit`,
-  and its *representation class* is :class:`~unyt.array.unyt_array`.
+Numpy Universal Functions
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-All of the unit management is performed via `Unyt <https://unyt.readthedocs.io/en/stable/#>`__. There are two paradigms for
-unit manipulation of buffers:
+PyMetric buffers are fully compatible with `NumPy universal functions (ufuncs) <https://numpy.org/doc/stable/reference/ufuncs.html>`__,
+which include element-wise arithmetic, comparisons, trigonometric functions, and more.
 
-1. For *specific* buffer classes which support units, the units of a buffer may be changed in place via *conversion*.
-2. For *all* buffer classes, the buffer can be cast to :class:`~unyt.array.unyt_array`, converted, and re-wrapped into
-   a new buffer. We call this *unit casting*.
+All buffer classes inherit support for ufuncs via the base implementation of ``__array_ufunc__`` provided by
+:class:`~fields.buffers.base.BufferBase`. This mechanism enables seamless interaction with functions like
+``np.add``, ``np.sin``, ``np.abs``, etc., without requiring manual casting or backend-specific logic.
 
-For example, the units borne by the buffers in the following cases are as follows:
+By default, PyMetric buffers:
 
-.. code-block:: python
+1. **Materialize their data** using ``as_array()`` (e.g., NumPy array or  HDF5 dataset),
+2. **Delegate** the operation to the NumPy ufunc,
+3. **Return the result** as a plain NumPy array.
 
-    from pymetric import ArrayBuffer, UnytArrayBuffer, HDF5Buffer
-    import numpy as np
-    import unyt
+This behavior guarantees correctness even for complex or partially lazy backends, such as those wrapping
+HDF5 datasets or proxy arrays.
 
-    # As a numpy array.
-    x = np.linspace(-np.pi, np.pi, 100)
-    buff_x = ArrayBuffer.from_array(x) # No unit support.
-    unyt_buff_x = UnytArrayBuffer.from_array(x) # Only unit support.
-    hdf5_buff_x = HDF5Buffer.from_array(x, # Both unit and no unit support.
-                                        'test.hdf5',
-                                        'tst',
-                                        overwrite=True,
-                                        create_file=True)
-    print(buff_x.units,unyt_buff_x.units,hdf5_buff_x.units)
-    # Yields (None, dimensionless, None)
+The only deviation from default NumPy semantics is the support for the ``out=`` keyword. If specified,
+``__array_ufunc__`` will:
 
-    # As an unyt array.
-    x = np.linspace(-np.pi, np.pi, 100) * unyt.Unit("km")
-    buff_x = ArrayBuffer.from_array(x) # No unit support.
-    unyt_buff_x = UnytArrayBuffer.from_array(x) # Only unit support.
-    hdf5_buff_x = HDF5Buffer.from_array(x, # Both unit and no unit support.
-                                        'test.hdf5',
-                                        'tst',
-                                        overwrite=True,
-                                        create_file=True)
-    print(buff_x.units,unyt_buff_x.units,hdf5_buff_x.units)
-    # Yields (None, km, km)
+- Unwrap the output buffer using the ``__array_object__``,
+- Place the result directly into the provided output buffer,
+- Return the output buffer instance instead of a new NumPy array.
 
-Unit Conversion (In-place)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Unit conversion is **in-place**, meaning the buffer is updated without copying or creating a new instance.
-This is performed using:
-
-- :meth:`~fields.buffers.base.BufferBase.convert_to_units`
-- :meth:`~fields.buffers.base.BufferBase.convert_to_base`
-
-These methods are supported only by buffer types that are unit-aware (e.g., :class:`~fields.buffers.core.UnytArrayBuffer`).
-Attempting to call them on a non-unit-supporting buffer (e.g., :class:`~fields.buffers.core.ArrayBuffer`) will raise an error.
+This allows users to **retain the buffer type** and avoid intermediate materialization, particularly in
+memory- or I/O-constrained workflows.
 
 .. code-block:: python
 
-    from pymetric import ArrayBuffer, UnytArrayBuffer, HDF5Buffer
-    import numpy as np
-    import unyt
-
-    x = np.linspace(-np.pi, np.pi, 100) * unyt.Unit("km")
-    buff_x = ArrayBuffer.from_array(x)
-    unyt_buff_x = UnytArrayBuffer.from_array(x)
-    hdf5_buff_x = HDF5Buffer.from_array(x,'test.hdf5','tst',overwrite=True,create_file=True)
-
-    print(buff_x.units, unyt_buff_x.units, hdf5_buff_x.units)
-    # Result: None km km
-
-    buff_x.convert_to_units('m')
-    # Result: ValueError: Cannot set units for buffer of class ArrayBuffer.
-    unyt_buff_x.convert_to_units('m')
-    hdf5_buff_x.convert_to_units('m')
-
-    print(buff_x.units, unyt_buff_x.units, hdf5_buff_x.units)
-    # Result: None m m
-
-Additionally, if a buffer class supports units, you may directly set the :attr:`~fields.buffers.base.BufferBase.units` attribute, which
-results in an unsafe direct setting of the units.
-
-.. code-block:: python
-
-    from pymetric import ArrayBuffer, UnytArrayBuffer, HDF5Buffer
-    import numpy as np
-    import unyt
-
-    x = np.linspace(-np.pi, np.pi, 100) * unyt.Unit("km")
-    unyt_buff_x = UnytArrayBuffer.from_array(x)
-
-    print(unyt_buff_x[0])
-    # -3.141592653589793 km
-    unyt_buff_x.convert_to_units('m')
-    print(unyt_buff_x[0])
-    # -3141.592653589793 m
-    unyt_buff_x.units = 'keV'
-    print(unyt_buff_x[0])
-    # -3141.592653589793 keV
+    buf = ArrayBuffer.from_array(np.ones((4,)))
+    np.multiply(buf, 3.0)                 # returns NumPy array
+    np.multiply(buf, 3.0, out=buf)        # updates in place, returns `buf`
 
 
-Unit Casting (Copy)
-^^^^^^^^^^^^^^^^^^^^
+Numpy Function Forwarding
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Casting to new units always produces a **new buffer** (or optionally, a `unyt_array`).
-This is the most flexible and safe option, and is supported by all buffer types.
+Beyond universal functions (ufuncs), NumPy defines a large collection of high-level operations—
+such as reductions, reshaping, sorting, and linear algebra—via the `array function protocol <https://numpy.org/doc/stable/user/basics.dispatch.html>`__.
+These are dispatched through the special method ``__array_function__``.
 
-Casting is performed via:
+PyMetric buffers implement this protocol in a way that preserves full interoperability with NumPy while allowing
+selective overrides where needed.
 
-- :meth:`~fields.buffers.base.BufferBase.in_units`
-- :meth:`~fields.buffers.base.BufferBase.to` (alias)
-- :meth:`~fields.buffers.base.BufferBase.to_value`
+By default, all NumPy function calls (e.g., ``np.sum``, ``np.transpose``, ``np.mean``) are **forwarded** to the
+buffer’s internal array representation via ``as_core()``. This ensures that:
 
-These methods perform the following:
+- The exact backend semantics (e.g. lazy behavior) are preserved,
+- Buffers behave like native arrays from the user's perspective.
 
-- Convert the buffer to a `unyt_array`
-- Apply the requested unit transformation
-- Re-wrap the array in a new buffer using resolution logic (unless `as_array=True`)
+Unless explicitly overridden, function calls behave as if the buffer were a plain NumPy array.
 
-Examples:
+To enable advanced functionality or optimize backend-specific behavior, buffer classes can override individual
+function implementations by populating the ``__array_function_dispatch__`` dictionary. This maps
+NumPy functions to custom handlers that receive unwrapped arguments and can return either:
+
+- A plain array (e.g., for scalar reductions),
+- A new buffer instance (e.g., for shape-preserving operations).
+
+This allows for precise control over which functions are forwarded and how results are returned.
+
+**Example override (in a buffer subclass):**
 
 .. code-block:: python
 
-    from pymetric import ArrayBuffer, UnytArrayBuffer, HDF5Buffer
-    import numpy as np
-    import unyt
+    __array_function_dispatch__ = {
+        np.sum: custom_sum_handler,
+        np.moveaxis: lambda arr, src, dst: arr.transpose(...)),
+    }
 
-    x = np.linspace(0,5, 5) * unyt.Unit("m")
-    unyt_buff_x = UnytArrayBuffer.from_array(x)
+The ``__array_function__`` implementation behaves as follows:
 
-    # Cast to value (numpy array)
-    print(unyt_buff_x.to_value("m"))
-    # [0.   1.25 2.5  3.75 5.  ]
+1. If **all input types are subclasses of** the same buffer class:
+   - It checks for an override in ``__array_function_dispatch__``.
+   - If found, it calls the custom implementation.
 
-    # Convert (cast) to pc with buffer
-    # resolution.
-    print(type(unyt_buff_x.to('pc')))
-    # <class 'pymetric.fields.buffers.core.UnytArrayBuffer'>
+2. If no override is found, or if inputs are mixed types:
+   - It unwraps all buffer arguments using ``as_core()``,
+   - Delegates to the native NumPy function,
+   - Returns the result as a plain array.
 
-    # Force the output buffer type.
-    print(type(unyt_buff_x.to('pc',buffer_class=ArrayBuffer)))
-    # <class 'pymetric.fields.buffers.core.UnytArrayBuffer'>
+This approach provides both flexibility and predictability, and allows for full participation in
+NumPy's high-level API without compromising backend fidelity.
 
-.. hint::
+Transformation Methods
+^^^^^^^^^^^^^^^^^^^^^^
 
-    If you only need to change units temporarily or want a non-buffer output, use:
+In addition to indexing and universal functions, PyMetric buffers support standard array transformation operations
+such as reshaping, flattening, and transposition. These methods are critical for preparing data for numerical operations
+and field construction.
 
-    .. code-block:: python
+All transformation methods implemented in buffer classes (e.g., ``reshape()``, ``flatten()``, ``transpose()``) adhere
+to a consistent dispatching pattern that allows users to control whether the result is returned as:
 
-        arr = buf.in_units("erg", as_array=True)
+- A native backend array (e.g., ``numpy.ndarray``), or
+- A new buffer instance of the same type.
+
+This is governed by the optional keyword argument ``numpy``.
+
+- ``numpy=True`` → Return the result as a raw NumPy array (or backend-native array),
+- ``numpy=False`` (default) → Wrap the result in a new buffer instance of the same type.
+
+This dual-mode approach provides flexibility for use cases that require raw arrays
+(e.g., downstream NumPy operations or serialization) while preserving full buffer semantics by default.
+
+Example:
+
+.. code-block:: python
+
+    buffer = ArrayBuffer.from_array(np.arange(12).reshape(3, 4))
+
+    buffer.T.shape
+    # → (4, 3)       [buffer returned]
+
+    buffer.transpose(numpy=True).shape
+    # → (4, 3)       [NumPy array returned]
+
+
+When ``numpy=False`` (i.e., returning a new buffer instance), the constructor of the buffer may require additional
+positional or keyword arguments—especially in complex backends like HDF5. To support this, all transformation
+methods also accept:
+
+- ``bargs`` : tuple of positional arguments forwarded to the buffer constructor,
+- ``bkwargs`` : dict of keyword arguments forwarded to the buffer constructor.
+
+These allow fine-grained customization of the buffer instantiation process, ensuring compatibility with buffer
+constructors that require contextual information (e.g., file handles, unit metadata, etc.).
+
+Example:
+
+.. code-block:: python
+
+    buffer = HDF5Buffer.from_array(np.ones((10, 10)), file="data.h5", path="/original")
+
+    new_buffer = buffer.reshape(100, numpy=False, bargs=("data.h5", "/reshaped"), bkwargs={"create_file": True})
+
+
+All PyMetric buffer classes must implement the following transformation methods:
+
+- ``astype(dtype)``
+- ``conj()``
+- ``conjugate()``
+- ``copy()``
+- ``flatten(order='C')``
+- ``ravel(order='C')``
+- ``reshape(*shape)``
+- ``resize(*shape)`` *(emulates NumPy’s in-place API via copy)*
+- ``swapaxes(axis1, axis2)``
+- ``transpose(*axes)``
+
+These methods operate directly on the internal array, using NumPy logic, and then wrap the result back into a buffer
+instance when appropriate. The internal helper method ``_cast_numpy_op()`` standardizes this logic across all
+transformations, and may be extended by buffer subclasses for backend-specific behaviors.
 
 Subclassing a Custom Buffer
 ----------------------------
@@ -421,7 +522,6 @@ You must also implement:
 - ``__init__(self, array)`` to wrap the storage object
 - ``from_array(cls, obj, **kwargs)`` to construct your buffer from flexible input
 - Optional: ``zeros``, ``ones``, ``full``, ``empty``, and I/O methods
-- Optional: ``units`` property if your buffer handles units
 
 Example stub:
 
@@ -446,13 +546,3 @@ Once defined, your buffer will be automatically registered and resolvable by `bu
 
     If you want to isolate your buffer type from PyMetric’s global resolution pipeline, register it
     with a custom :class:`~fields.buffers.registry.BufferRegistry` and pass it via ``buffer_registry=``.
-
-
-See Also
---------
-
-- :class:`~fields.buffers.base.BufferBase` — Abstract base class
-- :mod:`~fields.buffers.core` — Core buffer implementations
-- :mod:`~fields.buffers.registry` — Registry system
-- :mod:`~fields.buffers.utilities` — Helper functions for dynamic buffer generation
-- :mod:`~fields.components` — FieldComponent framework (buffer consumers)

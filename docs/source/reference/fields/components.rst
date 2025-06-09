@@ -364,40 +364,6 @@ use :meth:`~fields.components.FieldComponent.reduce_axes` instead.
     Direct slicing returns NumPy or :class:`~unyt.array.unyt_array` arrays, **not** new :class:`~fields.components.FieldComponent` instances.
     Use :meth:`~fields.components.FieldComponent.reduce_axes` if you want to retain coordinate-aware semantics after dimensional reduction.
 
-Unit Management
-----------------
-
-Field components support both in-place and non-destructive unit conversion via a
-clean wrapper over their underlying buffers. These conversions are powered by `unyt`
-and ensure physical correctness in unit-aware computations.
-
-There are two primary ways to manipulate units:
-
-- **In-place conversion** using :meth:`~fields.components.FieldComponent.convert_to_units`
-  or :meth:`~fields.components.FieldComponent.convert_to_base`, which updates the buffer directly.
-- **Casting to new units** using :meth:`~fields.components.FieldComponent.in_units`,
-  :meth:`~fields.components.FieldComponent.to`, or :meth:`~fields.components.FieldComponent.to_value`,
-  which produce a new component or raw array in the target units.
-
-.. code-block:: python
-
-    # In-place unit conversion
-    field.convert_to_units("erg / cm**3")
-
-    # Return a copy in new units
-    field_new = field.to("keV")
-
-    # Return a NumPy array with units stripped
-    values = field.to_value("J")
-
-These methods mirror the buffer-level API but operate at the field component level.
-For detailed control or custom unit logic, refer to the :ref:`buffers` documentation.
-
-.. note::
-
-    Fields without attached units (i.e., purely numeric buffers) will accept
-    unit assignment during in-place conversion without modifying data.
-
 Subclassing FieldComponent
 ---------------------------
 

@@ -20,7 +20,6 @@ from typing import (
 )
 
 import numpy as np
-from fields.utils._typing import ComponentDictionary
 from numpy.typing import ArrayLike
 
 # ============= Typing Management ================== #
@@ -33,7 +32,11 @@ if TYPE_CHECKING:
     from pymetric.fields.buffers import BufferRegistry
     from pymetric.fields.buffers.base import BufferBase
     from pymetric.fields.components import FieldComponent
-    from pymetric.fields.utils._typing import ComponentIndex, SignatureInput
+    from pymetric.fields.utils._typing import (
+        ComponentDictionary,
+        ComponentIndex,
+        SignatureInput,
+    )
     from pymetric.grids.base import GridBase
     from pymetric.grids.utils._typing import AxesInput
 
@@ -42,7 +45,7 @@ if TYPE_CHECKING:
 @runtime_checkable
 class _SupportsFieldCore(Protocol):
     __grid__: "GridBase"
-    __components__: ComponentDictionary
+    __components__: "ComponentDictionary"
     __components_view__: MappingProxyType
     grid: "GridBase"
     coordinate_system: "_CoordinateSystemBase"
@@ -133,6 +136,57 @@ class _SupportsDFieldCore(_SupportsFieldCore):
 
     @classmethod
     def full_like(cls, other, *args, **kwargs) -> "_SupportsDFieldCore":
+        ...
+
+    def convert_to_units(
+        self,
+        units: Union[str, unyt.Unit],
+        equivalence: Optional[str] = None,
+        **kwargs,
+    ):
+        ...
+
+    def convert_to_base(
+        self,
+        unit_system: Optional[str] = None,
+        equivalence: Optional[str] = None,
+        **kwargs,
+    ):
+        ...
+
+    # === Casting Unit Manipulation === #
+
+    def in_units(
+        self,
+        units: Union[str, unyt.Unit],
+        *args,
+        as_array: bool = False,
+        equivalence: Optional[str] = None,
+        buffer_class: Optional[Type["BufferBase"]] = None,
+        buffer_registry: Optional["BufferRegistry"] = None,
+        equiv_kw: Optional[dict] = None,
+        **kwargs,
+    ):
+        ...
+
+    def to(
+        self,
+        units: Union[str, unyt.Unit],
+        *args,
+        equivalence: Optional[str] = None,
+        buffer_class: Optional[Type["BufferBase"]] = None,
+        buffer_registry: Optional["BufferRegistry"] = None,
+        as_array: bool = False,
+        **kwargs,
+    ):
+        ...
+
+    def to_value(
+        self,
+        units: Union[str, unyt.Unit],
+        equivalence: Optional[str] = None,
+        **kwargs,
+    ) -> np.ndarray:
         ...
 
 

@@ -16,7 +16,6 @@ For more details on buffers, see :ref:`buffers`.
 """
 __all__ = [
     "ArrayBuffer",
-    "UnytArrayBuffer",
     "HDF5Buffer",
     "BufferRegistry",
     "__DEFAULT_BUFFER_REGISTRY__",
@@ -33,7 +32,7 @@ __all__ = [
     "buffer_from_array",
 ]
 from .base import buffer_from_array
-from .core import ArrayBuffer, HDF5Buffer, UnytArrayBuffer
+from .core import ArrayBuffer, HDF5Buffer
 from .registry import __DEFAULT_BUFFER_REGISTRY__, BufferRegistry, resolve_buffer_class
 from .utilities import (
     buffer,

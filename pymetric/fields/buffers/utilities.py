@@ -9,11 +9,9 @@ These utilities simplify buffer construction from generic data formats and
 are recommended for use in user-facing APIs or internal preprocessing steps
 that must remain backend-agnostic.
 """
-from typing import TYPE_CHECKING, Any, Optional, Sequence, Type, Union
+from typing import TYPE_CHECKING, Any, Optional, Sequence, Type
 
-import numpy as np
 from numpy.typing import ArrayLike
-from unyt import unyt_array, unyt_quantity
 
 from pymetric.fields.buffers.registry import (
     __DEFAULT_BUFFER_REGISTRY__,
@@ -21,89 +19,9 @@ from pymetric.fields.buffers.registry import (
 )
 
 if TYPE_CHECKING:
-    from unyt import Unit, UnitRegistry
-
     from .base import BufferBase
     from .core import ArrayBuffer
     from .registry import BufferRegistry
-
-
-# ================================= #
-# Internal Manip. Logic             #
-# ================================= #
-# These methods are used internally to handle
-def _to_unyt_array(
-    obj: Any,
-    *,
-    units: Union[str, "Unit", None] = None,
-    dtype: Optional[Any] = None,
-    registry: Optional["UnitRegistry"] = None,
-    bypass_validation: bool = False,
-    name: Optional[str] = None,
-    **kwargs,
-) -> "unyt_array":
-    """
-    Convert arbitrary input to a :class:`~unyt.array.unyt_array`, applying or preserving units.
-
-    Parameters
-    ----------
-    obj : array-like or scalar
-        Input to convert. Can be a list, tuple, NumPy array, :class:`~unyt.array.unyt_array`, or :class:`~unyt.array.unyt_quantities`.
-    units : str or :class:`~unyt.unit_object.Unit`, optional
-        Units to apply or override.
-    dtype : data-type, optional
-        Desired data type. If None, inferred from `obj`.
-    registry : :class:`~unyt.unit_registry.UnitRegistry`, optional
-        Unit registry to associate with the array.
-    bypass_validation : bool, default False
-        If True, skip internal checks (faster, unsafe for unvalidated data).
-    name : str, optional
-        Optional name annotation for the array.
-    **kwargs :
-        Additional keyword arguments forwarded to :func:`numpy.array` when coercing.
-
-    Returns
-    -------
-    unyt_array
-        A unit-aware array constructed from `obj`.
-
-    Raises
-    ------
-    TypeError
-        If input cannot be converted to a unyt-compatible array.
-    """
-    if isinstance(obj, unyt_array):
-        return obj.to(units) if units is not None else obj
-
-    if isinstance(obj, unyt_quantity):
-        return unyt_array(
-            obj,
-            units=units or obj.units,
-            registry=registry,
-            dtype=dtype,
-            bypass_validation=bypass_validation,
-            name=name,
-        )
-
-    if isinstance(obj, np.ndarray):
-        return unyt_array(
-            obj,
-            units=units or "",
-            registry=registry,
-            dtype=dtype,
-            bypass_validation=bypass_validation,
-            name=name,
-        )
-
-    coerced = np.array(obj, dtype=dtype, **kwargs)
-    return unyt_array(
-        coerced,
-        units=units or "",
-        registry=registry,
-        dtype=dtype,
-        bypass_validation=bypass_validation,
-        name=name,
-    )
 
 
 # ================================= #

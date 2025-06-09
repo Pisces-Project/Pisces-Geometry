@@ -1266,7 +1266,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                 )
 
                 tensor_field_chunk = self.broadcast_array_to_axes(
-                    tensor_field,
+                    tensor_field[(*chunk_slices, ...)],
                     axes_in=field_axes,
                     axes_out=output_axes,
                 )
@@ -1512,7 +1512,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                 )
 
                 tensor_field_chunk = self.broadcast_array_to_axes(
-                    tensor_field,
+                    tensor_field[(*chunk_slices, ...)],
                     axes_in=field_axes,
                     axes_out=output_axes,
                 )

@@ -591,6 +591,8 @@ class DenseTensorFieldDMOMixin(DenseFieldDMOMixin, Generic[_SupDTFDMOs]):
         # Fix the signature before returning the output.
         result.__signature__ = tuple(self.__signature__) + (-1,)
 
+        return result
+
     # noinspection PyIncorrectDocstring
     def element_wise_laplacian(
         self: _SupDFDMOs,
@@ -624,6 +626,7 @@ class DenseTensorFieldDMOMixin(DenseFieldDMOMixin, Generic[_SupDTFDMOs]):
 
         # Fix the signature before returning the output.
         result.__signature__ = tuple(self.__signature__)
+        return result
 
     # ======================================= #
     # Dense Ops                               #

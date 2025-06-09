@@ -13,18 +13,15 @@ from pymetric import (
     HDF5Buffer,
     SphericalCoordinateSystem,
     UniformGrid,
-    UnytArrayBuffer,
 )
 
 # Create fixture class lists for easier, more readable
 # testing semantics / syntax.
 __all_buffer_classes_params__ = [
     pytest.param(ArrayBuffer, marks=pytest.mark.array),
-    pytest.param(UnytArrayBuffer, marks=pytest.mark.unyt),
     pytest.param(HDF5Buffer, marks=pytest.mark.hdf5),
 ]
 __unit_buffer_classes_params__ = [
-    pytest.param(UnytArrayBuffer, marks=pytest.mark.unyt),
     pytest.param(HDF5Buffer, marks=pytest.mark.hdf5),
 ]
 
@@ -46,7 +43,7 @@ __unit_buffer_classes_params__ = [
 @pytest.mark.parametrize("buffer_class", __all_buffer_classes_params__)
 @pytest.mark.parametrize("method", ["ones", "zeros", "full", "empty"])
 def test_comp_constructors(
-    cs_flag, buffer_class, method, coordinate_systems, uniform_grids, tmp_path_factory
+    cs_flag, buffer_class, method, uniform_grids, tmp_path_factory
 ):
     """
     Test that components can be generated using the .zeros, .ones, .full, and .empty constructors
@@ -59,9 +56,6 @@ def test_comp_constructors(
     factory = getattr(FieldComponent, method)
     factory_args = []
     factory_kwargs = dict(dtype=np.float64)
-
-    if buffer_class is UnytArrayBuffer or buffer_class is HDF5Buffer:
-        factory_kwargs["units"] = "keV"
 
     if buffer_class is HDF5Buffer:
         factory_args.extend(
@@ -88,11 +82,6 @@ def test_comp_constructors(
     assert component.shape == tuple(grid.shape), "Shape mismatch"
     assert component.buffer.shape == component.shape, "Buffer shape mismatch"
     assert component.buffer.dtype == np.float64, "Dtype mismatch"
-
-    # Unit check
-    if buffer_class in [UnytArrayBuffer, HDF5Buffer]:
-        assert str(component.units) == "keV", "Units not propagated correctly"
-        assert str(component[...].units) == "keV", "Units not present on slice"
 
     # Buffer and value check
     array = component.as_array()
@@ -127,9 +116,6 @@ def test_comp_from_function(buffer_class, tmp_path_factory, uniform_grids):
     buffer_kwargs = {"dtype": np.float64}
     args = []
 
-    if buffer_class is UnytArrayBuffer or buffer_class is HDF5Buffer:
-        buffer_kwargs["units"] = "keV"
-
     if buffer_class is HDF5Buffer:
         args = [os.path.join(tempdir, "from_function.hdf5"), "data"]
         buffer_kwargs["create_file"] = True
@@ -151,8 +137,3 @@ def test_comp_from_function(buffer_class, tmp_path_factory, uniform_grids):
     F = component.as_array()
 
     np.testing.assert_allclose(F, Ftrue), "Values not equal."
-
-    # Unit check
-    if buffer_class in [UnytArrayBuffer, HDF5Buffer]:
-        assert str(component.units) == "keV", "Units not propagated"
-        assert str(component[...].units) == "keV", "Units not present on slice"

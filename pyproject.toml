@@ -32,7 +32,6 @@ classifiers = [
 ]
 dependencies = [
   "numpy>=1.22",
-  "unyt>=2.9",
   "h5py>=3.0",
   "scipy>=1.10",
   "sympy>=1.14.0",

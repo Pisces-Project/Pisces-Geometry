@@ -13,8 +13,6 @@ For must use-cases, only the dense and sparse fields are used.
 from types import MappingProxyType
 from typing import TYPE_CHECKING, Any, Callable, Dict, Iterator, List, Optional, Tuple
 
-import unyt
-
 from pymetric.differential_geometry.dependence import DenseDependenceObject
 from pymetric.grids.base import GridBase
 
@@ -479,18 +477,6 @@ class DenseField(_FieldBase, DFieldCoreMixin, DenseFieldDMOMixin, NumpyArithmeti
         return self.__component__.is_scalar
 
     @property
-    def units(self) -> Optional[unyt.Unit]:
-        """
-        Physical units attached to the buffer data, if defined.
-
-        Returns
-        -------
-        unyt.unit_registry.Unit or None
-            The units attached to this field’s buffer.
-        """
-        return self.__component__.units
-
-    @property
     def size(self) -> int:
         """
         Total number of elements in the buffer.
@@ -561,6 +547,19 @@ class DenseField(_FieldBase, DFieldCoreMixin, DenseFieldDMOMixin, NumpyArithmeti
             The NumPy dtype or equivalent backend type.
         """
         return self.__component__.dtype
+
+    @property
+    def c(self):
+        """
+        Shorthand to obtain the underlying buffer's core
+        object.
+
+        Returns
+        -------
+        ArrayLike
+            The backend-native data structure stored in this buffer.
+        """
+        return self.__component__.c
 
     @property
     def dependence(self) -> DenseDependenceObject:

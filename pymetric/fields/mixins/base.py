@@ -189,20 +189,6 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
         """
         return self.__component__.buffer.as_array()
 
-    def as_unyt_array(self: _SupDFieldCore):
-        """
-        Return the underlying buffer as a unyt array with units.
-
-        This method extracts the field's data buffer and returns it as a
-        `unyt.unyt_array`, preserving physical units and dimensionality.
-
-        Returns
-        -------
-        unyt.unyt_array
-            The unit-aware array representing the field's data.
-        """
-        return self.component.buffer.as_unyt_array()
-
     # ============================= #
     # Generator Methods             #
     # ============================= #

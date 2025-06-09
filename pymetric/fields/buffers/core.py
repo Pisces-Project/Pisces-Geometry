@@ -18,27 +18,20 @@ See Also
 :class:`~fields.buffers.base.BufferBase`
 """
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Callable, Dict, Optional, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, Type, Union
 
 import h5py
 import numpy as np
-import unyt
 from numpy.typing import ArrayLike
-from unyt import Unit, unyt_array, unyt_quantity
-from unyt.exceptions import UnitConversionError
 
 from pymetric.fields.buffers.base import BufferBase
-from pymetric.fields.buffers.utilities import _to_unyt_array
-
-if TYPE_CHECKING:
-    from unyt import UnitRegistry
 
 
 class ArrayBuffer(BufferBase):
     """
     A lightweight buffer wrapper around a plain `NumPy <https://numpy.org/doc/stable/index.html>`__ array.
 
-    This class provides a minimal, unitless backend for storing field data using
+    This class provides a minimal backend for storing field data using
     standard :class:`numpy.ndarray` objects. It is designed for general-purpose use cases
     where unit handling or advanced I/O (e.g., HDF5) is not required.
 
@@ -68,33 +61,66 @@ class ArrayBuffer(BufferBase):
     ~fields.buffers.base.BufferBase : Abstract interface for all buffer backends.
     """
 
-    # === Class Attributes === #
-    # These attributes configure behavior and registration rules for buffer subclasses.
-    # All **concrete** buffer classes MUST define these attributes explicitly.
-    #
-    # Abstract classes may omit them by setting __is_abc__ = True.
+    # =================================== #
+    # Class Flags                         #
+    # =================================== #
+    # These flags are class level markers indicating the behavior
+    # of the class. They should be configured in subclasses.
     __is_abc__ = False
-    __can_resolve__ = [np.ndarray, list, tuple]
-    __core_array_types__ = (np.ndarray,)
-    __representation_types__ = (np.ndarray,)
-    __resolution_priority__ = 0
+    __buffer_resolution_compatible_classes__ = [np.ndarray, list, tuple]
+    __buffer_resolution_priority__ = 0
+    __array_function_dispatch__: Dict[Callable, Callable] = {}
 
+    # =================================== #
+    # Initialization Methods              #
+    # =================================== #
     def __init__(self, array: np.ndarray):
         """
-        Initialize the buffer with a NumPy array.
+        Initialize an ArrayBuffer from a NumPy array.
+
+        This constructor wraps a standard in-memory :class:`numpy.ndarray` and exposes
+        it via the PyMetric buffer interface. It does not copy the input unless required
+        by downstream operations; the buffer holds a direct reference to the array.
 
         Parameters
         ----------
         array : numpy.ndarray
-            A NumPy array to wrap. This should already be an instance
-            of :py:class:`numpy.ndarray`. Use :py:meth:`from_array` or :py:meth:`coerce` for flexible inputs.
+            The array to wrap. Must be a valid NumPy array of any shape or dtype.
+
+        Raises
+        ------
+        TypeError
+            If the input is not a :class:`numpy.ndarray`.
+
+        Notes
+        -----
+        - This constructor is typically called internally by :meth:`from_array`.
+        - Use :meth:`ArrayBuffer.from_array` for a safe, flexible entry point that
+          can accept non-NumPy types (e.g., lists, scalars).
+        - This class provides lightweight, zero-copy wrapping for in-memory data.
+
+        Examples
+        --------
+        >>> import numpy as np
+        >>> from pymetric.fields.buffers import ArrayBuffer
+        >>> arr = np.arange(6).reshape(2, 3)
+        >>> buf = ArrayBuffer(arr)
+        >>> print(buf.shape)
+        (2, 3)
         """
         super().__init__(array)
 
+    def __validate_array_object__(self):
+        if not isinstance(self.__array_object__, np.ndarray):
+            raise TypeError(
+                f"Expected a NumPy array, got {type(self.__array_object__)}."
+            )
+
+    # =================================== #
+    # Generator Methods                   #
+    # =================================== #
     @classmethod
-    def from_array(
-        cls, obj: Any, *args, dtype: Optional[Any] = None, **kwargs
-    ) -> "ArrayBuffer":
+    def from_array(cls, obj: Any, *args, **kwargs) -> "ArrayBuffer":
         """
         Construct a new :class:`ArrayBuffer` from an arbitrary array-like input.
 
@@ -114,9 +140,6 @@ class ArrayBuffer(BufferBase):
             Input data to be wrapped. This can include Python lists, tuples,
             NumPy arrays, or other objects that support array conversion via
             :func:`numpy.array()`.
-        dtype : data-type, optional
-            Desired data type for the resulting array. If omitted, the data type
-            is inferred from `obj`.
         *args, **kwargs :
             Additional keyword arguments passed to :func:`numpy.array` to control
             coercion behavior (e.g., `copy`, `order`, etc.).
@@ -131,42 +154,7 @@ class ArrayBuffer(BufferBase):
         TypeError
             If the input cannot be coerced into a NumPy array.
         """
-        return cls(np.array(obj, *args, dtype=dtype, **kwargs))
-
-    def convert_to_units(
-        self, units: Union[str, unyt.Unit], equivalence=None, **kwargs
-    ):
-        """
-        Convert this buffer's data to the specified physical units (in-place).
-
-        This operation replaces the buffer's internal data with a unit-converted
-        equivalent. It modifies the object directly.
-
-        Not all buffer classes support in-place unit assignment. Subclasses that
-        do not should override this method to raise an appropriate error.
-
-        Parameters
-        ----------
-        units : str or unyt.Unit
-            Target units to convert the data to.
-        equivalence : str, optional
-            Unit equivalence to apply during conversion (e.g., "mass_energy").
-        **kwargs :
-            Additional keyword arguments forwarded to the equivalence logic.
-
-        Raises
-        ------
-        UnitConversionError
-            If the conversion is not dimensionally consistent.
-        NotImplementedError
-            If the subclass does not support in-place unit modification.
-
-        Notes
-        -----
-        If the buffer's units are `None`, this method assigns the new units directly
-        without modifying data. Otherwise, it performs a physical conversion.
-        """
-        super().convert_to_units(units, equivalence=equivalence, **kwargs)
+        return cls(np.array(obj, *args, **kwargs))
 
     @classmethod
     def zeros(cls, shape, *args, **kwargs) -> "ArrayBuffer":
@@ -247,411 +235,63 @@ class ArrayBuffer(BufferBase):
         return cls(np.empty(shape, *args, **kwargs))
 
 
-class UnytArrayBuffer(BufferBase):
-    """
-    A buffer that wraps a :py:class:`~unyt.array.unyt_array`, providing unit-aware numerical storage.
-
-    This buffer is designed for use cases that require physical units. Internally,
-    it stores data as a :py:class:`~unyt.array.unyt_array` and ensures consistent behavior when interacting
-    with values that carry or lack units.
-
-    The class supports coercion from raw array-like types (NumPy arrays, lists, tuples)
-    and automatically wraps them in a :py:class:`~unyt.array.unyt_array`.
-
-    Examples
-    --------
-    Create an :py:class:`UnytArrayBuffer` from a list of values.
-
-    >>> UnytArrayBuffer.from_array([1, 2, 3], units="m")
-    UnytArrayBuffer(shape=(3,), dtype=int64)
-
-    Generate a buffer using the :meth:`ones` method.
-
-    >>> UnytArrayBuffer.ones((2, 2), units="kg").as_core()
-    unyt_array([[1., 1.],
-           [1., 1.]], 'kg')
-
-    Wrap a generic :py:class:`~unyt.array.unyt_array`.
-
-    >>> UnytArrayBuffer.from_array(unyt_array([1.,1.],units='keV'))
-    UnytArrayBuffer(shape=(2,), dtype=float64)
-
-    """
-
-    # === Class Attributes === #
-    # These attributes configure behavior and registration rules for buffer subclasses.
-    # All **concrete** buffer classes MUST define these attributes explicitly.
-    #
-    # Abstract classes may omit them by setting __is_abc__ = True.
-    __is_abc__ = False
-    __can_resolve__ = [unyt_array]
-    __core_array_types__ = (unyt_array,)
-    __representation_types__ = (unyt_array,)
-    __resolution_priority__ = 10
-
-    def __init__(self, array: unyt_array):
-        """
-        Initialize the buffer with a NumPy array.
-
-        Parameters
-        ----------
-        array : unyt.array.unyt_array
-            An Unyt array to wrap. This should already be an instance
-            of :py:class:`unyt.array.unyt_array`. Use :py:meth:`from_array` or :py:meth:`coerce` for flexible inputs.
-        """
-        super().__init__(array)
-
-    @property
-    def units(self):
-        """
-        Physical units attached to the buffer data.
-
-        Returns
-        -------
-        unyt.unit_registry.Unit
-            The physical units associated with this buffer’s array values.
-        """
-        return self.__array_object__.units
-
-    @units.setter
-    def units(self, value: Union[Unit, str]):
-        """
-        Set the physical units in the HDF5 dataset metadata.
-
-        Parameters
-        ----------
-        value : str or unyt.Unit
-            Unit string / instance to attach.
-        """
-        self.__array_object__.units = value
-
-    @classmethod
-    def from_array(
-        cls,
-        obj: Any,
-        dtype: Optional[Any] = None,
-        units: Optional[Union["Unit", str]] = None,
-        *args,
-        registry: Optional["UnitRegistry"] = None,
-        bypass_validation: bool = False,
-        name: Optional[str] = None,
-        **kwargs,
-    ) -> "UnytArrayBuffer":
-        """
-        Construct a new unit-aware buffer from any array-like input.
-
-        This method wraps the input in an :class:`~unyt.array.unyt_array`, preserving or applying physical units
-        as needed. It handles input that is already a :class:`~unyt.array.unyt_array` or :class:`~unyt.array.unyt_quantity`, a plain
-        :class:`numpy.ndarray`, or any array-like object (e.g., list, tuple) that can be converted via
-        :func:`numpy.array`.
-
-        Parameters
-        ----------
-        obj : array-like
-            The input data to interpret as a buffer. Regardless of the input type,
-            the data will be coerced to a :class:`~unyt.array.unyt_array` and then wrapped
-            in :class:`UnytArrayBuffer`.
-        units : str or :class:`~unyt.unit_object.Unit`, optional
-            Physical units to attach to the resulting array. If not provided and `obj` has
-            attached units, they are preserved. Otherwise defaults to dimensionless.
-        dtype : data-type, optional
-            Desired data type of the resulting array. If not specified, inferred from input.
-        registry: :class:`~unyt.unit_registry.UnitRegistry`, optional
-            Registry to associate with the units, if applicable.
-        bypass_validation : bool, default False
-            If True, skip unit and value validation (faster but unsafe for malformed input).
-        name : str, optional
-            Optional name for the array (useful for annotation).
-        **kwargs :
-            Additional keyword arguments passed to :func:`numpy.array` if the input must be coerced.
-
-        Returns
-        -------
-        UnytArrayBuffer
-            A buffer instance wrapping the resulting :class:`~unyt.array.unyt_array`.
-
-        Raises
-        ------
-        TypeError
-            If the input cannot be converted into a :class:`~unyt.array.unyt_array`.
-
-        Notes
-        -----
-        **Input Type Behavior:**
-
-        - If `obj` is already a :class:`~unyt.array.unyt_array` or :class:`~unyt.array.unyt_quantity`, it is forwarded directly
-          (converted if `units` is specified).
-        - If `obj` is a :class:`numpy.ndarray`, it is passed to :class:`~unyt.array.unyt_array` with all metadata.
-        - Otherwise, the input is cast via :func:`numpy.array` and then wrapped.
-        """
-        if isinstance(obj, unyt_array):
-            # Convert if user has requested a new unit.
-            if units is not None:
-                return cls(obj.to(units))
-            return cls(obj)
-
-        if isinstance(obj, unyt_quantity):
-            # Promote scalar to unyt_array; preserve or convert units.
-            array = unyt_array(
-                obj,
-                units=units or obj.units,
-                registry=registry,
-                dtype=dtype,
-                bypass_validation=bypass_validation,
-                name=name,
-            )
-            return cls(array)
-
-        if isinstance(obj, np.ndarray):
-            # Wrap numpy arrays directly in unyt_array
-            return cls(
-                unyt_array(
-                    obj,
-                    units=units or "",
-                    registry=registry,
-                    dtype=dtype,
-                    bypass_validation=bypass_validation,
-                    name=name,
-                )
-            )
-
-        # Final fallback: try to coerce to np.array first, then wrap
-        coerced = np.array(obj, dtype=dtype, **kwargs)
-        return cls(
-            unyt_array(
-                coerced,
-                units=units or "",
-                registry=registry,
-                dtype=dtype,
-                bypass_validation=bypass_validation,
-                name=name,
-            )
-        )
-
-    def convert_to_units(
-        self, units: Union[str, unyt.Unit], equivalence=None, **kwargs
-    ):
-        """
-        Convert the buffer data to the specified physical units in-place.
-
-        This method performs an in-place conversion of the HDF5 dataset to the target
-        physical units and updates the unit metadata stored in the HDF5 file. The
-        conversion is only valid if the target units are dimensionally compatible with
-        the current units.
-
-        The method preserves the structure and layout of the underlying dataset while
-        modifying its numerical values according to the specified units. This is
-        useful when standardizing units across datasets or applying unit-sensitive
-        transformations in physical simulations or analysis pipelines.
-
-        Parameters
-        ----------
-        units : str or ~unyt.unit_object.Unit
-            Target units to convert the buffer data to. Can be a unit string (e.g., "km")
-            or a :class:`unyt.unit_object.Unit` instance.
-        equivalence : str, optional
-            Optional unit equivalence (e.g., "mass_energy") to use when converting
-            between units that are not strictly dimensionally identical but are
-            convertible under certain physical principles.
-        **kwargs :
-            Additional keyword arguments forwarded to `unyt`'s unit conversion routines.
-
-        Raises
-        ------
-        UnitConversionError
-            If the target units are not compatible with the buffer's existing units.
-        """
-        self.__array_object__.convert_to_units(units, equivalence=equivalence, **kwargs)
-
-    @classmethod
-    def zeros(cls, shape, *args, units: str = "", **kwargs) -> "UnytArrayBuffer":
-        """
-        Create a buffer filled with zeros and optional units.
-
-        Parameters
-        ----------
-        shape : tuple of int
-            Shape of the array to create.
-        units : str, optional
-            Units to assign to the buffer.
-        *args :
-            Additional positional arguments forwarded to :func:`numpy.zeros`.
-        **kwargs :
-            Keyword arguments forwarded to :func:`numpy.zeros`.
-
-        Returns
-        -------
-        UnytArrayBuffer
-            A zero-filled, unit-tagged buffer.
-        """
-        return cls.from_array(np.zeros(shape, *args, **kwargs), units=units)
-
-    @classmethod
-    def ones(cls, shape, *args, units: str = "", **kwargs) -> "UnytArrayBuffer":
-        """
-        Create a buffer filled with ones and optional units.
-
-        Parameters
-        ----------
-        shape : tuple of int
-            Shape of the array to create.
-        units : str, optional
-            Units to assign to the buffer.
-        *args :
-            Additional positional arguments forwarded to :func:`numpy.ones`.
-        **kwargs :
-            Keyword arguments forwarded to :func:`numpy.ones`.
-
-        Returns
-        -------
-        UnytArrayBuffer
-            A one-filled, unit-tagged buffer.
-        """
-        return cls.from_array(np.ones(shape, *args, **kwargs), units=units)
-
-    @classmethod
-    def full(
-        cls, shape: Tuple[int, ...], *args, fill_value: Any = 0.0, **kwargs
-    ) -> "UnytArrayBuffer":
-        """
-        Create a buffer filled with a constant value and attached units.
-
-        This method accepts either scalar values or :class:`~unyt.array.unyt_quantity` inputs for `fill_value`.
-        If a :class:`~unyt.array.unyt_quantity` is provided, its units are extracted automatically unless
-        overridden by the `units` keyword.
-
-        Parameters
-        ----------
-        shape : tuple of int
-            Desired shape of the array.
-        fill_value : scalar or unyt_quantity, default 0.0
-            The value to fill the array with. Units are inferred if `fill_value` is a :class:`~unyt.array.unyt_quantity`.
-        *args :
-            Additional arguments passed to :func:`numpy.full`.
-        **kwargs :
-            Additional keyword arguments passed to :func:`numpy.full`. May include:
-            - units : str — to override or explicitly declare output units.
-
-        Returns
-        -------
-        UnytArrayBuffer
-            A buffer filled with the specified value and tagged with physical units.
-
-        Raises
-        ------
-        TypeError
-            If the resulting array cannot be coerced into a `unyt_array`.
-        """
-        units = kwargs.pop("units", "")
-
-        if isinstance(fill_value, unyt_quantity):
-            if not units:
-                units = str(fill_value.units)
-            fill_scalar = fill_value.value
-        else:
-            fill_scalar = fill_value
-
-        array = np.full(shape, fill_scalar, *args, **kwargs)
-        return cls.from_array(array, units=units)
-
-    @classmethod
-    def empty(cls, shape, *args, units: str = "", **kwargs) -> "UnytArrayBuffer":
-        """
-        Return a new array of given shape and type, without initializing entries.
-
-        Parameters
-        ----------
-        shape : tuple of int
-            Shape of the array to create.
-        units : str, optional
-            Units to assign to the buffer.
-        *args :
-            Additional positional arguments forwarded to :func:`numpy.empty`.
-        **kwargs :
-            Keyword arguments forwarded to :func:`numpy.empty`.
-
-        Returns
-        -------
-        UnytArrayBuffer
-            A one-filled, unit-tagged buffer.
-        """
-        return cls.from_array(np.empty(shape, *args, **kwargs), units=units)
-
-    def as_repr(self) -> ArrayLike:
-        """
-        Return this buffer as an unyt array.
-        """
-        return self.as_core()
-
-
 class HDF5Buffer(BufferBase):
     """
-    A buffer that wraps a lazily-loaded HDF5 dataset using :class:`h5py.Dataset`.
+    A disk-backed buffer that wraps an `h5py.Dataset` for persistent field storage.
 
-    This buffer enables disk-backed storage of field data, making it ideal for large datasets
-    that exceed memory constraints. Internally, it wraps a persistent HDF5 dataset and exposes
-    a NumPy-compatible interface for slicing, indexing, and arithmetic operations.
+    This class provides a PyMetric-compatible buffer interface for data stored in
+    HDF5 files. It is particularly suited for large-scale or long-lived datasets
+    that exceed in-memory limits or require persistent storage across sessions.
 
-    Unlike in-memory buffers like :class:`ArrayBuffer` or :class:`UnytArrayBuffer`, this buffer
-    does not eagerly load its contents into memory. Instead, all reads and writes are performed
-    through a memory-mapped interface, and computations are supported through seamless integration
-    with NumPy ufuncs.
-
-    If units are provided (either at creation or via a unit-aware input), they are stored as
-    a string attribute on the dataset and automatically reapplied when data is accessed.
+    Unlike in-memory buffers (e.g., :class:`ArrayBuffer`), `HDF5Buffer` instances
+    operate on datasets saved to disk via `h5py`. They support standard buffer semantics
+    including indexing, broadcasting, NumPy interoperability, and context management,
+    while handling backend-specific logic such as file ownership and I/O flushing.
 
     Examples
     --------
-    Create a disk-backed buffer with units:
+    Create a new HDF5 buffer from an in-memory array:
 
-    >>> buff = HDF5Buffer.from_array([1, 2, 3],
-    ...                       "mydata.h5",
-    ...                       "dataset",
-    ...                       units=None,
-    ...                       overwrite=True,dtype='f8',
-    ...                       create_file=True)
-    >>> buff
-    HDF5Buffer(shape=(3,), dtype=float64, path='/dataset')
+    >>> from pymetric.fields.buffers import HDF5Buffer
+    >>> buf = HDF5Buffer.from_array([[1, 2], [3, 4]], file="data.h5", path="/example")
+
+    Open an existing dataset:
+
+    >>> with HDF5Buffer.open("data.h5", "/example", close_on_exit=True) as buf:
+    ...     print(buf.shape)
+
+    Update a buffer in place using a NumPy ufunc:
+
+    >>> import numpy as np
+    >>> np.add(buf, 1.0, out=buf)
+
+    Notes
+    -----
+    - When `make_owner=True`, the buffer is responsible for closing the file.
+    - You can manually call :meth:`flush()` to write buffered changes to disk.
+    - Use context management (``with``) to ensure safe file handling.
 
     See Also
     --------
-    ArrayBuffer : In-memory NumPy array backend.
-    UnytArrayBuffer : In-memory unit-aware buffer.
-    ~fields.buffers.base.BufferBase : Abstract buffer interface.
+    ArrayBuffer : Lightweight in-memory buffer using :class:`numpy.ndarray`.
+    ~fields.buffers.base.BufferBase : Abstract base class for all buffers.
+    h5py.Dataset : Underlying dataset format used in this buffer.
     """
 
-    # ------------------------------ #
-    # Class Flags                    #
-    # ------------------------------ #
-    # These attributes configure behavior and
-    # registration rules for buffer subclasses.
-    # All **concrete** buffer classes MUST define
-    # these attributes explicitly.
-    #
-    # Abstract classes may omit them by setting __is_abc__ = True.
-    __is_abc__ = False
-    __can_resolve__ = [h5py.Dataset]
-    __core_array_types__ = (h5py.Dataset,)
-    __representation_types__ = (unyt_array, np.ndarray)
-    __resolution_priority__ = 30
+    # =================================== #
+    # Class Flags                         #
+    # =================================== #
+    # These flags are class level markers indicating the behavior
+    # of the class. They should be configured in subclasses.
+    __is_abc__: bool = False
+    __buffer_resolution_priority__: int = 30
+    __buffer_resolution_compatible_classes__: Optional[List[Type]] = [h5py.Dataset]
+    __array_function_dispatch__: Dict[Callable, Callable] = {}
 
-    # Reduce the scope of directed array dispatching to
-    # provide a more intuitive behavioral context.
-    __array_function_dispatch__: Optional[Dict[Callable, Callable]] = {
-        # Internally defined properties.
-        np.shape: lambda self, *_, **__: self.shape,
-        np.ndim: lambda self, *_, **__: self.ndim,
-        np.size: lambda self, *_, **__: self.size,
-    }
-
-    # ------------------------------ #
-    # Initialization                 #
-    # ------------------------------ #
-    # The initialization procedure should be meta stable
-    # in the sense that it always behaves the same way: __init__
-    # requires a pre-coerced type and simply checks for type compliance.
-    # Other methods can be used for more adaptive behavior.
-    def __init__(self, array: h5py.Dataset, __is_file_owner__: bool = False):
+    # =================================== #
+    # Initialization Methods              #
+    # =================================== #
+    def __init__(self, array: h5py.Dataset, owns_file: bool = False):
         """
         Create an :class:`HDF5Buffer` object.
 
@@ -659,9 +299,22 @@ class HDF5Buffer(BufferBase):
         ----------
         array : h5py.Dataset
             Open dataset to wrap. *Must* remain valid for the buffer's lifetime.
+        owns_file : bool, optional
+            If True, the buffer will close the file when exiting its context.
         """
         super().__init__(array)
-        self.__is_owner__: bool = __is_file_owner__
+        self.__is_owner__: bool = owns_file
+
+    def __validate_array_object__(self):
+        if not isinstance(self.__array_object__, h5py.Dataset):
+            raise TypeError(
+                f"Expected an HDF5 dataset, got {type(self.__array_object__)}."
+            )
+
+        # Check that the h5py object is successfully opened
+        # and has a valid status.
+        if not self.__array_object__.id.valid:
+            raise ValueError("HDF5 dataset is not valid or has been closed.")
 
     def __enter__(self) -> "HDF5Buffer":
         """Enter the buffer context."""
@@ -673,6 +326,94 @@ class HDF5Buffer(BufferBase):
         if self.__is_owner__:
             self.__array_object__.file.close()
 
+    # =================================== #
+    # Generator Methods                   #
+    # =================================== #
+    @classmethod
+    def create_dataset(
+        cls,
+        file: Union[str, Path, h5py.File],
+        name: str,
+        shape: Optional[tuple] = None,
+        dtype: Optional[Any] = None,
+        *,
+        data: Optional[ArrayLike] = None,
+        overwrite: bool = False,
+        **kwargs,
+    ) -> h5py.Dataset:
+        """
+        Create an HDF5 dataset in a file and return the resulting `h5py.Dataset`.
+
+        This utility is used internally by `HDF5Buffer` to create datasets from raw data.
+        If a dataset with the given name already exists, it can be optionally overwritten.
+
+        Parameters
+        ----------
+        file : str, Path, or h5py.File
+            Path to the HDF5 file or an open `h5py.File` object. This is the parent object
+            into which the dataset will be created.
+        name : str
+            Name of dataset to create. May be an absolute or relative path.
+            Provide ``None`` to create an anonymous dataset, to be linked into the file later.
+        shape : tuple of int, optional
+            Desired shape of the dataset. Required if `data` is not provided.
+        dtype : data-type, optional
+            Data type of the dataset. Inferred from `data` if not provided.
+        data : array-like, optional
+            Input data to populate the dataset. If provided, `shape` and `dtype` are optional.
+        overwrite : bool, default False
+            Whether to delete and replace an existing dataset with the same name.
+        **kwargs :
+            Additional keyword arguments passed to `h5py.File.create_dataset`.
+
+        Returns
+        -------
+        h5py.Dataset
+            A created dataset ready to be wrapped in a buffer.
+
+        Raises
+        ------
+        FileNotFoundError
+            If the HDF5 file path does not exist and file creation is not permitted.
+        ValueError
+            If the dataset already exists and `overwrite` is not set.
+        TypeError
+            If the `file` parameter is neither a path nor an `h5py.File`.
+        """
+        # Open and validate the file. Ensure it exists / create it
+        # and then do the necessary logic progression to ensure consistency.
+        if isinstance(file, (str, Path)):
+            file = Path(file)
+            create_flag = kwargs.pop("create_file", False)
+
+            if not file.exists():
+                if not create_flag:
+                    raise FileNotFoundError(
+                        f"File '{file}' does not exist. Use create_file=True to allow file creation."
+                    )
+                file.parent.mkdir(parents=True, exist_ok=True)
+                file.touch()
+
+            file = h5py.File(file, mode="r+")
+
+        elif isinstance(file, h5py.File):
+            _ = kwargs.pop("create_file", False)  # Ignore if already a file object
+        else:
+            raise TypeError(f"`file` must be a path or h5py.File, got {type(file)}.")
+
+        # Check for pre-existing dataset
+        if name in file:
+            if overwrite:
+                del file[name]
+            else:
+                raise ValueError(
+                    f"Dataset '{name}' already exists. Use `overwrite=True` to replace it."
+                )
+
+        # Create the dataset
+        dset = file.create_dataset(name, shape=shape, dtype=dtype, data=data, **kwargs)
+        return dset
+
     # noinspection PyIncorrectDocstring
     @classmethod
     def from_array(
@@ -682,7 +423,6 @@ class HDF5Buffer(BufferBase):
         path: Optional[str] = None,
         *args,
         dtype: Optional[Any] = None,
-        units: Optional[Union["Unit", str]] = None,
         **kwargs,
     ) -> "HDF5Buffer":
         """
@@ -704,8 +444,6 @@ class HDF5Buffer(BufferBase):
             Internal path for the new dataset in the HDF5 file. Required if `obj` is not already a dataset.
         dtype : data-type, optional
             Desired data type of the dataset. Defaults to the dtype inferred from `obj`.
-        units : str or :class:`~unyt.unit_object.Unit`, optional
-            Units to attach to the dataset. If `obj` already has units, this overrides them.
         overwrite : bool, default False
             If True, any existing dataset at the given path will be deleted and replaced.
         **kwargs :
@@ -728,175 +466,23 @@ class HDF5Buffer(BufferBase):
         HDF5Buffer.create_dataset : Core method used for new dataset creation.
         buffer_from_array : Registry-based entry point to buffer resolution.
         """
+        # Case 1: Wrap an existing HDF5 dataset directly
         if isinstance(obj, h5py.Dataset):
-            __is_file_owner__ = kwargs.pop("make_owner", False)
-            return cls(obj, __is_file_owner__=__is_file_owner__)
+            is_owner = kwargs.pop("make_owner", False)
+            return cls(obj, owns_file=is_owner)
 
+        # Case 2: Create a new dataset from in-memory data
         if file is None or path is None:
             raise ValueError(
-                "When creating a new dataset, both `file` and `path` must be provided."
+                "Both `file` and `path` must be specified to create a new HDF5 dataset."
             )
 
-        __is_file_owner__ = kwargs.pop("make_owner", True)
+        is_owner = kwargs.pop("make_owner", True)
+        array = np.asarray(obj, dtype=dtype)
         dataset = cls.create_dataset(
-            file, path, dtype=dtype, data=obj, units=units, **kwargs
+            file, path, data=array, dtype=array.dtype, **kwargs
         )
-        return cls(dataset, __is_file_owner__=__is_file_owner__)
-
-    def convert_to_units(
-        self, units: Union[str, unyt.Unit], equivalence=None, **kwargs
-    ):
-        """
-        Convert the buffer data to the specified physical units in-place.
-
-        This method performs an in-place conversion of the HDF5 dataset to the target
-        physical units and updates the unit metadata stored in the HDF5 file. The
-        conversion is only valid if the target units are dimensionally compatible with
-        the current units.
-
-        The method preserves the structure and layout of the underlying dataset while
-        modifying its numerical values according to the specified units. This is
-        useful when standardizing units across datasets or applying unit-sensitive
-        transformations in physical simulations or analysis pipelines.
-
-        Parameters
-        ----------
-        units : str or ~unyt.unit_object.Unit
-            Target units to convert the buffer data to. Can be a unit string (e.g., "km")
-            or a :class:`unyt.unit_object.Unit` instance.
-        equivalence : str, optional
-            Optional unit equivalence (e.g., "mass_energy") to use when converting
-            between units that are not strictly dimensionally identical but are
-            convertible under certain physical principles.
-        **kwargs :
-            Additional keyword arguments forwarded to `unyt`'s unit conversion routines.
-
-        Raises
-        ------
-        UnitConversionError
-            If the target units are not compatible with the buffer's existing units.
-        """
-        self.__array_object__[...] = self[...].to_value(
-            units, equivalence=equivalence, **kwargs
-        )
-        self.units = units
-
-    # === Internal Utilities === #
-    @classmethod
-    def create_dataset(
-        cls,
-        file: Union[str, Path, h5py.File],
-        name: str,
-        shape: Optional[tuple] = None,
-        dtype: Optional[Any] = None,
-        *,
-        data: Optional[Union[np.ndarray, list, "unyt_array"]] = None,
-        overwrite: bool = False,
-        units: Optional[Union[str, Unit]] = None,
-        **kwargs,
-    ) -> h5py.Dataset:
-        """
-        Create a new HDF5 dataset with optional unit metadata.
-
-        Parameters
-        ----------
-        file : str, Path, or :class:`h5py.File`
-            Path to HDF5 file or open file handle.
-        name : str
-            Name of the dataset inside the HDF5 file.
-        shape : tuple of int, optional
-            Shape of the dataset, if not using `data`.
-        dtype : data-type, optional
-            Desired data type. If not given, inferred from `data`.
-        data : array-like, optional
-            Initial values. Will be coerced to a `unyt_array`.
-        overwrite : bool, default False
-            Whether to overwrite an existing dataset.
-        units : str or :class:`~unyt.unit_object.Unit`, optional
-            Units to attach to the dataset. If not provided and `data` has units, they are preserved.
-        **kwargs :
-            Additional arguments to :meth:`~h5py.File.create_dataset`.
-
-        Returns
-        -------
-        ~h5py.Dataset
-            The created dataset.
-        """
-        # Open the file if it is provided as a path
-        # and not as an HDF5 file. Ensure it exists before
-        # proceeding. By default, we will allow the
-        # creation of the file.
-        if isinstance(file, (str, Path)):
-            file = Path(file)
-
-            # Handle the non-existence options. By default,
-            # we raise an error unless create_file = True
-            __create_file_flag__ = kwargs.pop("create_file", False)
-            if not file.exists():
-                if not __create_file_flag__:
-                    raise FileNotFoundError(
-                        f"File '{file}' does not exist. To create a new file, ensure create_file=True."
-                    )
-                else:
-                    file.touch()
-
-            # Replace the file with an HDF5 reference.
-            file = h5py.File(file, mode="r+")
-        elif isinstance(file, h5py.File):
-            _ = kwargs.pop("create_file", False)
-        else:
-            raise TypeError(
-                f"`file` must be a file path or an h5py.File, got {type(file)}"
-            )
-
-        # With the file open, we need to now resolve the
-        # path, ensure overwrite conventions are respected
-        # and prepare to generate the dataset.
-        if name in file:
-            if overwrite:
-                del file[name]
-            else:
-                raise ValueError(
-                    f"Dataset '{name}' already exists. Use `overwrite=True` to replace it."
-                )
-
-        # Handle data provided. If we received data, we force it into
-        # the our conventional unyt type and then grab out the
-        # true data and the units. Otherwise, we just skip through.
-        # Normalize units that we got from kwargs.
-        # Normalize units provided by user
-        raw_data = None  # Default to None unless data is provided
-        if data is not None:
-            # We got handed data. We need to standardize units and then
-            # build the unyt array.
-            arg_units = unyt.Unit(units) if units is not None else None
-            arr_units = getattr(data, "units", None)
-
-            if (arg_units is not None) and (arr_units is not None):
-                data_array = _to_unyt_array(data, dtype=dtype).to(arg_units).d
-                units = arg_units
-            elif (arg_units is not None) and (arr_units is None):
-                data_array = _to_unyt_array(data, dtype=dtype, units=arg_units).d
-                units = arg_units
-            elif (arr_units is not None) and (arg_units is None):
-                data_array = _to_unyt_array(data, dtype=dtype).d
-                units = arr_units
-            else:
-                data_array = _to_unyt_array(data, dtype=dtype).d
-                units = None
-
-            raw_data = data_array
-
-        # Create the dataset
-        dset = file.create_dataset(
-            name, shape=shape, dtype=dtype, data=raw_data, **kwargs
-        )
-
-        # Set units metadata if available
-        if units is not None:
-            dset.attrs["units"] = str(units)
-
-        return dset
+        return cls(dataset, owns_file=is_owner)
 
     @classmethod
     def open(
@@ -908,97 +494,65 @@ class HDF5Buffer(BufferBase):
         close_on_exit: bool = False,
     ) -> "HDF5Buffer":
         """
-        Open an existing HDF5 dataset and return it as a buffer.
+        Open an existing HDF5 dataset and wrap it as a buffer.
 
-        This method provides safe access to datasets within an HDF5 file,
-        whether the file is passed as a string path or an already opened
-        :class:`h5py.File` object.
+        This method provides controlled access to an HDF5 dataset stored within
+        a file, supporting both file paths and already opened `h5py.File` objects.
 
-        When used in a `with` statement (context manager), the file will be
-        automatically flushed and closed at exit if ``close_on_exit=True``.
+        If `close_on_exit=True`, the returned buffer will automatically close the
+        underlying file when used in a `with` block or when `close()` is called.
 
         Parameters
         ----------
         file : str, Path, or h5py.File
-            File path or an open HDF5 file containing the dataset.
+            The HDF5 file containing the dataset. May be a file path or an open handle.
         path : str
-            Path to the dataset inside the HDF5 file (e.g., ``"/my/data"``).
+            The internal path to the dataset within the file (e.g., "/my/data").
         mode : str, default "r+"
-            File mode to use when `file` is a path. Ignored if `file` is a :class:`h5py.File`.
-            Common values:
-
-                - ``"r"``: read-only
-                - ``"r+"``: read/write
-                - ``"a"``: read/write or create
-
+            Mode to use when opening the file if a path is provided. Ignored if `file` is already open.
         close_on_exit : bool, default False
-            If True, the file will be closed when the buffer is used in a context manager.
+            Whether the buffer should take ownership of the file and close it on exit.
 
         Returns
         -------
         HDF5Buffer
-            A buffer object wrapping the specified dataset.
+            A buffer wrapping the specified HDF5 dataset.
 
         Raises
         ------
         FileNotFoundError
-            If the file or dataset path does not exist.
+            If the provided file path does not exist.
+        KeyError
+            If the specified dataset does not exist in the file.
         TypeError
-            If `file` is neither a path nor an `h5py.File`.
+            If `file` is not a string, Path, or h5py.File.
 
         Examples
         --------
         >>> with HDF5Buffer.open("data.h5", "temperature", close_on_exit=True) as buf:
         ...     print(buf.shape)
         """
+        # Open the file if it's a path
         if isinstance(file, (str, Path)):
             file = Path(file)
             if not file.exists():
-                raise FileNotFoundError(f"File '{file}' does not exist.")
+                raise FileNotFoundError(f"HDF5 file '{file}' does not exist.")
             file_obj = h5py.File(file, mode=mode)
         elif isinstance(file, h5py.File):
             file_obj = file
         else:
             raise TypeError(f"`file` must be a path or h5py.File, got {type(file)}")
 
+        # Look up the dataset inside the file
         if path not in file_obj:
             raise KeyError(f"Dataset '{path}' not found in file.")
 
         dataset = file_obj[path]
-        buffer = cls(dataset, __is_file_owner__=close_on_exit)
-
-        return buffer
+        return cls(dataset, owns_file=close_on_exit)
 
     # ------------------------------ #
     # Properties                     #
     # ------------------------------ #
-    @property
-    def units(self) -> Optional[Unit]:
-        """
-        Return the physical units stored as an HDF5 attribute.
-
-        Returns
-        -------
-        str or None
-            The unit string stored in the dataset, or None if not present.
-        """
-        _units = self.__array_object__.attrs.get("units", None)
-        if _units is None:
-            return _units
-        return Unit(_units)
-
-    @units.setter
-    def units(self, value: Union[Unit, str]):
-        """
-        Set the physical units in the HDF5 dataset metadata.
-
-        Parameters
-        ----------
-        value : str or unyt.Unit
-            Unit string / instance to attach.
-        """
-        self.__array_object__.attrs["units"] = str(value)
-
     @property
     def is_open(self) -> bool:
         """True if the underlying dataset is still attached to an open file."""
@@ -1065,7 +619,7 @@ class HDF5Buffer(BufferBase):
         return f"HDF5Buffer(shape={self.shape}, dtype={self.dtype}, path='{self.__array_object__.name}')"
 
     def __str__(self):
-        return self.as_unyt_array().__str__()
+        return self.__array_object__.__str__()
 
     def __getitem__(self, idx):
         """
@@ -1086,27 +640,12 @@ class HDF5Buffer(BufferBase):
         """
         ret = self.__array_object__.__getitem__(idx)
 
-        if self.units is not None:
-            if getattr(ret, "shape", None) == ():
-                ret = unyt_quantity(ret, bypass_validation=True)
-            else:
-                ret = unyt_array(ret, bypass_validation=True)
-            ret.units = self.units
         return ret
 
     def __setitem__(self, item, value):
         # Handle the units first to ensure that we are not changing
         # units.
-        if hasattr(value, "units"):
-            try:
-                _raw_value = np.asarray(value.to_value(self.units), dtype=self.dtype)
-            except UnitConversionError:
-                raise ValueError(
-                    "Cannot use __setitem__ with inconsistent units. To replace the entire array with "
-                    "one of new units, use `.replace`."
-                )
-        else:
-            _raw_value = np.asarray(value, dtype=self.dtype)
+        _raw_value = np.asarray(value, dtype=self.dtype)
 
         # Avoid broadcasting if value is scalar#
         if _raw_value.ndim == 0:
@@ -1288,19 +827,6 @@ class HDF5Buffer(BufferBase):
         """Return a NumPy array view of the full dataset (units stripped)."""
         return np.asarray(self[:])
 
-    def as_unyt_array(self) -> unyt_array:
-        """Return a unit-aware unyt_array view of the full dataset."""
-        return self[:]  # __getitem__ already wraps in unyt_array if needed
-
-    def as_repr(self):
-        """
-        Return this buffer as an :class:`~unyt.array.unyt_array` if
-        the buffer has units; otherwise as a :class:`~numpy.ndarray`.
-        """
-        # Use a memory-mapped view, but preserve units if defined
-        out = self.__array_object__[:]
-        return unyt_array(out, self.units) if self.units else out
-
     def close(self, force: bool = False):
         """
         Close the underlying HDF5 file, if owned by this buffer.
@@ -1346,390 +872,3 @@ class HDF5Buffer(BufferBase):
         close : For final closure of the file.
         """
         self.file.flush()
-
-    # ---------------------------------- #
-    # Reconstructed array manip. methods #
-    # ---------------------------------- #
-    def replace_dataset(
-        self,
-        shape: Optional[tuple] = None,
-        dtype: Optional[Any] = None,
-        data: Optional[Union[np.ndarray, list, "unyt_array"]] = None,
-        *,
-        units: Optional[Union[str, Unit]] = None,
-        **kwargs,
-    ) -> "HDF5Buffer":
-        """
-        Replace the current HDF5 dataset with a newly created one.
-
-        This method deletes and recreates the dataset at the same internal HDF5 path (`self.name`)
-        with optionally modified shape, dtype, data, and units. It is useful for performing
-        operations like `reshape`, `astype`, or structural updates in-place, without requiring
-        the caller to manage HDF5 file I/O manually.
-
-        Parameters
-        ----------
-        shape : tuple of int, optional
-            New shape for the dataset. If not provided, uses the current shape.
-        dtype : data-type, optional
-            Desired data type for the new dataset. Defaults to the current dtype.
-        data : array-like, optional
-            Data to populate the new dataset. If not provided, the current buffer data is reused.
-        units : str or unyt.Unit, optional
-            Units to assign to the new dataset. If not provided, preserves the current units.
-        **kwargs :
-            Additional keyword arguments passed to :meth:`create_dataset`, such as compression options.
-
-        Returns
-        -------
-        HDF5Buffer
-            The same buffer instance, now referencing the newly created dataset.
-
-        Notes
-        -----
-        - The underlying HDF5 file must be writable.
-        - This will *delete* the existing dataset at `self.name`.
-        - Units are preserved by default unless explicitly overridden.
-        """
-        new_dataset = self.__class__.create_dataset(
-            file=self.file,
-            name=self.name,
-            shape=shape,
-            dtype=dtype or self.dtype,
-            data=data if data is not None else self.as_repr(),
-            overwrite=True,
-            units=units or self.units,
-            **kwargs,
-        )
-        self.__array_object__ = new_dataset
-        return self
-
-    # ------------------------------ #
-    # Standard Numpy Transformations #
-    # ------------------------------ #
-    def _apply_numpy_transform_on_repr(
-        self, func: Callable, fargs, fkwargs, *args, inplace: bool = True, **kwargs
-    ) -> "BufferBase":
-        """
-        Apply a NumPy-compatible transformation to the buffer's representation.
-
-        This method is used to wrap high-level NumPy functions or methods (e.g., `np.reshape`,
-        `np.copy`, `np.squeeze`) that operate on the buffer's `as_repr()` array, which may be
-        a NumPy array or a unit-tagged `unyt_array`.
-
-        Parameters
-        ----------
-        func : Callable
-            The NumPy-compatible function or method to apply.
-        fargs : tuple
-            Positional arguments for the function (not for `from_array`).
-        fkwargs : dict
-            Keyword arguments for the function (not for `from_array`).
-        *args :
-            Positional arguments passed to `.from_array()` after transformation.
-        **kwargs :
-            Keyword arguments passed to `.from_array()` after transformation.
-
-        Returns
-        -------
-        BufferBase
-            A new buffer wrapping the transformed representation.
-        """
-        repr_view = self.as_repr()
-
-        if inplace:
-            self.replace_dataset(data=func(repr_view, *fargs, **fkwargs), **kwargs)
-            return self
-
-        return self.__class__.from_array(
-            func(repr_view, *fargs, **fkwargs), *args, **kwargs
-        )
-
-    def _apply_numpy_transform_on_core(
-        self, func: Callable, fargs, fkwargs, *args, inplace: bool = True, **kwargs
-    ) -> "BufferBase":
-        """
-        Apply a transformation to the raw backend array (`as_core()`).
-
-        This method applies the given NumPy-compatible function directly to the
-        buffer’s raw storage (e.g., `np.ndarray`, `unyt_array`, `h5py.Dataset`),
-        and wraps the result in a new buffer instance.
-
-        This is useful when you want to preserve the underlying structure and avoid
-        unnecessary coercion to a representation type (e.g., for memory efficiency or
-        backend-specific manipulations).
-
-        Parameters
-        ----------
-        func : Callable
-            The function or method to apply to the core array.
-        fargs : tuple
-            Positional arguments for the function (not for `from_array`).
-        fkwargs : dict
-            Keyword arguments for the function (not for `from_array`).
-        *args :
-            Positional arguments passed to `.from_array()` after transformation.
-        **kwargs :
-            Keyword arguments passed to `.from_array()` after transformation.
-
-        Returns
-        -------
-        BufferBase
-            A new buffer wrapping the transformed core array.
-        """
-        repr_view = self.as_core()
-
-        if inplace:
-            self.replace_dataset(data=func(repr_view, *fargs, **fkwargs), **kwargs)
-            return self
-
-        return self.__class__.from_array(
-            func(repr_view, *fargs, **fkwargs), *args, **kwargs
-        )
-
-    def astype(
-        self, dtype: Any, *args, inplace: bool = False, **kwargs
-    ) -> "BufferBase":
-        """
-        Return a copy of this buffer with a different data type.
-
-        This performs a type conversion using the underlying array and returns
-        a new buffer of the same class with the updated `dtype`.
-
-        Parameters
-        ----------
-        dtype : data-type
-            The target data type for the returned array.
-        *args :
-            Additional positional arguments forwarded to :meth:`from_array`.
-        inplace : bool, optional
-            If `True`, values for `file`, `name`, and `overwrite` are ignored; the
-            dataset underlying the calling buffer is directly replaced and the object is
-            updated and returned in-place.
-        **kwargs :
-            Additional keyword arguments forwarded to and :meth:`from_array`. If `inplace` is
-            ``True``, then these are forwarded to :meth:`replace_dataset`.
-
-        Returns
-        -------
-        BufferBase
-            A new buffer instance with the specified data type.
-        """
-        if inplace:
-            self.replace_dataset(dtype=dtype, **kwargs)
-            return self
-        else:
-            return self.__class__.from_array(
-                self.as_repr().astype(dtype), *args, **kwargs
-            )
-
-    def reshape(self, shape, *args, inplace: bool = False, **kwargs) -> "BufferBase":
-        """
-        Return a reshaped copy of this buffer.
-
-        This reshapes the buffer into a new shape and returns a new buffer instance.
-        The reshaping is done using the NumPy-compatible view returned by `as_repr()`.
-
-        Parameters
-        ----------
-        shape : tuple of int
-            Target shape for the new buffer.
-        *args :
-            Additional positional arguments forwarded to :meth:`from_array`.
-        inplace : bool, optional
-            If `True`, values for `file`, `name`, and `overwrite` are ignored; the
-            dataset underlying the calling buffer is directly replaced and the object is
-            updated and returned in-place.
-        **kwargs :
-            Additional keyword arguments forwarded to and :meth:`from_array`. If `inplace` is
-            ``True``, then these are forwarded to :meth:`replace_dataset`.
-
-        Returns
-        -------
-        BufferBase
-            A new buffer with reshaped data.
-        """
-        if inplace:
-            self.replace_dataset(
-                shape=shape, data=self.as_repr().reshape(shape), **kwargs
-            )
-            return self
-        return self.__class__.from_array(self.as_repr().reshape(shape), *args, **kwargs)
-
-    def transpose(
-        self, axes=None, *args, inplace: bool = False, **kwargs
-    ) -> "BufferBase":
-        """
-        Return a transposed copy of this buffer.
-
-        The transposition is performed using the NumPy-compatible array returned by `as_repr()`.
-
-        Parameters
-        ----------
-        axes : tuple of int, optional
-            By default, reverses the dimensions. If specified, reorders the axes accordingly.
-        *args :
-            Additional positional arguments forwarded to :meth:`from_array`.
-        inplace : bool, optional
-            If `True`, values for `file`, `name`, and `overwrite` are ignored; the
-            dataset underlying the calling buffer is directly replaced and the object is
-            updated and returned in-place.
-        **kwargs :
-            Additional keyword arguments forwarded to and :meth:`from_array`. If `inplace` is
-            ``True``, then these are forwarded to :meth:`replace_dataset`.
-
-        Returns
-        -------
-        BufferBase
-            A new transposed buffer.
-        """
-        if inplace:
-            self.replace_dataset(data=self.as_repr().transpose(axes), **kwargs)
-            return self
-        return self.__class__.from_array(
-            self.as_repr().transpose(axes), *args, **kwargs
-        )
-
-    def flatten(
-        self, *args, order="C", inplace: bool = False, **kwargs
-    ) -> "BufferBase":
-        """
-        Return a flattened 1D view of this buffer.
-
-        This flattens the buffer using the specified memory layout and returns a new buffer instance.
-
-        Parameters
-        ----------
-        order : {'C', 'F', 'A', 'K'}, default 'C'
-            Memory layout to use when flattening:
-            - 'C' → row-major (C-style),
-            - 'F' → column-major (Fortran-style),
-            - 'A' → 'F' if input is Fortran contiguous, else 'C',
-            - 'K' → as close to input layout as possible.
-
-        *args :
-            Additional positional arguments forwarded to :meth:`from_array`.
-        inplace : bool, optional
-            If `True`, values for `file`, `name`, and `overwrite` are ignored; the
-            dataset underlying the calling buffer is directly replaced and the object is
-            updated and returned in-place.
-        **kwargs :
-            Additional keyword arguments forwarded to and :meth:`from_array`. If `inplace` is
-            ``True``, then these are forwarded to :meth:`replace_dataset`.
-
-        Returns
-        -------
-        BufferBase
-            A new 1D buffer.
-        """
-        if inplace:
-            self.replace_dataset(data=self.as_repr().flatten(order=order), **kwargs)
-            return self
-        return self.__class__.from_array(
-            self.as_repr().flatten(order=order), *args, **kwargs
-        )
-
-    def squeeze(
-        self, *args, axis=None, inplace: bool = False, **kwargs
-    ) -> "BufferBase":
-        """
-        Remove singleton dimensions from this buffer.
-
-        Parameters
-        ----------
-        axis : int or tuple of int, optional
-            If specified, only squeezes the given axes. Otherwise, all single-dim axes are removed.
-        *args :
-            Additional positional arguments forwarded to :meth:`from_array`.
-        inplace : bool, optional
-            If `True`, values for `file`, `name`, and `overwrite` are ignored; the
-            dataset underlying the calling buffer is directly replaced and the object is
-            updated and returned in-place.
-        **kwargs :
-            Additional keyword arguments forwarded to and :meth:`from_array`. If `inplace` is
-            ``True``, then these are forwarded to :meth:`replace_dataset`.
-
-        Returns
-        -------
-        BufferBase
-            A squeezed buffer.
-        """
-        if inplace:
-            self.replace_dataset(data=self.as_repr().squeeze(axis=axis), **kwargs)
-            return self
-        return self.__class__.from_array(
-            self.as_repr().squeeze(axis=axis), *args, **kwargs
-        )
-
-    def expand_dims(
-        self, axis: int, *args, inplace: bool = False, **kwargs
-    ) -> "BufferBase":
-        """
-        Expand the shape of this buffer by inserting a new axis.
-
-        Parameters
-        ----------
-        axis : int
-            Position at which to insert the new axis.
-        *args :
-            Additional positional arguments forwarded to :meth:`from_array`.
-        inplace : bool, optional
-            If `True`, values for `file`, `name`, and `overwrite` are ignored; the
-            dataset underlying the calling buffer is directly replaced and the object is
-            updated and returned in-place.
-        **kwargs :
-            Additional keyword arguments forwarded to and :meth:`from_array`. If `inplace` is
-            ``True``, then these are forwarded to :meth:`replace_dataset`.
-
-        Returns
-        -------
-        BufferBase
-            A buffer with the expanded shape.
-        """
-        if inplace:
-            self.replace_dataset(
-                data=np.expand_dims(self.as_repr(), axis=axis), **kwargs
-            )
-            return self
-        return self.__class__.from_array(
-            np.expand_dims(self.as_repr(), axis=axis), *args, **kwargs
-        )
-
-    def broadcast_to(
-        self, shape: Any, *args, inplace: bool = False, **kwargs
-    ) -> "BufferBase":
-        """
-        Broadcast an array to a new shape.
-
-        Parameters
-        ----------
-        shape : tuple or int
-            The shape of the desired output array. A single integer ``i`` is interpreted
-            as ``(i,)``.
-        *args :
-            Additional positional arguments forwarded to :meth:`from_array`.
-        inplace : bool, optional
-            If `True`, values for `file`, `name`, and `overwrite` are ignored; the
-            dataset underlying the calling buffer is directly replaced and the object is
-            updated and returned in-place.
-        **kwargs :
-            Additional keyword arguments forwarded to and :meth:`from_array`. If `inplace` is
-            ``True``, then these are forwarded to :meth:`replace_dataset`.
-
-        Returns
-        -------
-        broadcast : BufferBase
-            A readonly view on the original array with the given shape. It is
-            typically not contiguous. Furthermore, more than one element of a
-            broadcasted array may refer to a single memory location.
-
-
-        Raises
-        ------
-        ValueError
-            If the array is not compatible with the new shape according to NumPy's
-            broadcasting rules.
-        """
-        return self._apply_numpy_transform_on_repr(
-            np.broadcast_to, [shape], {}, *args, **kwargs
-        )
