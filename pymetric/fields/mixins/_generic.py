@@ -90,6 +90,9 @@ class NumpyArithmeticMixin:
     def __neg__(self):
         return np.negative(self)
 
+    def __abs__(self):
+        return np.abs(self)
+
     def __pos__(self):
         return np.positive(self)
 

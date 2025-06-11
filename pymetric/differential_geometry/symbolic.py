@@ -716,7 +716,9 @@ def compute_gradient(
             )
         _field_derivatives_ = raise_index(_field_derivatives_, inverse_metric, axis=0)
     elif basis != "covariant":
-        raise ValueError("`basis` must be either 'covariant' or 'contravariant'.")
+        raise ValueError(
+            f"`basis` must be either 'covariant' or 'contravariant'. Not {basis}."
+        )
 
     return _field_derivatives_
 
