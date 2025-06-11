@@ -276,21 +276,6 @@ class _CoordinateSystemBase(
     Each of the parameters in :py:attr:`~pisces.geometry.base.CoordinateSystem.PARAMETERS` may be provided as
     a ``kwarg`` when creating a new instance of this class.
     """
-    __AXES_DIMENSIONS__: List[sp.Basic] = None
-    """Physical dimension associated with **each** entry in :attr:`__AXES__`.
-
-    This list gives the **base‐quantity** (length, angle, time, …) that every
-    coordinate carries so that downstream utilities—distance metrics, unit-aware
-    gradients, field constructors, etc.—can reason about unit conversions
-    automatically.
-
-    Requirements
-    ------------
-    * **Length & order must exactly match** :pyattr:`__AXES__`.
-    * Use ``dimensionless`` or ``None`` if a coordinate has no physical units
-      (e.g. a pure index or normalized radius).
-
-    """
     __AXES_LATEX__: Dict[str, str] = None
     """LaTeX representations of the coordinate axes in this coordinate system.
 
@@ -814,32 +799,6 @@ class _CoordinateSystemBase(
         return self.__class__.__axes_symbols__[:]
 
     @property
-    def axes_dimensions(self) -> List[sp.Basic]:
-        """
-        Return the symbolic physical dimensions associated with each axis.
-
-        This is typically used for inferring units or performing dimensional analysis.
-        The list is expected to match the coordinate system’s `__AXES__` order.
-
-        Returns
-        -------
-        list of sympy.Basic
-            The symbolic dimension of each axis (e.g., `L`, `1`, etc.).
-
-        Raises
-        ------
-        ValueError
-            If `__AXES_DIMENSIONS__` is not defined for the coordinate system class.
-        """
-        dims = getattr(self.__class__, "__AXES_DIMENSIONS__", None)
-        if dims is not None:
-            return list(dims)
-        raise ValueError(
-            f"{self.__class__.__name__} does not define __AXES_DIMENSIONS__. "
-            "This must be implemented on the class level to support unit resolution."
-        )
-
-    @property
     def parameter_symbols(self):
         """
         Get the symbolic representations of the coordinate system parameters.
@@ -1242,10 +1201,3 @@ class _CoordinateSystemBase(
     @abstractmethod
     def _convert_cartesian_to_native(self, *args):
         pass
-
-
-if __name__ == "__main__":
-    from pymetric import CartesianCoordinateSystem1D, ConicCoordinateSystem
-
-    cs1 = CartesianCoordinateSystem1D()
-    cs2 = ConicCoordinateSystem()

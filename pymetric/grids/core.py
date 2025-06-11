@@ -501,7 +501,6 @@ class UniformGrid(GridBase):
     - Analytical calculation of grid coordinates and spacing
     - Ghost zone support for boundary conditions and stencil operations
     - Chunking support for domain decomposition and parallelism
-    - HDF5 serialization with metadata and unit system integration
 
     Examples
     --------

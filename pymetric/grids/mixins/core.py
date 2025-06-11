@@ -6,7 +6,6 @@ class and are therefore structural elements of the base class. These are primari
 for ensuring that code structure is coherent and readable on the developer end. Mixins manage
 
 - Coordinate system introspection and axis normalization
-- Unit system access and serialization
 - Ghost zone and halo management
 - Chunking behavior and iteration
 - HDF5 input/output operations
@@ -32,7 +31,6 @@ from typing import (
     Union,
 )
 
-import h5py
 import numpy as np
 
 from pymetric.grids.utils._typing import DomainDimensions

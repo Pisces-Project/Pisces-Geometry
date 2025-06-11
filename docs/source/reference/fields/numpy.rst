@@ -16,7 +16,7 @@ For any given ``BufferClass``, there are generically two other relevant classes:
 2. The ``RepresentationClass`` that ``BufferClass`` yields when sliced.
 
 For example, the :class:`~pymetric.fields.buffers.core.HDF5Buffer` wraps the :class:`h5py.Dataset` and yields
-:class:`unyt.unyt_array` (or :class:`numpy.ndarray` if no units are specified) when accessed.
+:class:`numpy.ndarray` when accessed.
 :class:`~pymetric.fields.buffers.core.ArrayBuffer` both wraps and yields :class:`numpy.ndarray`.
 
 For these classes, the numpy semantics are relatively intuitive:
@@ -28,7 +28,7 @@ For these classes, the numpy semantics are relatively intuitive:
 .. hint::
 
     As such, if I perform an operation on a :class:`~pymetric.fields.buffers.core.HDF5Buffer`, the
-    underlying representation of that object will be extracted (:class:`unyt.unyt_array` or :class:`numpy.ndarray`) and
+    underlying representation of that object will be extracted (:class:`numpy.ndarray`) and
     the operation will be performed on the representation.
 
 As such, **most operations break the buffer**. The reason we allow this sort of behavior is as follows:

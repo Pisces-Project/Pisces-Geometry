@@ -75,7 +75,6 @@ intersphinx_mapping = {
     "yt": ("https://yt-project.org/doc/", None),
     "astropy": ("https://docs.astropy.org/en/stable/", None),
     "sympy": ("https://docs.sympy.org/latest/", None),
-    "unyt": ("https://unyt.readthedocs.io/en/latest/", None),
     "h5py": ("https://docs.h5py.org/en/latest/", None),
 }
 

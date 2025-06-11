@@ -23,8 +23,6 @@ import numpy as np
 import sympy as sp
 
 if TYPE_CHECKING:
-    import unyt
-
     from pymetric.coordinates.base import _CoordinateSystemBase
 
 _ExpressionType = Union[
@@ -53,7 +51,6 @@ class _SupportsCoordinateSystemBase(Protocol):
     # the correct axes, dimensionality, etc.
     __AXES__: List[str]
     __PARAMETERS__: Dict[str, Any]
-    __AXES_DIMENSIONS__: List[sp.Basic]
     __AXES_LATEX__: Dict[str, str]
 
     # @@ CLASS BUILDING PROCEDURES @@ #
@@ -74,7 +71,6 @@ class _SupportsCoordinateSystemBase(Protocol):
     metric_tensor: Callable
     inverse_metric_tensor: Callable
     axes_symbols: List[sp.Symbol]
-    axes_dimensions: List[sp.Basic]
     parameter_symbols: Dict[str, sp.Symbol]
     __expressions__: Dict[str, _ExpressionType] = dict()
     __numerical_expressions__: Dict[str, Callable]
@@ -350,12 +346,6 @@ class _SupportsCoordinateSystemAxes(_SupportsCoordinateSystemCore):
     # -------------------------------- #
     # This connects axes to latex.
     def get_axes_latex(self, axes: Union[str, Sequence[str]]) -> Union[str, List[str]]:
-        ...
-
-    # -------------------------------- #
-    # Units                            #
-    # -------------------------------- #
-    def get_axes_units(self, unit_system: "unyt.UnitSystem") -> List["unyt.Unit"]:
         ...
 
 

@@ -114,7 +114,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         )
 
         # Use default or override buffer type
-        buffer_class = resolve_buffer_class(
+        buffer_class: "BufferBase" = resolve_buffer_class(
             buffer_class, buffer_registry=buffer_registry, default=type(self.__buffer__)
         )
 
@@ -139,7 +139,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
             be coordinate axes of the underlying coordinate system.
         out : FieldComponent or BufferBase, optional
             Optional target to write the expanded data into. If a :class:`FieldComponent`,
-            its shape and units will be checked. If a :class:`~fields.buffer.base.BufferBase`, only the buffer
+            its shape is checked. If a :class:`~fields.buffer.base.BufferBase`, only the buffer
             is reused.
         buffer_class : type, optional
             If no `out` is given, this buffer class is used to construct a new one.
@@ -175,7 +175,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         if out is None:
             # We will be creating a new field component from
             # this. We'll case the buffer_repr and then re-wrap.
-            buffer_class = resolve_buffer_class(
+            buffer_class: "BufferBase" = resolve_buffer_class(
                 buffer_class,
                 buffer_registry=buffer_registry,
                 default=type(self.__buffer__),
@@ -256,7 +256,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         # Now dump the reduced array to a valid output.
         if out is None:
             # Create new buffer and wrap it
-            buffer_class = resolve_buffer_class(
+            buffer_class: "BufferBase" = resolve_buffer_class(
                 buffer_class,
                 buffer_registry=buffer_registry,
                 default=type(self.__buffer__),
@@ -361,7 +361,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         buffer_args:
             Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
         buffer_kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
+            Additional keyword arguments forwarded to the buffer constructor.
 
         Returns
         -------
@@ -435,7 +435,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         buffer_args:
             Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
         buffer_kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
+            Additional keyword arguments forwarded to the buffer constructor.
         **kwargs :
             Additional keyword arguments forwarded to the function `func`.
 
@@ -511,7 +511,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         buffer_args:
             Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
         buffer_kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
+            Additional keyword arguments forwarded to the buffer constructor.
 
         Returns
         -------
@@ -577,7 +577,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         buffer_args:
             Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
         buffer_kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
+            Additional keyword arguments forwarded to the buffer constructor.
 
         Returns
         -------
@@ -644,7 +644,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         buffer_args:
             Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
         buffer_kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
+            Additional keyword arguments forwarded to the buffer constructor.
 
         Returns
         -------
@@ -715,7 +715,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         buffer_args:
             Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
         buffer_kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
+            Additional keyword arguments forwarded to the buffer constructor.
 
         Returns
         -------

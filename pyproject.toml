@@ -100,7 +100,6 @@ testpaths = ["tests"]
 markers = [
   # Buffer Type Markers
   "array: mark tests for ArrayBuffer",
-  "unyt: mark tests for UnytArrayBuffer",
   "hdf5: mark tests for HDF5Buffer",
   # Coordinate system markers.
   'cartesian1D: 1D Cartesian coordinates.',

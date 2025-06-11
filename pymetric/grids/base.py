@@ -18,7 +18,6 @@ from typing import (
 )
 
 import numpy as np
-import unyt
 from numpy.typing import ArrayLike
 
 from pymetric.utilities.logging import pg_log

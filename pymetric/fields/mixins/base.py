@@ -179,8 +179,7 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
         Return the underlying buffer as a NumPy array.
 
         This method extracts the field's raw data buffer and returns it
-        as a standard NumPy array. This strips any associated units or
-        metadata.
+        as a standard NumPy array.
 
         Returns
         -------
@@ -268,7 +267,7 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
         buffer_args:
             Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
         buffer_kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
+            Additional keyword arguments forwarded to the buffer constructor.
         *args, **kwargs :
             Additional arguments forwarded to the function `func`.
 
@@ -311,7 +310,7 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
         buffer_args:
             Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
         buffer_kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
+            Additional keyword arguments forwarded to the buffer constructor.
 
         Returns
         -------
@@ -361,7 +360,7 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
         buffer_args:
             Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
         buffer_kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
+            Additional keyword arguments forwarded to the buffer constructor .
 
         Returns
         -------
@@ -408,7 +407,7 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
         buffer_args:
             Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
         buffer_kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
+            Additional keyword arguments forwarded to the buffer constructor .
 
         Returns
         -------
@@ -455,7 +454,7 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
         buffer_args:
             Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
         buffer_kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
+            Additional keyword arguments forwarded to the buffer constructor .
 
         Returns
         -------
@@ -502,7 +501,7 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
         buffer_args:
             Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
         buffer_kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
+            Additional keyword arguments forwarded to the buffer constructor .
 
         Returns
         -------
@@ -654,7 +653,7 @@ class DTensorFieldCoreMixin(DFieldCoreMixin, Generic[_SupDTFieldCore]):
         buffer_registry : ~fields.buffers.registry.BufferRegistry, optional
             Registry used to resolve buffer class strings.
         buffer_kwargs : dict, optional
-            Extra keyword arguments passed to the buffer constructor (e.g., units).
+            Extra keyword arguments passed to the buffer constructor.
         **kwargs :
             Additional keyword arguments forwarded to the function `func`.
 
@@ -707,7 +706,7 @@ class DTensorFieldCoreMixin(DFieldCoreMixin, Generic[_SupDTFieldCore]):
         buffer_registry : ~fields.buffers.registry.BufferRegistry, optional
             Custom registry to use for resolving string buffer types.
         **kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
+            Additional keyword arguments forwarded to the buffer constructor .
 
         Returns
         -------
@@ -766,7 +765,7 @@ class DTensorFieldCoreMixin(DFieldCoreMixin, Generic[_SupDTFieldCore]):
             Custom registry to use for resolving buffer class strings. By default, the standard
             registry is used.
         **kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `dtype`, `units`).
+            Additional keyword arguments forwarded to the buffer constructor.
 
         Returns
         -------
@@ -831,7 +830,7 @@ class DTensorFieldCoreMixin(DFieldCoreMixin, Generic[_SupDTFieldCore]):
             Custom registry to use for resolving buffer class strings. By default, the standard
             registry is used.
         **kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `dtype`, `units`).
+            Additional keyword arguments forwarded to the buffer constructor.
 
         Returns
         -------
@@ -896,7 +895,7 @@ class DTensorFieldCoreMixin(DFieldCoreMixin, Generic[_SupDTFieldCore]):
             Custom registry to use for resolving buffer class strings. By default, the standard
             registry is used.
         **kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `dtype`, `units`).
+            Additional keyword arguments forwarded to the buffer constructor.
 
         Returns
         -------
@@ -961,7 +960,7 @@ class DTensorFieldCoreMixin(DFieldCoreMixin, Generic[_SupDTFieldCore]):
             Custom registry to use for resolving buffer class strings. By default, the standard
             registry is used.
         **kwargs :
-            Additional keyword arguments forwarded to the buffer constructor (e.g., `dtype`, `units`).
+            Additional keyword arguments forwarded to the buffer constructor.
 
         Returns
         -------

@@ -196,7 +196,7 @@ PyMetric supports several **optional dependency groups** for specific workflows:
         License: GPL-3.0-or-later
         Location: /Users/ediggins/Dev/pymetric/.venv/lib/python3.12/site-packages
         Editable project location: /Users/ediggins/Dev/pymetric
-        Requires: h5py, matplotlib, numpy, scipy, sympy, tqdm, unyt
+        Requires: h5py, matplotlib, numpy, scipy, sympy, tqdm
         Required-by:
 
 Getting Help

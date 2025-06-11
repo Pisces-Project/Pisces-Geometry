@@ -29,8 +29,6 @@ from pymetric.utilities.arrays import normalize_index
 # TYPING SUPPORT                     #
 # ================================== #
 if TYPE_CHECKING:
-    import unyt
-
     from pymetric.coordinates.base import _CoordinateSystemBase
     from pymetric.coordinates.mixins._typing import (
         _SupportsCoordinateSystemBase,
@@ -1499,24 +1497,3 @@ class CoordinateSystemAxesMixin(Generic[_SupCoordSystemCore]):
                 ) from e
 
         return latex_list[0] if is_scalar else latex_list
-
-    # -------------------------------- #
-    # Units                            #
-    # -------------------------------- #
-    def get_axes_units(
-        self: _SupCoordSystemCore, unit_system: "unyt.UnitSystem"
-    ) -> List["unyt.Unit"]:
-        """
-        Resolve the physical units for each axis in a given unit system.
-
-        Parameters
-        ----------
-        unit_system : unyt.UnitSystem
-            The unit system used to resolve the symbolic axis dimensions.
-
-        Returns
-        -------
-        list of unyt.Unit
-            The resolved unit for each axis, in canonical order.
-        """
-        return [unit_system[dim] for dim in self.axes_dimensions]
