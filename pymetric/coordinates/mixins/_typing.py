@@ -2,6 +2,8 @@
 Typing infrastructure for the mixin classes. These are used for
 mypy compatibility in mixin classes.
 """
+from pathlib import Path
+
 # mypy: ignore-errors
 from typing import (
     TYPE_CHECKING,
@@ -21,8 +23,6 @@ import numpy as np
 import sympy as sp
 
 if TYPE_CHECKING:
-    import unyt
-
     from pymetric.coordinates.base import _CoordinateSystemBase
 
 _ExpressionType = Union[
@@ -51,7 +51,6 @@ class _SupportsCoordinateSystemBase(Protocol):
     # the correct axes, dimensionality, etc.
     __AXES__: List[str]
     __PARAMETERS__: Dict[str, Any]
-    __AXES_DIMENSIONS__: List[sp.Basic]
     __AXES_LATEX__: Dict[str, str]
 
     # @@ CLASS BUILDING PROCEDURES @@ #
@@ -72,7 +71,6 @@ class _SupportsCoordinateSystemBase(Protocol):
     metric_tensor: Callable
     inverse_metric_tensor: Callable
     axes_symbols: List[sp.Symbol]
-    axes_dimensions: List[sp.Basic]
     parameter_symbols: Dict[str, sp.Symbol]
     __expressions__: Dict[str, _ExpressionType] = dict()
     __numerical_expressions__: Dict[str, Callable]
@@ -200,6 +198,37 @@ class _SupportsCoordinateSystemCore(_SupportsCoordinateSystemBase):
     def get_conversion_transform(self, other: "_CoordinateSystemBase") -> Any:
         ...
 
+    def to_hdf5(
+        self,
+        filename: Union[str, Path],
+        group_name: Optional[str] = None,
+        overwrite: bool = False,
+    ):
+        ...
+
+    @classmethod
+    def from_hdf5(
+        cls,
+        filename: Union[str, Path],
+        group_name: Optional[str] = None,
+        registry: Optional[Dict] = None,
+    ):
+        ...
+
+    def to_json(self, filepath: Union[str, Path], overwrite: bool = False):
+        ...
+
+    @classmethod
+    def from_json(cls, filepath: Union[str, Path], registry: Optional[Dict] = None):
+        ...
+
+    def to_yaml(self, filepath: Union[str, Path], overwrite: bool = False):
+        ...
+
+    @classmethod
+    def from_yaml(cls, filepath: Union[str, Path], registry: Optional[Dict] = None):
+        ...
+
 
 # noinspection PyMissingOrEmptyDocstring
 class _SupportsCoordinateSystemAxes(_SupportsCoordinateSystemCore):
@@ -317,12 +346,6 @@ class _SupportsCoordinateSystemAxes(_SupportsCoordinateSystemCore):
     # -------------------------------- #
     # This connects axes to latex.
     def get_axes_latex(self, axes: Union[str, Sequence[str]]) -> Union[str, List[str]]:
-        ...
-
-    # -------------------------------- #
-    # Units                            #
-    # -------------------------------- #
-    def get_axes_units(self, unit_system: "unyt.UnitSystem") -> List["unyt.Unit"]:
         ...
 
 

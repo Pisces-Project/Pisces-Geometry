@@ -9,7 +9,7 @@ numerical quantities defined over geometric grids. They provide a uniform interf
 for scalar, vector, and tensor-valued data in arbitrary coordinate systems.
 
 Operationally, fields behave similarly to `NumPy <https://numpy.org/doc/stable/index.html>`__ arrays. They support arithmetic,
-slicing, unit-aware computation (via `unyt <https://unyt.readthedocs.io/en/stable/>`__), and broadcasting—
+slicing, and broadcasting—
 but with full awareness of the spatial domain and coordinate system they inhabit.
 
 This document provides an introductory look at these objects and some of the things you can do with them!
@@ -309,7 +309,6 @@ Some key properties include:
 - :attr:`~fields.base.DenseField.axes`: A list of the axes over which the field spans.
 - :attr:`~fields.base.DenseField.spatial_shape`: The shape of the field over its spatial axes.
 - :attr:`~fields.base.DenseField.element_shape`: The trailing shape of the data, representing its tensor structure .
-- :attr:`~fields.base.DenseField.units`: If unit-aware buffers (e.g., via unyt) are used, this indicates the physical units attached to the field.
 
 Accessing Field Data
 ''''''''''''''''''''
@@ -332,14 +331,11 @@ below summarize how data access behaves in each case:
             comp = field[..., 1]        # Slice of a vector/tensor component
 
         All operations are performed on the raw buffer data (NumPy, unyt, or HDF5), and indexing reflects that behavior.
-        If the field has a unit-aware backend (e.g., `unyt_array`), the result will preserve units.
 
         You can explicitly retrieve representations using:
 
-        - :meth:`~fields.components.FieldComponent.as_array`: returns a NumPy array (units stripped).
-        - :meth:`~fields.components.FieldComponent.as_unyt_array`: returns a `unyt_array` with units.
-        - :meth:`~fields.components.FieldComponent.as_buffer_core`: returns the native backend array (e.g., `h5py.Dataset`).
-        - :meth:`~fields.components.FieldComponent.as_buffer_repr`: returns a NumPy-compatible representation for ufuncs.
+        - :meth:`~fields.components.FieldComponent.as_array`: returns a NumPy array.
+        - :meth:`~fields.components.FieldComponent.c`: returns the native backend array (e.g., `h5py.Dataset`).
 
         These methods are particularly useful when exporting to disk, performing raw NumPy operations, or applying custom logic
         where backend control is needed.

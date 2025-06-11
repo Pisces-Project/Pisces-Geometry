@@ -1,388 +1,287 @@
-.. _coordinates_dev:
+.. _coordinates-dev:
 
-================================
-Coordinate Systems: Developers
-================================
+=======================================================
+Coordinate Systems: Developer Documentation
+=======================================================
 
-PyMetric provides a flexible framework for defining and working with custom coordinate systems using symbolic and
-numerical tools. Whether you're modeling simple orthogonal coordinates or building more complex curvilinear systems, the
-coordinate system module enables precise geometric and differential computations. This guide is intended for developers
-who want to implement their own coordinate systems by subclassing the appropriate base classes.
+This guide is intended for contributors and maintainers working on the coordinate system
+infrastructure in **PyMetric**. Coordinate systems form the geometric backbone of all spatial
+operations in the library, including grid generation, symbolic differential geometry, and
+coordinate-space transformations.
 
-PyMetric is designed around **curvilinear, Euclidean coordinate systems**. It supports:
+This document provides:
 
-- Arbitrary symbolic metric tensors.
-- Symbolic differentiation, simplification, and substitution.
-- Raising/lowering indices, computing gradients, divergence, Laplacians, and Jacobians.
-- Conversion to and from Cartesian coordinates (you provide the mapping).
+- An overview of the coordinate system class hierarchy and mixin architecture
+- Guidelines for writing and extending coordinate system classes
+- Documentation on mixins for transformation logic, symbolic math, and I/O
+- Best practices for testing, contribution, and implementation boundaries
 
-At the heart of the PyMetric coordinate handling infrastructure is the :py:class:`~.coordinates.base._CoordinateSystemBase`,
-which corresponds to a **generic, curvilinear coordinate system**. There are also a few subclasses of :py:class:`~coordinates.base._CoordinateSystemBase`
-already built into the infrastructure corresponding to various simplifying cases:
+It is recommended reading for anyone contributing new coordinate systems or modifying existing ones.
 
-1. :py:class:`~coordinates.core.OrthogonalCoordinateSystem`: provides support for orthogonal coordinates
-   which allow for a simplification of the logic necessary for curvilinear coordinates.
-2. :py:class:`~coordinates.core.CurvilinearCoordinateSystem`: is simply an alias for the ``_CoordinateSystemBase``,
-   but isn't private and therefore exposes its documentation. This is the class which should be subclassed when building extensions.
+.. important::
 
-**Limitations**:
+    If you're interested in contributing, please submit pull requests or open issues via our GitHub repository:
 
-- **No support for non-Euclidean spaces**: The system does not currently handle Riemannian or pseudo-Riemannian geometries (e.g., general relativity).
-- **Curvilinear only**: The coordinate systems must be defined using smooth, differentiable transformations. Discrete or piecewise geometries are not supported.
-- **No automatic embedding**: The system does not auto-detect whether your coordinates live in 2D, 3D, or higher-dimensional Cartesian space — you must define these mappings explicitly.
+    `Pisces-Project/PyMetric <https://github.com/Pisces-Project/PyMetric>`_
 
-Coordinate System Structural Principles
----------------------------------------
+    Contributions are welcome in the form of:
 
-Before discussing the practicalities of subclassing coordinate system classes, it's important to understand some of the
-core design principles that underlie the :mod:`coordinates` module. Working with curvilinear coordinates —
-particularly when performing differential operations like gradients, divergences, or Laplacians — introduces substantial
-complexity. These operations must take into account the geometry of the coordinate system itself, which makes it easy for
-implementations to become tightly coupled to specific coordinate systems.
+    - Bug reports and fixes
+    - New coordinate systems (e.g., oblate spheroidal, log-polar)
+    - Enhancements to symbolic geometry or transformation logic
+    - Improvements to documentation and test coverage
 
-PyMetric takes a different approach. Instead of building differential logic directly into each coordinate system,
-it separates coordinate structure from coordinate behavior. This leads to a unified, extensible, and highly symbolic
-framework for working with general curvilinear geometries. The goals of this are as follows:
-
-1. Create a framework for physical modeling which allows for developers to easily utilize any coordinate system relevant
-   to their problem without having to work out the details of differential operations.
-2. To create a robust system for identifying symmetry breakage during differential operations.
-
-Why a Unified System?
-'''''''''''''''''''''
-
-Most traditional implementations hard-code differential operators for each coordinate system (e.g., hardwiring the cylindrical gradient).
-This is error-prone, difficult to extend, and virtually impossible to scale to arbitrary coordinate systems.
-
-Instead, PyMetric treats the metric tensor as the fundamental source of geometric information. Once the metric is
-known, all differential operations — gradients, divergence, Laplacians, index manipulation — can be derived from it automatically.
-
-This means:
-
-- You only need to define the metric tensor (and optionally coordinate transforms).
-- The system handles the rest — differential operators, basis adjustments, and symbolic simplification.
-- The same code works identically in any coordinate system.
-
-This design allows all downstream geometry-aware code to remain completely coordinate system agnostic.
-A gradient in spherical coordinates is computed using the same logic as one in elliptical coordinates —
-because the underlying differential geometry is derived from the metric.
-
-The Symbolic / Numerical Duality
-''''''''''''''''''''''''''''''''
-
-A key part of this system is its reliance on symbolic mathematics through `sympy <docs.sympy.org>`__, which allows PyMetric to:
-
-- Build symbolic expressions for differential operators, tensors, and coordinate transformations.
-- Substitute parameter values and simplify expressions at runtime.
-- Convert symbolic expressions to fast numerical functions via automatic lambdification.
-
-Every coordinate system has two parallel representations:
-
-- A **symbolic form**, used for introspection, algebraic manipulation, expression building, and caching.
-- A **numerical form**, used for evaluation on grids, fields, and during simulation.
-
-This dual representation ensures that the system is both flexible (symbolic) and efficient (numerical). Once you've defined
-the symbolic structure of a coordinate system, PyMetric takes care of efficiently executing computations without
-sacrificing generality.
-
-Subclass Structure
-------------------
-
-When defining a new coordinate system in Pisces-Geometry, the first and most important decision is which base class
-to inherit from. Pisces provides two primary options:
-
-1. :py:class:`~coordinates.core.CurvilinearCoordinateSystem`
-   This class should be used when building general curvilinear coordinate systems. If your metric tensor includes off-diagonal
-   elements (i.e., the system is not orthogonal), this is the appropriate choice. It provides full flexibility and
-   requires you to define both the metric and inverse metric explicitly.
-2. :py:class:`~coordinates.core.OrthogonalCoordinateSystem`
-   This class is a specialized version of CoordinateSystemBase that simplifies implementation for orthogonal coordinate
-   systems — those with diagonal metric tensors. When using this base class, you only need to define the scale factors (diagonal elements of the metric tensor),
-   the inverse metric is computed automatically, and tensor algebra operations are more efficient due to diagonal simplifications.
-
-**Which One Should I Use?**
-
-Use the following table as a guide:
-
-+----------------------------------------+------------------------------------------------------------------------------+
-| Your Coordinate System Is...           |                              Subclass From...                                |
-+========================================+==============================================================================+
-| Orthogonal (e.g., cylindrical, polar)  |:py:class:`~coordinates.core.OrthogonalCoordinateSystem`                      |
-+----------------------------------------+------------------------------------------------------------------------------+
-| Has off-diagonal metric terms          |:py:class:`~coordinates.core.CurvilinearCoordinateSystem`                     |
-+----------------------------------------+------------------------------------------------------------------------------+
-| Requires full control over tensors     |:py:class:`~coordinates.core.CurvilinearCoordinateSystem`                     |
-+----------------------------------------+------------------------------------------------------------------------------+
-| Has a diagonal metric and is 2D/3D     |:py:class:`~coordinates.core.OrthogonalCoordinateSystem`                      |
-+----------------------------------------+------------------------------------------------------------------------------+
-
-In either case, your subclass will need to define the symbolic metric tensor and the coordinate transformation logic.
-If the coordinate system is orthogonal, the orthogonal base class will take care of several tedious details (like raising/lowering tensor indices efficiently).
-
-In the following sections, we'll walk through how to set up a subclass using either approach.
-
-Setting the Class Parameters
-'''''''''''''''''''''''''''''
-
-When creating a new coordinate system subclass, you must define a set of class-level attributes that specify how the
-coordinate system behaves. These attributes control initialization, dimensionality, parameter handling, and symbolic expression generation.
-
-Required Class Attributes
-'''''''''''''''''''''''''
-
-There are 4 **class flags** that need to be specified in any coordinate system
-subclass:
-
-- ``__is_abstract__``: ``bool``
-  Indicates whether the class is abstract. Set this to False for any subclass intended to be instantiated.
-  If True, the metaclass will skip validation and symbolic setup.
-
-- ``__setup_point__`` : ``'init' | 'import'``
-  Specifies when the symbolic expressions (e.g., metric tensor, class expressions) are computed:
-
-  - ``'init'`` (default): Wait until the class is instantiated.
-  - ``'import'``: Build expressions at module import time. This can slow down import but may reduce startup time in some applications.
-
-- ``__is_setup__``: ``bool``
-  This should **always be** ``False``. It is changed internally to indicate if a class has already
-  been loaded in a particular runtime instance.
-
-- ``__DEFAULT_REGISTRY__``: ``dict``
-  The coordinate directory in which to register this class. By default, this is the :attr:`~coordinates.base.DEFAULT_COORDINATE_REGISTRY`.
-
-There are also a number of **class attributes** which dictate how the class behaves:
-
-- ``__AXES__`` : ``List[str]``
-  The axes (coordinate variables) in this coordinate system.
-  This is one of the class-level attributes which is specified in all coordinate systems to determine
-  the names and symbols for the axes. The length of this attribute also determines how many dimensions
-  the coordinate system has.
-
-- ``__PARAMETERS__`` : ``Dict[str, Any]``
-  The parameters for this coordinate system and their default values.
-  Each of the parameters in :py:attr:`~pisces.geometry.base.CoordinateSystem.PARAMETERS` may be provided as
-  a ``kwarg`` when creating a new instance of this class.
-- ``__AXES_DIMENSIONS__``: ``List[sp.Basic] = None``
-  Physical dimension associated with **each** entry in :attr:`__AXES__`.
-
-  This list gives the **base‐quantity** (length, angle, time, …) that every
-  coordinate carries so that downstream utilities—distance metrics, unit-aware
-  gradients, field constructors, etc.—can reason about unit conversions
-  automatically.
-
-- ``__AXES_LATEX__``: ``Dict[str, str] = None``
-  LaTeX representations of the coordinate axes in this coordinate system.
-
-  This class flag is entirely optional when implementing new coordinate systems. If
-  it is not set, then the axes names are used as the latex representations.
-
-As an example, the following is the first few lines of the :py:class:`~pymetric.coordinates.coordinate_systems.SphericalCoordinateSystem`
-implementation:
-
-.. code-block:: python
-
-    class SphericalCoordinateSystem(OrthogonalCoordinateSystem):
-        __is_abstract__ = False
-        __setup_point__ = "init"
-        __AXES__ = ["r", "theta", "phi"]
-        __AXES_DIMENSIONS__ = [d.length, d.dimensionless, d.dimensionless]
-        __PARAMETERS__ = {}
+    For instructions on setting up your development environment, building the documentation,
+    and running the test suite, please refer to the :ref:`developer_quickstart`.
 
 .. note::
 
-    **Development Standard**: If you are developing a new coordinate system for use in the PyMetric core code,
-    it should use ``_setup_point__ = 'init'`` in almost any case (unless there is specific justification). By allowing
-    all of the built-in coordinate systems to setup on import, there is a large computation overhead which delays import
-    speed.
-
-Behind the Scenes
-'''''''''''''''''
-
-When a subclass is instantiated, the following steps occur:
-
-1. The **metaclass** verifies that required attributes are present and ensures that the structure of all of the
-   coordinate systems in the package are valid. If there is something wrong in this step, an error will be raised on
-   import.
-2. The class remains **partially initialized** until the user **instantiates it for the first time**.
-3. The system generates symbolic axis symbols and parameter symbols using :py:class:`sympy.core.symbol.Symbol`.
-4. The metric tensor and inverse metric tensor are constructed using user-defined logic.
-5. Any registered class expressions (see Class Expressions) are discovered and stored for lazy evaluation.
-6. Parameter values passed during instantiation (or taken from defaults) are substituted into symbolic expressions to create instance-level expressions and callables.
+    All contributions must follow the internal API and type annotations established in
+    :mod:`coordinates.mixins._typing`, which defines the formal interfaces for all coordinate system components.
 
 
-Setting up Conversion Standards
-''''''''''''''''''''''''''''''''
+Coordinate Systems: Overview
+----------------------------
 
-All coordinate system classes in PyMetric must define how to convert between the native coordinate system and
-standard Cartesian coordinates. This is especially important for visualization, interoperation with external tools, and validating geometric behavior numerically.
+Coordinate systems in PyMetric define the mathematical and geometric structure used by grids,
+differential geometry routines, and physical field representations. All coordinate systems must
+inherit from the abstract protocol defined in :class:`~coordinates.base._CoordinateSystemBase`.
 
-To support this, your subclass must implement two methods:
+This base class defines the public API and required behaviors for all coordinate system implementations,
+including:
 
-1. :py:meth:`~pymetric.coordinate_systems.base.CoordinateSystemBase._convert_native_to_cartesian`
-   Converts native coordinate variables (e.g., r, theta, z) to Cartesian coordinates (x, y, z).
-2. :py:meth:`~pymetric.coordinate_systems.base.CoordinateSystemBase._convert_cartesian_to_native`
-   Converts from Cartesian coordinates back to your system’s native coordinates.
-
-Each of these functions should take ``self`` and ``x_1,x_2,x_3,...`` where each ``x`` corresponds to a coordinate
-of the coordinate system. It should return a tuple of values ``z_1,z_2,...`` corresponding to the converted values.
-
-.. warning::
-
-    It is important to ensure that your computations behave naturally for vectorized inputs. Thus, if ``x,y,z`` are each
-    the same size, so to should be the output ``u,v,w``.
-
-**Example**:
-
-.. code-block:: python
-
-    class SphericalCoordinateSystem(_OrthogonalCoordinateSystemBase):
-        __is_abstract__ = False
-        __setup_point__ = 'init'
-        __AXES__ = ['r','theta','phi']
-        __PARAMETERS__ = {}
-
-        def _convert_cartesian_to_native(self, x, y, z):
-            r = np.sqrt(x**2 + y**2 + z**2)
-            theta = np.arccos(z / r)
-            phi = np.arctan2(y, x)
-
-            return r,theta,phi
-
-
-        def _convert_native_to_cartesian(self, r, theta, phi):
-            x = r * np.sin(theta) * np.cos(phi)
-            y = r * np.sin(theta) * np.sin(phi)
-            z = r * np.cos(theta)
-
-            return x,y,z
-
-Setting up The Metric
-'''''''''''''''''''''''''
-
-Every coordinate system in PyMetric must define a metric tensor, which encodes how distances and derivatives are
-computed. The metric defines the inner product structure of the space, and is central to computing gradients, divergence,
-Laplacians, and performing index manipulations.
-
-Pisces supports both general curvilinear and orthogonal coordinate systems. The structure of the metric depends on which type you are building.
-
-If you are subclassing from :py:class:`~pymetric.coordinates.base.CoordinateSystemBase`, you must implement both of the following:
-
-- ``@staticmethod def __construct_metric_tensor_symbol__(*args, **kwargs) -> sp.Matrix``
-- ``@staticmethod def __construct_inverse_metric_tensor_symbol__(*args, **kwargs) -> sp.Matrix``
-
-
-If you subclass from :py:class:`~coordinates.core.OrthogonalCoordinateSystem`, you only need to define
-the diagonal elements of the metric tensor — that is, the scale factors squared. The inverse metric will be computed automatically as ``1 / g[i]``.
-
-You must implement:
-
-- ``@staticmethod def __construct_metric_tensor_symbol__(*args, **kwargs) -> sp.Array``
-
-These methods receive:
-
-- ``*args``: positional arguments representing the symbolic axis variables (e.g., ``r, theta, z``).
-- ``**kwargs``: keyword arguments representing symbolic parameters (e.g., ``scale=Symbol('scale')``).
-
-They should return a full SymPy matrix representing the metric tensor (or its inverse).
+- Axis metadata (names, labels, units)
+- Coordinate transformation interfaces
+- Support for symbolic operations
+- Compatibility with structured grids and field operators
 
 .. note::
 
-    **What's happening internally?**
+    Coordinate systems do **not** manage data arrays, units, or grid values directly.
+    Their role is strictly geometric — they define the *shape* of space, not the contents of it.
 
-    During class setup (either at import time or instantiation time, depending on ``__setup_point__``), the metric tensor is:
+Coordinate System Hierarchy
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-    - Constructed symbolically using the method(s) above.
-    - Stored as ``cls.__class_metric_tensor__`` and ``cls.__class_inverse_metric_tensor__``.
+PyMetric supports two main categories of coordinate systems:
 
-    Once a user instantiates the class, the ``__class_metric_tensor__`` has its parameters substituted for the true
-    values of the parameters to create the ``__metric_tensor_expression__`` attribute. This is then converted to a numerical
-    function which is accessible by :py:attr:`~coordinates.core.CurvilinearCoordinateSystem.metric_tensor`.
+- :class:`~coordinates.core.CurvilinearCoordinateSystem`
+- :class:`~coordinates.core.OrthogonalCoordinateSystem`
 
-**Example**:
+The distinction is as follows:
+
+- **CurvilinearCoordinateSystem**: Allows general non-orthogonal metrics, including shearing and angular coupling.
+  This class supports arbitrary Riemannian metrics and is the base for symbolic tensor operations.
+- **OrthogonalCoordinateSystem**: Specializes the curvilinear case by assuming a diagonal metric tensor.
+  These systems are more efficient for symbolic operations and finite difference stencils.
+
+All concrete coordinate systems (e.g., Cartesian, Cylindrical, Spherical) are implemented as subclasses of one of these two.
+They live in the :mod:`coordinates.coordinate_systems` module.
+
+Each subclass must define:
+
+- Axis names and labels
+- Dimension (`ndim`)
+- Coordinate transformation methods
+- Metric components (either symbolic or numerical)
+
+Mixin Classes
+^^^^^^^^^^^^^
+
+Coordinate system classes are assembled using a modular mixin system. This enables independent development
+of transformation logic, symbolic operations, axis metadata, and I/O support without polluting the core base class.
+
+All mixins reside in the :mod:`coordinates.mixins` package and are grouped by purpose.
+
+Available mixins include:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Mixin Class
+     - Description
+
+   * - :class:`~coordinates.mixins.coords.CoordinateOperationsMixin`
+     - Implements coordinate transformation logic, including cartesian-to-native and native-to-cartesian conversions.
+       Defines the public `.to_cartesian()` and `.from_cartesian()` methods used by grids and fields.
+
+   * - :class:`~coordinates.mixins.core.CoordinateSystemCoreMixin`
+     - Provides common metadata interfaces and structural features such as `ndim`, `axes`, and axis name resolution.
+       This is the default source of axis name/label properties and `__repr__`.
+
+   * - :class:`~coordinates.mixins.core.CoordinateSystemIOMixin`
+     - Adds metadata serialization logic (e.g., `.to_metadata_dict()` and `.from_metadata_dict()`), used for saving/loading
+       coordinate system configurations.
+
+   * - :class:`~coordinates.mixins.core.CoordinateSystemAxesMixin`
+     - Supplies helper methods for indexing axes by name, constructing masks over selected coordinates,
+       and validating shape compatibility for transformations.
+
+   * - :class:`~coordinates.mixins.mathops.CoordinateSystemMathMixin`
+     - Defines symbolic tensor and differential geometry operations (e.g., computing gradients, divergence,
+       Christoffel symbols, and curvature) based on the coordinate system’s metric structure.
+       Required for all systems supporting symbolic operations.
+
+Mixin Type Protocols
+++++++++++++++++++++
+
+To enable clean type-checking and cross-compatibility, all mixin interfaces are formalized in the
+:mod:`coordinates.mixins._typing` module.
+
+If you are extending or using mixin-dependent logic, you should reference these `Protocol` classes
+rather than the mixins themselves for proper type inference. For example:
 
 .. code-block:: python
 
-    class SphericalCoordinateSystem(_OrthogonalCoordinateSystemBase):
-        __is_abstract__ = False
-        __setup_point__ = 'init'
-        __AXES__ = ['r','theta','phi']
-        __PARAMETERS__ = {}
+   from coordinates.mixins._typing import SupportsCoordinateOperations
 
-        @staticmethod
-        def __construct_metric_tensor_symbol__(r,theta,phi,**kwargs):
-            return sp.Array([1,r**2,(r*sp.sin(theta))**2])
+   def uses_transform(cs: SupportsCoordinateOperations):
+       cart = cs.to_cartesian(...)
+       ...
 
-        def _convert_cartesian_to_native(self, x, y, z):
-            r = np.sqrt(x**2 + y**2 + z**2)
-            theta = np.arccos(z / r)
-            phi = np.arctan2(y, x)
-
-            return r,theta,phi
+These protocols enable your own coordinate system implementations or mixin extensions to remain type-safe
+and compatible with downstream tools.
 
 
-        def _convert_native_to_cartesian(self, r, theta, phi):
-            x = r * np.sin(theta) * np.cos(phi)
-            y = r * np.sin(theta) * np.sin(phi)
-            z = r * np.cos(theta)
+Custom Coordinate Systems
+--------------------------
 
-            return x,y,z
+If you want to define a new coordinate system in PyMetric, begin by reading the user guide at
+:ref:`coordinates_building`. This guide outlines how symbolic and numerical tools are used together
+to construct a new coordinate space.
+
+At a high level, all custom coordinate systems must subclass from one of the two public base classes in
+:mod:`coordinates.core`:
+
+- :class:`~coordinates.core.OrthogonalCoordinateSystem` — for diagonal metric tensors
+- :class:`~coordinates.core.CurvilinearCoordinateSystem` — for arbitrary curvilinear metrics
+
+These subclasses inherit from the internal protocol :class:`~coordinates.base._CoordinateSystemBase`, which
+defines the full symbolic and numeric interface for all coordinate systems.
+
+Coordinate systems are declared using a symbolic-first model:
+
+- You define symbolic axes, parameters, and a symbolic metric tensor.
+- The system computes all required differential geometry from these definitions.
+- You optionally provide Cartesian transformation logic for I/O or geometry compatibility.
+
+Coordinate classes are constructed modularly using mixins, and may define additional methods or override base behavior.
+Coordinate systems do **not** handle field values, units, or simulation-specific logic — their scope is limited to geometry.
+
+To create a new coordinate system:
+
+1. Choose a base class depending on whether your metric tensor is diagonal or not.
+2. Subclass from it and define the required class attributes:
+
+   - ``__AXES__``: coordinate names
+   - ``__PARAMETERS__``: any symbolic parameters
+   - ``__construct_metric_tensor_symbol__`` (and optionally its inverse)
+
+3. Optionally define conversion methods to and from Cartesian coordinates:
+
+   - :meth:`~coordinates.base._CoordinateSystemBase._convert_native_to_cartesian`
+   - :meth:`~coordinates.base._CoordinateSystemBase._convert_cartesian_to_native`
+
+4. Optionally define symbolic helper expressions using :func:`~coordinates.base.class_expression`.
+
+The coordinate system will automatically expose all metric-dependent properties,
+such as gradients, Laplacians, and basis vector representations via the symbolic geometry infrastructure.
+
+.. note::
+
+    For a detailed walkthrough of the required attributes and symbolic construction process, see:
+    :ref:`coordinates_building`.
 
 
-Extending Functionality
------------------------
-While defining a new coordinate system typically involves specifying just the metric, parameters, and coordinate transforms,
-PyMetric provides many extension points for more advanced functionality.
+Expanding Coordinate System Functionality
+------------------------------------------
 
-You might consider extending the coordinate system class if:
+Coordinate System Scope
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- You want to define custom expressions (e.g., Jacobians, scale factors, special transformation operators).
-- You want to implement custom tensor operators unique to your coordinate system.
-- You want to add parameterized behaviors (e.g., boundary-aware metrics, scaling functions, anisotropy).
-- You want to define alternate coordinate bases or embed coordinate systems into higher-dimensional manifolds.
+Coordinate systems in PyMetric are designed to encode **geometric structure**, not simulation or numerical behavior.
+To preserve modularity and clarity, extensions to coordinate systems should remain within their proper domain.
 
-PyMetric is designed to be modular and override-friendly. Any method defined on a subclass can be overridden in
-your coordinate system, as long as the expected structure is maintained.
+**Coordinate systems should...**
 
-Additionally, you can extend coordinate systems to interact with external systems (e.g., visualization tools, mesh generators, simulation frameworks) by exposing additional utility methods.
+- Implement methods for transforming between native and Cartesian coordinates.
+- Define or expose symbolic properties of the space (e.g., scale factors, Jacobians, parameterized tensors).
+- Provide interfaces to symbolic differential geometry (via the metric tensor).
+- Register reusable symbolic expressions (via class expressions).
 
-Class Expressions
-'''''''''''''''''''''''''
+**Coordinate systems should NOT...**
 
-In many coordinate systems, it's helpful to define reusable symbolic expressions — like Jacobians, divergence terms,
-or scale factors. PyMetric provides a decorator-based mechanism to define these as **class expressions**.
+- Handle numerical field data or discretization behavior — that belongs in grids or field classes.
+- Handle units — unit tracking is performed by buffer and field layers.
+- Perform low-level numerical math — elementwise math and vector calculus operations are dispatched from higher layers.
 
-To define a class expression, decorate a ``classmethod`` using ``@class_expression`` (:py:func:`~coordinates.base.class_expression`).
+In short, coordinate systems provide **symbolic structure**. Other components in the PyMetric
+stack handle **numeric evaluation** and **domain-specific logic**.
 
-**Example**:
+Where to Put New Methods
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: python
+When adding new behavior to the coordinate system module, consider scope and reuse. Use the following guidelines:
 
-    class MyCoordinateSystem(CoordinateSystemBase):
-        __AXES__ = ['x', 'y']
-        __PARAMETERS__ = {}
+- **In a subclass**, if the behavior is highly specific or only relevant for one coordinate system.
 
-        @staticmethod
-        def __construct_metric_tensor_symbol__(x, y):
-            return sp.Matrix([[1, 0], [0, x**2 + y**2]])
+  Example: A method computing the magnetic field geometry of a tokamak should live in the custom subclass for that geometry.
 
-        @staticmethod
-        def __construct_inverse_metric_tensor_symbol__(x, y):
-            return sp.Matrix([[1, 0], [0, 1 / (x**2 + y**2)]])
+- **In a mixin**, if the method is general-purpose and could be used by multiple coordinate systems.
 
-        @class_expression(name='jacobian')
-        @classmethod
-        def _jacobian(cls, x, y):
-            return sp.sqrt(sp.det(cls.__class_metric_tensor__))
+  Example: Methods for vectorized coordinate warping, symbolic axis combinations, or caching symbolic derivatives
+  should be defined in one of the existing mixins (see Mixin Classes).
 
-Adding Methods
-'''''''''''''''''''''''''
+- **In a core class** (e.g., :class:`~coordinates.core.OrthogonalCoordinateSystem`) if the method is applicable to
+  *all* coordinate systems of that class type and is integral to the way they are defined.
 
-Coordinate systems in PyMetric are fully extensible Python classes. You are free to define any instance or class methods that help support your use case. This might include:
+  These methods may also support internal behaviors expected by other parts of the library (e.g., symbolic
+  simplification hooks or validation methods).
 
-- Utility functions for working with particular axes.
-- Projection or slicing routines.
-- Analytical identities or symmetries.
-- Shape checks or domain constraints.
-- Integrations with other Pisces modules.
+- **In the protocol base class** (:class:`~coordinates.base._CoordinateSystemBase`) only if the method is architectural — i.e.,
+  if it defines a part of the interface contract for all coordinate systems.
 
-These methods will have full access to the symbolic structure of the system — including parameters, symbolic axes, metric tensors, and coordinate transformations.
+  These methods define abstract hooks or system-wide expectations (e.g., symbolic setup behavior, transformation
+  interface contracts) and should remain stable.
+
+.. important::
+
+   Never add logic to coordinate systems that duplicates functionality from symbolic geometry modules,
+   grids, or field classes. Use delegation and dependency instead.
+
+Testing
+--------
+
+All coordinate system classes and related functionality must be accompanied by unit tests.
+These tests live in the ``/tests/test_coordinates`` directory and are essential for ensuring correctness,
+maintainability, and stability as the symbolic infrastructure evolves.
+
+Each coordinate system should have a dedicated test module or class that validates its behavior, including:
+
+- Metric tensor correctness (symbolic and numerical forms)
+- Inverse metric validation
+- Coordinate transformation accuracy
+- Parameter substitution and expression generation
+- Class expressions (e.g., Jacobians, basis vectors)
+- Edge cases in evaluation (e.g., zero radius, pole singularities)
+
+.. important::
+
+    All methods — especially those involving symbolic logic or numerical evaluation — must have corresponding tests.
+
+    Coordinate systems must pass tests **both at the class level** (symbolic structure) and
+    **at the instance level** (numerical behavior).
+
+To get started, see the README in ``tests/test_coordinates/`` for organizational guidance and available testing utilities.
+Most test modules use `pytest <https://docs.pytest.org>`_ and may rely on fixtures from ``conftest.py`` for reusability.
+
+.. tip::
+
+    When adding a new coordinate system:
+
+    - Add symbolic validation tests in a file like ``test_my_coords_symbolic.py``.
+    - Add numerical evaluation tests using standard NumPy arrays in ``test_my_coords_numerical.py``.
+    - Include regression tests for any specialized logic (e.g., anisotropy, constraints).
+
+Following these practices ensures that your contributions remain robust and compatible with PyMetric’s growing coordinate infrastructure.

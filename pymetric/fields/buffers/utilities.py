@@ -59,7 +59,7 @@ def buffer(
         Registry to use when resolving `array` into a buffer class. Defaults to the global registry.
     **kwargs :
         Additional keyword arguments forwarded to the buffer class's :meth:`~fields.buffers.base.BufferBase.from_array` method. This includes
-        things like `dtype`, `units`, `copy`, `order`, or HDF5-specific parameters.
+        things like `dtype`, `copy`, `order`, or HDF5-specific parameters.
 
     Returns
     -------

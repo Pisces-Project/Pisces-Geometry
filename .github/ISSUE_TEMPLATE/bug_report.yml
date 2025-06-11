@@ -47,7 +47,6 @@ body:
       label: 💾 Buffer Backend
       options:
         - numpy
-        - unyt
         - hdf5
         - unknown
 

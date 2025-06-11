@@ -1,7 +1,7 @@
 """
 Structured grid classes for use in physical simulations and geometrical modeling.
 
-This module provides the primary grid abstractions used throughout the Pisces Geometry library.
+This module provides the primary grid abstractions used throughout the PyMetric library.
 These grids define the structure of the computational domain and are used to evaluate differential
 operators, store field data, and perform numerical computations.
 
@@ -11,11 +11,11 @@ Features
 - Ghost zone support for stencil-based operations and boundary condition handling.
 - Chunking interface for domain decomposition and out-of-core or parallel computations.
 - Support for serialization to/from HDF5, including coordinate system metadata.
-- Interoperable with Pisces Geometry coordinate systems and field abstractions.
+- Interoperable with PyMetric coordinate systems and field abstractions.
 
 Notes
 -----
-This module is a core component of the Pisces Geometry ecosystem and is intended
+This module is a core component of the PyMetric ecosystem and is intended
 to be subclassed or extended for use in PDE solvers, mesh-based numerical methods,
 and physical field representations.
 """
@@ -36,9 +36,9 @@ from typing import (
 import numpy as np
 import unyt
 
-from pymetric.grids.base import GridBase
-from pymetric.grids.utils._exceptions import GridInitializationError
-from pymetric.grids.utils._typing import BoundingBox, DomainDimensions
+from .base import GridBase
+from .utils._exceptions import GridInitializationError
+from .utils._typing import BoundingBox, DomainDimensions
 
 if TYPE_CHECKING:
     from pymetric.coordinates.base import _CoordinateSystemBase
@@ -277,7 +277,6 @@ class GenericGrid(GridBase):
         ghost_zones: Optional[Sequence[Sequence[float]]] = None,
         chunk_size: Optional[Sequence[int]] = None,
         *args,
-        units: Optional[Dict[str, Union[str, unyt.Unit]]] = None,
         center: Literal["vertex", "cell"] = "vertex",
         bbox: Optional[BoundingBox] = None,
         **kwargs,
@@ -337,12 +336,6 @@ class GenericGrid(GridBase):
         args:
             Positional arguments passed through to initialization hooks.
             These are forwarded to ``__configure_domain__`` and ``__configure_boundary__``.
-        units : dict of str or :py:class:`~unyt.units.Unit`, optional
-            A dictionary mapping base physical dimensions (e.g., "length", "time", "mass", "angle")
-            to their corresponding units, either as strings (e.g., "cm", "s") or as :py:class:`~unyt.units.Unit` instances.
-            If not provided, the grid defaults to the CGS (centimeter–gram–second) unit system.
-            This unit system is used for interpreting coordinate values and for scaling
-            differential geometry operations.
         kwargs:
             Additional keyword arguments forwarded to subclass initialization routines,
             such as boundary condition configuration or field metadata.
@@ -358,7 +351,6 @@ class GenericGrid(GridBase):
         This constructor calls the base class :py:meth:`grids.base.GridBase.__init__`, which delegates setup to:
 
         - ``__configure_coordinate_system__``
-        - ``__configure_unit_system__``
         - ``__configure_domain__``
         - ``__configure_boundary__``
 
@@ -377,7 +369,7 @@ class GenericGrid(GridBase):
         }
 
         # Enter the standard init sequence defined in GridBase.
-        super().__init__(coordinate_system, *args, units=units, **kwargs)
+        super().__init__(coordinate_system, *args, **kwargs)
 
     # @@ Coordinate Management @@ #
     # These methods handle the construction / obtaining
@@ -423,224 +415,70 @@ class GenericGrid(GridBase):
     # These methods are used for reading / writing grids
     # to / from disk. Some of these methods are abstract and
     # must be implemented in subclasses. Others are helper functions.
-    def to_hdf5(
-        self,
-        filename: str,
-        group_name: Optional[str] = None,
-        overwrite: bool = False,
-        **_,
-    ):
+    def to_metadata_dict(self) -> Dict[str, Any]:
         """
-        Save this grid object as / in an HDF5 file.
+        Serialize the GenericGrid configuration to a metadata dictionary.
 
-        This method will save all the grid metadata (:attr:`bbox`, :attr:`dd`, etc.) under ``group_name/attrs`` and
-        dump the coordinate arrays into individual datasets inside of ``group_name``, each named in accordance
-        with the coordinate axis it represents. See the notes below for a more comprehensive explanation of
-        the resulting file structure.
+        This includes all user-specified coordinate arrays, centering,
+        and structural information needed to reconstruct the grid, excluding
+        the coordinate system.
 
-        Parameters
-        ----------
-        filename : str
-            Path to the target HDF5 file. The file will be created if it does not exist.
-        group_name : str, optional
-            Name of the HDF5 group to store the grid under. If None, stores directly at the file root.
-        overwrite : bool, default=False
-            If True, overwrites the existing group or file if it already exists.
-            If False, raises an error if the target exists.
-
-        Notes
-        -----
-        The structure of the resulting HDF5 file will look something like the following:
-
-        .. code-block::
-
-            ├── [attrs]
-            │   ├── axes                → list of str           # Axis names (e.g. ["x", "y", "z"])
-            │   ├── chunking            → bool                  # Whether chunking is enabled
-            │   ├── chunk_size          → list[int]             # Size of each chunk (if enabled)
-            │   ├── grid_shape          → list[int]             # Grid shape (excluding ghost zones)
-            │   ├── bbox                → (2, ndim) array       # Physical bounding box
-            │   ├── ghost_zones         → (2, ndim) array       # Ghost zones on each axis
-            │   └── coordinate_system   → str                   # Class name of the coordinate system
-            │
-            │
-            ├── coordinates/            → group                 # Note: names vary with coordinate system.
-            │   ├── x                   → 1D array              # Coordinate values along 'x' axis
-            │   ├── y                   → 1D array              # Coordinate values along 'y' axis
-            │   └── z                   → 1D array              # Coordinate values along 'z' axis (if 3D)
-            │
-            ├── units/                  → group
-            │   ├── length              → str (e.g. "cm")       # Unit string for 'length'
-            │   ├── time                → str (e.g. "s")        # Unit string for 'time'
-            │   ├── mass                → str (e.g. "g")        # Unit string for 'mass'
-            │   ├── angle               → str (e.g. "rad")      # Unit string for 'angle'
-            │   └── ...                                        # Any other base dimensions
-            │
-            └── coord_systm/            → group
-                └── ...                 → Defined by coordinate system class
-                                         (symbolic metric, Jacobians, etc.)
-
-        See Also
-        --------
-        from_hdf5 : Method that reads the file structure described above.
+        Returns
+        -------
+        dict
+            A metadata dictionary compatible with `from_metadata_dict`.
         """
-        import h5py
-
-        # Construct the HDF5 stub (ensuring that the file exists) and that
-        # if the group name was not specified, all of the data gets overwritten.
-        self._build_hdf5_stub(filename, group_name=group_name, overwrite=overwrite)
-
-        # We now proceed with opening the file and writing the data.
-        with h5py.File(filename, "a") as f:
-            # Start by identifying the storage location for the data.
-            # if `group_name` is None, then it is stored in the main directory.
-            group = self._parse_hdf5_group(
-                f, group_name=group_name, overwrite=overwrite
-            )
-
-            # The group has been identified and the overwrite status has
-            # been handled. We now store the grid's metadata in the hdf5 file.
-            # To load again, we need the coordinate arrays, the chunk size, and the
-            # ghost zones. We write a bit more information that this in case anyone needs
-            # to manually inspect the files and wants information.
-            #
-            # Write the basic metadata for the axes, chunking, chunk size, etc.
-            group.attrs["axes"] = list(self.axes)
-            group.attrs["chunking"] = self.chunking
-            group.attrs["grid_shape"] = list(self.shape)
-            group.attrs["bbox"] = np.asarray(self.bbox, dtype=float)
-            group.attrs["ghost_zones"] = np.asarray(self.ghost_zones, dtype=int)
-            group.attrs["coordinate_system"] = self.coordinate_system.__class__.__name__
-
-            if self.chunking:
-                group.attrs["chunk_size"] = self.chunk_size
-
-            self._serialize_unit_system(group.require_group("units"))
-
-            # Save the coordinate axes to the hdf5 file in datasets.
-            try:
-                coord_group = group.require_group("coordinates")
-                for axis_name, arr in zip(self.axes, self.__coordinate_arrays__):
-                    coord_group.create_dataset(axis_name, data=arr)
-            except Exception as e:
-                raise OSError(f"Failed to write the coordinate arrays to disk: {e}")
-
-        # Finally, the coordinate system itself must now be saved to disk. We leave
-        # the context manager to ensure that everything flushes correctly.
-        self._save_coordinate_system(
-            filename, group_name=group_name, overwrite=overwrite
-        )
+        return {
+            "coordinates": [arr.tolist() for arr in self.__coordinate_arrays__],
+            "center": self.__center__,
+            "ghost_zones": self.__ghost_zones__.tolist(),
+            "chunk_size": None
+            if self.__chunk_size__ is None
+            else self.__chunk_size__.tolist(),
+            "bbox": self.__ghost_bbox__.tolist() if self.__center__ == "cell" else None,
+        }
 
     @classmethod
-    def from_hdf5(cls, filename: str, group_name: Optional[str] = None, **kwargs):
+    def from_metadata_dict(
+        cls, coordinate_system: "_CoordinateSystemBase", metadata_dict: Dict[str, Any]
+    ) -> "GenericGrid":
         """
-        Load a grid instance from an HDF5 file.
-
-        This method reconstructs a fully initialized grid object from a file written by
-        :meth:`to_hdf5`. It restores all structural metadata, coordinate arrays, unit
-        definitions, and the associated coordinate system.
+        Reconstruct a GenericGrid from metadata and a coordinate system.
 
         Parameters
         ----------
-        filename : str
-            Path to the HDF5 file to load from.
-        group_name : str, optional
-            Name of the HDF5 group in which the grid was saved. If None, loads from the file root.
-        **kwargs
-            Additional keyword arguments forwarded to the grid constructor.
+        coordinate_system : _CoordinateSystemBase
+            A coordinate system defining the axes and dimensionality.
+        metadata_dict : dict
+            Metadata as returned by `to_metadata_dict`.
 
         Returns
         -------
         GenericGrid
-            Reconstructed grid instance.
-
-        Notes
-        -----
-        The structure of the input HDF5 file will look something like the following:
-
-        .. code-block::
-
-            ├── [attrs]
-            │   ├── axes                → list of str           # Axis names (e.g. ["x", "y", "z"])
-            │   ├── chunking            → bool                  # Whether chunking is enabled
-            │   ├── chunk_size          → list[int]             # Size of each chunk (if enabled)
-            │   ├── grid_shape          → list[int]             # Grid shape (excluding ghost zones)
-            │   ├── bbox                → (2, ndim) array       # Physical bounding box
-            │   ├── ghost_zones         → (2, ndim) array       # Ghost zones on each axis
-            │   └── coordinate_system   → str                   # Class name of the coordinate system
-            │
-            │
-            ├── coordinates/            → group                 # Note: names vary with coordinate system.
-            │   ├── x                   → 1D array              # Coordinate values along 'x' axis
-            │   ├── y                   → 1D array              # Coordinate values along 'y' axis
-            │   └── z                   → 1D array              # Coordinate values along 'z' axis (if 3D)
-            │
-            ├── units/                  → group
-            │   ├── length              → str (e.g. "cm")       # Unit string for 'length'
-            │   ├── time                → str (e.g. "s")        # Unit string for 'time'
-            │   ├── mass                → str (e.g. "g")        # Unit string for 'mass'
-            │   ├── angle               → str (e.g. "rad")      # Unit string for 'angle'
-            │   └── ...                                        # Any other base dimensions
-            │
-            └── coord_systm/            → group
-                └── ...                 → Defined by coordinate system class
-                                         (symbolic metric, Jacobians, etc.)
-        See Also
-        --------
-        to_hdf5 : Method that produces the file structure described above.
+            A reconstructed GenericGrid instance.
         """
-        # Ensure existence of the hdf5 file before attempting to
-        # load data from it.
-        import h5py
+        coordinates = [np.asarray(arr) for arr in metadata_dict["coordinates"]]
+        center = metadata_dict.get("center", "cell")
 
-        filename = Path(filename)
-        if not filename.exists():
-            raise OSError(f"HDF5 file '{filename}' does not exist.")
+        ghost_zones = metadata_dict.get("ghost_zones", None)
+        if ghost_zones is not None:
+            ghost_zones = np.asarray(ghost_zones)
 
-        # Open the hdf5 file in read mode and start parsing the
-        # data from it.
-        with h5py.File(filename, "r") as f:
-            # Navigate to the appropriate group
-            group = f[group_name] if group_name else f
+        chunk_size = metadata_dict.get("chunk_size", None)
+        if chunk_size is not None:
+            chunk_size = np.asarray(chunk_size)
 
-            # Load metadata attributes
-            chunk_size = group.attrs.get("chunk_size", None)
-            ghost_zones = group.attrs.get("ghost_zones", None)
-
-            # Load the units.
-            if "units" in group.keys():
-                units = cls._deserialize_unit_system(group["units"])
-            else:
-                units = None
-
-            # Check that coordinate datasets are present
-            if "coordinates" not in group:
-                raise OSError(f"No 'coordinates' group found in '{group.name}'.")
-
-            coord_group = group["coordinates"]
-            coord_arrays = {key: coord_group[key][...] for key in coord_group.keys()}
-
-        # Load the coordinate system object
-        coordinate_system = cls._load_coordinate_system(filename, group_name=group_name)
-
-        # Ensure that coordinates are ordered to match the coordinate system axes
-        try:
-            ordered_coord_arrays = [
-                coord_arrays[axis][...] for axis in coordinate_system.axes
-            ]
-        except KeyError as e:
-            missing = e.args[0]
-            raise OSError(
-                f"Missing coordinate array for axis '{missing}' required by coordinate system '{coordinate_system}'."
-            ) from e
+        bbox = metadata_dict.get("bbox", None)
+        if bbox is not None:
+            bbox = BoundingBox(np.asarray(bbox))
 
         return cls(
             coordinate_system,
-            ordered_coord_arrays,
+            coordinates,
+            ghost_zones,
             chunk_size=chunk_size,
-            ghost_zones=ghost_zones,
-            units=units,
-            **kwargs,
+            center=center,
+            bbox=bbox,
         )
 
 
@@ -663,7 +501,6 @@ class UniformGrid(GridBase):
     - Analytical calculation of grid coordinates and spacing
     - Ghost zone support for boundary conditions and stencil operations
     - Chunking support for domain decomposition and parallelism
-    - HDF5 serialization with metadata and unit system integration
 
     Examples
     --------
@@ -695,7 +532,7 @@ class UniformGrid(GridBase):
     - The spacing between grid points is uniform and inferred from the bounding box.
     - Cell-centered grids shift all coordinates by half a cell inward.
     - Chunk sizes (if used) must divide domain dimensions exactly.
-    - This class interoperates with coordinate systems and field representations in Pisces Geometry.
+    - This class interoperates with coordinate systems and field representations in PyMetric.
 
     See Also
     --------
@@ -828,7 +665,6 @@ class UniformGrid(GridBase):
         ghost_zones: Optional[Sequence[Sequence[float]]] = None,
         chunk_size: Optional[Sequence[int]] = None,
         *args,
-        units=None,
         center: Literal["vertex", "cell"] = "vertex",
         **kwargs,
     ):
@@ -885,12 +721,6 @@ class UniformGrid(GridBase):
             To be valid, `chunk_size` must evenly divide the number of cells. If ``center='cell'``,
             then this is equivalent to `domain_dimensions`, if ``center='vertex'``, then `chunk_size`
             must divide `domain_dimensions + 1` along each axis.
-        units : dict of str or :py:class:`~unyt.units.Unit`, optional
-            A dictionary mapping base physical dimensions (e.g., "length", "time", "mass", "angle")
-            to their corresponding units, either as strings (e.g., "cm", "s") or as :py:class:`~unyt.units.Unit` instances.
-            If not provided, the grid defaults to the CGS (centimeter–gram–second) unit system.
-            This unit system is used for interpreting coordinate values and for scaling
-            differential geometry operations.
         center: {'vertex', 'cell'}, optional
             The position of each point in the grid lattice. If `center` is ``"vertex"``, then
             the grid points are placed at the corners of each cell and there are `domain_dimensions-1`
@@ -915,7 +745,7 @@ class UniformGrid(GridBase):
         }
 
         # Begin the __init__ process.
-        super().__init__(coordinate_system, *args, units=units, **kwargs)
+        super().__init__(coordinate_system, *args, **kwargs)
 
     def __post_init__(self, *args, **kwargs):
         """
@@ -998,188 +828,65 @@ class UniformGrid(GridBase):
     # These methods are used for reading / writing grids
     # to / from disk. Some of these methods are abstract and
     # must be implemented in subclasses. Others are helper functions.
-    def to_hdf5(
-        self,
-        filename: str,
-        group_name: Optional[str] = None,
-        overwrite: bool = False,
-        **kwargs,
-    ):
+    def to_metadata_dict(self) -> Dict[str, Any]:
         """
-        Save this grid object to an HDF5 file.
+        Serialize the UniformGrid configuration to a dictionary.
 
-        This method serializes the grid metadata, physical domain information, unit definitions,
-        and coordinate system to disk. Unlike :py:class:`GenericGrid`, the coordinates are not explicitly saved,
-        since they are analytically defined from the bounding box and resolution.
+        This includes all core geometric properties required to reconstruct the grid,
+        excluding the coordinate system (which must be passed separately).
 
-        Parameters
-        ----------
-        filename : str
-            Path to the target HDF5 file. The file will be created if it does not exist.
-        group_name : str, optional
-            Name of the HDF5 group to store the grid under. If None, stores directly at the file root.
-        overwrite : bool, default=False
-            If True, overwrites the existing group or file if it already exists.
-            If False, raises an error if the target exists.
-        **kwargs
-            Additional keyword arguments for forward compatibility (ignored by default).
-
-        Notes
-        -----
-        The resulting HDF5 structure resembles:
-
-        .. code-block::
-
-            ├── [attrs]
-            │   ├── axes                → list of str           # Axis names (e.g. ["x", "y", "z"])
-            │   ├── chunking            → bool                  # Whether chunking is enabled
-            │   ├── chunk_size          → list[int]             # Size of each chunk (if enabled)
-            │   ├── grid_shape          → list[int]             # Grid shape (excluding ghost zones)
-            │   ├── bbox                → (2, ndim) array       # Physical bounding box (without ghosts)
-            │   ├── ghost_zones         → (2, ndim) array       # Number of ghost cells per axis
-            │   ├── coordinate_system   → str                   # Name of the coordinate system class
-            │   └── centered            → bool                  # Whether grid is cell-centered
-            │
-            ├── units/                  → group
-            │   └── ...                 → Unit definitions for each base dimension
-            │
-            └── coord_systm/            → group
-                └── ...                 → Coordinate system-specific symbolic definitions
-
-        See Also
-        --------
-        from_hdf5 : Method to load the grid back from an HDF5 file.
+        Returns
+        -------
+        dict
+            A dictionary of metadata needed for reconstruction via `from_metadata_dict`.
         """
-        import h5py
-
-        # Construct the HDF5 stub (ensuring that the file exists) and that
-        # if the group name was not specified, all of the data gets overwritten.
-        self._build_hdf5_stub(filename, group_name=group_name, overwrite=overwrite)
-
-        # We now proceed with opening the file and writing the data.
-        with h5py.File(filename, "a") as f:
-            # Start by identifying the storage location for the data.
-            # if `group_name` is None, then it is stored in the main directory.
-            group = self._parse_hdf5_group(
-                f, group_name=group_name, overwrite=overwrite
-            )
-
-            # The group has been identified and the overwrite status has
-            # been handled. We now store the grid's metadata in the hdf5 file.
-            # To load again, we need the coordinate arrays, the chunk size, and the
-            # ghost zones. We write a bit more information that this in case anyone needs
-            # to manually inspect the files and wants information.
-            #
-            # Write the basic metadata for the axes, chunking, chunk size, etc.
-            group.attrs["axes"] = list(self.axes)
-            group.attrs["chunking"] = self.chunking
-            group.attrs["grid_shape"] = list(self.shape)
-            group.attrs["bbox"] = np.asarray(self.bbox, dtype=float)
-            group.attrs["ghost_zones"] = np.asarray(self.ghost_zones, dtype=int)
-            group.attrs["coordinate_system"] = self.coordinate_system.__class__.__name__
-            group.attrs["centered"] = self.__center__
-            if self.chunking:
-                group.attrs["chunk_size"] = self.chunk_size
-
-            # Finish off by saving the unit
-            # system (using the _serialize_unit_system method)
-            # and the coordinate system (_save_coordinate_system).
-            self._serialize_unit_system(group.require_group("units"))
-
-        # Finally, the coordinate system itself must now be saved to disk. We leave
-        # the context manager to ensure that everything flushes correctly.
-        self._save_coordinate_system(
-            filename, group_name=group_name, overwrite=overwrite
-        )
+        return {
+            "bounding_box": self.bbox.tolist(),
+            "domain_dimensions": self.dd.tolist(),
+            "center": self.__center__,
+            "ghost_zones": self.__ghost_zones__.tolist(),
+            "chunk_size": None
+            if self.__chunk_size__ is None
+            else self.__chunk_size__.tolist(),
+        }
 
     @classmethod
-    def from_hdf5(cls, filename: str, group_name: Optional[str] = None, **kwargs):
+    def from_metadata_dict(
+        cls, coordinate_system: "_CoordinateSystemBase", metadata_dict: Dict[str, Any]
+    ) -> "UniformGrid":
         """
-        Load a :py:class:`UniformGrid` from an HDF5 file.
-
-        This method reconstructs a grid previously saved using :meth:`to_hdf5`. It restores
-        the domain shape, bounding box, ghost zones, chunking structure, coordinate system,
-        and unit metadata.
+        Construct a UniformGrid from a metadata dictionary and coordinate system.
 
         Parameters
         ----------
-        filename : str
-            Path to the HDF5 file to load from.
-        group_name : str, optional
-            Name of the HDF5 group in which the grid was saved. If None, loads from the file root.
-        **kwargs
-            Additional keyword arguments passed to the grid constructor.
+        coordinate_system : _CoordinateSystemBase
+            The coordinate system object to attach to the grid.
+        metadata_dict : dict
+            Dictionary containing metadata keys: 'bounding_box', 'domain_dimensions',
+            'center', 'ghost_zones', and 'chunk_size'.
 
         Returns
         -------
         UniformGrid
-            Fully reconstructed grid instance.
-
-        Raises
-        ------
-        IOError
-            If the file or group does not exist, or if required metadata is missing.
-
-        Notes
-        -----
-        The method expects a file structure produced by :meth:`to_hdf5`, including the necessary
-        attributes and subgroups. For example:
-
-        .. code-block::
-
-            ├── [attrs]
-            │   ├── axes                → list of str
-            │   ├── chunking            → bool
-            │   ├── chunk_size          → list[int]
-            │   ├── grid_shape          → list[int]
-            │   ├── bbox                → (2, ndim) array
-            │   ├── ghost_zones         → (2, ndim) array
-            │   ├── coordinate_system   → str
-            │   └── centered            → bool
-            │
-            ├── units/                  → group of base unit strings
-            └── coord_systm/            → symbolic data for coordinate system reconstruction
-
-        The coordinate arrays are **not** saved to disk, because they are deterministically defined
-        from the bounding box and resolution.
+            A reconstructed UniformGrid instance.
         """
-        # Ensure existence of the hdf5 file before attempting to
-        # load data from it.
-        import h5py
+        bbox = np.asarray(metadata_dict["bounding_box"])
+        shape = metadata_dict["domain_dimensions"]
+        center = metadata_dict.get("center", "vertex")
 
-        filename = Path(filename)
-        if not filename.exists():
-            raise OSError(f"HDF5 file '{filename}' does not exist.")
+        ghost_zones = metadata_dict.get("ghost_zones", None)
+        if ghost_zones is not None:
+            ghost_zones = np.asarray(ghost_zones)
 
-        # Open the hdf5 file in read mode and start parsing the
-        # data from it.
-        with h5py.File(filename, "r") as f:
-            # Navigate to the appropriate group
-            group = f[group_name] if group_name else f
-
-            # Load metadata attributes
-            chunk_size = group.attrs.get("chunk_size", None)
-            bounding_box = group.attrs.get("bbox", None)
-            domain_dimensions = group.attrs.get("grid_shape", None)
-            ghost_zones = group.attrs.get("ghost_zones", None)
-            centered = group.attrs.get("centered", False)
-
-            # Load the units.
-            if "units" in group.keys():
-                units = cls._deserialize_unit_system(group["units"])
-            else:
-                units = None
-
-        # Load the coordinate system object
-        coordinate_system = cls._load_coordinate_system(filename, group_name=group_name)
+        chunk_size = metadata_dict.get("chunk_size", None)
+        if chunk_size is not None:
+            chunk_size = np.asarray(chunk_size)
 
         return cls(
             coordinate_system,
-            bounding_box,
-            domain_dimensions,
-            chunk_size=chunk_size,
+            bbox,
+            shape,
             ghost_zones=ghost_zones,
-            cell_centered=centered,
-            units=units,
-            **kwargs,
+            chunk_size=chunk_size,
+            center=center,
         )

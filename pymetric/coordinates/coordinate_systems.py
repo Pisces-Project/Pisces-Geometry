@@ -6,7 +6,6 @@ default in PyMetric.
 """
 import numpy as np
 import sympy as sp
-import unyt.dimensions as d
 
 from pymetric.coordinates.core import (
     CurvilinearCoordinateSystem,
@@ -42,7 +41,6 @@ class CartesianCoordinateSystem1D(OrthogonalCoordinateSystem):
     __is_abstract__ = False
     __setup_point__ = "init"
     __AXES__ = ["x"]
-    __AXES_DIMENSIONS__ = [d.length]
     __PARAMETERS__ = {}
 
     @staticmethod
@@ -121,7 +119,6 @@ class CartesianCoordinateSystem2D(OrthogonalCoordinateSystem):
     __is_abstract__ = False
     __setup_point__ = "init"
     __AXES__ = ["x", "y"]
-    __AXES_DIMENSIONS__ = [d.length, d.length]
     __PARAMETERS__ = {}
 
     @staticmethod
@@ -200,7 +197,6 @@ class CartesianCoordinateSystem3D(OrthogonalCoordinateSystem):
     __is_abstract__ = False
     __setup_point__ = "init"
     __AXES__ = ["x", "y", "z"]
-    __AXES_DIMENSIONS__ = [d.length, d.length, d.length]
     __PARAMETERS__ = {}
 
     @staticmethod
@@ -299,7 +295,6 @@ class SphericalCoordinateSystem(OrthogonalCoordinateSystem):
     __is_abstract__ = False
     __setup_point__ = "init"
     __AXES__ = ["r", "theta", "phi"]
-    __AXES_DIMENSIONS__ = [d.length, d.dimensionless, d.dimensionless]
     __PARAMETERS__ = {}
 
     @staticmethod
@@ -399,7 +394,6 @@ class PolarCoordinateSystem(OrthogonalCoordinateSystem):
     __is_abstract__ = False
     __setup_point__ = "init"
     __AXES__ = ["r", "theta"]
-    __AXES_DIMENSIONS__ = [d.length, d.dimensionless]
     __PARAMETERS__ = {}
 
     @staticmethod
@@ -504,7 +498,6 @@ class CylindricalCoordinateSystem(OrthogonalCoordinateSystem):
     __is_abstract__ = False
     __setup_point__ = "init"
     __AXES__ = ["rho", "phi", "z"]
-    __AXES_DIMENSIONS__ = [d.length, d.dimensionless, d.length]
     __PARAMETERS__ = {}
 
     def _convert_native_to_cartesian(self, rho, phi, z):
@@ -619,7 +612,6 @@ class OblateSpheroidalCoordinateSystem(OrthogonalCoordinateSystem):
     __is_abstract__ = False
     __setup_point__ = "init"
     __AXES__ = ["mu", "nu", "phi"]
-    __AXES_DIMENSIONS__ = [d.dimensionless] * 3
     __PARAMETERS__ = {"a": 1.0}
 
     def _convert_native_to_cartesian(self, mu, nu, phi):
@@ -744,7 +736,6 @@ class ProlateSpheroidalCoordinateSystem(OrthogonalCoordinateSystem):
     __is_abstract__ = False
     __setup_point__ = "init"
     __AXES__ = ["mu", "nu", "phi"]
-    __AXES_DIMENSIONS__ = [d.dimensionless] * 3
     __PARAMETERS__ = {"a": 1.0}
 
     def _convert_native_to_cartesian(self, mu, nu, phi):
@@ -815,7 +806,6 @@ class EllipticCylindricalCoordinateSystem(OrthogonalCoordinateSystem):
     __is_abstract__ = False
     __setup_point__ = "init"
     __AXES__ = ["mu", "nu", "z"]
-    __AXES_DIMENSIONS__ = (d.dimensionless,) * 2 + (d.length,)
     __PARAMETERS__ = {"a": 1.0}
 
     @staticmethod
@@ -889,7 +879,6 @@ class OblateHomoeoidalCoordinateSystem(CurvilinearCoordinateSystem):
     __is_abstract__ = False
     __setup_point__ = "init"
     __AXES__ = ["xi", "theta", "phi"]
-    __AXES_DIMENSIONS__ = [d.length, d.dimensionless, d.dimensionless]
     __PARAMETERS__ = {"ecc": 0.0}
 
     def _setup_parameters(self, **kwargs):
@@ -993,7 +982,6 @@ class ProlateHomoeoidalCoordinateSystem(CurvilinearCoordinateSystem):
     __is_abstract__ = False
     __setup_point__ = "init"
     __AXES__ = ["xi", "theta", "phi"]
-    __AXES_DIMENSIONS__ = [d.length, d.dimensionless, d.dimensionless]
     __PARAMETERS__ = {"ecc": 0.0}
 
     def _setup_parameters(self, **kwargs):
@@ -1089,7 +1077,6 @@ class ConicCoordinateSystem(OrthogonalCoordinateSystem):
     __is_abstract__ = False
     __setup_point__ = "init"
     __AXES__ = ["mu", "nu", "phi"]
-    __AXES_DIMENSIONS__ = [d.dimensionless, d.dimensionless, d.dimensionless]
     __PARAMETERS__ = {"a": 1.0}
 
     @staticmethod

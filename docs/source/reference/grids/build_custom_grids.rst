@@ -4,278 +4,293 @@
 Geometric Grids: Custom Grid Classes
 ====================================
 
-Grids (managed in the :py:mod:`grids` module) are the fundamental objects in Pisces Geometry that define the layout of a
-computational domain. They encapsulate not just the numerical structure of the domain—such as its shape, resolution,
-and physical bounds—but also the coordinate system, ghost zone definitions, chunking behavior, and mechanisms
-to retrieve physical coordinates.
+Grids in PyMetric define the structure of computational domains, encapsulating coordinate systems,
+domain resolution, ghost zones, chunking behavior, and coordinate retrieval.
+Grid classes are central to all spatial discretizations but **do not** store field values themselves.
+Instead, they provide structural context and metadata to higher-level components.
 
-Grids do not typically store the actual field data directly, but instead provide the interface by which coordinates
-and grid shape are made available to other parts of the framework. There are many types of grids available in Pisces-Geometry by
-default; however, extensibility is a critical aspect of the design approach for Pisces-Geometry (and Pisces in general) and
-therefore, it is quite easy to define custom grid implementations.
+PyMetric includes a flexible and extensible grid framework based on the :py:class:`~grids.base.GridBase` class. This guide
+describes how to create new grid subclasses by implementing a small number of well-defined hooks.
 
-In this guide, we'll introduce the basics of generating new grid classes.
+Structure of Grid Classes
+-------------------------
 
-Structuring Subclasses
-----------------------
+All concrete grids must inherit from :py:class:`~grids.base.GridBase`, an abstract base class defining the public API for all grids.
 
-All grid types in Pisces Geometry are subclasses of the abstract base class ``pymetric.grids.base._BaseGrid``, which defines the common
-interface and behaviors expected from all grids. This base class should not be used directly, but serves as a foundation
-for building concrete grid types like :py:class:`grids.base.GenericGrid`.
+This base class is responsible for:
 
-The ``_BaseGrid`` class includes detailed documentation within each method to guide the subclass implementation. Developers
-can refer to these docstrings for the specific attributes that must be initialized and the responsibilities of each method.
+- Binding to a coordinate system (:py:class:`coordinates.base._CoordinateSystemBase`)
+- Tracking domain geometry, ghost zones, and chunking
+- Providing a uniform interface for grid operations (e.g., coordinate extraction, subgrids)
+- Supporting file serialization and deserialization via IO mixins
 
-Subclasses may optionally inherit from intermediate classes if available, or directly from ``_BaseGrid`` when implementing novel grid types.
+Initialization Methods
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Initialization Methods
-''''''''''''''''''''''''''
+To define a custom grid class, users override three (optionally 4) core setup routines:
 
-Grid initialization is structured into a set of overridable setup routines that configure the various components of the grid.
-Subclasses should override these methods where necessary to define their unique behavior.
+1. :meth:`__configure_coordinate_system__`
+2. :meth:`__configure_domain__`
+3. :meth:`__configure_boundary__`
+4. :meth:`__post_init__` (optional)
 
-By default, the ``__init__`` method in ``_BaseGrid`` looks like the following:
+Each method is responsible for configuring a specific aspect of the grid.
+
 
 .. code-block:: python
 
-    def __init__(self, coordinate_system: "_CoordinateSystemBase", *args, **kwargs):
-        try:
-            self.__set_coordinate_system__(coordinate_system, *args, **kwargs)
-        except Exception as e:
-            raise GridInitializationError(
-                f"Failed to set up coordinate system for grid: {e}"
-            ) from e
+    def __configure_coordinate_system__(self, coordinate_system, *args, **kwargs): ...
+        """
+        Assign the coordinate system to the grid.
 
-        try:
-            self.__set_grid_domain__(*args, **kwargs)
-        except Exception as e:
-            raise GridInitializationError(
-                f"Failed to set up domain for grid: {e}"
-            ) from e
+        This method is called during grid initialization to associate a coordinate system
+        with the grid instance. Subclasses may override this to enforce validation logic,
+        such as checking whether the coordinate system is orthogonal, curvilinear, or matches
+        expected dimensionality.
 
-        try:
-            self.__set_grid_boundary__(*args, **kwargs)
-        except Exception as e:
-            raise GridInitializationError(
-                f"Failed to set up boundary for grid: {e}"
-            ) from e
+        Parameters
+        ----------
+        coordinate_system : _CoordinateSystemBase
+            The coordinate system to assign to the grid. This must be an instance of a subclass
+            of `CoordinateSystemBase`, such as `OrthogonalCoordinateSystem` or
+            `CurvilinearCoordinateSystem`.
 
-        # Run the __post_init__ method afterward.
-        self.__post_init__()
+        *args, **kwargs
+            Additional arguments are accepted for interface compatibility and may be used by subclasses.
 
-Each of the methods called is responsible for a separate aspect of the ``__init__`` flow and may be overwritten in
-any given subclass.
+        Raises
+        ------
+        GridInitializationError
+            If the coordinate system is invalid or incompatible with the grid type.
+        """
+        self.__cs__: "_CoordinateSystemBase" = coordinate_system
 
-.. note::
+    def __configure_domain__(self, *args, **kwargs):
+        """
+        Configure the shape, resolution, and physical extent of the grid domain.
 
-    No matter what, all grid subclasses must take ``coordinate_system`` as an argument. Any other arguments may
-    be inferred from ``*args`` or ``**kwargs`` and are then concretely specified in the subclasses.
+        This method is called during initialization to define the core geometric properties
+        of the grid. Subclasses must implement this method to populate the following attributes:
 
-The initialization methods currently implemented as part of the ``__init__`` flow are the following:
+        - ``self.__center__``: Whether the grid is cell centered or grid centered.
+        - ``self.__bbox__``: A `(2, ndim)` array specifying the physical bounding box
+          of the active domain (excluding ghost zones).
+        - ``self.__dd__``: A `DomainDimensions` instance specifying the number of grid points
+          along each axis (excluding ghost zones).
+        - ``self.__chunking__``: A boolean flag indicating whether chunking is enabled.
+        - ``self.__chunk_size__``: A `DomainDimensions` object specifying the size of each chunk.
+        - ``self.__cdd__``: A `DomainDimensions` object giving the number of chunks per axis.
 
-- ``__set_coordinate_system__``
-  This method assigns the coordinate system (see e.g. :py:mod:`coordinates`) object to the grid. Subclasses may override
-  it to enforce validation—e.g., requiring that the coordinate system be orthogonal or curvilinear.
+        If chunking is not enabled, the chunking-related attributes should be set to `False` or `None`.
 
-  .. important::
+        Parameters
+        ----------
+        *args, **kwargs
+            Subclass-specific arguments such as coordinate arrays, shape, resolution, bounding box, etc.
 
-    The following are required attributes to be set in ``__set_coordinate_system__``:
+        Raises
+        ------
+        GridInitializationError
+            If the domain cannot be configured due to invalid shapes, resolution mismatch,
+            or chunking inconsistencies.
+        """
+        self.__center__: Literal["vertex", "cell"] = None
+        self.__bbox__: BoundingBox = None
+        self.__dd__: DomainDimensions = None
+        self.__chunking__: bool = False
+        self.__chunk_size__: DomainDimensions = None
+        self.__cdd__: DomainDimensions = None
 
-    - ``self.__cs__``: An instance of ``_CoordinateSystemBase`` or its subclass which acts as the
-      coordinate system for the grid.
+    def __configure_boundary__(self, *args, **kwargs):
+        """
+        Configure ghost zones and boundary-related metadata for the grid.
 
-- ``__set_grid_domain__``
-  This method controls the domain of the grid that is being generated. Whereas ``__set_coordinate_system__`` deals which what
-  coordinate system is connected to the grid, this method figures out the coordinate boundaries (``bbox``), the grid shape (``dd``),
-  and various other aspects of the grid's structure.
+        This method is called during initialization to set up boundary padding for
+        stencil operations, boundary conditions, and ghost cell management.
 
-  .. important::
+        Subclasses must populate the following attributes:
 
-    The following are required attributes to be set in ``__set_grid_domain``:
+        - ``self.__ghost_zones__``: A `(2, ndim)` array specifying the number of ghost cells
+          on the lower and upper sides of each axis.
+        - ``self.__ghost_bbox__``: A `(2, ndim)` array defining the bounding box that includes
+          ghost regions.
+        - ``self.__ghost_dd__``: A `DomainDimensions` instance representing the shape of the grid
+          including ghost cells.
 
-    - ``self.__bbox__``: A ``BoundingBox`` specifying the physical limits (without ghost zones). This should be a
-      ``(2,ndim)`` array with the bottom left and top right corners of the coordinate domain specified.
-    - ``self.__dd__``: A ``DomainDimensions`` object specifying the number of points per axis (excluding ghost cells).
-    - ``self.__chunking__``: Boolean flag for whether chunking is active.
-    - ``self.__chunk_size__``: The shape of a single chunk, if chunking is enabled.
-    - ``self.__cdd__``: The number of chunks in each dimension.
+        Parameters
+        ----------
+        *args, **kwargs
+            Subclass-specific arguments used to configure boundary padding (e.g., ghost zone sizes).
 
-  One of the critical aspects of this method is dealing with the **ghost zones**. These are excess cells to place outside
-  of the main grid in order to ensure that boundary effects / conditions are handled correctly. In this method, these cells
-  should be explicitly excluded from things like the ``bbox`` and the ``dd``.
+        Notes
+        -----
+        This method is typically called after the domain is configured, so that ghost cells
+        can be appended to a valid domain geometry.
 
-- ``__set_grid_boundary__``
-  Responsible for defining the ghost zone regions and the full domain including ghosts.
+        Raises
+        ------
+        GridInitializationError
+            If ghost zone configuration fails due to shape mismatch or invalid layout.
+        """
+        self.__ghost_zones__ = None
+        self.__ghost_bbox__ = None
+        self.__ghost_dd__ = None
 
-  .. important::
+These methods are called in order by the :meth:`GridBase.__init__` constructor and should assign specific internal attributes as
+described in the corresponding docstrings.
 
-    The following are required attributes to be set in ``__set_grid_domain``:
+.. hint::
 
-    - ``self.__ghost_zones__``: A shape (2, ndim) array of ghost cells per side.
-    - ``self.__ghost_bbox__``: The full bounding box including ghost cells.
-    - ``self.__ghost_dd__``: The full domain dimensions including ghost cells.
+    These exact methods are written for :py:class:`~grids.core.GenericGrid` and :py:class:`~grids.core.UniformGrid`, which
+    can provide a good starting point for implementing custom grids.
 
-- ``__post_init__``
-  Optional method used to perform any custom configuration after the rest of the grid initialization is complete.
-  Subclasses can use this as a hook to set up derived quantities or verify internal consistency.
+Any additional setup necessary may be done during the ``.__post_init__`` method.
 
-These methods are all invoked in sequence by the ``_BaseGrid.__init__`` method, and errors in any stage are wrapped in a ``GridInitializationError`` for clarity.
 
-Subclass authors should ensure that all required internal attributes are correctly set. Failure to do so may result in runtime errors or incorrect behavior in downstream geometry computations.
+IO Support Methods
+^^^^^^^^^^^^^^^^^^^
 
-.. dropdown:: Example
+Two required methods (:meth:`~grids.base.GridBase.to_metadata_dict` and :meth:`~grids.base.GridBase.from_metadata_dict`)
+define the serialization protocol used to save and restore grid configurations.
 
-    In this example, we'll show the initialization code for the :py:class:`grids.base.GenericGrid`, which takes arrays
-    of coordinates along each axis to generate the grid.
+These methods form the *core metadata exchange format* for all PyMetric grids and are used as the internal backbone
+for JSON, YAML, and HDF5 persistence via the :class:`~grids.mixins.GridIOMixin`.
 
-    .. code-block:: python
+1. :meth:`~grids.base.GridBase.to_metadata_dict`
 
-        class GenericGrid(_BaseGrid):
-            # @@ Initialization Procedures @@ #
-            # These initialization procedures may be overwritten in subclasses
-            # to specialize the behavior of the grid.
-            def __set_grid_domain__(self, *args, **kwargs):
-                """
-                Configure the shape and physical bounding box of the domain.
+   Returns a JSON-compatible dictionary containing the grid’s configuration metadata. This dictionary must include
+   all the information needed to reconstruct the grid **except** for the coordinate system, which is supplied
+   externally when loading.
 
-                This method is responsible for defining:
+   Required fields typically include:
 
-                - ``self.__bbox__``: The physical bounding box of the domain (without ghost cells). This should be a
-                   valid ``BoundingBox`` instance with shape (2,NDIM) defining first the bottom left corner of the domain
-                   and then the top right corner of the domain.
-                - ``self.__dd__``: The DomainDimensions object defining the grid shape (without ghost cells). This should be
-                   a valid ``DomainDimensions`` instance with shape ``(NDIM,)``.
-                - ``self.__chunking__``: boolean flag indicating if chunking is allowed.
-                - ``self.__chunk_size__``: The DomainDimensions for a single chunk of the grid.
+   - ``bbox``: A list of two lists representing the lower and upper corners of the grid bounding box.
+   - ``dd``: The number of grid points per axis (excluding ghost zones).
+   - ``ghost_zones``: A 2 × ndim array giving ghost cell counts on lower and upper edges of each axis.
+   - ``center``: Either ``"cell"`` or ``"vertex"``, indicating grid centering.
+   - ``chunking``: Boolean flag indicating whether chunking is enabled.
+   - ``chunk_size``: (optional) List of per-axis chunk sizes.
+   - ``cdd``: (optional) Number of chunks per axis.
 
-                Should be overridden in subclasses to support specific grid shape logic.
-                """
-                # Validate and define the arrays for the grid. They need to match the
-                # dimensions of the coordinate system and they need to be increasing.
-                _coordinates_ = args[0]
-                if len(_coordinates_) != self.__cs__.ndim:
-                    raise GridInitializationError(
-                        f"Coordinate system {self.__cs__} has {self.__cs__.ndim} dimensions but only {len(_coordinates_)} were "
-                        "provided."
-                    )
-                self.__coordinate_arrays__ = tuple(
-                    _coordinates_
-                )  # Ensure each array is 1D and strictly increasing
-                for i, arr in enumerate(_coordinates_):
-                    arr = np.asarray(arr)
-                    if arr.ndim != 1:
-                        raise GridInitializationError(
-                            f"Coordinate array for axis {i} must be 1-dimensional."
-                        )
-                    if not np.all(np.diff(arr) > 0):
-                        raise GridInitializationError(
-                            f"Coordinate array for axis {i} must be strictly increasing."
-                        )
+   This method must raise an exception if serialization fails due to missing internal state or invalid configuration.
 
-                self.__coordinate_arrays__ = tuple(np.asarray(arr) for arr in _coordinates_)
+2. :meth:`~grids.base.GridBase.from_metadata_dict`
 
-                # Now use the coordinate arrays to compute the bounding box. This requires calling out
-                # to the ghost_zones a little bit early and validating them. The domain dimensions are computed
-                # from the length of each of the coordinate arrays.
-                _ghost_zones = kwargs.get("ghost_zones", None)
-                _ghost_zones = np.array(_ghost_zones,dtype=int) if _ghost_zones is not None else np.zeros((2, self.ndim),dtype=int)
-                if _ghost_zones.shape == (self.ndim, 2):
-                    _ghost_zones = np.moveaxis(_ghost_zones, 0, -1)
-                    self.__ghost_zones__ = _ghost_zones
-                if _ghost_zones.shape == (2, self.ndim):
-                    self.__ghost_zones__ = _ghost_zones
-                else:
-                    raise ValueError(
-                        f"`ghost_zones` is not a valid shape. Expected (2,{self.ndim}), got {_ghost_zones.shape}."
-                    )
+   Reconstructs a new grid instance from metadata and a coordinate system.
 
-                # With the ghost zones set up, we are now in a position to correctly manage the
-                # bounding box and the domain dimensions.
-                _ghost_zones_per_axis = np.sum(self.__ghost_zones__, axis=0)
-                self.__bbox__ = BoundingBox(
-                    [
-                        [
-                            self.__coordinate_arrays__[_idim][_ghost_zones[0, _idim]],
-                            self.__coordinate_arrays__[_idim][-(_ghost_zones[1, _idim] + 1)],
-                        ]
-                        for _idim in range(self.ndim)
-                    ]
-                )
-                self.__dd__ = DomainDimensions(
-                    [
-                        self.__coordinate_arrays__[_idim].size - _ghost_zones_per_axis[_idim]
-                        for _idim in range(self.ndim)
-                    ]
-                )
+   This method:
 
-                # Manage chunking behaviors. This needs to ensure that the chunk size is set,
-                # figure out if chunking is even enabled, and then additionally determine if the
-                # chunks equally divide the shape of the domain (after ghost zones!).
-                _chunk_size_ = kwargs.get("chunk_size", None)
-                if _chunk_size_ is None:
-                    self.__chunking__ = False
-                else:
-                    # Validate the chunking.
-                    _chunk_size_ = np.asarray(_chunk_size_).ravel()
-                    if len(_chunk_size_) != self.ndim:
-                        raise ValueError(
-                            f"'chunk_size' had {len(_chunk_size_)} dimensions but grid was {self.ndim} dimensions."
-                        )
+   - Must validate all required fields in the metadata dictionary.
+   - Must not infer or reconstruct the coordinate system — it must be passed as an argument.
+   - May accept additional optional metadata fields for subclass-specific behavior.
 
-                    elif ~np.all(self.__dd__ % _chunk_size_ == 0):
-                        raise ValueError(
-                            f"'chunk_size' ({_chunk_size_}) must equally divide the grid (shape = {self.dd})."
-                        )
+   Example:
 
-                    self.__chunking__: bool = True
+   .. code-block:: python
 
-                if self.__chunking__:
-                    self.__chunk_size__: Optional[DomainDimensions] = DomainDimensions(
-                        _chunk_size_
-                    )
-                    self.__cdd__: Optional[DomainDimensions] = self.dd // self.__chunk_size__
+      cs = OrthogonalCoordinateSystem(...)
+      with open("grid.json") as f:
+          metadata = json.load(f)
 
-            def __set_grid_boundary__(self, *args, **kwargs):
-                """
-                Configure boundary-related attributes for the grid.
+      grid = MyGrid.from_metadata_dict(cs, metadata)
 
-                This includes:
+Mixin Classes
+-------------
 
-                - ``self.__ghost_zones__``: Number of ghost cells on each side (2, ndim).
-                - ``self.__ghost_bbox__``: Bounding box including ghost regions.
-                - ``self.__ghost_dd__``: DomainDimensions object including ghost cells.
+The :py:class:`~grids.base.GridBase` class in PyMetric is built using a composable, mixin-driven architecture.
+This design enables separation of concerns and allows different behaviors (I/O, plotting, chunking, etc.)
+to be modular, testable, and easily overridden or extended.
 
-                This is where boundary conditions (periodic, Dirichlet, etc.) and ghost cell layout
-                should be resolved.
+Mixin classes are grouped by functionality and live in submodules of the :mod:`grids` package. They are inherited by
+all concrete grid classes through :class:`GridBase`, providing a unified API without bloating the base logic.
 
-                Should be overridden in subclasses to implement behavior.
-                """
-                # Ghost zones is already set, so that simplifies things a little bit. We now need to
-                # simply set the __ghost_dd__ and the __ghost_bbox__. These are actually the "natural" bbox and
-                # ddims given how the grid was specified.
-                self.__ghost_bbox__ = BoundingBox(
-                    [
-                        [
-                            self.__coordinate_arrays__[_idim][0],
-                            self.__coordinate_arrays__[_idim][-1],
-                        ]
-                        for _idim in range(self.ndim)
-                    ]
-                )
-                self.__ghost_dd__ = DomainDimensions(
-                    [self.__coordinate_arrays__[_idim].size for _idim in range(self.ndim)]
-                )
+Each mixin class defines a narrow set of related capabilities and can be found in one of the following submodules:
 
-            def __init__(
-                self,
-                coordinate_system: "_CoordinateSystemBase",
-                coordinates: Sequence[np.ndarray],
-                /,
-                ghost_zones: Optional[Sequence[Sequence[float]]] = None,
-                chunk_size: Optional[Sequence[int]] = None,
-                *args,
-                **kwargs,
-            ):
-                args = [coordinates, *args]
-                kwargs = {"ghost_zones": ghost_zones, "chunk_size": chunk_size, **kwargs}
-                super().__init__(coordinate_system, *args, **kwargs)
+.. code-block:: text
+
+    grids/
+    ├── base.py              ← defines GridBase
+    ├── core.py              ← concrete grid implementations (GenericGrid, UniformGrid)
+    ├── mixins/
+    │   ├── _typing.py        ← type annotations for mixins
+    │   ├── core.py          ← core mixins (GridUtilsMixin, GridIOMixin)
+    |   │   ├── GridUtilsMixin  ← general-purpose utilities for grids
+    │   │   ├── GridIOMixin     ← file I/O support for grids
+    │   |   ├── GridPlotMixin    ← plotting support for grids
+    │   |
+    │   ├── chunking.py      ← chunking mixins (GridChunkingMixin)
+    │   |   ├── GridChunkingMixin  ← chunking and partitioning behavior
+    │   |
+    │   ├── mathops.py       ← dense math operations (DenseMathOpsMixin)
+    │   |   ├── DenseMathOpsMixin       ← dense coordinate-space math operations
+
+Each mixin class is responsible for a well-scoped set of behaviors. Below is a summary of their
+responsibilities, references to their API documentation, and guidance on how and when to extend or override them.
+
+Core Mixins
+^^^^^^^^^^^
+
+- :class:`~grids.mixins.core.GridUtilsMixin`
+  (Defined in ``grids/mixins/core.py``)
+
+  Provides utility methods that support axis name-index resolution, coordinate shape validation, index generation,
+  and dimensional consistency checks. This is the primary toolbox for grid structure introspection.
+
+  .. hint::
+
+      Do include: logic for resolving axes, handling slices, reshaping results, etc.
+      Do not include: any I/O, math operations, or plotting code.
+
+- :class:`~grids.mixins.core.GridIOMixin`
+  (Defined in ``grids/mixins/core.py``)
+
+  Implements file I/O methods using the standardized metadata dictionary produced
+  by :meth:`~grids.base.GridBase.to_metadata_dict`.
+
+  .. hint::
+
+        Do include: logic to write/read metadata files and validate external serialization.
+        Do not include: logic specific to in-memory representations or full grid reconstruction; that belongs in
+        :meth:`~grids.base.GridBase.from_metadata_dict`.
+
+- :class:`~grids.mixins.core.GridPlotMixin`
+  (Defined in ``grids/mixins/core.py``)
+
+  Offers diagnostic plotting methods for visualizing grid layout, ghost zones, chunk partitions,
+  and spacing irregularities. Uses Matplotlib by default.
+
+  .. hint::
+
+        Do include: methods for plotting grid structure, ghost zones, and chunk boundaries.
+        Do not include: field-specific visualizations or domain-specific overlays — those should be handled in
+        field visualization utilities.
+
+Chunking Mixin
+^^^^^^^^^^^^^^
+
+- :class:`~grids.mixins.chunking.GridChunkingMixin`
+  (Defined in ``grids/mixins/chunking.py``)
+
+  Handles logic for breaking up grids into regular subdomains (chunks). Exposes chunk-aware subgrid extraction,
+  validation of chunk shapes, and halo/ghost zone expansion utilities.
+
+  .. hint::
+
+        Do include: methods for chunk validation, extraction of subgrids, and chunk metadata.
+        Do not include: ghost zone configuration or boundary conditions — those are handled in
+        :meth:`~grids.base.GridBase.__configure_boundary__`.
+
+
+Math Operations Mixin
+^^^^^^^^^^^^^^^^^^^^^
+
+- :class:`~grids.mixins.mathops.DenseMathOpsMixin`
+  (Defined in ``grids/mixins/mathops.py``)
+
+  Implements NumPy-based differential geometry operations (e.g., gradient, divergence, Laplacian) using coordinate-space
+  finite difference stencils. Interfaces with dense coordinate arrays.
+
+  .. hint::
+
+      Do include: methods that perform math over grid-aligned data.
+      Do not include: symbolic geometry or coordinate system math — that belongs in the coordinate system or symbolic geometry modules.

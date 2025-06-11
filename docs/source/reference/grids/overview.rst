@@ -686,88 +686,11 @@ of the domain. The interpolation region automatically accounts for ghost zones a
     including any ghost or halo padding. Use :meth:`~grids.base.GridBase.compute_chunk_slice`
     and `field[chunk_slice]` to extract it.
 
-Units and Unit Systems
------------------------
+Grid IO Operations
+-------------------
 
-PyMetric grids support *unit-aware metadata* for spatial dimensions, allowing users to attach
-physical units (e.g., ``"cm"``, ``"m"``, ``"rad"``) to each coordinate axis of a grid. This metadata is used
-to define a consistent internal **unit system**, which is available for inspection and integration
-into downstream operations, such as:
+- To write grids to disk, we need to serialize the relevant coordinate system, and the
+  input metadata independently. For this, we require the coordinate system to be provided / serialized
+  separately from the grid itself.
 
-- Unit-aware field creation or evaluation
-- Differential operator scaling
-- Serialization and I/O
-- Visualization annotations
-
-However, **PyMetric does not enforce unit conversion or operate directly with `unyt` arrays** inside the grid
-infrastructure itself. All numerical operations on grids are performed using plain NumPy arrays, with
-units treated as optional metadata.
-
-Why This Matters
-^^^^^^^^^^^^^^^^
-
-This design provides a clean separation between **physical interpretation** and **computational logic**.
-It ensures that PyMetric grids remain:
-
-- **Lightweight and efficient**: Coordinates are stored and manipulated as raw NumPy arrays without the overhead
-  of unit-tagged computation.
-- **Flexible**: Users can choose whether to operate in raw or unit-aware workflows without performance penalties.
-- **Explicit and transparent**: Units are always available to the user but are not silently applied in operations
-  unless explicitly handled at a higher level (e.g., in :mod:`fields`).
-
-This allows PyMetric grids to work seamlessly with performance-critical applications (e.g., solvers, data ingestion,
-visualization) while still supporting scientific correctness when units are needed.
-
-Accessing Units
-^^^^^^^^^^^^^^^
-
-Each grid maintains two unit-related properties:
-
-- :attr:`~grids.base.GridBase.unit_system` — a `unyt.UnitSystem` object defining base units (length, mass, time, etc.)
-- :attr:`~grids.base.GridBase.axes_units` — a list of `unyt.Unit` objects representing the unit of each coordinate axis
-
-Example:
-
-.. code-block:: python
-
-    grid.unit_system
-    # → UnitSystem(name='_grid_units', length_unit=cm, time_unit=s, mass_unit=g, angle_unit=rad, ...)
-
-    grid.axes_units
-    # → [unyt.cm, unyt.cm]  (for a 2D Cartesian grid with length units in cm)
-
-Setting Units
-^^^^^^^^^^^^^
-
-You can provide custom units when constructing a grid:
-
-.. code-block:: python
-
-    grid = UniformGrid(
-        coordinate_system=cs,
-        bbox=[[0.0, 0.0], [1.0, 1.0]],
-        shape=[100, 100],
-        units={"length": "m"}  # Use meters instead of the default cm
-    )
-
-Supported base unit types are:
-
-- ``length`` (e.g., "m", "cm")
-- ``time`` (e.g., "s")
-- ``mass`` (e.g., "kg", "g")
-- ``angle`` (e.g., "rad", "deg")
-
-These units are used to interpret physical dimensions in the coordinate system and are embedded
-in serialization metadata (e.g., HDF5 files).
-
-Best Practices
-^^^^^^^^^^^^^^
-
-- Use units when **sharing grids**, saving to disk, or interoperating with unit-aware fields.
-- Omit units when **maximum performance** is desired and you're operating within a consistent internal convention.
-- Prefer fields (:mod:`fields`) for operations that require strict unit propagation.
-
-.. warning::
-
-   Units are **not applied automatically** in grid-level numerical methods (e.g., gradients or interpolators).
-   Ensure consistency in your workflows if you perform manual scaling or interpret raw coordinate values.
+- All we need to do is serialize metadata. and the from there we can implement the necessary structure to read

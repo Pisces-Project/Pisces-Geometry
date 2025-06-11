@@ -6,11 +6,11 @@ Core Modules: Fields
 This gallery showcases examples based on the :mod:`fields` module, PyMetric's core abstraction
 for physical quantities defined over space—scalars, vectors, tensors, and more.
 
-The :mod:`fields` module provides a unified interface for working with field components, units,
+The :mod:`fields` module provides a unified interface for working with field components,
 buffers, and coordinate-aware differential operations. These examples walk through how to:
 
 - Construct scalar, vector, and tensor fields over structured grids,
-- Manage physical units and buffer types (e.g., NumPy, unyt, HDF5),
+- Manage physical units and buffer types (e.g., NumPy, HDF5),
 - Broadcast, expand, reduce, and reshape field components,
 - Apply differential geometry operations like gradients, divergence, and Laplacians,
 - Combine symbolic metadata with numerical buffers for hybrid workflows.

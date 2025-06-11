@@ -86,8 +86,6 @@ In order to use pymetric, the following core dependencies are required:
 +----------------+-----------+--------------------------------------------+
 | scipy          | >=1.10    | Scientific computing and numerical tools   |
 +----------------+-----------+--------------------------------------------+
-| unyt           | >=2.9     | Unit-aware arrays for physical computations|
-+----------------+-----------+--------------------------------------------+
 | h5py           | >=3.0     | HDF5 file format support                   |
 +----------------+-----------+--------------------------------------------+
 | sympy          | >=1.14.0  | Symbolic mathematics and algebra           |
@@ -198,7 +196,7 @@ PyMetric supports several **optional dependency groups** for specific workflows:
         License: GPL-3.0-or-later
         Location: /Users/ediggins/Dev/pymetric/.venv/lib/python3.12/site-packages
         Editable project location: /Users/ediggins/Dev/pymetric
-        Requires: h5py, matplotlib, numpy, scipy, sympy, tqdm, unyt
+        Requires: h5py, matplotlib, numpy, scipy, sympy, tqdm
         Required-by:
 
 Getting Help

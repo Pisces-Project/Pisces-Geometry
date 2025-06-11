@@ -26,8 +26,6 @@ from numpy.typing import ArrayLike
 # Load in type checking only imports so that mypy and other
 # static checkers can pass.
 if TYPE_CHECKING:
-    import unyt
-
     from pymetric.coordinates.base import _CoordinateSystemBase
     from pymetric.fields.buffers import BufferRegistry
     from pymetric.fields.buffers.base import BufferBase
@@ -89,7 +87,6 @@ class _SupportsDFieldCore(_SupportsFieldCore):
     shape: Tuple[int, ...]
     spatial_shape: Tuple[int, ...]
     element_shape: Tuple[int, ...]
-    units: "unyt.Unit"
     size: int
     ndim: int
     spatial_ndim: int
@@ -119,11 +116,19 @@ class _SupportsDFieldCore(_SupportsFieldCore):
         ...
 
     @classmethod
+    def empty(cls, *args, **kwargs) -> "_SupportsDFieldCore":
+        ...
+
+    @classmethod
     def ones(cls, *args, **kwargs) -> "_SupportsDFieldCore":
         ...
 
     @classmethod
     def full(cls, *args, **kwargs) -> "_SupportsDFieldCore":
+        ...
+
+    @classmethod
+    def empty_like(cls, other, *args, **kwargs) -> "_SupportsDFieldCore":
         ...
 
     @classmethod
@@ -136,57 +141,6 @@ class _SupportsDFieldCore(_SupportsFieldCore):
 
     @classmethod
     def full_like(cls, other, *args, **kwargs) -> "_SupportsDFieldCore":
-        ...
-
-    def convert_to_units(
-        self,
-        units: Union[str, unyt.Unit],
-        equivalence: Optional[str] = None,
-        **kwargs,
-    ):
-        ...
-
-    def convert_to_base(
-        self,
-        unit_system: Optional[str] = None,
-        equivalence: Optional[str] = None,
-        **kwargs,
-    ):
-        ...
-
-    # === Casting Unit Manipulation === #
-
-    def in_units(
-        self,
-        units: Union[str, unyt.Unit],
-        *args,
-        as_array: bool = False,
-        equivalence: Optional[str] = None,
-        buffer_class: Optional[Type["BufferBase"]] = None,
-        buffer_registry: Optional["BufferRegistry"] = None,
-        equiv_kw: Optional[dict] = None,
-        **kwargs,
-    ):
-        ...
-
-    def to(
-        self,
-        units: Union[str, unyt.Unit],
-        *args,
-        equivalence: Optional[str] = None,
-        buffer_class: Optional[Type["BufferBase"]] = None,
-        buffer_registry: Optional["BufferRegistry"] = None,
-        as_array: bool = False,
-        **kwargs,
-    ):
-        ...
-
-    def to_value(
-        self,
-        units: Union[str, unyt.Unit],
-        equivalence: Optional[str] = None,
-        **kwargs,
-    ) -> np.ndarray:
         ...
 
 
@@ -271,6 +225,12 @@ class _SupportsDTFieldCore(_SupportsDFieldCore):
         ...
 
     @classmethod
+    def empty(
+        cls, *args, signature: Optional["SignatureInput"] = None, **kwargs
+    ) -> "_SupportsDTFieldCore":
+        ...
+
+    @classmethod
     def ones(
         cls, *args, signature: Optional["SignatureInput"] = None, **kwargs
     ) -> "_SupportsDTFieldCore":
@@ -279,6 +239,42 @@ class _SupportsDTFieldCore(_SupportsDFieldCore):
     @classmethod
     def full(
         cls, *args, signature: Optional["SignatureInput"] = None, **kwargs
+    ) -> "_SupportsDTFieldCore":
+        ...
+
+    @classmethod
+    def zeros_like(
+        cls: Type["_SupportsDTFieldCore"],
+        other: Type["_SupportsDTFieldCore"],
+        *args,
+        **kwargs,
+    ) -> "_SupportsDTFieldCore":
+        ...
+
+    @classmethod
+    def empty_like(
+        cls: Type["_SupportsDTFieldCore"],
+        other: Type["_SupportsDTFieldCore"],
+        *args,
+        **kwargs,
+    ) -> "_SupportsDTFieldCore":
+        ...
+
+    @classmethod
+    def ones_like(
+        cls: Type["_SupportsDTFieldCore"],
+        other: Type["_SupportsDTFieldCore"],
+        *args,
+        **kwargs,
+    ) -> "_SupportsDTFieldCore":
+        ...
+
+    @classmethod
+    def full_like(
+        cls: Type["_SupportsDTFieldCore"],
+        other: Type["_SupportsDTFieldCore"],
+        *args,
+        **kwargs,
     ) -> "_SupportsDTFieldCore":
         ...
 
@@ -302,7 +298,6 @@ class _SupportsFieldComponentCore(Protocol):
     shape: Tuple[int, ...]
     spatial_shape: Tuple[int, ...]
     element_shape: Tuple[int, ...]
-    units: "unyt.Unit"
     size: int
     ndim: int
     spatial_ndim: int
@@ -312,25 +307,7 @@ class _SupportsFieldComponentCore(Protocol):
     def as_array(self) -> np.ndarray:
         ...
 
-    def as_buffer_core(self) -> Any:
-        ...
-
-    def as_buffer_repr(self) -> Any:
-        ...
-
-    def as_unyt_array(self) -> "unyt.unyt_array":
-        ...
-
     def as_array_in_axes(self, axes: "AxesInput", **kwargs) -> np.ndarray:
-        ...
-
-    def as_buffer_core_in_axes(self, axes: "AxesInput", **kwargs) -> Any:
-        ...
-
-    def as_buffer_repr_in_axes(self, axes: "AxesInput", **kwargs) -> Any:
-        ...
-
-    def as_unyt_array_in_axes(self, axes: "AxesInput", **kwargs) -> "unyt.unyt_array":
         ...
 
     @classmethod
@@ -389,62 +366,4 @@ class _SupportsFieldComponentCore(Protocol):
     def full_like(
         cls, other: "_SupportsFieldComponentCore", *args, **kwargs
     ) -> "_SupportsFieldComponentCore":
-        ...
-
-    # ------------------------------ #
-    # Unit Handling                  #
-    # ------------------------------ #
-    # These method supplement those above to help with
-    # unit handling.
-
-    # === Inplace unit manipulation === #
-    def convert_to_units(
-        self,
-        units: Union[str, unyt.Unit],
-        equivalence: Optional[str] = None,
-        **kwargs,
-    ):
-        ...
-
-    def convert_to_base(
-        self,
-        unit_system: Optional[str] = None,
-        equivalence: Optional[str] = None,
-        **kwargs,
-    ):
-        ...
-
-    # === Casting Unit Manipulation === #
-
-    def in_units(
-        self,
-        units: Union[str, unyt.Unit],
-        *args,
-        as_array: bool = False,
-        equivalence: Optional[str] = None,
-        buffer_class: Optional[Type["BufferBase"]] = None,
-        buffer_registry: Optional["BufferRegistry"] = None,
-        equiv_kw: Optional[dict] = None,
-        **kwargs,
-    ):
-        ...
-
-    def to(
-        self,
-        units: Union[str, unyt.Unit],
-        *args,
-        equivalence: Optional[str] = None,
-        buffer_class: Optional[Type["BufferBase"]] = None,
-        buffer_registry: Optional["BufferRegistry"] = None,
-        as_array: bool = False,
-        **kwargs,
-    ):
-        ...
-
-    def to_value(
-        self,
-        units: Union[str, unyt.Unit],
-        equivalence: Optional[str] = None,
-        **kwargs,
-    ) -> np.ndarray:
         ...

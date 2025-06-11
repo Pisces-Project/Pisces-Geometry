@@ -4,9 +4,9 @@ Test configuration for pymetric.
 This module is used to control the behavior of pytest when running the testing
 system.
 """
-import numpy as np
+import logging
 
-# --- Imports --- #
+import numpy as np
 import pytest
 
 from pymetric.coordinates import (
@@ -69,6 +69,25 @@ __pymetric_all_coordinate_systems__ = {
         [[0.1, 0.2, 0], [np.pi - 0.1, np.pi - 0.2, 2 * np.pi]],
     ),
 }
+__pymetric_required_coordinate_systems__ = ["cartesian3D"]
+
+# ---------------------------------- #
+# Logging                            #
+# ---------------------------------- #
+# Configure the testing logger.
+# Create a logger specific to pymetric test runs
+test_logger = logging.getLogger("pymetric.test")
+test_logger.setLevel(logging.DEBUG)  # Change to INFO to quiet it down
+test_logger.propagate = False  # Prevent double logging if root handler exists
+
+# Create stream handler only if not already attached (e.g., pytest reruns)
+if not any(isinstance(h, logging.StreamHandler) for h in test_logger.handlers):
+    handler = logging.StreamHandler()
+    formatter = logging.Formatter(
+        fmt="%(asctime)s | %(levelname)-8s | %(name)s: %(message)s", datefmt="%H:%M:%S"
+    )
+    handler.setFormatter(formatter)
+    test_logger.addHandler(handler)
 
 
 # ---------------------------------- #
@@ -115,6 +134,14 @@ def pytest_generate_tests(metafunc):
 # Testing Fixtures                   #
 # ---------------------------------- #
 @pytest.fixture(scope="session")
+def test_log():
+    """
+    Provides a logger instance for test diagnostics.
+    """
+    return logging.getLogger("pymetric.test")
+
+
+@pytest.fixture(scope="session")
 def coordinate_system_flag(request):
     """
     Fixture providing the coordinate system flag for the
@@ -140,6 +167,14 @@ def coordinate_systems(request):
     else:
         selected = [x.strip() for x in selected.split(",")]
 
+    # Ensure all required options are present.
+    for req_coordinate_system in __pymetric_required_coordinate_systems__:
+        if req_coordinate_system not in selected:
+            test_logger.warning(
+                "Adding required coordinate system: %s.", req_coordinate_system
+            )
+            selected.append(req_coordinate_system)
+
     # Construct the dictionary of constructed, fully realized
     # coordinate systems.
     try:
@@ -155,7 +190,7 @@ def coordinate_systems(request):
 
 
 @pytest.fixture(scope="session")
-def uniform_grids(coordinate_systems):
+def uniform_grids(coordinate_systems, test_log):
     """
     Fixture that returns a dictionary of UniformGrid instances
     keyed by coordinate system name. Grids are built using the
@@ -166,4 +201,5 @@ def uniform_grids(coordinate_systems):
         _, bbox = __pymetric_all_coordinate_systems__[name]
         shape = [__default_uniform_grid_resolution__] * cs.ndim
         grids[name] = UniformGrid(cs, bbox, shape, center="cell")
+
     return grids

@@ -90,7 +90,6 @@ reference to its behavior as an array. There are actually three different sizes,
         - :attr:`~fields.components.FieldComponent.ndim` — Total number of dimensions.
         - :attr:`~fields.components.FieldComponent.size` — Total number of elements (equal to ``np.prod(A.shape)``).
         - :attr:`~fields.components.FieldComponent.dtype` — Data type of the buffer elements.
-        - :attr:`~fields.components.FieldComponent.units` — Physical units associated with the buffer, if present.
 
         These attributes are compatible with typical NumPy-like semantics,
         including slicing and broadcasting.
@@ -131,9 +130,7 @@ For example,
 
     FieldComponent.from_array(array_like=my_data,
                               grid=grid,
-                              axes=["r", "theta"],
-                              buffer_class="unyt",
-                              units="keV")
+                              axes=["r", "theta"])
 
 This method validates that the buffer shape is consistent with the grid and axes,
 and allows explicit backend selection.
@@ -221,7 +218,7 @@ PyMetric handles this using semantic broadcasting utilities
 that operate at the level of coordinate axes.
 
 These utilities allow for **non-destructive reshaping**, **dimensional promotion**, and **alignment-aware arithmetic**,
-all while respecting grid geometry and physical units.
+all while respecting grid geometry.
 
 Key concepts:
 
@@ -322,9 +319,7 @@ These methods return views or copies of the internal data in forms that are comp
 with NumPy and related tools:
 
 - :meth:`~fields.components.FieldComponent.as_array` — Returns the data as a plain `numpy.ndarray` without units.
-- :meth:`~fields.components.FieldComponent.as_unyt_array` — Returns a `unyt_array` with attached physical units.
-- :meth:`~fields.components.FieldComponent.as_buffer_core` — Returns the core backend buffer (e.g., raw NumPy or HDF5 dataset).
-- :meth:`~fields.components.FieldComponent.as_buffer_repr` — Returns the preferred array-like representation for external use, respecting units or formatting.
+- :meth:`~fields.components.FieldComponent.c` — Returns the core backend buffer (e.g., raw NumPy or HDF5 dataset).
 
 These methods allow seamless integration with common scientific Python tools such as Matplotlib, SciPy, or custom numerical routines.
 
@@ -352,8 +347,6 @@ canonical ordering, so slicing always proceeds in spatial axis order, followed b
     data = f.as_array()
     value = data[10, 20, 5]
 
-    # Slicing with units preserved
-    value_with_units = f.as_unyt_array()[10, 20, 5]
 
 This behavior allows for precise control over data access, while still leveraging the underlying
 coordinate-aware infrastructure. If you need to reduce a field's dimensionality with updated metadata,
@@ -361,7 +354,7 @@ use :meth:`~fields.components.FieldComponent.reduce_axes` instead.
 
 .. warning::
 
-    Direct slicing returns NumPy or :class:`~unyt.array.unyt_array` arrays, **not** new :class:`~fields.components.FieldComponent` instances.
+    Direct slicing returns NumPy, **not** new :class:`~fields.components.FieldComponent` instances.
     Use :meth:`~fields.components.FieldComponent.reduce_axes` if you want to retain coordinate-aware semantics after dimensional reduction.
 
 Subclassing FieldComponent

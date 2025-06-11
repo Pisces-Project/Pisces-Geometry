@@ -120,7 +120,7 @@ class BufferBase(NumpyArithmeticMixin, ABC, metaclass=_BufferMeta):
     When multiple buffer types report compatibility with the same object,
     the resolution system selects the one with the **highest priority value**.
 
-    This enables preference for more specialized buffers (e.g., unit-aware or disk-backed)
+    This enables preference for more specialized buffers (e.g., disk-backed)
     over fallback types like raw NumPy arrays.
 
     Defaults to 0; subclasses should assign higher values based on specificity or performance.
@@ -371,8 +371,8 @@ class BufferBase(NumpyArithmeticMixin, ABC, metaclass=_BufferMeta):
         and will coerce the input as needed to match the expected backend format
         (e.g., :class:`~numpy.ndarray`, class:`~unyt.unyt_array`, etc.).
 
-        The method should be overridden in subclasses to handle type conversion,
-        unit attachment, memory layout, or any other backend-specific behavior.
+        The method should be overridden in subclasses to handle type conversion, memory layout,
+        or any other backend-specific behavior.
 
         Parameters
         ----------
@@ -646,7 +646,7 @@ class BufferBase(NumpyArithmeticMixin, ABC, metaclass=_BufferMeta):
         methods or metadata not exposed through the generic buffer interface.
 
         Unlike :meth:`as_array`, this method returns the native format of the
-        underlying backend, preserving units or lazy behavior if applicable.
+        underlying backend, preserving special structures or lazy behavior if applicable.
 
         Returns
         -------
@@ -973,7 +973,7 @@ def buffer_from_array(
     *args :
         Positional arguments forwarded to the resolved buffer's `from_array()` method.
     **kwargs :
-        Keyword arguments forwarded to `from_array()` (e.g., `dtype`, `units`, etc.).
+        Keyword arguments forwarded to `from_array()` (e.g., `dtype`, etc.).
 
     Returns
     -------
@@ -989,13 +989,6 @@ def buffer_from_array(
     --------
     >>> buffer_from_array([1, 2, 3])
     ArrayBuffer(shape=(3,), dtype=int64)
-
-    >>> from unyt import unyt_array
-    >>> buffer_from_array(unyt_array([1, 2, 3], units="keV"))
-    UnytArrayBuffer(shape=(3,), dtype=int64)
-
-    >>> buffer_from_array([1, 2, 3], buffer_class=UnytArrayBuffer, units="MeV")
-    UnytArrayBuffer(shape=(3,), dtype=int64)
 
     Notes
     -----

@@ -20,7 +20,6 @@ from typing import (
 )
 
 import numpy as np
-import unyt
 from numpy.typing import ArrayLike
 
 from pymetric.grids.utils._typing import (
@@ -35,8 +34,6 @@ from pymetric.grids.utils._typing import (
 )
 
 if TYPE_CHECKING:
-    import h5py
-
     from pymetric.coordinates.base import _CoordinateSystemBase
     from pymetric.grids.base import GridBase
 
@@ -50,7 +47,6 @@ class _SupportsGridCore(Protocol):
     # superclasses and sibling classes to ensure that the use experiences
     # are conserved.
     __cs__: "_CoordinateSystemBase"
-    __unit_system__: unyt.UnitSystem
     __bbox__: BoundingBox
     __dd__: DomainDimensions
     __chunking__: bool
@@ -69,8 +65,6 @@ class _SupportsGridCore(Protocol):
     nvertices: DomainDimensions
     centering: Literal["vertex", "cell"]
     shape: Sequence[int]
-    axes_units: List[unyt.Unit]
-    unit_system: unyt.UnitSystem
     gbbox: BoundingBox
     gdd: DomainDimensions
     ghost_zones: np.ndarray
@@ -99,23 +93,25 @@ class _SupportsGridCore(Protocol):
     ) -> "GridBase":
         ...
 
-    # =================================== #
-    # I/O Operations                      #
-    # =================================== #
-    # Core abstract methods for I/O manipulation are exposed here.
-    # the class also inherits from GridIOMixin, which provides various
-    # helper functions for I/O processes. Each grid needs to implement
-    # its own `to_hdf5` and `from_hdf5`.
-    def to_hdf5(
-        self,
-        filename: str,
-        group_name: Optional[str] = None,
-        overwrite: bool = False,
-        **kwargs,
-    ):
+    # -------------------------------------- #
+    # Grid IO Support                        #
+    # -------------------------------------- #
+    # support for grid IO is provided by the more generic
+    # from_metadata and to_metadata methods implemented here for
+    # each of the grid classes. These simply store the data necessary to
+    # reconstruct the grid with the exception of the coordinate system.
+    #
+    # All of the IO support methods then simply process the metadata
+    # to / from the respective file formats.
+    # We also allow the underlying coordinate system to either be loaded
+    # with the grid or separately, depending on the use case.
+    def to_metadata_dict(self) -> Dict[str, Any]:
         ...
 
-    def from_hdf5(self, filename: str, group_name: Optional[str] = None, **kwargs):
+    @classmethod
+    def from_metadata_dict(
+        cls, coordinate_system: "_CoordinateSystemBase", metadata_dict: Dict[str, Any]
+    ) -> "GridBase":
         ...
 
     # ================================ #
@@ -396,39 +392,43 @@ class _SupportsGridCore(Protocol):
 # noinspection PyMissingOrEmptyDocstring
 @runtime_checkable
 class _SupportsGridIO(_SupportsGridCore):
-    @staticmethod
-    def _build_hdf5_stub(
-        filename: Union[str, Path],
-        group_name: Optional[str] = None,
-        overwrite: bool = False,
-    ) -> None:
+    def to_json(self, filepath: Union[str, Path], overwrite: bool = False):
         ...
 
-    @staticmethod
-    def _parse_hdf5_group(
-        f: "h5py.File", group_name: Optional[str] = None, overwrite: bool = False
-    ) -> "h5py.Group":
+    def to_yaml(self, filepath: Union[str, Path], overwrite: bool = False):
         ...
 
-    def _serialize_unit_system(self, header: "h5py.Group") -> None:
-        ...
-
-    @staticmethod
-    def _deserialize_unit_system(group: "h5py.Group") -> dict:
-        ...
-
-    def _save_coordinate_system(
+    def to_hdf5(
         self,
-        filename: Union[str, Path],
+        filepath: Union[str, Path],
         group_name: Optional[str] = None,
         overwrite: bool = False,
     ):
         ...
 
     @classmethod
-    def _load_coordinate_system(
-        cls, filename: Union[str, Path], group_name: Optional[str] = None
-    ) -> "_CoordinateSystemBase":
+    def from_json(
+        cls,
+        filepath: Union[str, Path],
+        coordinate_system: "_CoordinateSystemBase",
+    ) -> "_SupportsGridIO":
+        ...
+
+    @classmethod
+    def from_yaml(
+        cls,
+        filepath: Union[str, Path],
+        coordinate_system: "_CoordinateSystemBase",
+    ) -> "_SupportsGridIO":
+        ...
+
+    @classmethod
+    def from_hdf5(
+        cls,
+        filepath: Union[str, Path],
+        coordinate_system: "_CoordinateSystemBase",
+        group_name: Optional[str] = None,
+    ) -> "_SupportsGridIO":
         ...
 
 
