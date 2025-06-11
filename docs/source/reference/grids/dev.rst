@@ -179,8 +179,8 @@ Example:
 
 Ensure that the method is compatible with all grid types:
 
-- Do not hardcode assumptions specific to :class:GenericGrid or :class:UniformGrid.
-- Use abstracted attributes (e.g., :attr:ndim, :attr:axes, :attr:bbox) wherever possible.
+- Do not hardcode assumptions specific to :class:`~grids.core.GenericGrid` or :class:`~grids.core.UniformGrid`.
+- Use abstracted attributes (e.g., :attr:`ndim`, :attr:`axes`, :attr:`bbox`) wherever possible.
 - Document the new method clearly in both the mixin source file and the main developer API.
 
 Overwriting Mixin Stack Methods
