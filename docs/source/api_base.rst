@@ -26,9 +26,21 @@ Most users will work directly with these components.
     grids
     fields
 
+Auxiliary Modules
+-------------------
+These modules provide supplemental support for various operations of interest for different tasks.
+
+.. autosummary::
+    :toctree: _as_gen
+    :recursive:
+    :template: module.rst
+
+    containers
+
 Mathematical Modules
 --------------------
-These modules implement core mathematical operations—such as differential geometry—that extend Pisces-Geometry to support physical modeling and symbolic computation.
+These modules implement core mathematical operations—such as differential geometry—that extend Pisces-Geometry
+to support physical modeling and symbolic computation.
 
 
 .. autosummary::
@@ -41,7 +53,8 @@ These modules implement core mathematical operations—such as differential geom
 
 Developer Utilities
 -------------------
-These are internal utility modules used throughout the codebase. While not typically needed for everyday use, they are helpful for contributors and advanced users.
+These are internal utility modules used throughout the codebase. While not typically needed for everyday use,
+they are helpful for contributors and advanced users.
 
 .. autosummary::
     :toctree: _as_gen

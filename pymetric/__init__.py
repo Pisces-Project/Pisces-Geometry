@@ -17,7 +17,7 @@ and other fields requiring curvilinear analysis.
 This package is part of the Pisces ecosystem and is designed to integrate
 cleanly with other Pisces geometry and simulation tools.
 """
-__all__ = []
+__all__ = ["FieldContainer"]
 
 # Import the geometric field's library.
 from . import fields
@@ -48,3 +48,5 @@ from . import utilities
 from .utilities import *
 
 __all__ += utilities.__all__
+
+from .containers import FieldContainer
