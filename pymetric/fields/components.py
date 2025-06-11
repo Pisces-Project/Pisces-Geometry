@@ -312,12 +312,14 @@ class FieldComponent(
             # Apply the ufunc
             result = getattr(ufunc, method)(*unwrapped_inputs, **kwargs)
 
-            # check if result is None or if we got something back.
-            # If something came back we actually want to pass out.
-            if result is not None:
-                return out
+            # Pass result through based on the typing.
+            # BUGFIX: correctly handle tuple valued output.
+            if isinstance(result, tuple):
+                return out_tuple
+            elif result is not None:
+                return out_tuple[0]
             else:
-                return result
+                return None
         else:
             # out was not specified, we need to compute the result and
             # determine if we treat it as a component or not.

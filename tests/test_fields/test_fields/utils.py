@@ -40,3 +40,16 @@ __from_func_args_factories__ = {
     ArrayBuffer: __func_ArrayBuffer_args_kwargs_factory__,
     HDF5Buffer: __func_HDF5Buffer_args_kwargs_factory__,
 }
+
+__all_numpy_builtin_methods__ = [
+    pytest.param("astype", (), {"dtype": np.float32}),
+    pytest.param("conj", (), {}),
+    pytest.param("conjugate", (), {}),
+    pytest.param("copy", (), {}),
+    pytest.param("flatten", (), {"order": "C"}),
+    pytest.param("ravel", (), {"order": "C"}),
+    pytest.param("reshape", ((4,),), {}),
+    pytest.param("resize", ((4,),), {}),
+    pytest.param("swapaxes", (), {"axis1": 0, "axis2": 1}),
+    pytest.param("transpose", (), {}),
+]

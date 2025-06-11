@@ -999,7 +999,7 @@ class DenseTensorFieldDMOMixin(DenseFieldDMOMixin, Generic[_SupDTFDMOs]):
         # Coerce the output to the desired typing.
         # This is where we use the various buffer info.
         new_signature = [s if i != index else -s for i, s in enumerate(self.signature)]
-        return self._cast_result_to_field_or_array(
+        return self._process_output_to_field_or_array(
             result_field,
             as_array=as_array,
             buffer_class=buffer_class,
@@ -1181,7 +1181,7 @@ class DenseTensorFieldDMOMixin(DenseFieldDMOMixin, Generic[_SupDTFDMOs]):
         # Coerce the output to the desired typing.
         # This is where we use the various buffer info.
         new_signature = [s if i != index else -s for i, s in enumerate(self.signature)]
-        return self._cast_result_to_field_or_array(
+        return self._process_output_to_field_or_array(
             result_field,
             as_array=as_array,
             buffer_class=buffer_class,
@@ -1348,7 +1348,7 @@ class DenseTensorFieldDMOMixin(DenseFieldDMOMixin, Generic[_SupDTFDMOs]):
 
         # Coerce the output to the desired typing.
         # This is where we use the various buffer info.
-        return self._cast_result_to_field_or_array(
+        return self._process_output_to_field_or_array(
             result_field,
             as_array=as_array,
             buffer_class=buffer_class,
@@ -1530,7 +1530,7 @@ class DenseTensorFieldDMOMixin(DenseFieldDMOMixin, Generic[_SupDTFDMOs]):
 
         # Coerce the output to the desired typing.
         # This is where we use the various buffer info.
-        return self._cast_result_to_field_or_array(
+        return self._process_output_to_field_or_array(
             result_field,
             as_array=as_array,
             buffer_class=buffer_class,
@@ -1732,7 +1732,7 @@ class DenseTensorFieldDMOMixin(DenseFieldDMOMixin, Generic[_SupDTFDMOs]):
 
         # Coerce the output to the desired typing.
         # This is where we use the various buffer info.
-        return self._cast_result_to_field_or_array(
+        return self._process_output_to_field_or_array(
             result_field,
             as_array=as_array,
             buffer_class=buffer_class,

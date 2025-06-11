@@ -115,7 +115,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
 
         # Use default or override buffer type
         buffer_class: "BufferBase" = resolve_buffer_class(
-            buffer_class, buffer_registry=buffer_registry, default=type(self.__buffer__)
+            buffer_class, buffer_registry=buffer_registry, default=ArrayBuffer
         )
 
         return buffer_class.from_array(data, *args, **kwargs)
@@ -176,9 +176,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
             # We will be creating a new field component from
             # this. We'll case the buffer_repr and then re-wrap.
             buffer_class: "BufferBase" = resolve_buffer_class(
-                buffer_class,
-                buffer_registry=buffer_registry,
-                default=type(self.__buffer__),
+                buffer_class, buffer_registry=buffer_registry, default=ArrayBuffer
             )
             buff = buffer_class.from_array(expanded_data, *args, **kwargs)
             return self.__class__(self.grid, buff, axes)
@@ -257,9 +255,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         if out is None:
             # Create new buffer and wrap it
             buffer_class: "BufferBase" = resolve_buffer_class(
-                buffer_class,
-                buffer_registry=buffer_registry,
-                default=type(self.__buffer__),
+                buffer_class, buffer_registry=buffer_registry, default=ArrayBuffer
             )
             buff = buffer_class.from_array(reduced_array, *args, **kwargs)
             return self.__class__(self.grid, buff, kept_axes)
@@ -479,7 +475,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         element_shape: Optional[Sequence[int]] = None,
         buffer_class: Optional[Type[_SupFCCore]] = None,
         buffer_registry: Optional["BufferRegistry"] = None,
-        buffer_args: Optional[Sequence[Any]] = None,
+        buffer_args: Optional[Sequence[Any]] = (),
         buffer_kwargs: Optional[Dict[str, Any]] = None,
     ) -> _SupFCCore:
         """
@@ -545,7 +541,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         element_shape: Optional[Sequence[int]] = None,
         buffer_class: Optional[Type[_SupFCCore]] = None,
         buffer_registry: Optional["BufferRegistry"] = None,
-        buffer_args: Optional[Sequence[Any]] = None,
+        buffer_args: Optional[Sequence[Any]] = (),
         buffer_kwargs: Optional[Dict[str, Any]] = None,
     ) -> _SupFCCore:
         """
@@ -612,7 +608,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         element_shape: Optional[Sequence[int]] = None,
         buffer_class: Optional[Type[_SupFCCore]] = None,
         buffer_registry: Optional["BufferRegistry"] = None,
-        buffer_args: Optional[Sequence[Any]] = None,
+        buffer_args: Optional[Sequence[Any]] = (),
         buffer_kwargs: Optional[Dict[str, Any]] = None,
     ) -> _SupFCCore:
         """
@@ -680,7 +676,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         element_shape: Optional[Sequence[int]] = None,
         buffer_class: Optional[Type[_SupFCCore]] = None,
         buffer_registry: Optional["BufferRegistry"] = None,
-        buffer_args: Optional[Sequence[Any]] = None,
+        buffer_args: Optional[Sequence[Any]] = (),
         buffer_kwargs: Optional[Dict[str, Any]] = None,
     ) -> _SupFCCore:
         """

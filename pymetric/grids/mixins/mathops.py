@@ -3495,7 +3495,10 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
                     **kwargs,
                 )
             except Exception as e:
-                raise ValueError(f"Failed to compute covariant gradient: {e}") from e
+                raise ValueError(
+                    f"Failed to compute covariant gradient: {e}.\n"
+                    f"Are the metric and Dterm well defined on the domain?"
+                ) from e
 
         else:
             raise ValueError(

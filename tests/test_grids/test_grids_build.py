@@ -17,4 +17,8 @@ from .utils import __all_grid_classes_params__, __grid_factories__
 @pytest.mark.parametrize("grid_class", __all_grid_classes_params__)
 def test_grid_construction(cs_flag, grid_class, coordinate_systems):
     # Run the grid class factory to create the grid.
-    _ = __grid_factories__[grid_class](coordinate_systems[cs_flag])
+    grid = __grid_factories__[grid_class](coordinate_systems[cs_flag])
+
+    # Ensure that the coordinate system matches
+    assert grid.coordinate_system == coordinate_systems[cs_flag]
+    assert grid.ndim == coordinate_systems[cs_flag].ndim
