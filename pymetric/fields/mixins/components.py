@@ -479,7 +479,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         element_shape: Optional[Sequence[int]] = None,
         buffer_class: Optional[Type[_SupFCCore]] = None,
         buffer_registry: Optional["BufferRegistry"] = None,
-        buffer_args: Optional[Sequence[Any]] = None,
+        buffer_args: Optional[Sequence[Any]] = (),
         buffer_kwargs: Optional[Dict[str, Any]] = None,
     ) -> _SupFCCore:
         """
@@ -545,7 +545,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         element_shape: Optional[Sequence[int]] = None,
         buffer_class: Optional[Type[_SupFCCore]] = None,
         buffer_registry: Optional["BufferRegistry"] = None,
-        buffer_args: Optional[Sequence[Any]] = None,
+        buffer_args: Optional[Sequence[Any]] = (),
         buffer_kwargs: Optional[Dict[str, Any]] = None,
     ) -> _SupFCCore:
         """
@@ -612,7 +612,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         element_shape: Optional[Sequence[int]] = None,
         buffer_class: Optional[Type[_SupFCCore]] = None,
         buffer_registry: Optional["BufferRegistry"] = None,
-        buffer_args: Optional[Sequence[Any]] = None,
+        buffer_args: Optional[Sequence[Any]] = (),
         buffer_kwargs: Optional[Dict[str, Any]] = None,
     ) -> _SupFCCore:
         """
@@ -680,7 +680,7 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         element_shape: Optional[Sequence[int]] = None,
         buffer_class: Optional[Type[_SupFCCore]] = None,
         buffer_registry: Optional["BufferRegistry"] = None,
-        buffer_args: Optional[Sequence[Any]] = None,
+        buffer_args: Optional[Sequence[Any]] = (),
         buffer_kwargs: Optional[Dict[str, Any]] = None,
     ) -> _SupFCCore:
         """
