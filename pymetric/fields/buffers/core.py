@@ -33,10 +33,8 @@ class ArrayBuffer(BufferBase):
 
     This class provides a minimal backend for storing field data using
     standard :class:`numpy.ndarray` objects. It is designed for general-purpose use cases
-    where unit handling or advanced I/O (e.g., HDF5) is not required.
+    where advanced I/O (e.g., HDF5) is not required.
 
-    Because it does not attach physical units, this class is best suited for purely
-    numerical workflows or as a baseline buffer in performance-sensitive tasks.
 
     Examples
     --------
@@ -56,7 +54,6 @@ class ArrayBuffer(BufferBase):
 
     See Also
     --------
-    UnytArrayBuffer : A unit-aware buffer backend.
     HDF5Buffer: HDF5 backed buffer.
     ~fields.buffers.base.BufferBase : Abstract interface for all buffer backends.
     """
@@ -384,20 +381,13 @@ class HDF5Buffer(BufferBase):
         # and then do the necessary logic progression to ensure consistency.
         if isinstance(file, (str, Path)):
             file = Path(file)
-            create_flag = kwargs.pop("create_file", False)
 
             if not file.exists():
-                if not create_flag:
-                    raise FileNotFoundError(
-                        f"File '{file}' does not exist. Use create_file=True to allow file creation."
-                    )
                 file.parent.mkdir(parents=True, exist_ok=True)
                 file.touch()
 
             file = h5py.File(file, mode="r+")
 
-        elif isinstance(file, h5py.File):
-            _ = kwargs.pop("create_file", False)  # Ignore if already a file object
         else:
             raise TypeError(f"`file` must be a path or h5py.File, got {type(file)}.")
 
@@ -622,29 +612,10 @@ class HDF5Buffer(BufferBase):
         return self.__array_object__.__str__()
 
     def __getitem__(self, idx):
-        """
-        Retrieve the values of the buffer for a specified index.
-
-        If units are defined, return a :class:`~unyt.array.unyt_array` that preserves the correct metadata.
-        This guarantees safe behavior even for scalar slices or dtype edge cases.
-
-        Parameters
-        ----------
-        idx : int, slice, or tuple
-            Index expression.
-
-        Returns
-        -------
-        numpy.ndarray or unyt_array
-            Data slice, optionally wrapped with units.
-        """
         ret = self.__array_object__.__getitem__(idx)
-
         return ret
 
     def __setitem__(self, item, value):
-        # Handle the units first to ensure that we are not changing
-        # units.
         _raw_value = np.asarray(value, dtype=self.dtype)
 
         # Avoid broadcasting if value is scalar#
@@ -686,10 +657,6 @@ class HDF5Buffer(BufferBase):
                     o.__array_object__[
                         ...
                     ] = r  # assign in-memory result into HDF5 buffer
-
-                    unit = getattr(o, "units", None)
-                    if unit is not None:
-                        o.__array_object__.attrs["units"] = str(unit)
 
                 else:
                     raise TypeError("All `out=` targets must be HDF5Buffer instances")
@@ -790,7 +757,6 @@ class HDF5Buffer(BufferBase):
             Value to initialize the dataset with. Can be:
             - A plain scalar (e.g., 3.14)
             - A NumPy array or similar array-like object
-            - A :class:`~unyt.array.unyt_quantity` with units
         dtype : data-type, default float
             Element type of the dataset.
         *args :
@@ -824,7 +790,7 @@ class HDF5Buffer(BufferBase):
         return cls(cls.create_dataset(file, name, shape, dtype, *args, **kwargs))
 
     def as_array(self) -> np.ndarray:
-        """Return a NumPy array view of the full dataset (units stripped)."""
+        """Return a NumPy array view of the full dataset."""
         return np.asarray(self[:])
 
     def close(self, force: bool = False):

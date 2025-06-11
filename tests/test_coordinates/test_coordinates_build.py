@@ -3,7 +3,6 @@ Testing suite for the various coordinate systems in PyMetric.
 """
 import pytest
 
-
 def test_coordinate_system_initialization(cs_flag, coordinate_systems):
     # Check basic parameters of each of the coordinate systems.
     cs = coordinate_systems[cs_flag]

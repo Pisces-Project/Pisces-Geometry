@@ -20,7 +20,7 @@ backend-specific transforms.
 
 All numerical field data in PyMetric—such as scalars, vectors, and tensors defined over coordinate grids—
 is backed by a concrete implementation of a :class:`~fields.buffers.base.BufferBase` subclass, such as
-:class:`~fields.buffers.core.ArrayBuffer`, or :class:`~fields.buffers.base.HDF5Buffer`. These buffers provide
+:class:`~fields.buffers.core.ArrayBuffer`, or :class:`~fields.buffers.core.HDF5Buffer`. These buffers provide
 a uniform interface for:
 
 - Element-wise and indexed access,
@@ -28,7 +28,7 @@ a uniform interface for:
 - Participation in NumPy operations and universal functions (ufuncs),
 - Serialization, transformation, and type-aware metadata inspection.
 
-High-level interfaces such as :class:`~grids.core.GenericField` automatically wrap user-provided arrays into
+High-level interfaces such as :class:`~fields.base.DenseField` automatically wrap user-provided arrays into
 conforming buffer types when necessary, ensuring a consistent and extensible interface throughout the PyMetric library.
 
 This document provides a comprehensive overview of the buffer architecture, including its design philosophy,
@@ -97,9 +97,7 @@ which can *faithfully* encapsulate the class of the object being resolved. That 
 and wrapped by the buffer class. There are a number of ways to enter the buffer resolution pipeline:
 
 1. Using the :func:`~fields.buffers.base.buffer_from_array` function.
-2. Equivalently, each :class:`~fields.buffers.base.BufferBase` has :meth:`~fields.buffers.base.BufferBase.resolve` which
-   is a simple alias for option 1.
-3. Finally, PyMetric provides a number of utility functions in :mod:`~fields.buffers.utilities` like :func:`~fields.buffers.utilities.zeros`
+2. Finally, PyMetric provides a number of utility functions in :mod:`~fields.buffers.utilities` like :func:`~fields.buffers.utilities.buffer_zeros`
    or :func:`~fields.buffers.utilities.buffer` which all enter the resolution process.
 
 .. note::
@@ -170,7 +168,7 @@ Following these guidelines ensures that all buffers can interoperate smoothly ac
 their storage format or implementation details.
 
 Buffer Resolution and Creation
-++++++++++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The process of constructing buffers in PyMetric is designed to be both user-friendly and extensible across a variety
 of numerical backends. This section describes how buffer instances are created from array-like data, and how PyMetric
@@ -490,16 +488,16 @@ Example:
 
 All PyMetric buffer classes must implement the following transformation methods:
 
-- ``astype(dtype)``
-- ``conj()``
-- ``conjugate()``
-- ``copy()``
-- ``flatten(order='C')``
-- ``ravel(order='C')``
-- ``reshape(*shape)``
-- ``resize(*shape)`` *(emulates NumPy’s in-place API via copy)*
-- ``swapaxes(axis1, axis2)``
-- ``transpose(*axes)``
+- :meth:`~fields.buffers.base.BufferBase.astype`
+- :meth:`~fields.buffers.base.BufferBase.conj`
+- :meth:`~fields.buffers.base.BufferBase.conjugate`
+- :meth:`~fields.buffers.base.BufferBase.copy`
+- :meth:`~fields.buffers.base.BufferBase.flatten`
+- :meth:`~fields.buffers.base.BufferBase.ravel`
+- :meth:`~fields.buffers.base.BufferBase.reshape`
+- :meth:`~fields.buffers.base.BufferBase.resize`
+- :meth:`~fields.buffers.base.BufferBase.swapaxes`
+- :meth:`~fields.buffers.base.BufferBase.transpose`
 
 These methods operate directly on the internal array, using NumPy logic, and then wrap the result back into a buffer
 instance when appropriate. The internal helper method ``_cast_numpy_op()`` standardizes this logic across all

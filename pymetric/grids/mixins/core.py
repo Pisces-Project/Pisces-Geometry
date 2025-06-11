@@ -64,7 +64,6 @@ _SupGridCore = TypeVar("_SupGridCore", bound="_SupportsGridCore")
 _SupGridIO = TypeVar("_SupGridIO", bound="_SupportsGridIO")
 _SupGridChunking = TypeVar("_SupGridChunking", bound="_SupportsGridChunking")
 
-
 # =================================== #
 # Mixin Classes                       #
 # =================================== #
@@ -1764,169 +1763,249 @@ class GridUtilsMixin(Generic[_SupGridCore]):
         """
         return self.summary()
 
-
 class GridIOMixin(Generic[_SupGridIO]):
     """
-    Mixin class to support basic IO methods for grids.
+    Grid IO mixin class for structured coordinate grids.
     """
-
-    @staticmethod
-    def _build_hdf5_stub(
-        filename: Union[str, Path],
-        group_name: Optional[str] = None,
-        overwrite: bool = False,
-    ) -> None:
+    def to_json(self: _SupGridIO,
+                filepath: Union[str, Path],
+                overwrite: bool = False):
         """
-        Ensure the HDF5 file exists and is writable.
+        Save the grid metadata to a JSON file.
 
         Parameters
         ----------
-        filename : str or Path
+        filepath : str or Path
+            Destination path for the JSON file.
+        overwrite : bool, default=False
+            Whether to overwrite the file if it already exists.
+        """
+        import json
+
+        # Coerce the filepath to a Path object and ensure
+        # that we correctly handle the overwrite parameters.
+        filepath = Path(filepath)
+        if filepath.exists():
+            if overwrite:
+                filepath.unlink()
+            else:
+                raise FileExistsError(f"File '{filepath}' already exists. Use overwrite=True to replace it.")
+
+        # Create the metadata dictionary from the grid properties.
+        # We encapsulate this so that we can standardize the user facing error
+        # message.
+        try:
+            metadata = self.to_metadata_dict()
+        except Exception as e:
+            raise RuntimeError(
+                f"Failed to write grid to JSON due to serialization error in subclass: {e}"
+            ) from e
+
+        # Now open and dump the json data.
+        with open(filepath, "w") as f:
+            json.dump(metadata, f, indent=4)
+
+    def to_yaml(self: _SupGridIO, filepath: Union[str, Path], overwrite: bool = False):
+        """
+        Save the grid metadata to a YAML file.
+
+        Parameters
+        ----------
+        filepath : str or Path
+            Destination path for the YAML file.
+        overwrite : bool, default=False
+            Whether to overwrite the file if it already exists.
+        """
+        import yaml
+
+        # Coerce the filepath to a Path object and ensure
+        # that we correctly handle the overwrite parameters.
+        filepath = Path(filepath)
+        if filepath.exists():
+            if overwrite:
+                filepath.unlink()
+            else:
+                raise FileExistsError(f"File '{filepath}' already exists. Use overwrite=True to replace it.")
+
+        # Create the metadata dictionary from the grid properties.
+        # We encapsulate this so that we can standardize the user facing error
+        # message.
+        try:
+            metadata = self.to_metadata_dict()
+        except Exception as e:
+            raise RuntimeError(
+                f"Failed to write grid to JSON due to serialization error in subclass: {e}"
+            ) from e
+
+        with open(filepath, "w") as f:
+            yaml.safe_dump(metadata, f)
+
+    def to_hdf5(self: _SupGridIO,
+                filepath: Union[str, Path],
+                group_name: Optional[str] = None,
+                overwrite: bool = False):
+        """
+        Save the grid metadata to an HDF5 file.
+
+        Parameters
+        ----------
+        filepath : str or Path
             Path to the HDF5 file.
-        group_name : str or None
-            Group to store data in. If None, uses the root group.
-        overwrite : bool
-            Whether to overwrite the file if it exists (only applies if group_name is None).
+        group_name : str, optional
+            Optional group name under which to store metadata.
+        overwrite : bool, default=False
+            Whether to overwrite existing file or group.
         """
         import h5py
+        import json
 
-        filename = Path(filename)
-
-        if filename.exists():
-            if group_name is None:
-                if not overwrite:
-                    raise OSError(
-                        f"HDF5 file '{filename}' exists. Pass `overwrite=True` to overwrite."
-                    )
-                filename.unlink()
-            # if group_name is not None, group will be handled later
-
-        # Create empty file
-        with h5py.File(filename, "w"):
-            pass
-
-    @staticmethod
-    def _parse_hdf5_group(
-        f: "h5py.File", group_name: Optional[str] = None, overwrite: bool = False
-    ) -> "h5py.Group":
-        """
-        Create or retrieve the HDF5 group for writing data.
-
-        Parameters
-        ----------
-        f : h5py.File
-            An open HDF5 file handle.
-        group_name : str or None
-            Name of the group to access. If None, use root.
-        overwrite : bool
-            Whether to delete the group if it already exists.
-
-        Returns
-        -------
-        h5py.Group
-            The group to write to.
-        """
-        if group_name is None:
-            return f
-        if group_name in f:
+        filepath = Path(filepath)
+        if filepath.exists() and group_name is None:
             if overwrite:
-                del f[group_name]
+                filepath.unlink()
             else:
-                raise OSError(
-                    f"Group '{group_name}' already exists in '{f.filename}'. Use overwrite=True to replace it."
-                )
-        return f.require_group(group_name)
+                raise FileExistsError(f"File '{filepath}' exists. Use `overwrite=True` or set `group_name`.")
 
-    def _serialize_unit_system(self: _SupGridIO, header: "h5py.Group") -> None:
-        """
-        Store the current unit system in an HDF5 group as string attributes.
+        metadata = self.to_metadata_dict()
 
-        Parameters
-        ----------
-        header : h5py.Group
-            The group to write unit attributes into.
-        """
-        unit_keys = [
-            "length",
-            "mass",
-            "time",
-            "angle",
-            "temperature",
-            "current_mks",
-            "luminous_intensity",
-        ]
-        for key in unit_keys:
-            unit = self.unit_system.get(key, None)
-            if unit is not None:
-                header.attrs[f"unit__{key}"] = str(unit)
+        # Ensure the file exists before appending
+        with h5py.File(filepath, "a") as f:
+            if group_name is None:
+                group = f
+            else:
+                group =  f.require_group(group_name)
 
-    @staticmethod
-    def _deserialize_unit_system(group: "h5py.Group") -> dict:
-        """
-        Load unit system attributes from an HDF5 group and return as a dictionary.
+                if group_name in f and overwrite:
+                    del f[group_name]
+                    group = f.create_group(group_name)
 
-        Parameters
-        ----------
-        group : h5py.Group
-            The group containing `unit__*` attributes.
-
-        Returns
-        -------
-        dict[str, str]
-            A mapping from physical dimensions to unit strings.
-        """
-        return {
-            key.replace("unit__", ""): group.attrs[key]
-            for key in group.attrs
-            if key.startswith("unit__")
-        }
-
-    def _save_coordinate_system(
-        self: _SupGridIO,
-        filename: Union[str, Path],
-        group_name: Optional[str] = None,
-        overwrite: bool = False,
-    ):
-        """
-        Save the coordinate system to an HDF5 file under `group_name/coord_systm`.
-
-        Parameters
-        ----------
-        filename : str or Path
-            HDF5 file path.
-        group_name : str or None
-            Group path in the file.
-        overwrite : bool
-            Whether to overwrite the coordinate system group.
-        """
-        subgroup = "coord_systm" if group_name is None else f"{group_name}/coord_systm"
-        self.coordinate_system.to_hdf5(filename, subgroup, overwrite=overwrite)
+            # Save key-value pairs as JSON-compatible attributes
+            for key, val in metadata.items():
+                try:
+                    if isinstance(val, (int, float, str)):
+                        group.attrs[key] = val
+                    else:
+                        group.attrs[key] = json.dumps(val)
+                except Exception as e:
+                    raise TypeError(f"Cannot serialize key '{key}' to HDF5: {e}")
 
     @classmethod
-    def _load_coordinate_system(
-        cls, filename: Union[str, Path], group_name: Optional[str] = None
-    ) -> "_CoordinateSystemBase":
+    def from_json(cls: _SupGridIO,
+                  filepath: Union[str, Path],
+                  coordinate_system: "_CoordinateSystemBase") -> _SupGridIO:
         """
-        Load a coordinate system from an HDF5 file.
+        Load grid metadata from a JSON file and reconstruct the grid.
 
         Parameters
         ----------
-        filename : str or Path
-            HDF5 file to load from.
-        group_name : str or None
-            Group prefix to read from.
+        filepath : str or Path
+            Path to the input JSON file.
+        coordinate_system : ~coordinates.core.CurvilinearCoordinateSystem
+            A coordinate system instance to associate with the grid.
 
         Returns
         -------
-        CoordinateSystemBase
-            Loaded coordinate system object.
+        GridBase
+            An instance of the grid reconstructed from metadata.
         """
-        # noinspection PyProtectedMember
-        from pymetric.coordinates.base import _CoordinateSystemBase
+        import json
 
-        subgroup = "coord_systm" if group_name is None else f"{group_name}/coord_systm"
-        return _CoordinateSystemBase.from_hdf5(filename, subgroup)
+        filepath = Path(filepath)
+        if not filepath.exists():
+            raise FileNotFoundError(f"File '{filepath}' does not exist.")
 
+        try:
+            with open(filepath, "r") as f:
+                metadata = json.load(f)
+        except Exception as e:
+            raise RuntimeError(f"Failed to read JSON metadata: {e}") from e
+
+        try:
+            return cls.from_metadata_dict(coordinate_system, metadata)
+        except Exception as e:
+            raise RuntimeError(f"Failed to reconstruct grid from JSON metadata: {e}") from e
+
+    @classmethod
+    def from_yaml(cls: _SupGridIO,
+                  filepath: Union[str, Path],
+                  coordinate_system: "_CoordinateSystemBase") -> _SupGridIO:
+        """
+        Load grid metadata from a YAML file and reconstruct the grid.
+
+        Parameters
+        ----------
+        filepath : str or Path
+            Path to the input YAML file.
+        coordinate_system : ~coordinates.core.CurvilinearCoordinateSystem
+            A coordinate system instance to associate with the grid.
+
+        Returns
+        -------
+        GridBase
+            An instance of the grid reconstructed from metadata.
+        """
+        import yaml
+
+        filepath = Path(filepath)
+        if not filepath.exists():
+            raise FileNotFoundError(f"File '{filepath}' does not exist.")
+
+        try:
+            with open(filepath, "r") as f:
+                metadata = yaml.safe_load(f)
+        except Exception as e:
+            raise RuntimeError(f"Failed to read YAML metadata: {e}") from e
+
+        try:
+            return cls.from_metadata_dict(coordinate_system, metadata)
+        except Exception as e:
+            raise RuntimeError(f"Failed to reconstruct grid from YAML metadata: {e}") from e
+
+    @classmethod
+    def from_hdf5(cls: _SupGridIO,
+                  filepath: Union[str, Path],
+                  coordinate_system: "_CoordinateSystemBase",
+                  group_name: Optional[str] = None) -> _SupGridIO:
+        """
+        Load grid metadata from an HDF5 file and reconstruct the grid.
+
+        Parameters
+        ----------
+        filepath : str or Path
+            Path to the HDF5 file.
+        coordinate_system : ~coordinates.core.CurvilinearCoordinateSystem
+            A coordinate system instance to associate with the grid.
+        group_name : str, optional
+            Group name in the file under which metadata is stored. If None, reads from the root.
+
+        Returns
+        -------
+        GridBase
+            An instance of the grid reconstructed from metadata.
+        """
+        import h5py
+        import json
+
+        filepath = Path(filepath)
+        if not filepath.exists():
+            raise FileNotFoundError(f"File '{filepath}' does not exist.")
+
+        try:
+            with h5py.File(filepath, "r") as f:
+                group = f if group_name is None else f[group_name]
+                metadata = {}
+                for key, val in group.attrs.items():
+                    try:
+                        metadata[key] = json.loads(val)
+                    except (TypeError, json.JSONDecodeError):
+                        metadata[key] = val
+        except Exception as e:
+            raise RuntimeError(f"Failed to read metadata from HDF5: {e}") from e
+
+        try:
+            return cls.from_metadata_dict(coordinate_system, metadata)
+        except Exception as e:
+            raise RuntimeError(f"Failed to reconstruct grid from HDF5 metadata: {e}") from e
 
 class GridPlotMixin(Generic[_SupGridChunking]):
     """

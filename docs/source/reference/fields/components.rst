@@ -90,7 +90,6 @@ reference to its behavior as an array. There are actually three different sizes,
         - :attr:`~fields.components.FieldComponent.ndim` — Total number of dimensions.
         - :attr:`~fields.components.FieldComponent.size` — Total number of elements (equal to ``np.prod(A.shape)``).
         - :attr:`~fields.components.FieldComponent.dtype` — Data type of the buffer elements.
-        - :attr:`~fields.components.FieldComponent.units` — Physical units associated with the buffer, if present.
 
         These attributes are compatible with typical NumPy-like semantics,
         including slicing and broadcasting.
@@ -221,7 +220,7 @@ PyMetric handles this using semantic broadcasting utilities
 that operate at the level of coordinate axes.
 
 These utilities allow for **non-destructive reshaping**, **dimensional promotion**, and **alignment-aware arithmetic**,
-all while respecting grid geometry and physical units.
+all while respecting grid geometry.
 
 Key concepts:
 

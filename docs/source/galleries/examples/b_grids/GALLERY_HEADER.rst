@@ -11,7 +11,7 @@ structured grids—each integrated with coordinate system metadata and axis-awar
 These examples demonstrate how to:
 
 - Create uniform and non-uniform spatial grids tied to coordinate systems,
-- Extract coordinate arrays and physical units,
+- Extract coordinate arrays,
 - Use ghost zones, chunking, and broadcasting,
 - Apply field operations like partial derivatives and interpolation.
 

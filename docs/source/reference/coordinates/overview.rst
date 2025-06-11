@@ -150,7 +150,7 @@ If parameters are not provided, default values are used:
     {'a': 2.0}
 
 To inspect the current parameters of a coordinate system, use the
-:py:attr:`~coordinates.coordinate_systems.CurvilinearCoordinateSystem.parameters` attribute.
+:py:attr:`~coordinates.core.CurvilinearCoordinateSystem.parameters` attribute.
 
 Accessing Coordinate System Metadata
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -372,3 +372,95 @@ without instantiating the coordinate system:
 
 This is useful for inspecting or manipulating symbolic expressions analytically
 before plugging in parameter values.
+
+Coordinate System IO
+---------------------
+
+Coordinate systems in PyMetric can be serialized to and from disk using multiple formats. This enables
+persistent storage of geometric configurations and facilitates reuse across workflows or between simulation contexts.
+
+PyMetric supports serialization in the following formats:
+
+- **HDF5** (via :meth:`~coordinates.core.CurvilinearCoordinateSystem.to_hdf5`, :meth:`~coordinates.core.CurvilinearCoordinateSystem.from_hdf5`)
+- **JSON** (via :meth:`~coordinates.core.CurvilinearCoordinateSystem.to_json`, :meth:`~coordinates.core.CurvilinearCoordinateSystem.from_json`)
+- **YAML** (via :meth:`~coordinates.core.CurvilinearCoordinateSystem.to_yaml`, :meth:`~coordinates.core.CurvilinearCoordinateSystem.from_yaml`)
+
+Each serialization method stores only the minimal state needed to reconstruct the coordinate system:
+
+1. The class name (used to locate the appropriate constructor)
+2. The parameter dictionary used at instantiation (see :attr:`~coordinates.core.CurvilinearCoordinateSystem.parameters`)
+
+Deserialization uses a **registry** to map class names to constructors.
+
+HDF5 Serialization
+^^^^^^^^^^^^^^^^^^
+
+Coordinate systems can be saved to HDF5 with:
+
+.. code-block:: python
+
+    cs.to_hdf5("path/to/file.h5", group_name="geometry", overwrite=True)
+
+This stores data either at the root level or in the named group of the HDF5 file.
+
+To restore:
+
+.. code-block:: python
+
+    from pymetric.coordinates import CurvilinearCoordinateSystem
+    cs = CurvilinearCoordinateSystem.from_hdf5("path/to/file.h5", group_name="geometry")
+
+The following methods are available:
+
+- :meth:`~coordinates.core.CurvilinearCoordinateSystem.to_hdf5`
+- :meth:`~coordinates.core.CurvilinearCoordinateSystem.from_hdf5`
+
+JSON and YAML Serialization
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+JSON and YAML provide readable text-based representations. They are ideal for configuration files, version control,
+and interlanguage workflows.
+
+Save to JSON or YAML:
+
+.. code-block:: python
+
+    cs.to_json("coordsys.json")
+    cs.to_yaml("coordsys.yaml")
+
+Load from these files:
+
+.. code-block:: python
+
+    cs = CurvilinearCoordinateSystem.from_json("coordsys.json")
+    cs = CurvilinearCoordinateSystem.from_yaml("coordsys.yaml")
+
+These formats use:
+
+- :meth:`~coordinates.core.CurvilinearCoordinateSystem.to_json`
+- :meth:`~coordinates.core.CurvilinearCoordinateSystem.from_json`
+- :meth:`~coordinates.core.CurvilinearCoordinateSystem.to_yaml`
+- :meth:`~coordinates.core.CurvilinearCoordinateSystem.from_yaml`
+
+.. note::
+
+    Only parameters explicitly listed in :attr:`~coordinates.core.CurvilinearCoordinateSystem.__PARAMETERS__` are serialized.
+    Derived symbolic expressions (e.g., metric tensor, density) are automatically recomputed upon loading.
+
+.. hint::
+
+    PyMetric automatically converts NumPy types (e.g., ``np.float64``, ``np.ndarray``) to native Python types
+    before serialization to JSON or YAML to ensure compatibility.
+
+Registry Handling
+^^^^^^^^^^^^^^^^^
+
+Deserialization requires a mapping of class names to types. By default, each coordinate system uses its
+own registry (see :attr:`~coordinates.core.CurvilinearCoordinateSystem.__DEFAULT_REGISTRY__`), but you can provide your own:
+
+.. code-block:: python
+
+    registry = {"CustomSystem": CustomSystem}
+    cs = CurvilinearCoordinateSystem.from_json("coordsys.json", registry=registry)
+
+This enables loading of user-defined systems or systems not yet imported into the session.

@@ -201,12 +201,6 @@ class GridBase(
             (e.g., ``__set_grid_domain__``, ``__set_grid_boundary__``). These may include
             axis-specific metadata like coordinate arrays, resolutions, or chunking information.
 
-        units: dict, optional
-            Dictionary mapping base physical dimensions (e.g., ``length``, ``time``) to string
-            unit names (e.g., ``"cm"``, ``"s"``, ``"rad"``). If unspecified, the grid defaults
-            to the CGS unit system. This unit system is used for interpreting the coordinates,
-            basis vectors, and unit outcomes of different operations like differentiation.
-
         **kwargs:
             Keyword arguments passed to subclass initialization hooks. May include configuration
             such as ghost zone specifications, chunk size, domain bounds, and others.
@@ -226,16 +220,12 @@ class GridBase(
             Assigns the grid's coordinate system. Subclasses may impose constraints
             (e.g., requiring orthogonality or specific dimensionality).
 
-        2. ``__configure_unit_system__``:
-            Constructs the grid's internal unit system based on a supplied ``units`` dictionary.
-            This unit system informs coordinate scaling, basis behavior, and field interpretation.
-
-        3. ``__configure_domain__``:
+        2. ``__configure_domain__``:
             Defines the physical domain shape, bounding box, and optionally enables chunking.
             Subclasses must populate ``self.__bbox__``, ``self.__dd__``, and if chunking is enabled,
             ``self.__chunking__``, ``self.__chunk_size__``, and ``self.__cdd__``.
 
-        4. ``__configure_boundary__``:
+        3. ``__configure_boundary__``:
             Configures ghost cells and extended domain geometry. Subclasses must set
             ``self.__ghost_zones__``, ``self.__ghost_dd__``, and ``self.__ghost_bbox__``.
 
@@ -419,39 +409,6 @@ class GridBase(
             The number of grid points along each axis.
         """
         return self.dd
-
-    @property
-    def axes_units(self) -> List[unyt.Unit]:
-        """
-        Units corresponding to each coordinate axis in the grid.
-
-        This property returns the physical units associated with each axis of the grid,
-        as determined by the coordinate system's dimensional interpretation and the
-        internal unit system.
-
-        The returned list is ordered according to the axes defined by the coordinate system.
-
-        Returns
-        -------
-        list of unyt.Unit
-            A list of units (e.g., `unyt.cm`, `unyt.rad`) corresponding to each axis
-            in the grid's coordinate system.
-
-        Examples
-        --------
-        For a cylindrical coordinate system with axes `["r", "theta", "z"]`, and a unit system
-        that maps "length" to `"cm"` and "angle" to `"rad"`, this property might return:
-
-        >>> grid.axes_units
-        [unyt.cm, unyt.rad, unyt.cm]
-
-        Notes
-        -----
-        The mapping from axes to physical dimensions is defined by
-        `coordinate_system.__AXES_DIMENSIONS__`, which lists the physical dimension (e.g., "length", "angle")
-        associated with each axis.
-        """
-        return self.__cs__.get_axes_units(self.__unit_system__)
 
     @property
     def gbbox(self) -> BoundingBox:
@@ -669,7 +626,7 @@ class GridBase(
         tuple of np.ndarray
             One array per axis in `axes`, shaped appropriately for the selected region.
         """
-        return self.get_coordinate_arrays(
+        return self.compute_chunk_coords(
             chunks=chunks,
             axes=axes,
             include_ghosts=include_ghosts,
@@ -828,168 +785,70 @@ class GridBase(
         """
         pass
 
-    # =================================== #
-    # I/O Operations                      #
-    # =================================== #
-    # Core abstract methods for I/O manipulation are exposed here.
-    # the class also inherits from GridIOMixin, which provides various
-    # helper functions for I/O processes. Each grid needs to implement
-    # its own `to_hdf5` and `from_hdf5`.
+    # -------------------------------------- #
+    # Grid IO Support                        #
+    # -------------------------------------- #
+    # support for grid IO is provided by the more generic
+    # from_metadata and to_metadata methods implemented here for
+    # each of the grid classes. These simply store the data necessary to
+    # reconstruct the grid with the exception of the coordinate system.
+    #
+    # All of the IO support methods then simply process the metadata
+    # to / from the respective file formats.
+    # We also allow the underlying coordinate system to either be loaded
+    # with the grid or separately, depending on the use case.
     @abstractmethod
-    def to_hdf5(
-        self,
-        filename: str,
-        group_name: Optional[str] = None,
-        overwrite: bool = False,
-        **kwargs,
-    ):
+    def to_metadata_dict(self) -> Dict[str, Any]:
         """
-        Save the grid to an HDF5 file.
+        Serialize the grid configuration to a metadata dictionary.
 
-        This method serializes the grid structure, including geometry metadata,
-        coordinate information, and ghost zone configuration, into an HDF5 file.
-        It may also delegate storage of the coordinate system and any subclass-specific
-        attributes.
+        This method captures all the static configuration information necessary
+        to reconstruct the grid, including its shape, extents, spacing, axes, and any
+        subclass-specific attributes. The coordinate system is *not* included and should
+        be serialized separately, if needed.
 
-        Parameters
-        ----------
-        filename : str
-            Path to the target HDF5 file.
-        group_name : str, optional
-            If specified, the grid is saved inside this group within the file.
-            If None, the data is written to the root group.
-        overwrite : bool, default=False
-            Whether to overwrite existing file or group.
-        **kwargs
-            Additional keyword arguments passed to the saving logic. In many cases, there
-            are no kwargs implemented; however, these can be used in specific subclasses.
+        This metadata dictionary is format-agnostic and can be used for saving the grid
+        to disk (e.g., as JSON/YAML) or for interprocess communication.
 
-        Raises
-        ------
-        NotImplementedError
-            This method must be implemented by all concrete grid subclasses.
+        Returns
+        -------
+        dict
+            A dictionary containing all metadata required to reconstruct the grid using
+            :meth:`from_metadata_dict`.
 
         Notes
         -----
-        For all subclasses of :class:`GridBase`, this method should be overwritten to ensure
-        that all of the necessary metadata is saved / loaded to / from HDF5 properly. There
-        are various helper methods for setting up the HDF5 group object, saving unit systems, and
-        saving coordinate systems. In general, a subclass implementation should look like the following:
+        - This method should be **minimal** in the sense that it only serializes the necessary data
+          to unambiguously reconstruct the grid.
 
-        .. code-block:: python
-
-            def to_hdf5(
-                    self,
-                    filename: str,
-                    group_name: Optional[str] = None,
-                    overwrite: bool = False
-                    **kwargs
-            ):
-                import h5py
-
-                # Start by ensuring the file exists in the proper place and
-                # gets wiped if that is necessary.
-                # The _build_hdf5_stub method does this automatically.
-                self._build_hdf5_stub(filename,group_name=group_name, overwrite=overwrite)
-
-                # We now proceed with opening the file and writing the data.
-                with h5py.File(filename, "r+") as f:
-                    # Use the _parse_hdf5_group method to parse the
-                    # correct group / file object into which data should
-                    # be placed.
-                    group = self._parse_hdf5_group(f, group_name=group_name, overwrite=overwrite)
-
-                    # ====================== #
-                    # Subclass Logic         #
-                    # ====================== #
-                    # This is where subclasses should save relevant
-                    # data either in Datasets or in group.attrs
-
-
-                    # Finish off by saving the unit
-                    # system (using the _serialize_unit_system method)
-                    # and the coordinate system (_save_coordinate_system).
-                    self._serialize_unit_system(group.require_group('units'))
-
-
-                # Finally, the coordinate system itself must now be saved to disk. We leave
-                # the context manager to ensure that everything flushes correctly - the coordinate
-                # system's logic for saving opens the file separately.
-                self._save_coordinate_system(filename, group_name=group_name, overwrite=overwrite)
         """
         pass
 
+    @classmethod
     @abstractmethod
-    def from_hdf5(self, filename: str, group_name: Optional[str] = None, **kwargs):
+    def from_metadata_dict(cls,
+                           coordinate_system: "_CoordinateSystemBase",
+                           metadata_dict: Dict[str, Any]) -> "GridBase":
         """
-        Load a grid instance from an HDF5 file.
+        Create a grid instance from a metadata dictionary.
 
-        This method reconstructs a grid from serialized data stored in an HDF5 file.
-        It expects the file to contain grid metadata, coordinate arrays, ghost zone
-        definitions, and a serialized coordinate system.
+        This class method reconstructs a grid object from the provided metadata,
+        which should match the format produced by :meth:`to_metadata_dict`.
 
         Parameters
         ----------
-        filename : str
-            Path to the source HDF5 file.
-        group_name : str, optional
-            If specified, loads data from this group within the file.
-            If None, loads from the root group.
-        **kwargs
-            Additional keyword arguments passed to the loading logic.
+        coordinate_system : ~coordinates.core.CurvilinearCoordinateSystem
+            A coordinate system instance (from :py:mod:`coordinates`)
+            which defines the dimensionality, axis names, and differential geometry used
+            by the grid. The coordinate system is assigned to the grid and used to validate
+            all subsequent logic and structure.
+        metadata_dict : dict
+            A dictionary containing grid metadata.
 
         Returns
         -------
         GridBase
-            An instance of a concrete grid class.
-
-        Raises
-        ------
-        NotImplementedError
-            This method must be implemented by all concrete grid subclasses.
-
-        Notes
-        -----
-        For all subclasses of :class:`GridBase`, this method should be overwritten to ensure
-        that all of the necessary metadata is saved / loaded to / from HDF5 properly. There
-        are various helper methods for setting up the HDF5 group object, saving unit systems, and
-        saving coordinate systems. In general, a subclass implementation should look like the following:
-
-        .. code-block:: python
-
-            @classmethod
-            def from_hdf5(cls, filename: str, group_name: Optional[str] = None,**kwargs):
-                # Ensure existence of the hdf5 file before attempting to
-                # load data from it.
-                import h5py
-                filename = Path(filename)
-                if not filename.exists():
-                    raise IOError(f"HDF5 file '{filename}' does not exist.")
-
-                # Open the hdf5 file in read mode and start parsing the
-                # data from it.
-                with h5py.File(filename, "r") as f:
-                    # Navigate to the appropriate group
-                    group = f[group_name] if group_name else f
-
-                    # ====================== #
-                    # Subclass Logic         #
-                    # ====================== #
-                    # This is where subclasses should save relevant
-                    # data either in Datasets or in group.attrs
-
-                    # Load the units.
-                    if 'units' in group.keys():
-                        units = cls._deserialize_unit_system(group['units'])
-                    else:
-                        units = None
-
-                # Load the coordinate system object
-                coordinate_system = cls._load_coordinate_system(filename,group_name=group_name)
-
-                return cls(
-                    *args,
-                    **kwargs
-                )
+            An instance of the grid class reconstructed from the metadata.
         """
         pass
+

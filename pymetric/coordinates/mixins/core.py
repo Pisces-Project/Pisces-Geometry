@@ -236,7 +236,6 @@ class CoordinateSystemIOMixin(Generic[_SupCoordSystemCore]):
     - Supports hierarchical group-based storage in HDF5 files.
     - Uses a registry to resolve class names to actual coordinate system types on load.
     """
-
     def to_hdf5(
         self: _SupCoordSystemCore,
         filename: Union[str, Path],
@@ -256,7 +255,6 @@ class CoordinateSystemIOMixin(Generic[_SupCoordSystemCore]):
             Whether to overwrite existing data. If False, raises an error when attempting to overwrite.
         """
         import json
-
         import h5py
 
         # Ensure that the filename is a Path object and then check for existence and overwrite violations.
@@ -337,7 +335,6 @@ class CoordinateSystemIOMixin(Generic[_SupCoordSystemCore]):
 
         """
         import json
-
         import h5py
 
         # Fill in the registry assignment.
@@ -385,6 +382,154 @@ class CoordinateSystemIOMixin(Generic[_SupCoordSystemCore]):
                 " relevant coordinate system modules."
             )
         return _cls(**kwargs)
+
+    def to_json(self: _SupCoordSystemCore,
+                filepath: Union[str, Path],
+                overwrite: bool = False):
+        """
+        Save the coordinate system to a JSON file.
+
+        Parameters
+        ----------
+        filepath : str or Path
+            Path to the output JSON file.
+        overwrite : bool, optional
+            If True, overwrite the file if it already exists. Default is False.
+
+        Notes
+        -----
+        When called, this method will serialize the coordinate system's class name and
+        its parameters so that they can be dumped to a JSON file. When reloaded, the coordinate
+        system will be reinitialized from that data.
+        """
+        import json
+
+        # Standardize the filepath and check if it exists or not. We'll
+        # need to check the overwrite parameter if it does exist.
+        filepath = Path(filepath)
+
+        if filepath.exists() and overwrite:
+            filepath.unlink()
+        elif filepath.exists() and (not overwrite):
+            raise ValueError("File `{filepath}` already exists. To overwrite, set `overwrite=True`.")
+        else:
+            pass
+
+        # Serialize the class name and data so that they can be written
+        # to JSON. In general, this shouldn't be an issue because the parameters aren't
+        # exotic types.
+        data = {
+            "class_name": self.__class__.__name__,
+            "parameters": {k:v for k,v in self.parameters.items() if k in self.__PARAMETERS__}
+        }
+
+        # Now write the data to the file.
+        with open(filepath, "w") as f:
+            json.dump(data, f, indent=4)
+
+    @classmethod
+    def from_json(cls: _SupCoordSystemCore,
+                  filepath: Union[str, Path],
+                  registry: Optional[Dict] = None):
+        """
+        Load a coordinate system from a JSON file. The
+        coordinate system name is resolved by reference to the
+        `registry`, which can be inferred from the default registry or
+        be specified by the user.
+
+        Parameters
+        ----------
+        filepath : str or Path
+            Path to the input JSON file.
+        registry : dict, optional
+            Registry mapping class names to coordinate system classes.
+        """
+        import json
+
+        # Coerce the filepath and try to open the file
+        # with JSON protocol.
+        filepath = Path(filepath)
+        with open(filepath, "r") as f:
+            data = json.load(f)
+
+        # Parse the registry and read the
+        # data from the JSON file.
+        if registry is None:
+            registry = cls.__DEFAULT_REGISTRY__
+
+        class_name = data["class_name"]
+        parameters = data["parameters"]
+
+        try:
+            target_cls = registry[class_name]
+        except KeyError:
+            raise OSError(f"Unknown coordinate system class '{class_name}' in registry.")
+
+        return target_cls(**parameters)
+
+    def to_yaml(self: _SupCoordSystemCore,
+                filepath: Union[str, Path],
+                overwrite: bool = False):
+        """
+        Save the coordinate system to a YAML file.
+
+        Parameters
+        ----------
+        filepath : str or Path
+            Path to the output YAML file.
+        overwrite : bool, optional
+            If True, overwrite the file if it already exists. Default is False.
+        """
+        import yaml
+
+        filepath = Path(filepath)
+
+        if filepath.exists() and overwrite:
+            filepath.unlink()
+        elif filepath.exists() and (not overwrite):
+            raise ValueError(f"File `{filepath}` already exists. To overwrite, set `overwrite=True`.")
+
+        data = {
+            "class_name": self.__class__.__name__,
+            "parameters": {k:v for k,v in self.parameters.items() if k in self.__PARAMETERS__}
+        }
+
+        with open(filepath, "w") as f:
+            yaml.safe_dump(data, f, default_flow_style=False)
+
+
+    @classmethod
+    def from_yaml(cls: _SupCoordSystemCore,
+                  filepath: Union[str, Path],
+                  registry: Optional[Dict] = None):
+        """
+        Load a coordinate system from a YAML file.
+
+        Parameters
+        ----------
+        filepath : str or Path
+            Path to the input YAML file.
+        registry : dict, optional
+            Registry mapping class names to coordinate system classes.
+        """
+        import yaml
+
+        filepath = Path(filepath)
+        with open(filepath, "r") as f:
+            data = yaml.safe_load(f)
+
+        if registry is None:
+            registry = cls.__DEFAULT_REGISTRY__
+
+        class_name = data["class_name"]
+        parameters = data["parameters"]
+
+        try:
+            target_cls = registry[class_name]
+        except KeyError:
+            raise OSError(f"Unknown coordinate system class '{class_name}' in registry.")
+
+        return target_cls(**parameters)
 
 
 class CoordinateSystemAxesMixin(Generic[_SupCoordSystemCore]):

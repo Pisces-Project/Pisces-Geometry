@@ -77,7 +77,8 @@ test = [
   "pytest",
   "pytest-xdist",
   "pytest-cov",
-  "hypothesis"
+  "hypothesis",
+  "pytest-sugar"
 ]
 
 # ================================== #
@@ -94,7 +95,7 @@ fallback_version = "0.0.0"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "-ra -q --strict-markers"
+addopts = "-ra -q --strict-markers --tb=short --show-capture=log"
 testpaths = ["tests"]
 markers = [
   # Buffer Type Markers
@@ -115,7 +116,17 @@ markers = [
   'prolate_homo: Prolate homoeoidal coordinates.',
   'conic: Conic coordinates.'
 ]
+# Logging configuration
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
+log_cli_date_format = "%H:%M:%S"
 
+# Warnings display
+filterwarnings = [
+  "error",  # Treat warnings as errors to catch unexpected behavior
+  "ignore::DeprecationWarning",  # Or selectively demote them if needed
+]
 
 [tool.black]
 line-length = 88

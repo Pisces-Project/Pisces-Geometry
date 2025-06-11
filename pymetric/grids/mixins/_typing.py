@@ -50,7 +50,6 @@ class _SupportsGridCore(Protocol):
     # superclasses and sibling classes to ensure that the use experiences
     # are conserved.
     __cs__: "_CoordinateSystemBase"
-    __unit_system__: unyt.UnitSystem
     __bbox__: BoundingBox
     __dd__: DomainDimensions
     __chunking__: bool
@@ -69,8 +68,6 @@ class _SupportsGridCore(Protocol):
     nvertices: DomainDimensions
     centering: Literal["vertex", "cell"]
     shape: Sequence[int]
-    axes_units: List[unyt.Unit]
-    unit_system: unyt.UnitSystem
     gbbox: BoundingBox
     gdd: DomainDimensions
     ghost_zones: np.ndarray
@@ -99,24 +96,24 @@ class _SupportsGridCore(Protocol):
     ) -> "GridBase":
         ...
 
-    # =================================== #
-    # I/O Operations                      #
-    # =================================== #
-    # Core abstract methods for I/O manipulation are exposed here.
-    # the class also inherits from GridIOMixin, which provides various
-    # helper functions for I/O processes. Each grid needs to implement
-    # its own `to_hdf5` and `from_hdf5`.
-    def to_hdf5(
-        self,
-        filename: str,
-        group_name: Optional[str] = None,
-        overwrite: bool = False,
-        **kwargs,
-    ):
-        ...
+    # -------------------------------------- #
+    # Grid IO Support                        #
+    # -------------------------------------- #
+    # support for grid IO is provided by the more generic
+    # from_metadata and to_metadata methods implemented here for
+    # each of the grid classes. These simply store the data necessary to
+    # reconstruct the grid with the exception of the coordinate system.
+    #
+    # All of the IO support methods then simply process the metadata
+    # to / from the respective file formats.
+    # We also allow the underlying coordinate system to either be loaded
+    # with the grid or separately, depending on the use case.
+    def to_metadata_dict(self) -> Dict[str, Any]:...
 
-    def from_hdf5(self, filename: str, group_name: Optional[str] = None, **kwargs):
-        ...
+    @classmethod
+    def from_metadata_dict(cls,
+                           coordinate_system: "_CoordinateSystemBase",
+                           metadata_dict: Dict[str, Any]) -> "GridBase":...
 
     # ================================ #
     # Input Coercion Methods           #

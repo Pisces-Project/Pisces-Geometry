@@ -421,6 +421,53 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
 
     # noinspection PyIncorrectDocstring
     @classmethod
+    def empty(cls: Type[_SupDFieldCore], *args, **kwargs) -> _SupDFieldCore:
+        """
+        Create a dense field without initializing any data.
+
+        This is a convenience constructor that builds an empty :class:`~fields.components.FieldComponent`
+        using the provided grid and axes, then wraps it in a  :class:`~fields.base.DenseField`.
+
+        Parameters
+        ----------
+        grid : ~grids.base.GridBase
+            The structured grid over which the field is defined.
+        axes : list of str
+            The spatial axes of the underlying coordinate system over which the field is
+            defined. This must be some subset of the axes available in the coordinate system
+            of `grid`.
+        *args :
+            Additional positional arguments forwarded to the buffer constructor. The specific
+            available args will depend on ``buffer_class`` and ``buffer_registry``.
+        element_shape : tuple of int, optional
+            Shape of the element-wise data structure (e.g., vector or tensor dimensions). This
+            does **not** include the spatial shape, which is fixed by the grid. The resulting
+            buffer will have an overall shape of ``(*spatial_shape, *element_shape)``.
+        buffer_class : str or ~fields.buffers.base.BufferBase, optional
+            The buffer class to use for holding the data. This may be specified as a string, in which
+            case the ``buffer_registry`` is queried for a matching class or it may be a specific buffer class.
+
+            The relevant ``*args`` and ``**kwargs`` arguments will be passed underlying
+            buffer class's ``.ones()`` method.
+        buffer_registry : ~fields.buffer.registry.BufferRegistry, optional
+            Custom registry to use for resolving buffer class strings. By default, the standard
+            registry is used.
+        buffer_args:
+            Additional positional arguments forwarded to the buffer constructor (e.g., `dtype`).
+        buffer_kwargs :
+            Additional keyword arguments forwarded to the buffer constructor (e.g., `units` if supported).
+
+        Returns
+        -------
+        ~fields.base.DenseField
+            A new field object filled with ones and defined over the specified grid and axes.
+        """
+        # Start with generation of the component so that
+        # it can be wrapped.
+        return cls._wrap_comp_from_op("empty", *args, **kwargs)
+
+    # noinspection PyIncorrectDocstring
+    @classmethod
     def full(cls: Type[_SupDFieldCore], *args, **kwargs) -> _SupDFieldCore:
         """
         Create a dense field filled with a fill value.
@@ -467,11 +514,11 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
         return cls._wrap_comp_from_op("full", *args, **kwargs)
 
     @classmethod
-    def zeros_like(
+    def empty_like(
         cls: Type[_SupDFieldCore], other: Type[_SupDFieldCore], *args, **kwargs
     ) -> _SupDFieldCore:
         """
-        Create a zero-filled component with the same grid, axes, and element shape as another.
+        Create an empty field with the same grid, axes, and element shape as another.
 
         Parameters
         ----------
@@ -483,7 +530,30 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
         Returns
         -------
         ~fields.base.DenseField
-            A new component with the same layout as `other` and zero-initialized data.
+            A new field with the same layout as `other` and zero-initialized data.
+        """
+        # Extract the other's grid, axes, and shape.
+        grid, axes, shape = other.grid, other.axes, other.element_shape
+        return cls.empty(grid, axes, *args, element_shape=shape, **kwargs)
+
+    @classmethod
+    def zeros_like(
+        cls: Type[_SupDFieldCore], other: Type[_SupDFieldCore], *args, **kwargs
+    ) -> _SupDFieldCore:
+        """
+        Create a zero-filled field with the same grid, axes, and element shape as another.
+
+        Parameters
+        ----------
+        other : ~fields.base.DenseField
+            The reference component whose layout is used.
+        *args, **kwargs:
+            Forwarded to the :meth:`zeros` constructor.
+
+        Returns
+        -------
+        ~fields.base.DenseField
+            A new field with the same layout as `other` and zero-initialized data.
         """
         # Extract the other's grid, axes, and shape.
         grid, axes, shape = other.grid, other.axes, other.element_shape
@@ -494,7 +564,7 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
         cls: Type[_SupDFieldCore], other: Type[_SupDFieldCore], *args, **kwargs
     ) -> _SupDFieldCore:
         """
-        Create a one-filled component with the same grid, axes, and element shape as another.
+        Create a one-filled field with the same grid, axes, and element shape as another.
 
         Parameters
         ----------
@@ -506,7 +576,7 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
         Returns
         -------
         ~fields.base.DenseField
-            A new component with the same layout as `other` and one-initialized data.
+            A new field with the same layout as `other` and one-initialized data.
         """
         # Extract the other's grid, axes, and shape.
         grid, axes, shape = other.grid, other.axes, other.element_shape
@@ -517,7 +587,7 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
         cls: Type[_SupDFieldCore], other: Type[_SupDFieldCore], *args, **kwargs
     ) -> _SupDFieldCore:
         """
-        Create a full-valued component with the same grid, axes, and element shape as another.
+        Create a full-valued field with the same grid, axes, and element shape as another.
 
         Parameters
         ----------
@@ -529,7 +599,7 @@ class DFieldCoreMixin(Generic[_SupDFieldCore]):
         Returns
         -------
         ~fields.base.DenseField
-            A new component with the same layout as `other` and filled with a constant value.
+            A new field with the same layout as `other` and filled with a constant value.
         """
         # Extract the other's grid, axes, and shape.
         grid, axes, shape = other.grid, other.axes, other.element_shape
@@ -720,6 +790,71 @@ class DTensorFieldCoreMixin(DFieldCoreMixin, Generic[_SupDTFieldCore]):
 
     # noinspection PyIncorrectDocstring
     @classmethod
+    def empty(
+        cls: Type[_SupDTFieldCore],
+        *args,
+        signature: Optional["SignatureInput"] = None,
+        **kwargs,
+    ) -> _SupDTFieldCore:
+        """
+        Create a dense field which is not initialized.
+
+        This is a convenience constructor that builds an uninitialized :class:`~fields.components.FieldComponent`
+        using the provided grid and axes, then wraps it in a  :class:`~fields.base.DenseField`.
+
+        Parameters
+        ----------
+        grid : ~grids.base.GridBase
+            The structured grid over which the field is defined.
+        axes : list of str
+            The spatial axes of the underlying coordinate system over which the field is
+            defined. This must be some subset of the axes available in the coordinate system
+            of `grid`.
+        rank: int, optional
+            The rank of the tensor field being generated. This can be supplemented by
+            specifying the `signature` below to determine the variance of each rank index.
+        *args :
+            Additional positional arguments forwarded to the buffer constructor. The specific
+            available args will depend on ``buffer_class`` and ``buffer_registry``.
+        signature : int or list of int, optional
+            The signature of the tensor field being generated. This should be a sequence of
+            `1` and `-1` with `1` marking a contravariant index and `-1` a covariant index. The
+            length must match that of `rank`. If not specified, `signature` defaults to a fully
+            contravariant form.
+        buffer_class : str or ~fields.buffers.base.BufferBase, optional
+            The buffer class to use for holding the data. This may be specified as a string, in which
+            case the ``buffer_registry`` is queried for a matching class or it may be a specific buffer class.
+
+            The relevant ``*args`` and ``**kwargs`` arguments will be passed underlying
+            buffer class's ``.zeros()`` method.
+        buffer_registry : ~fields.buffer.registry.BufferRegistry, optional
+            Custom registry to use for resolving buffer class strings. By default, the standard
+            registry is used.
+        **kwargs :
+            Additional keyword arguments forwarded to the buffer constructor (e.g., `dtype`, `units`).
+
+        Returns
+        -------
+        ~fields.base.DenseField
+            A new field (unfilled) object and defined over the specified grid and axes.
+        """
+        # Validate the rank and the signature.
+        grid, axes, rank, *xargs = args
+        args = (grid, axes, *xargs)
+
+        signature = validate_rank_signature(rank, signature=signature)
+
+        # Fix the element shape
+        element_shape = (grid.ndim,) * rank
+        kwargs["element_shape"] = element_shape
+
+        # create the component vis-a-vis the lower level
+        c = FieldComponent.empty(*args, **kwargs)
+
+        return cls(grid, c, signature=signature)
+
+    # noinspection PyIncorrectDocstring
+    @classmethod
     def ones(
         cls: Type[_SupDTFieldCore],
         *args,
@@ -853,7 +988,7 @@ class DTensorFieldCoreMixin(DFieldCoreMixin, Generic[_SupDTFieldCore]):
         cls: Type[_SupDTFieldCore], other: Type[_SupDTFieldCore], *args, **kwargs
     ) -> _SupDTFieldCore:
         """
-        Create a zero-filled component with the same grid, axes, and element shape as another.
+        Create a zero-filled field with the same grid, axes, and element shape as another.
 
         Parameters
         ----------
@@ -865,7 +1000,7 @@ class DTensorFieldCoreMixin(DFieldCoreMixin, Generic[_SupDTFieldCore]):
         Returns
         -------
         ~fields.base.DenseField
-            A new component with the same layout as `other` and zero-initialized data.
+            A new field with the same layout as `other` and zero-initialized data.
         """
         # Extract the other's grid, axes, and shape.
         grid, axes, rank, signature = (
@@ -877,11 +1012,39 @@ class DTensorFieldCoreMixin(DFieldCoreMixin, Generic[_SupDTFieldCore]):
         return cls.zeros(grid, axes, rank, *args, signature=signature, **kwargs)
 
     @classmethod
+    def empty_like(
+        cls: Type[_SupDTFieldCore], other: Type[_SupDTFieldCore], *args, **kwargs
+    ) -> _SupDTFieldCore:
+        """
+        Create an unfilled field with the same grid, axes, and element shape as another.
+
+        Parameters
+        ----------
+        other : ~fields.base.DenseField
+            The reference component whose layout is used.
+        *args, **kwargs:
+            Forwarded to the :meth:`zeros` constructor.
+
+        Returns
+        -------
+        ~fields.base.DenseField
+            A new field with the same layout as `other` and no initialized data.
+        """
+        # Extract the other's grid, axes, and shape.
+        grid, axes, rank, signature = (
+            other.grid,
+            other.axes,
+            other.rank,
+            other.signature,
+        )
+        return cls.empty(grid, axes, rank, *args, signature=signature, **kwargs)
+
+    @classmethod
     def ones_like(
         cls: Type[_SupDTFieldCore], other: Type[_SupDTFieldCore], *args, **kwargs
     ) -> _SupDTFieldCore:
         """
-        Create a one-filled component with the same grid, axes, and element shape as another.
+        Create a one-filled field with the same grid, axes, and element shape as another.
 
         Parameters
         ----------
@@ -893,7 +1056,7 @@ class DTensorFieldCoreMixin(DFieldCoreMixin, Generic[_SupDTFieldCore]):
         Returns
         -------
         ~fields.base.DenseField
-            A new component with the same layout as `other` and one-initialized data.
+            A new field with the same layout as `other` and one-initialized data.
         """
         # Extract the other's grid, axes, and shape.
         grid, axes, rank, signature = (
@@ -909,7 +1072,7 @@ class DTensorFieldCoreMixin(DFieldCoreMixin, Generic[_SupDTFieldCore]):
         cls: Type[_SupDTFieldCore], other: Type[_SupDTFieldCore], *args, **kwargs
     ) -> _SupDTFieldCore:
         """
-        Create a full-valued component with the same grid, axes, and element shape as another.
+        Create a full-valued field with the same grid, axes, and element shape as another.
 
         Parameters
         ----------
@@ -921,7 +1084,7 @@ class DTensorFieldCoreMixin(DFieldCoreMixin, Generic[_SupDTFieldCore]):
         Returns
         -------
         ~fields.base.DenseField
-            A new component with the same layout as `other` and filled with a constant value.
+            A new field with the same layout as `other` and filled with a constant value.
         """
         # Extract the other's grid, axes, and shape.
         grid, axes, rank, signature = (

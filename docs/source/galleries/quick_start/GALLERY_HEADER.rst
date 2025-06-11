@@ -86,8 +86,6 @@ In order to use pymetric, the following core dependencies are required:
 +----------------+-----------+--------------------------------------------+
 | scipy          | >=1.10    | Scientific computing and numerical tools   |
 +----------------+-----------+--------------------------------------------+
-| unyt           | >=2.9     | Unit-aware arrays for physical computations|
-+----------------+-----------+--------------------------------------------+
 | h5py           | >=3.0     | HDF5 file format support                   |
 +----------------+-----------+--------------------------------------------+
 | sympy          | >=1.14.0  | Symbolic mathematics and algebra           |

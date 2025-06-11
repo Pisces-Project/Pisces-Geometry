@@ -41,7 +41,6 @@ Dependencies
 
 PyMetric depends on several packages, which will be installed automatically:
 
-- `unyt <http://unyt.readthedocs.org>`__: Unit and quantity manipulations
 - `numpy <http://www.numpy.org>`__: Numerical operations
 - `scipy <http://www.scipy.org>`__: Interpolation and curve fitting
 - `h5py <http://www.h5py.org>`__: HDF5 file interaction

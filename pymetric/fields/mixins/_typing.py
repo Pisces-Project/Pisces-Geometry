@@ -117,7 +117,9 @@ class _SupportsDFieldCore(_SupportsFieldCore):
     @classmethod
     def zeros(cls, *args, **kwargs) -> "_SupportsDFieldCore":
         ...
-
+    @classmethod
+    def empty(cls, *args, **kwargs) -> "_SupportsDFieldCore":
+        ...
     @classmethod
     def ones(cls, *args, **kwargs) -> "_SupportsDFieldCore":
         ...
@@ -126,6 +128,10 @@ class _SupportsDFieldCore(_SupportsFieldCore):
     def full(cls, *args, **kwargs) -> "_SupportsDFieldCore":
         ...
 
+    @classmethod
+    def empty_like(cls, other, *args, **kwargs) -> "_SupportsDFieldCore":
+        ...
+    
     @classmethod
     def zeros_like(cls, other, *args, **kwargs) -> "_SupportsDFieldCore":
         ...
@@ -138,56 +144,6 @@ class _SupportsDFieldCore(_SupportsFieldCore):
     def full_like(cls, other, *args, **kwargs) -> "_SupportsDFieldCore":
         ...
 
-    def convert_to_units(
-        self,
-        units: Union[str, unyt.Unit],
-        equivalence: Optional[str] = None,
-        **kwargs,
-    ):
-        ...
-
-    def convert_to_base(
-        self,
-        unit_system: Optional[str] = None,
-        equivalence: Optional[str] = None,
-        **kwargs,
-    ):
-        ...
-
-    # === Casting Unit Manipulation === #
-
-    def in_units(
-        self,
-        units: Union[str, unyt.Unit],
-        *args,
-        as_array: bool = False,
-        equivalence: Optional[str] = None,
-        buffer_class: Optional[Type["BufferBase"]] = None,
-        buffer_registry: Optional["BufferRegistry"] = None,
-        equiv_kw: Optional[dict] = None,
-        **kwargs,
-    ):
-        ...
-
-    def to(
-        self,
-        units: Union[str, unyt.Unit],
-        *args,
-        equivalence: Optional[str] = None,
-        buffer_class: Optional[Type["BufferBase"]] = None,
-        buffer_registry: Optional["BufferRegistry"] = None,
-        as_array: bool = False,
-        **kwargs,
-    ):
-        ...
-
-    def to_value(
-        self,
-        units: Union[str, unyt.Unit],
-        equivalence: Optional[str] = None,
-        **kwargs,
-    ) -> np.ndarray:
-        ...
 
 
 # noinspection PyMissingOrEmptyDocstring
@@ -271,6 +227,12 @@ class _SupportsDTFieldCore(_SupportsDFieldCore):
         ...
 
     @classmethod
+    def empty(
+        cls, *args, signature: Optional["SignatureInput"] = None, **kwargs
+    ) -> "_SupportsDTFieldCore":
+        ...
+
+    @classmethod
     def ones(
         cls, *args, signature: Optional["SignatureInput"] = None, **kwargs
     ) -> "_SupportsDTFieldCore":
@@ -282,6 +244,25 @@ class _SupportsDTFieldCore(_SupportsDFieldCore):
     ) -> "_SupportsDTFieldCore":
         ...
 
+    @classmethod
+    def zeros_like(
+        cls: Type['_SupportsDTFieldCore'], other: Type['_SupportsDTFieldCore'], *args, **kwargs
+    ) -> '_SupportsDTFieldCore':...
+
+    @classmethod
+    def empty_like(
+        cls: Type['_SupportsDTFieldCore'], other: Type['_SupportsDTFieldCore'], *args, **kwargs
+    ) -> '_SupportsDTFieldCore':...
+
+    @classmethod
+    def ones_like(
+        cls: Type['_SupportsDTFieldCore'], other: Type['_SupportsDTFieldCore'], *args, **kwargs
+    ) -> '_SupportsDTFieldCore':...
+
+    @classmethod
+    def full_like(
+        cls: Type['_SupportsDTFieldCore'], other: Type['_SupportsDTFieldCore'], *args, **kwargs
+    ) -> '_SupportsDTFieldCore':...
 
 # noinspection PyMissingOrEmptyDocstring
 @runtime_checkable
@@ -418,7 +399,6 @@ class _SupportsFieldComponentCore(Protocol):
 
     def in_units(
         self,
-        units: Union[str, unyt.Unit],
         *args,
         as_array: bool = False,
         equivalence: Optional[str] = None,
