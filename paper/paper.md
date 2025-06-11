@@ -1,54 +1,57 @@
 ---
-title: 'Gala: A Python package for galactic dynamics'
+title: 'PyMetric: A Library for Geometric Computation'
 tags:
   - Python
-  - astronomy
-  - dynamics
-  - galactic dynamics
-  - milky way
+  - differential geometry
+  - modeling
 authors:
-  - name: Adrian M. Price-Whelan
-    orcid: 0000-0000-0000-0000
-    equal-contrib: true
-    affiliation: "1, 2" # (Multiple affiliations must be quoted)
-  - name: Author Without ORCID
-    equal-contrib: true # (This is how you can denote equal contributions between multiple authors)
-    affiliation: 2
-  - name: Author with no affiliation
+  - name: Eliza C. Diggins
+    orcid: 0009-0005-9389-9098
     corresponding: true # (This is how to denote the corresponding author)
-    affiliation: 3
-  - given-names: Ludwig
-    dropping-particle: van
-    surname: Beethoven
-    affiliation: 3
+    affiliation: 1 # (Multiple affiliations must be quoted)
+  - name: Daniel R. Wik
+    orcid: 0000-0001-9110-2245
+    affiliation: 1
 affiliations:
- - name: Lyman Spitzer, Jr. Fellow, Princeton University, United States
+ - name: University of Utah, USA
    index: 1
-   ror: 00hx57361
- - name: Institution Name, Country
-   index: 2
- - name: Independent Researcher, Country
-   index: 3
-date: 13 August 2017
+date: 11 June 2025
 bibliography: paper.bib
 
 # Optional fields if submitting to a AAS journal too, see this blog post:
 # https://blog.joss.theoj.org/2018/12/a-new-collaboration-with-aas-publishing
-aas-doi: 10.3847/xxxxx <- update this with the DOI from AAS once you know it.
-aas-journal: Astrophysical Journal <- The name of the AAS journal.
 ---
 
 # Summary
 
-The forces on stars, galaxies, and dark matter under external gravitational
-fields lead to the dynamical evolution of structures in the universe. The orbits
-of these bodies are therefore key to understanding the formation, history, and
-future state of galaxies. The field of "galactic dynamics," which aims to model
-the gravitating components of galaxies to study their structure and evolution,
-is now well-established, commonly taught, and frequently used in astronomy.
-Aside from toy problems and demonstrations, the majority of problems require
-efficient numerical tools, many of which require the same base code (e.g., for
-performing numerical orbit integration).
+PyMetric is a lightweight Python library designed to streamline differential geometry
+and vector calculus operations in user-defined coordinate systems, with a focus on
+applications in astrophysics and computational physics. In many physical modeling
+tasks—especially in astrophysics—it is both natural and advantageous to work in
+non-Cartesian coordinate systems that reflect the underlying symmetries of a system.
+These coordinate systems may be highly nontrivial, such as ellipsoidal or spheroidal
+coordinates, where the ability to express and manipulate tensorial quantities is essential
+for deriving accurate and efficient models.
+
+The core design of PyMetric emphasizes a seamless blend of symbolic and numerical computation.
+Symbolic expressions are used to derive key geometric quantities such as metric tensors,
+Christoffel symbols, and Jacobians, which are then converted into efficient numerical
+functions suitable for use in array-based workflows. This enables users to write models
+that respect the underlying geometry while retaining the performance and flexibility of
+NumPy-style programming.
+
+PyMetric further supports structured grid abstractions and offers extensibility
+for multiple coordinate systems, buffer types (including HDF5 storage),
+and geometric operations. It automates tasks such as computing gradients, divergences, and Laplacians—critical
+for solving PDEs or modeling physical systems—while maintaining awareness of the coordinate system
+and metric context. This makes it particularly useful for scientific domains that demand geometric
+precision, such as general relativity, magnetohydrodynamics, and planetary dynamics.
+
+By bringing geometric context to array mathematics, PyMetric provides a flexible
+and modern foundation for coordinate-aware scientific computing.
+
+
+
 
 # Statement of need
 
