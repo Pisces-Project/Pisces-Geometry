@@ -11,4 +11,3 @@ The following testing files are present:
   with a specific generator method.
 - `test_grid_io.py`: These are tests which check that grids can be written
   to disk and successfully read back in.
-

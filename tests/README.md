@@ -37,7 +37,7 @@ tests/
 │   ├── README.md
 │   ├── test_coordinates_build.py
 │   ├── test_coordinates_io.py
-│   ├── utils.py 
+│   ├── utils.py
 │
 ├── test_grids/                # Tests the ``grids`` module.
 │   ├── README.md

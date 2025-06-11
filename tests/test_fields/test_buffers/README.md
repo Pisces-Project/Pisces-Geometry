@@ -2,7 +2,7 @@
 
 ---
 
-This testing suite targets the **buffer system** of PyMetric and performs tests over the 
+This testing suite targets the **buffer system** of PyMetric and performs tests over the
 following broad regimes of behavior:
 
 - `test_buffer_creation.py`: Verifies buffer instantiation using `from_array()` for all buffer classes.

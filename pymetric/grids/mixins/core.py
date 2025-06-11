@@ -64,6 +64,7 @@ _SupGridCore = TypeVar("_SupGridCore", bound="_SupportsGridCore")
 _SupGridIO = TypeVar("_SupGridIO", bound="_SupportsGridIO")
 _SupGridChunking = TypeVar("_SupGridChunking", bound="_SupportsGridChunking")
 
+
 # =================================== #
 # Mixin Classes                       #
 # =================================== #
@@ -1763,13 +1764,13 @@ class GridUtilsMixin(Generic[_SupGridCore]):
         """
         return self.summary()
 
+
 class GridIOMixin(Generic[_SupGridIO]):
     """
     Grid IO mixin class for structured coordinate grids.
     """
-    def to_json(self: _SupGridIO,
-                filepath: Union[str, Path],
-                overwrite: bool = False):
+
+    def to_json(self: _SupGridIO, filepath: Union[str, Path], overwrite: bool = False):
         """
         Save the grid metadata to a JSON file.
 
@@ -1789,7 +1790,9 @@ class GridIOMixin(Generic[_SupGridIO]):
             if overwrite:
                 filepath.unlink()
             else:
-                raise FileExistsError(f"File '{filepath}' already exists. Use overwrite=True to replace it.")
+                raise FileExistsError(
+                    f"File '{filepath}' already exists. Use overwrite=True to replace it."
+                )
 
         # Create the metadata dictionary from the grid properties.
         # We encapsulate this so that we can standardize the user facing error
@@ -1825,7 +1828,9 @@ class GridIOMixin(Generic[_SupGridIO]):
             if overwrite:
                 filepath.unlink()
             else:
-                raise FileExistsError(f"File '{filepath}' already exists. Use overwrite=True to replace it.")
+                raise FileExistsError(
+                    f"File '{filepath}' already exists. Use overwrite=True to replace it."
+                )
 
         # Create the metadata dictionary from the grid properties.
         # We encapsulate this so that we can standardize the user facing error
@@ -1840,10 +1845,12 @@ class GridIOMixin(Generic[_SupGridIO]):
         with open(filepath, "w") as f:
             yaml.safe_dump(metadata, f)
 
-    def to_hdf5(self: _SupGridIO,
-                filepath: Union[str, Path],
-                group_name: Optional[str] = None,
-                overwrite: bool = False):
+    def to_hdf5(
+        self: _SupGridIO,
+        filepath: Union[str, Path],
+        group_name: Optional[str] = None,
+        overwrite: bool = False,
+    ):
         """
         Save the grid metadata to an HDF5 file.
 
@@ -1856,15 +1863,18 @@ class GridIOMixin(Generic[_SupGridIO]):
         overwrite : bool, default=False
             Whether to overwrite existing file or group.
         """
-        import h5py
         import json
+
+        import h5py
 
         filepath = Path(filepath)
         if filepath.exists() and group_name is None:
             if overwrite:
                 filepath.unlink()
             else:
-                raise FileExistsError(f"File '{filepath}' exists. Use `overwrite=True` or set `group_name`.")
+                raise FileExistsError(
+                    f"File '{filepath}' exists. Use `overwrite=True` or set `group_name`."
+                )
 
         metadata = self.to_metadata_dict()
 
@@ -1873,7 +1883,7 @@ class GridIOMixin(Generic[_SupGridIO]):
             if group_name is None:
                 group = f
             else:
-                group =  f.require_group(group_name)
+                group = f.require_group(group_name)
 
                 if group_name in f and overwrite:
                     del f[group_name]
@@ -1890,9 +1900,11 @@ class GridIOMixin(Generic[_SupGridIO]):
                     raise TypeError(f"Cannot serialize key '{key}' to HDF5: {e}")
 
     @classmethod
-    def from_json(cls: _SupGridIO,
-                  filepath: Union[str, Path],
-                  coordinate_system: "_CoordinateSystemBase") -> _SupGridIO:
+    def from_json(
+        cls: _SupGridIO,
+        filepath: Union[str, Path],
+        coordinate_system: "_CoordinateSystemBase",
+    ) -> _SupGridIO:
         """
         Load grid metadata from a JSON file and reconstruct the grid.
 
@@ -1915,7 +1927,7 @@ class GridIOMixin(Generic[_SupGridIO]):
             raise FileNotFoundError(f"File '{filepath}' does not exist.")
 
         try:
-            with open(filepath, "r") as f:
+            with open(filepath) as f:
                 metadata = json.load(f)
         except Exception as e:
             raise RuntimeError(f"Failed to read JSON metadata: {e}") from e
@@ -1923,12 +1935,16 @@ class GridIOMixin(Generic[_SupGridIO]):
         try:
             return cls.from_metadata_dict(coordinate_system, metadata)
         except Exception as e:
-            raise RuntimeError(f"Failed to reconstruct grid from JSON metadata: {e}") from e
+            raise RuntimeError(
+                f"Failed to reconstruct grid from JSON metadata: {e}"
+            ) from e
 
     @classmethod
-    def from_yaml(cls: _SupGridIO,
-                  filepath: Union[str, Path],
-                  coordinate_system: "_CoordinateSystemBase") -> _SupGridIO:
+    def from_yaml(
+        cls: _SupGridIO,
+        filepath: Union[str, Path],
+        coordinate_system: "_CoordinateSystemBase",
+    ) -> _SupGridIO:
         """
         Load grid metadata from a YAML file and reconstruct the grid.
 
@@ -1951,7 +1967,7 @@ class GridIOMixin(Generic[_SupGridIO]):
             raise FileNotFoundError(f"File '{filepath}' does not exist.")
 
         try:
-            with open(filepath, "r") as f:
+            with open(filepath) as f:
                 metadata = yaml.safe_load(f)
         except Exception as e:
             raise RuntimeError(f"Failed to read YAML metadata: {e}") from e
@@ -1959,13 +1975,17 @@ class GridIOMixin(Generic[_SupGridIO]):
         try:
             return cls.from_metadata_dict(coordinate_system, metadata)
         except Exception as e:
-            raise RuntimeError(f"Failed to reconstruct grid from YAML metadata: {e}") from e
+            raise RuntimeError(
+                f"Failed to reconstruct grid from YAML metadata: {e}"
+            ) from e
 
     @classmethod
-    def from_hdf5(cls: _SupGridIO,
-                  filepath: Union[str, Path],
-                  coordinate_system: "_CoordinateSystemBase",
-                  group_name: Optional[str] = None) -> _SupGridIO:
+    def from_hdf5(
+        cls: _SupGridIO,
+        filepath: Union[str, Path],
+        coordinate_system: "_CoordinateSystemBase",
+        group_name: Optional[str] = None,
+    ) -> _SupGridIO:
         """
         Load grid metadata from an HDF5 file and reconstruct the grid.
 
@@ -1983,8 +2003,9 @@ class GridIOMixin(Generic[_SupGridIO]):
         GridBase
             An instance of the grid reconstructed from metadata.
         """
-        import h5py
         import json
+
+        import h5py
 
         filepath = Path(filepath)
         if not filepath.exists():
@@ -2005,7 +2026,10 @@ class GridIOMixin(Generic[_SupGridIO]):
         try:
             return cls.from_metadata_dict(coordinate_system, metadata)
         except Exception as e:
-            raise RuntimeError(f"Failed to reconstruct grid from HDF5 metadata: {e}") from e
+            raise RuntimeError(
+                f"Failed to reconstruct grid from HDF5 metadata: {e}"
+            ) from e
+
 
 class GridPlotMixin(Generic[_SupGridChunking]):
     """

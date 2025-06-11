@@ -1,10 +1,12 @@
 """
 Utilities for buffer tests.
 """
-import pytest
-from pymetric.fields.buffers import ArrayBuffer, HDF5Buffer
-import numpy as np
 import os
+
+import numpy as np
+import pytest
+
+from pymetric.fields.buffers import ArrayBuffer, HDF5Buffer
 
 # ============================= #
 # Collections / Settings        #
@@ -27,6 +29,7 @@ __all_numpy_builtin_methods__ = [
     pytest.param("transpose", (), {}),
 ]
 
+
 # ============================= #
 # Fixtures                      #
 # ============================= #
@@ -36,4 +39,3 @@ def buffer_test_directory(tmp_path_factory):
     The buffer test directory.
     """
     return tmp_path_factory.mktemp("buffer_tests")
-

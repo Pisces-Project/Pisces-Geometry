@@ -4,10 +4,11 @@ Test configuration for pymetric.
 This module is used to control the behavior of pytest when running the testing
 system.
 """
-import numpy as np
-
 import logging
+
+import numpy as np
 import pytest
+
 from pymetric.coordinates import (
     CartesianCoordinateSystem1D,
     CartesianCoordinateSystem2D,
@@ -68,7 +69,7 @@ __pymetric_all_coordinate_systems__ = {
         [[0.1, 0.2, 0], [np.pi - 0.1, np.pi - 0.2, 2 * np.pi]],
     ),
 }
-__pymetric_required_coordinate_systems__ = ['cartesian3D']
+__pymetric_required_coordinate_systems__ = ["cartesian3D"]
 
 # ---------------------------------- #
 # Logging                            #
@@ -83,8 +84,7 @@ test_logger.propagate = False  # Prevent double logging if root handler exists
 if not any(isinstance(h, logging.StreamHandler) for h in test_logger.handlers):
     handler = logging.StreamHandler()
     formatter = logging.Formatter(
-        fmt="%(asctime)s | %(levelname)-8s | %(name)s: %(message)s",
-        datefmt="%H:%M:%S"
+        fmt="%(asctime)s | %(levelname)-8s | %(name)s: %(message)s", datefmt="%H:%M:%S"
     )
     handler.setFormatter(formatter)
     test_logger.addHandler(handler)
@@ -140,6 +140,7 @@ def test_log():
     """
     return logging.getLogger("pymetric.test")
 
+
 @pytest.fixture(scope="session")
 def coordinate_system_flag(request):
     """
@@ -169,7 +170,9 @@ def coordinate_systems(request):
     # Ensure all required options are present.
     for req_coordinate_system in __pymetric_required_coordinate_systems__:
         if req_coordinate_system not in selected:
-            test_logger.warning("Adding required coordinate system: %s.", req_coordinate_system)
+            test_logger.warning(
+                "Adding required coordinate system: %s.", req_coordinate_system
+            )
             selected.append(req_coordinate_system)
 
     # Construct the dictionary of constructed, fully realized

@@ -3,6 +3,7 @@ Typing infrastructure for the mixin classes. These are used for
 mypy compatibility in mixin classes.
 """
 from pathlib import Path
+
 # mypy: ignore-errors
 from typing import (
     TYPE_CHECKING,
@@ -202,37 +203,35 @@ class _SupportsCoordinateSystemCore(_SupportsCoordinateSystemBase):
         ...
 
     def to_hdf5(
-            self,
-            filename: Union[str, Path],
-            group_name: Optional[str] = None,
-            overwrite: bool = False,
-    ):...
+        self,
+        filename: Union[str, Path],
+        group_name: Optional[str] = None,
+        overwrite: bool = False,
+    ):
+        ...
 
     @classmethod
     def from_hdf5(
-            cls,
-            filename: Union[str, Path],
-            group_name: Optional[str] = None,
-            registry: Optional[Dict] = None,
-    ):...
+        cls,
+        filename: Union[str, Path],
+        group_name: Optional[str] = None,
+        registry: Optional[Dict] = None,
+    ):
+        ...
 
-    def to_json(self,
-                filepath: Union[str, Path],
-                overwrite: bool = False):...
-
-    @classmethod
-    def from_json(cls,
-                  filepath: Union[str, Path],
-                  registry: Optional[Dict] = None):...
-
-    def to_yaml(self,
-                filepath: Union[str, Path],
-                overwrite: bool = False):...
+    def to_json(self, filepath: Union[str, Path], overwrite: bool = False):
+        ...
 
     @classmethod
-    def from_yaml(cls,
-                  filepath: Union[str, Path],
-                  registry: Optional[Dict] = None):...
+    def from_json(cls, filepath: Union[str, Path], registry: Optional[Dict] = None):
+        ...
+
+    def to_yaml(self, filepath: Union[str, Path], overwrite: bool = False):
+        ...
+
+    @classmethod
+    def from_yaml(cls, filepath: Union[str, Path], registry: Optional[Dict] = None):
+        ...
 
 
 # noinspection PyMissingOrEmptyDocstring

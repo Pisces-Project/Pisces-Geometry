@@ -737,7 +737,9 @@ class FieldComponentCoreMixin(Generic[_SupFCCore]):
         shape = spatial_shape + element_shape
 
         # Now construct the buffer with the relevant args and kwargs.
-        buff = buffer_class.full(shape, *buffer_args, fill_value=fill_value, **buffer_kwargs)
+        buff = buffer_class.full(
+            shape, *buffer_args, fill_value=fill_value, **buffer_kwargs
+        )
 
         # return the resulting object.
         return cls(grid, buff, axes)

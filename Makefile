@@ -7,15 +7,18 @@
 #
 # If you're just a user, you DON'T want to be here. You should
 # install via pip install pymetric instead.
-PYTHON := python3                        # The python command from which to build the venv
-VENV_DIR := .venv                        # Directory to build the .venv in.
-ACTIVATE := . $(VENV_DIR)/bin/activate   # Activation command for the venv.
+# The python command from which to build the venv
+PYTHON := python3
+# Directory to build the .venv in.
+VENV_DIR := .venv
+# Activation command for the venv.
+ACTIVATE := . $(VENV_DIR)/bin/activate
 
 # -------------------------
 # Installation & Setup
 # -------------------------
 # Commands for venv building and installation.
-VENV_PYTHON := $(VENV_DIR)/bin/python
+VENV_PYTHON := $(VENV_DIR)/bin/python3
 VENV_PIP := $(VENV_DIR)/bin/pip
 
 venv-build:

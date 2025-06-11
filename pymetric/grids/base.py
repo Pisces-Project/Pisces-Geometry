@@ -826,9 +826,9 @@ class GridBase(
 
     @classmethod
     @abstractmethod
-    def from_metadata_dict(cls,
-                           coordinate_system: "_CoordinateSystemBase",
-                           metadata_dict: Dict[str, Any]) -> "GridBase":
+    def from_metadata_dict(
+        cls, coordinate_system: "_CoordinateSystemBase", metadata_dict: Dict[str, Any]
+    ) -> "GridBase":
         """
         Create a grid instance from a metadata dictionary.
 
@@ -851,4 +851,3 @@ class GridBase(
             An instance of the grid class reconstructed from the metadata.
         """
         pass
-

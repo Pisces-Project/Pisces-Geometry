@@ -4,10 +4,16 @@ Unit tests for the core buffer types in the PyMetric library.
 This module verifies the correct construction behavior of
 buffers.
 """
-import pytest
-from .utils import buffer_test_directory
-from tests.test_fields.utils import __all_buffer_classes__, test_array, __from_array_args_factories__
 import numpy as np
+import pytest
+
+from tests.test_fields.utils import (
+    __all_buffer_classes__,
+    __from_array_args_factories__,
+    test_array,
+)
+
+from .utils import buffer_test_directory
 
 
 @pytest.mark.parametrize("buffer_class", __all_buffer_classes__)
@@ -31,7 +37,6 @@ def test_from_array_raw_numpy(buffer_class, buffer_test_directory, test_array):
     _ = buffer_class.from_array(test_array, *args, **kwargs)
 
 
-
 @pytest.mark.parametrize("buffer_class", __all_buffer_classes__)
 @pytest.mark.parametrize("method", ["ones", "zeros", "full", "empty"])
 def test_buffer_constructors(buffer_class, method, buffer_test_directory):
@@ -46,11 +51,11 @@ def test_buffer_constructors(buffer_class, method, buffer_test_directory):
     # Configure the shape, dtype, and create the tempdir if
     # not already existent. We create and fill the kwargs and
     # expected values ahead of time.
-    args = ((4,4),) + args
-    kwargs['dtype'] = np.float64
+    args = ((4, 4),) + args
+    kwargs["dtype"] = np.float64
 
-    if method == 'full':
-        kwargs['fill_value'] = 10.
+    if method == "full":
+        kwargs["fill_value"] = 10.0
 
     # Fetch the factory from the buffer class.
     factory = getattr(buffer_class, method)

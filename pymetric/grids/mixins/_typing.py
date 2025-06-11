@@ -108,12 +108,14 @@ class _SupportsGridCore(Protocol):
     # to / from the respective file formats.
     # We also allow the underlying coordinate system to either be loaded
     # with the grid or separately, depending on the use case.
-    def to_metadata_dict(self) -> Dict[str, Any]:...
+    def to_metadata_dict(self) -> Dict[str, Any]:
+        ...
 
     @classmethod
-    def from_metadata_dict(cls,
-                           coordinate_system: "_CoordinateSystemBase",
-                           metadata_dict: Dict[str, Any]) -> "GridBase":...
+    def from_metadata_dict(
+        cls, coordinate_system: "_CoordinateSystemBase", metadata_dict: Dict[str, Any]
+    ) -> "GridBase":
+        ...
 
     # ================================ #
     # Input Coercion Methods           #

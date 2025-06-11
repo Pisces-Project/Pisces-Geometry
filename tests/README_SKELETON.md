@@ -2,7 +2,7 @@
 
 ---
 
-This testing suite targets the **[module]** of PyMetric and performs tests over the 
+This testing suite targets the **[module]** of PyMetric and performs tests over the
 following broad regimes of behavior:
 
 - [Test Area 1]: [Short description of what this file tests]

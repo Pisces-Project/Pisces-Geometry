@@ -8,11 +8,14 @@ and support for NumPy-like operations and ufuncs.
 import numpy as np
 import pytest
 
-from tests.test_fields.utils import __all_buffer_classes__, test_array, __from_array_args_factories__
-from .utils import (
-__all_numpy_builtin_methods__,
-buffer_test_directory
+from tests.test_fields.utils import (
+    __all_buffer_classes__,
+    __from_array_args_factories__,
+    test_array,
 )
+
+from .utils import __all_numpy_builtin_methods__, buffer_test_directory
+
 
 @pytest.mark.parametrize("buffer_class", __all_buffer_classes__)
 @pytest.mark.parametrize("ufunc", [np.add, np.multiply, np.sqrt, np.negative, np.abs])
@@ -45,17 +48,18 @@ def test_numpy_ufunc_behavior(buffer_class, ufunc, buffer_test_directory, test_a
     result_buf = ufunc(*uargs, out=buffer)
 
     # Validate return types
-    assert isinstance(result_np, np.ndarray), (
-        f"Expected NumPy array when out=None, got {type(result_np)}"
-    )
-    assert isinstance(result_buf, buffer_class), (
-        f"Expected {buffer_class.__name__} when using out=, got {type(result_buf)}"
-    )
+    assert isinstance(
+        result_np, np.ndarray
+    ), f"Expected NumPy array when out=None, got {type(result_np)}"
+    assert isinstance(
+        result_buf, buffer_class
+    ), f"Expected {buffer_class.__name__} when using out=, got {type(result_buf)}"
 
     # Validate numerical equivalence
     np.testing.assert_allclose(
-        result_np, np.asarray(result_buf),
-        err_msg=f"{ufunc.__name__} result mismatch between array and buffer"
+        result_np,
+        np.asarray(result_buf),
+        err_msg=f"{ufunc.__name__} result mismatch between array and buffer",
     )
 
 
@@ -85,18 +89,17 @@ def test_numpy_like_methods(
 
     method = getattr(buffer, method_name)
 
-
     # 1. Return as buffer
-    result = method(*args, numpy=False, bargs=bargs,bkwargs=bkwargs, **kwargs)
+    result = method(*args, numpy=False, bargs=bargs, bkwargs=bkwargs, **kwargs)
     assert isinstance(result, buffer_class), f"{method_name} did not return a buffer"
 
     # 2. Return as raw NumPy array
-    result_np = method(*args, numpy=True,bargs=bargs,bkwargs=bkwargs, **kwargs)
+    result_np = method(*args, numpy=True, bargs=bargs, bkwargs=bkwargs, **kwargs)
     assert isinstance(result_np, np.ndarray), f"{method_name} did not return ndarray"
 
     # 3. Ensure result content matches between buffer and array
     np.testing.assert_allclose(
-        result_np, result.as_array(),
-        err_msg=f"{method_name} produced mismatched result"
+        result_np,
+        result.as_array(),
+        err_msg=f"{method_name} produced mismatched result",
     )
-

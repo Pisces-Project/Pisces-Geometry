@@ -2,7 +2,7 @@
 
 ---
 
-This testing suite targets the **coordinates** module of PyMetric and performs tests over the 
+This testing suite targets the **coordinates** module of PyMetric and performs tests over the
 following broad regimes of behavior:
 
 - Coordinate System Construction: Validates instantiation and structural attributes of all supported coordinate systems.

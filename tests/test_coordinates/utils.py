@@ -15,7 +15,7 @@ import pytest
 # to disk and then read it back, checking that the read coordinate system
 # matches the original in terms of its attributes and properties.
 __coordinate_system_io_protocols__ = [
-    pytest.param("HDF5", 'from_hdf5', 'to_hdf5'),
-    pytest.param("YAML", 'from_yaml', 'to_yaml'),
-    pytest.param("JSON", 'from_json', 'to_json'),
+    pytest.param("HDF5", "from_hdf5", "to_hdf5"),
+    pytest.param("YAML", "from_yaml", "to_yaml"),
+    pytest.param("JSON", "from_json", "to_json"),
 ]

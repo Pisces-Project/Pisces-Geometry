@@ -432,14 +432,16 @@ class GenericGrid(GridBase):
             "coordinates": [arr.tolist() for arr in self.__coordinate_arrays__],
             "center": self.__center__,
             "ghost_zones": self.__ghost_zones__.tolist(),
-            "chunk_size": None if self.__chunk_size__ is None else self.__chunk_size__.tolist(),
+            "chunk_size": None
+            if self.__chunk_size__ is None
+            else self.__chunk_size__.tolist(),
             "bbox": self.__ghost_bbox__.tolist() if self.__center__ == "cell" else None,
         }
 
     @classmethod
-    def from_metadata_dict(cls,
-                           coordinate_system: "_CoordinateSystemBase",
-                           metadata_dict: Dict[str, Any]) -> "GenericGrid":
+    def from_metadata_dict(
+        cls, coordinate_system: "_CoordinateSystemBase", metadata_dict: Dict[str, Any]
+    ) -> "GenericGrid":
         """
         Reconstruct a GenericGrid from metadata and a coordinate system.
 
@@ -844,13 +846,15 @@ class UniformGrid(GridBase):
             "domain_dimensions": self.dd.tolist(),
             "center": self.__center__,
             "ghost_zones": self.__ghost_zones__.tolist(),
-            "chunk_size": None if self.__chunk_size__ is None else self.__chunk_size__.tolist(),
+            "chunk_size": None
+            if self.__chunk_size__ is None
+            else self.__chunk_size__.tolist(),
         }
 
     @classmethod
-    def from_metadata_dict(cls,
-                           coordinate_system: "_CoordinateSystemBase",
-                           metadata_dict: Dict[str, Any]) -> "UniformGrid":
+    def from_metadata_dict(
+        cls, coordinate_system: "_CoordinateSystemBase", metadata_dict: Dict[str, Any]
+    ) -> "UniformGrid":
         """
         Construct a UniformGrid from a metadata dictionary and coordinate system.
 
@@ -887,6 +891,3 @@ class UniformGrid(GridBase):
             chunk_size=chunk_size,
             center=center,
         )
-
-
-

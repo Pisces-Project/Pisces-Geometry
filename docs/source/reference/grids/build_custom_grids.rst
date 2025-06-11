@@ -294,4 +294,3 @@ Math Operations Mixin
 
       Do include: methods that perform math over grid-aligned data.
       Do not include: symbolic geometry or coordinate system math — that belongs in the coordinate system or symbolic geometry modules.
-

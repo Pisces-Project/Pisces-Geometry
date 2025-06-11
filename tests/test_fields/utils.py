@@ -1,10 +1,12 @@
 """
 Utilities for testing across the test_fields testing module.
 """
-import pytest
-from pymetric.fields import ArrayBuffer, HDF5Buffer
-import numpy as np
 import os
+
+import numpy as np
+import pytest
+
+from pymetric.fields import ArrayBuffer, HDF5Buffer
 
 # ============================= #
 # Collections / Settings        #
@@ -19,6 +21,7 @@ __all_buffer_classes__ = [
     pytest.param(HDF5Buffer, marks=pytest.mark.hdf5),
 ]
 
+
 # ============================= #
 # Fixtures                      #
 # ============================= #
@@ -30,17 +33,22 @@ def test_array():
     """
     return np.ones((2, 2))
 
+
 # ============================= #
 # Utility Functions             #
 # ============================= #
 def __ArrayBuffer_args_kwargs_factory__(_):
     """Args/kwargs generator for the from_array test."""
-    return (),{}
+    return (), {}
+
 
 def __HDF5Buffer_args_kwargs_factory__(buffer_test_directory):
     """Args/kwargs generator for the from_array test."""
-    return ((os.path.join(buffer_test_directory, "test.h5"),"test"),
-            dict(overwrite=True))
+    return (
+        (os.path.join(buffer_test_directory, "test.h5"), "test"),
+        dict(overwrite=True),
+    )
+
 
 __from_array_args_factories__ = {
     ArrayBuffer: __ArrayBuffer_args_kwargs_factory__,

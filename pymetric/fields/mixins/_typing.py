@@ -117,9 +117,11 @@ class _SupportsDFieldCore(_SupportsFieldCore):
     @classmethod
     def zeros(cls, *args, **kwargs) -> "_SupportsDFieldCore":
         ...
+
     @classmethod
     def empty(cls, *args, **kwargs) -> "_SupportsDFieldCore":
         ...
+
     @classmethod
     def ones(cls, *args, **kwargs) -> "_SupportsDFieldCore":
         ...
@@ -131,7 +133,7 @@ class _SupportsDFieldCore(_SupportsFieldCore):
     @classmethod
     def empty_like(cls, other, *args, **kwargs) -> "_SupportsDFieldCore":
         ...
-    
+
     @classmethod
     def zeros_like(cls, other, *args, **kwargs) -> "_SupportsDFieldCore":
         ...
@@ -143,7 +145,6 @@ class _SupportsDFieldCore(_SupportsFieldCore):
     @classmethod
     def full_like(cls, other, *args, **kwargs) -> "_SupportsDFieldCore":
         ...
-
 
 
 # noinspection PyMissingOrEmptyDocstring
@@ -246,23 +247,40 @@ class _SupportsDTFieldCore(_SupportsDFieldCore):
 
     @classmethod
     def zeros_like(
-        cls: Type['_SupportsDTFieldCore'], other: Type['_SupportsDTFieldCore'], *args, **kwargs
-    ) -> '_SupportsDTFieldCore':...
+        cls: Type["_SupportsDTFieldCore"],
+        other: Type["_SupportsDTFieldCore"],
+        *args,
+        **kwargs,
+    ) -> "_SupportsDTFieldCore":
+        ...
 
     @classmethod
     def empty_like(
-        cls: Type['_SupportsDTFieldCore'], other: Type['_SupportsDTFieldCore'], *args, **kwargs
-    ) -> '_SupportsDTFieldCore':...
+        cls: Type["_SupportsDTFieldCore"],
+        other: Type["_SupportsDTFieldCore"],
+        *args,
+        **kwargs,
+    ) -> "_SupportsDTFieldCore":
+        ...
 
     @classmethod
     def ones_like(
-        cls: Type['_SupportsDTFieldCore'], other: Type['_SupportsDTFieldCore'], *args, **kwargs
-    ) -> '_SupportsDTFieldCore':...
+        cls: Type["_SupportsDTFieldCore"],
+        other: Type["_SupportsDTFieldCore"],
+        *args,
+        **kwargs,
+    ) -> "_SupportsDTFieldCore":
+        ...
 
     @classmethod
     def full_like(
-        cls: Type['_SupportsDTFieldCore'], other: Type['_SupportsDTFieldCore'], *args, **kwargs
-    ) -> '_SupportsDTFieldCore':...
+        cls: Type["_SupportsDTFieldCore"],
+        other: Type["_SupportsDTFieldCore"],
+        *args,
+        **kwargs,
+    ) -> "_SupportsDTFieldCore":
+        ...
+
 
 # noinspection PyMissingOrEmptyDocstring
 @runtime_checkable

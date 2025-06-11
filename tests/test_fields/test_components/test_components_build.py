@@ -1,11 +1,17 @@
 """
 Testing suite for testing the creation of component objects.
 """
-import pytest
-from tests.test_fields.utils import __all_buffer_classes__, __from_array_args_factories__
-from .utils import component_test_directory, __from_func_args_factories__
 import numpy as np
+import pytest
+
 from pymetric import FieldComponent
+from tests.test_fields.utils import (
+    __all_buffer_classes__,
+    __from_array_args_factories__,
+)
+
+from .utils import __from_func_args_factories__, component_test_directory
+
 
 @pytest.mark.parametrize("buffer_class", __all_buffer_classes__)
 @pytest.mark.parametrize("method", ["ones", "zeros", "full", "empty"])
@@ -18,15 +24,17 @@ def test_comp_constructors(
     """
     # Fetch the generator factories from `utils.py` and
     # fetch out the relevant args and kwargs.
-    bargs,bkwargs = __from_array_args_factories__[buffer_class](component_test_directory)
-    args,kwargs = (),{}
+    bargs, bkwargs = __from_array_args_factories__[buffer_class](
+        component_test_directory
+    )
+    args, kwargs = (), {}
     # Configure the shape, dtype, and create the tempdir if
     # not already existent. We create and fill the kwargs and
     # expected values ahead of time.
-    bkwargs['dtype'] = np.float64
+    bkwargs["dtype"] = np.float64
 
-    if method == 'full':
-        kwargs['fill_value'] = 10.
+    if method == "full":
+        kwargs["fill_value"] = 10.0
 
     # Fetch the factory from the buffer class.
     factory = getattr(FieldComponent, method)
@@ -36,7 +44,15 @@ def test_comp_constructors(
     grid = uniform_grids[cs_flag]
 
     # Build the buffer.
-    _ = factory(grid,grid.axes,*args,buffer_args=bargs,buffer_class=buffer_class, buffer_kwargs=bkwargs,**kwargs)
+    _ = factory(
+        grid,
+        grid.axes,
+        *args,
+        buffer_args=bargs,
+        buffer_class=buffer_class,
+        buffer_kwargs=bkwargs,
+        **kwargs,
+    )
 
 
 @pytest.mark.parametrize("buffer_class", __all_buffer_classes__)
