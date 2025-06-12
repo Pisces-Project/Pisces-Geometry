@@ -13,7 +13,7 @@ authors:
     orcid: 0000-0001-9110-2245
     affiliation: 1
 affiliations:
- - name: University of Utah, USA
+ - name: University of Utah Department of Physics and Astronomy, Salt Lake City, Utah, USA
    index: 1
 date: 11 June 2025
 bibliography: paper.bib
@@ -42,12 +42,12 @@ multiple evaluations. Once derived, they are compiled into optimized numerical f
 can be efficiently applied to array data on structured grids. This approach allows PyMetric to
 support coordinate-aware computation with minimal overhead, avoiding the need for repeated symbolic
 manipulation during runtime, while maintaining high accuracy through analytically correct geometric
-expressions. The result is a powerful and extensible framework that enables NumPy-style workflows
+expressions. The result is a powerful and extensible framework that enables NumPy-style [@harris2020array] workflows
 in complex coordinate systems without sacrificing physical fidelity.
 
 In addition to its symbolic-numeric foundation, PyMetric provides structured abstractions for grids
 and field data, supporting a range of coordinate systems and buffer backends—including in-memory arrays and
-HDF5[@hdf5] storage for scalable computation. Users can define fields over geometric grids and apply
+HDF5 [@hdf5] storage for scalable computation. Users can define fields over geometric grids and apply
 differential operators without manually managing coordinate-dependent logic.
 
 PyMetric automates core operations such as gradients, divergences, and Laplacians in a
@@ -61,15 +61,15 @@ foundation for scientific computing in complex coordinate geometries.
 Modern astrophysical modeling requires a high degree of flexibility—both in physical assumptions
 and in computational infrastructure. The Pisces Project (of which ``PyMetric`` is a part)
 is a general-purpose model-building framework for astrophysics that aims to unify and extend
-existing tools for generating models and initial conditions (e.g., DICE[@perret2016dice], GALIC[@yurrin2014galic])
+existing tools for generating models and initial conditions (e.g., DICE [@perret2016dice], GALIC [@yurin2014galic])
 under a common, modular API.
 Its goal is to make it easier to construct complex, physically motivated models
 of systems such as galaxies, black holes, or relativistic fluids by exposing a simple and extensible
 interface for defining models, fields, and dynamics.
 
 A persistent challenge in building such extensible modeling tools is the limited and inconsistent
-support for coordinate systems found in most existing software. Codes like EinsteinPy[@einsteinpy],
-DICE[@perret2016dice], and yt[@turk2010yt] often
+support for coordinate systems found in most existing software. Codes like EinsteinPy [@einsteinpy],
+DICE, and yt[@turk2010yt] often
 hard-code assumptions about coordinate geometry, making them difficult to generalize to new physical
 contexts or non-Cartesian coordinate systems. This lack of abstraction limits reusability and complicates
 the construction of unified modeling workflows across domains such as general relativity,
