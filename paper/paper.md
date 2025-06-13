@@ -69,7 +69,7 @@ interface for defining models, fields, and dynamics.
 
 A persistent challenge in building such extensible modeling tools is the limited and inconsistent
 support for coordinate systems found in most existing software. Codes like EinsteinPy [@einsteinpy],
-DICE, and yt[@turk2010yt] often
+DICE, and yt [@turk2010yt] often
 hard-code assumptions about coordinate geometry, making them difficult to generalize to new physical
 contexts or non-Cartesian coordinate systems. This lack of abstraction limits reusability and complicates
 the construction of unified modeling workflows across domains such as general relativity,
@@ -109,7 +109,7 @@ From this core specification, PyMetric constructs key geometric quantities, such
 $g^{\mu\nu}$, the metric density $\sqrt{g}$, and terms appearing in differential operations, such as
 $L^\nu = g^{-1/2} \partial_\mu (g^{1/2} g^{\mu\nu})$, which appears in the scalar Laplacian
 $\nabla^2 \phi = L^\nu \partial_\nu \phi + g^{\mu\nu} \partial^2_{\mu\nu} \phi$. These are represented both as symbolic
-expressions-using SymPy[@sympy]-and as NumPy-backed callables. These quantities are computed lazily: they are only derived when required for a specific operation,
+expressions-using SymPy [@sympy]-and as NumPy-backed callables. These quantities are computed lazily: they are only derived when required for a specific operation,
 avoiding unnecessary overhead.
 
 Coordinate systems are categorized into types (e.g., orthogonal or curvilinear) that determine
