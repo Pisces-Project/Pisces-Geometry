@@ -5,7 +5,6 @@
    :align: center
 
 .. _quickstart:
-
 ==========================
 PyMetric Quickstart Guide
 ==========================
@@ -20,11 +19,12 @@ it for development, documentation, or basic usage, this guide will get you up an
    :local:
    :depth: 2
 
+
 .. _installation:
 Installation
 ------------
 
-Currently, PyMetric is hosted on PyPI and on github. For standard installations,
+Currently, PyMetric is hosted on PyPI and on Github. For standard installations,
 we suggest installing the stable package version from PyPI using pip or conda. To
 install the development version of the package, you can install directly from the source
 code on github:
@@ -37,7 +37,7 @@ code on github:
 
       .. code-block:: bash
 
-         pip install pymetric
+         pip install pymetric-lib
 
       This installs the latest stable release, suitable for most users. Additional
       options are available (see advanced installation).
@@ -73,11 +73,27 @@ code on github:
 
       (A native conda package is not yet maintained, so this uses pip within conda.)
 
+You can check that installation has worked correctly by running
+
+.. code-block:: bash
+
+    $ pip show pymetric
+    Name: pymetric
+    Version: <the installed version>
+    Summary: A high-performance library for structured differential geometry and physical field manipulation.
+    Home-page:
+    Author:
+    Author-email: Eliza Diggins <eliza.diggins@berkeley.edu>
+    License: GPL-3.0-or-later
+    Location: [source location]
+    Requires: h5py, matplotlib, numpy, scipy, sympy, tqdm
+    Required-by:
 
 Dependencies
 ++++++++++++
 
-In order to use pymetric, the following core dependencies are required:
+PyMetric strives to use a minimal set of dependencies to streamline usage without
+requiring a lot of effort to install. Below is the list of required dependencies:
 
 +----------------+-----------+--------------------------------------------+
 | Package        | Version   | Description                                |
@@ -108,7 +124,7 @@ PyMetric supports several **optional dependency groups** for specific workflows:
 
       .. code-block:: bash
 
-         pip install pymetric[dev]
+         pip install pymetric-lib[dev]
 
       Includes tools for formatting, linting, and development workflows.
 
@@ -134,7 +150,7 @@ PyMetric supports several **optional dependency groups** for specific workflows:
 
       .. code-block:: bash
 
-         pip install pymetric[docs]
+         pip install pymetric-lib[docs]
 
       Includes packages required to build, style, and preview documentation.
 
@@ -162,7 +178,7 @@ PyMetric supports several **optional dependency groups** for specific workflows:
 
       .. code-block:: bash
 
-         pip install pymetric[test]
+         pip install pymetric-lib[test]
 
       A minimal environment to run the test suite and property-based tests.
 
@@ -179,82 +195,108 @@ PyMetric supports several **optional dependency groups** for specific workflows:
       +----------------+------------------------------+
 
 
-.. hint::
-
-    To confirm that pymetric has been installed correctly, use
-
-    .. code-block:: bash
-
-        $ pip show pymetric
-
-        Name: pymetric
-        Version: 0.1.dev22+g0f5941d
-        Summary: A high-performance library for structured differential geometry and physical field manipulation.
-        Home-page:
-        Author:
-        Author-email: Eliza Diggins <eliza.diggins@berkeley.edu>
-        License: GPL-3.0-or-later
-        Location: /Users/ediggins/Dev/pymetric/.venv/lib/python3.12/site-packages
-        Editable project location: /Users/ediggins/Dev/pymetric
-        Requires: h5py, matplotlib, numpy, scipy, sympy, tqdm
-        Required-by:
 
 Getting Help
 ------------
 
 If you encounter issues using **PyMetric**, or have questions about its functionality:
 
-- 💬 **Search or open an issue** on our GitHub issue tracker:
-  https://github.com/pisces-project/pymetric/issues
-
-- 📧 **Contact us directly**:
-  You can reach the maintainer, Eliza Diggins, by email at
-  ``eliza.diggins@berkeley.edu`` for questions, bug reports, or suggestions.
-
+- 💬 **Search or open an issue** on our `GitHub issue tracker <https://github.com/pisces-project/pymetric/issues>`_.
+- 📧 **Contact us directly** by emailing `eliza.diggins@berkeley.edu <mailto:eliza.diggins@berkeley.edu>`__ for questions,
+  bug reports, or suggestions.
 - 📖 Refer to the full documentation for API details, examples, and conceptual guides.
 
 We’re happy to help you resolve installation problems, clarify behavior, or explore new use cases!
 
-
 Help Develop PyMetric
 ---------------------
 
-Contributions are welcome and encouraged!
-
-Whether you're fixing typos, adding examples, writing tests, or developing new features,
+Contributions are welcome and encouraged! Whether you're fixing typos, adding examples, writing tests, or developing new features,
 you can help improve **PyMetric** for everyone.
 
-To contribute:
+To setup PyMetric for development, start by creating a fork of the repository in your own
+github. In your own branch, Identify the **current development branch** of the code. This is
+the branch with name ``dev-v...``. This branch will eventually be merged into
+the production branch. You should create a new branch from the development branch with a name
+indicating the specific features / fixes you're working on.
 
-1. 📂 **Fork the repository** from the `github <https://github.com/pisces-project/pymetric>`__
-2. 🧪 Install the development dependencies:
+To set up the development environment, you should first create a virtual environment
 
-   .. code-block:: bash
+.. code-block:: python
 
-      pip install pymetric[dev,test,docs]
+    python -m venv ./.venv
 
-3. 🧼 Run formatting and lint checks:
+In that venv, install the development and documentation requirements with
 
-   .. code-block:: bash
+.. code-block:: python
 
-      pre-commit run --all-files
+    pip install -e ./pymetric[dev]
 
-4. 🧪 Run the test suite:
+Ensure that ``precommit`` is installed and configure it on the git with
 
-   .. code-block:: bash
+.. code-block:: python
 
-      pytest -n auto
+    pre-commit install
 
-5. 📚 Build the documentation locally:
+.. hint::
 
-   .. code-block:: bash
+    To streamline this, we provide a makefile which automates these processes. To use this approach,
+    modify the ``Makefile`` to correctly point to your base python:
 
-      cd docs
-      make html
+    .. code-block:: makefile
 
-6. 🔁 Submit a pull request with a clear description of the change.
+        # ----------------------- #
+        # Metadata for PYTHON     #
+        # ----------------------- #
+        # These settings MAY need to be modified by new
+        # users in order to get everything working vis-a-vis
+        # the make ... command style.
+        #
+        # If you're just a user, you DON'T want to be here. You should
+        # install via pip install pymetric instead.
+        # The python command from which to build the venv
+        PYTHON := python3
+        # Directory to build the .venv in.
+        VENV_DIR := .venv
+
+
+    Once configured, you can simply do the following:
+
+    .. code-block:: bash
+
+        $ make venv-build
+        $ make dev-branch
+        $ make precommit-install
+
+
+You're now ready to start implementing new features!
+
+
+Once you've implemented the features you want to include, there are two things that need
+to be done:
+
+1. Create the relevant issues in the `GitHub issue tracker <https://github.com/pisces-project/pymetric/issues>`_.
+
+   - In the comments, note that you're working on development and link your forked repository.
+
+2. Create a pull request to merge your development branch into the current development branch.
+
+   Before we will accept a pull-request, the following must all be working
+
+   1. 🧼 Run formatting and lint checks with pre-commit.
+   2. 🧪 Run the test suite:
+
+      .. code-block:: bash
+
+            make test
+
+   3. 📚 Build the documentation locally:
+
+      .. code-block:: bash
+
+          make docs
 
 If you’re not sure where to start, check the
-`GitHub issues <https://github.com/pisces-project/pymetric/issues>`__ labeled **`good first issue`** or feel
+`GitHub issues <https://github.com/pisces-project/pymetric/issues>`__ labeled "**good first issue**" or feel
 free to ask questions by opening a discussion or emailing the maintainer directly `here <eliza.diggins@berkeley.edu>`__.
 We’d love your help building a powerful, flexible tool for computational geometry and physical modeling!

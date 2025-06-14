@@ -380,7 +380,7 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
 
         else:
 
-            def full_func(*_args, **_kwargs):
+            def full_func(*_args):
                 # Subselect only the arguments that correspond to output_axes
                 return func(*_args, **kwargs)
 
