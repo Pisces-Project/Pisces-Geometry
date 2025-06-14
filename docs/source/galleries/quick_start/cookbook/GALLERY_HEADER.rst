@@ -28,9 +28,3 @@ What You'll Find
 
 Each recipe is self-contained and includes minimal setup, input/output descriptions, and
 short code blocks. Think of these as your "how do I...?" reference section.
-
-Contributions
-+++++++++++++
-
-Want to add a recipe? Fork the repository and submit a pull request, or email us at
-``eliza.diggins@berkeley.edu``.
