@@ -373,14 +373,18 @@ class DenseMathOpsMixin(Generic[_SupDGMO]):
 
             # Define a new function that accepts *all_axes but internally calls func(*args_subset)
             # noinspection PyMissingOrEmptyDocstring
-            def full_func(*_args, **_kwargs):
+            def full_func(*_args):
                 # Subselect only the arguments that correspond to output_axes
                 args_subset = [_args[i] for i in output_indices]
-                return func(*args_subset, **_kwargs)
+                return func(*args_subset, **kwargs)
 
-            eval_func = full_func
         else:
-            eval_func = func
+
+            def full_func(*_args, **_kwargs):
+                # Subselect only the arguments that correspond to output_axes
+                return func(*_args, **kwargs)
+
+        eval_func = full_func
 
         # --- Perform the computation --- #
         if in_chunks:

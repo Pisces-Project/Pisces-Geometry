@@ -581,7 +581,6 @@ class DenseTensorFieldDMOMixin(DenseFieldDMOMixin, Generic[_SupDTFDMOs]):
         result = super().element_wise_partial_derivatives(
             out=out,
             output_axes=output_axes,
-            as_array=as_array,
             buffer_class=buffer_class,
             buffer_registry=buffer_registry,
             buffer_args=buffer_args,
@@ -616,7 +615,6 @@ class DenseTensorFieldDMOMixin(DenseFieldDMOMixin, Generic[_SupDTFDMOs]):
             derivative_field=derivative_field,
             second_derivative_field=second_derivative_field,
             output_axes=output_axes,
-            as_array=as_array,
             buffer_class=buffer_class,
             buffer_registry=buffer_registry,
             buffer_args=buffer_args,
@@ -992,14 +990,13 @@ class DenseTensorFieldDMOMixin(DenseFieldDMOMixin, Generic[_SupDTFDMOs]):
             out=out,
             inverse_metric_field=inverse_metric_field,
             output_axes=output_axes,
-            as_array=as_array,
             **kwargs,
         )
 
         # Coerce the output to the desired typing.
         # This is where we use the various buffer info.
         new_signature = [s if i != index else -s for i, s in enumerate(self.signature)]
-        return self._cast_result_to_field_or_array(
+        return self._process_output_to_field_or_array(
             result_field,
             as_array=as_array,
             buffer_class=buffer_class,
@@ -1174,14 +1171,13 @@ class DenseTensorFieldDMOMixin(DenseFieldDMOMixin, Generic[_SupDTFDMOs]):
             out=out,
             metric_field=metric_field,
             output_axes=output_axes,
-            as_array=as_array,
             **kwargs,
         )
 
         # Coerce the output to the desired typing.
         # This is where we use the various buffer info.
         new_signature = [s if i != index else -s for i, s in enumerate(self.signature)]
-        return self._cast_result_to_field_or_array(
+        return self._process_output_to_field_or_array(
             result_field,
             as_array=as_array,
             buffer_class=buffer_class,
@@ -1342,13 +1338,12 @@ class DenseTensorFieldDMOMixin(DenseFieldDMOMixin, Generic[_SupDTFDMOs]):
             metric_field=metric_field,
             out=out,
             output_axes=output_axes,
-            as_array=as_array,
             **kwargs,
         )
 
         # Coerce the output to the desired typing.
         # This is where we use the various buffer info.
-        return self._cast_result_to_field_or_array(
+        return self._process_output_to_field_or_array(
             result_field,
             as_array=as_array,
             buffer_class=buffer_class,
@@ -1524,13 +1519,12 @@ class DenseTensorFieldDMOMixin(DenseFieldDMOMixin, Generic[_SupDTFDMOs]):
             inverse_metric_field=inverse_metric_field,
             basis=basis,
             output_axes=output_axes,
-            as_array=as_array,
             **kwargs,
         )
 
         # Coerce the output to the desired typing.
         # This is where we use the various buffer info.
-        return self._cast_result_to_field_or_array(
+        return self._process_output_to_field_or_array(
             result_field,
             as_array=as_array,
             buffer_class=buffer_class,
@@ -1726,13 +1720,12 @@ class DenseTensorFieldDMOMixin(DenseFieldDMOMixin, Generic[_SupDTFDMOs]):
             inverse_metric_field=inverse_metric_field,
             basis=basis,
             output_axes=output_axes,
-            as_array=as_array,
             **kwargs,
         )
 
         # Coerce the output to the desired typing.
         # This is where we use the various buffer info.
-        return self._cast_result_to_field_or_array(
+        return self._process_output_to_field_or_array(
             result_field,
             as_array=as_array,
             buffer_class=buffer_class,
