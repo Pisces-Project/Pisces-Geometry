@@ -329,12 +329,14 @@ class DenseField(_FieldBase, DFieldCoreMixin, DenseFieldDMOMixin, NumpyArithmeti
             # Apply the ufunc
             result = getattr(ufunc, method)(*inputs, **kwargs)
 
-            # check if result is None or if we got something back.
-            # If something came back we actually want to pass out.
-            if result is not None:
-                return out
+            # Pass result through based on the typing.
+            if isinstance(result, tuple):
+                return out_tuple
+            elif result is not None:
+                return out_tuple[0]
             else:
-                return result
+                return None
+
         else:
             # Now calculate the results of the operation.
             result = getattr(ufunc, method)(*inputs, **kwargs)
@@ -377,7 +379,7 @@ class DenseField(_FieldBase, DFieldCoreMixin, DenseFieldDMOMixin, NumpyArithmeti
         return func(*unwrapped_args, **unwrapped_kwargs)
 
     def __array__(self, *args, **kwargs):
-        return self.__component__.__buffer__.__array__(*args, **kwargs)
+        return self.__component__.__array__(*args, **kwargs)
 
     # ------------------------------------ #
     # Properties                           #

@@ -73,8 +73,8 @@ def __grid_factory_GenericGrid__(coordinate_system):
     # --- Factory Settings --- #
     _settings = {
         "coordinate_system_overrides": {},
-        "resolution": 23,
-        "center": "vertex",
+        "resolution": 22,
+        "center": "cell",
         "chunk_size": 5,
         "ghost_zone": 1,
     }
@@ -91,12 +91,15 @@ def __grid_factory_GenericGrid__(coordinate_system):
         ]
         coords = (np.linspace(*r, _settings["resolution"]) for r in ranges)
     else:
-        coords = (np.linspace(0, 1, _settings["resolution"]),) * ndim
+        coords = (np.linspace(1e-1, 1 - 1e-1, _settings["resolution"]),) * ndim
+
+    bbox = [[0] * ndim, [1] * ndim]
 
     # --- Create the grid --- #
     grid = GenericGrid(
         coordinate_system,
         coords,
+        bbox=bbox,
         center=_settings["center"],
         ghost_zones=_settings["ghost_zone"],
         chunk_size=[_settings["chunk_size"]] * ndim,

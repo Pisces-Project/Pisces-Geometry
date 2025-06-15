@@ -73,13 +73,13 @@ all supported coordinate systems and provides reusable grid and geometry fixture
 
 All supported coordinate systems are defined in a global dictionary:
 
-.. code-block:: python
-
+```python
     __pymetric_all_coordinate_systems__ = {
         "cartesian2D": (CartesianCoordinateSystem2D, [[0, 0], [1, 1]]),
         "spherical": (SphericalCoordinateSystem, [[0, 0, 0], [1, π, 2π]]),
         ...
     }
+```
 
 Each entry includes:
 
@@ -122,21 +122,21 @@ Using these shared fixtures helps ensure consistency across test modules and avo
 
 Run all tests on the default grid set:
 
-.. code-block:: bash
-
+```bash
     pytest
+```
 
 Run only spherical and cylindrical coordinate system tests:
 
-.. code-block:: bash
-
+```bash
     pytest --coord-systems=spherical,cylindrical
+```
 
 Filter by test name and coordinate system:
 
-.. code-block:: bash
-
+```bash
     pytest -k "test_metric_properties" --coord-systems=polar
+```
 
 This configuration enables modular, efficient, and easily debuggable test runs across the full geometry engine.
 
