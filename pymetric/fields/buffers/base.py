@@ -158,6 +158,10 @@ class BufferBase(NumpyArithmeticMixin, ABC, metaclass=_BufferMeta):
     --------
     :meth:`~fields.buffers.base.BufferBase.__array_function__`
     """
+    __array_priority__ = 1.0
+    """
+    The priority of the component class in numpy operations.
+    """
 
     # =================================== #
     # Initialization Methods              #

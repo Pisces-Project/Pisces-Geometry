@@ -71,7 +71,7 @@ class _FieldBase(FieldCoreMixin):
     # --- Class Level Flags --- #
     # These are logical flags for determining
     # finer details of class behavior and triage.
-    __array_priority__ = 3.0
+    __array_priority__ = 5.0
     """
     The priority of the component class in numpy operations.
     """
@@ -375,6 +375,9 @@ class DenseField(_FieldBase, DFieldCoreMixin, DenseFieldDMOMixin, NumpyArithmeti
             for _k, _v in kwargs.items()
         }
         return func(*unwrapped_args, **unwrapped_kwargs)
+
+    def __array__(self, *args, **kwargs):
+        return self.__component__.__buffer__.__array__(*args, **kwargs)
 
     # ------------------------------------ #
     # Properties                           #
