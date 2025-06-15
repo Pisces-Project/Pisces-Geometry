@@ -63,7 +63,7 @@ r = np.geomspace(1e-2, 1, 1000)
 # Note: for phi and theta, we go from 0 -> np.pi (2*np.pi) and then cut of the edges
 # so that we can create 20 points in between 0 and the upper bound. This ensures
 # the metric is never degenerate.
-theta, phi = np.linspace(0, np.pi, 200)[1:-1], np.linspace(0, 2 * np.pi, 22)[1:-1]
+theta, phi = np.linspace(0, np.pi, 1000)[1:-1], np.linspace(0, 2 * np.pi, 22)[1:-1]
 grid_hom = pym.GenericGrid(
     cs_hom, [r, theta, phi], ghost_zones=1, center="cell", bbox=bbox
 )
@@ -184,6 +184,7 @@ grad_r_sph = grad_Phi_SPH_con[..., 0]
 
 
 # Get coordinates for meshgrid
+# sphinx_gallery_thumbnail_number = 2
 RR, TT = np.meshgrid(r, theta, indexing="ij")
 MM, NN = np.meshgrid(mu, nu, indexing="ij")
 
@@ -191,12 +192,10 @@ MM, NN = np.meshgrid(mu, nu, indexing="ij")
 min_hom, max_hom = np.min(grad_r_hom, axis=1), np.max(grad_r_hom, axis=1)
 min_sph, max_sph = np.min(grad_r_sph, axis=1), np.max(grad_r_sph, axis=1)
 
-print(min_hom, max_hom, min_sph, max_sph)
 # Plot
-fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+fig, axes = plt.subplots(2, 2, figsize=(10, 9), gridspec_kw=dict(hspace=0.4))
 
 # Top: 2D heatmaps
-from matplotlib.colors import LogNorm
 
 im0 = axes[0, 0].pcolormesh(
     RR, TT, grad_r_hom, shading="auto", cmap="viridis", norm="log"
@@ -218,15 +217,15 @@ fig.colorbar(im1, ax=axes[0, 1], label="Radial Gradient")
 axes[1, 0].fill_between(r, min_hom, max_hom, alpha=0.4, color="purple")
 axes[1, 0].plot(r, min_hom, color="k", lw=1, label="min")
 axes[1, 0].plot(r, max_hom, color="k", lw=1, label="max")
-axes[1, 0].set_title("Range of ∂₀Φ over θ (Homoeoidal)")
+axes[1, 0].set_title(r"Range of $\nabla^r \Phi$ over $\Theta$ (Homoeoidal)")
 axes[1, 0].set_xlabel(r"$r$")
-axes[1, 0].set_ylabel(r"$\nabla^r \Phi$")
+axes[1, 0].set_ylabel(r"$g^{\xi\nu} \partial_\nu \Phi(\xi)$")
 axes[1, 0].legend()
 
 axes[1, 1].fill_between(mu, min_sph, max_sph, alpha=0.4, color="green")
 axes[1, 1].loglog(mu, min_sph, color="k", lw=1, label="min")
 axes[1, 1].loglog(mu, max_sph, color="k", lw=1, label="max")
-axes[1, 1].set_title("Range of ∂₀Φ over ν (Spheroidal)")
+axes[1, 1].set_title(r"Range of $\nabla^r \Phi$ over $\nu$ (Spheroidal)")
 axes[1, 1].set_xlabel(r"$\mu$")
 axes[1, 1].set_ylabel(r"$g^{\mu\nu} \partial_\nu \Phi(\mu)$")
 axes[1, 1].legend()

@@ -5,6 +5,7 @@
    :align: center
 
 .. _quickstart:
+
 ==========================
 PyMetric Quickstart Guide
 ==========================
@@ -21,6 +22,7 @@ it for development, documentation, or basic usage, this guide will get you up an
 
 
 .. _installation:
+
 Installation
 ------------
 
