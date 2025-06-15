@@ -32,7 +32,7 @@ It is recommended reading for anyone contributing new coordinate systems or modi
     - Improvements to documentation and test coverage
 
     For instructions on setting up your development environment, building the documentation,
-    and running the test suite, please refer to the :ref:`developer_quickstart`.
+    and running the test suite, please refer to the :ref:`quickstart`.
 
 .. note::
 
