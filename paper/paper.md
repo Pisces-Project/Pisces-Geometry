@@ -24,7 +24,9 @@ bibliography: paper.bib
 
 PyMetric is a lightweight Python library designed to streamline differential geometry
 and vector calculus operations in user-defined coordinate systems, with a focus on applications
-in astrophysics and computational physics. In many physical modeling tasks, it is both natural
+in astrophysics and computational physics. The library was originally created to provide a
+geometric backend for the Pisces project, an (in development) general purpose astrophysical modeling and initial conditions
+library, but has since grown into an independent library due to its size and complexity. In many physical modeling tasks, it is both natural
 and advantageous to work in non-Cartesian coordinate systems that align with the inherent
 symmetries of the system. These systems can be highly nontrivial—such as ellipsoidal
 (homoeoidal) or spheroidal coordinates—where explicitly handling coordinate-specific
@@ -59,7 +61,7 @@ foundation for scientific computing in complex coordinate geometries.
 # Statement of need
 
 Modern astrophysical modeling requires a high degree of flexibility—both in physical assumptions
-and in computational infrastructure. The Pisces Project (of which ``PyMetric`` is a part)
+and in computational infrastructure. The Pisces Project (of which PyMetric is a part)
 is a general-purpose model-building framework for astrophysics that aims to unify and extend
 existing tools for generating models and initial conditions (e.g., DICE [@perret2016dice], GALIC [@yurin2014galic])
 under a common, modular API.
