@@ -1,6 +1,0 @@
-grids.core.UniformGrid.unit\_system
-===================================
-
-.. currentmodule:: grids.core
-
-.. autoproperty:: UniformGrid.unit_system

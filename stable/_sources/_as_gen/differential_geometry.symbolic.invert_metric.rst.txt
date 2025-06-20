@@ -1,6 +1,0 @@
-differential\_geometry.symbolic.invert\_metric
-==============================================
-
-.. currentmodule:: differential_geometry.symbolic
-
-.. autofunction:: invert_metric

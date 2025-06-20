@@ -1,6 +1,0 @@
-grids.core.GenericGrid.dense\_element\_wise\_laplacian
-======================================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.dense_element_wise_laplacian

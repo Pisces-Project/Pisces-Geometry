@@ -1,6 +1,0 @@
-fields.components.FieldComponent.naxes
-======================================
-
-.. currentmodule:: fields.components
-
-.. autoproperty:: FieldComponent.naxes

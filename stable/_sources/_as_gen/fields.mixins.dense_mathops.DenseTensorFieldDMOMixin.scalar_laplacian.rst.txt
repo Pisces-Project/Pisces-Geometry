@@ -1,6 +1,0 @@
-fields.mixins.dense\_mathops.DenseTensorFieldDMOMixin.scalar\_laplacian
-=======================================================================
-
-.. currentmodule:: fields.mixins.dense_mathops
-
-.. automethod:: DenseTensorFieldDMOMixin.scalar_laplacian

@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.PolarCoordinateSystem.has\_expression
-=====================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: PolarCoordinateSystem.has_expression

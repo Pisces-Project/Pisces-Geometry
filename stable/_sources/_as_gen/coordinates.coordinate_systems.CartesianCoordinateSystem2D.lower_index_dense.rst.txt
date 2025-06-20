@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.CartesianCoordinateSystem2D.lower\_index\_dense
-===============================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: CartesianCoordinateSystem2D.lower_index_dense

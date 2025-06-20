@@ -1,6 +1,0 @@
-fields.buffers.core.UnytArrayBuffer.from\_array
-===============================================
-
-.. currentmodule:: fields.buffers.core
-
-.. automethod:: UnytArrayBuffer.from_array

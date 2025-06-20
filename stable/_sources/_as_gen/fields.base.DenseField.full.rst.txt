@@ -1,6 +1,0 @@
-fields.base.DenseField.full
-===========================
-
-.. currentmodule:: fields.base
-
-.. automethod:: DenseField.full

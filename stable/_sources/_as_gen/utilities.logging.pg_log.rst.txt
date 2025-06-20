@@ -1,6 +1,0 @@
-utilities.logging.pg\_log
-=========================
-
-.. currentmodule:: utilities.logging
-
-.. autodata:: pg_log

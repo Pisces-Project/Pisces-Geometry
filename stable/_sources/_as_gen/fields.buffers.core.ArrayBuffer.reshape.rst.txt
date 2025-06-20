@@ -1,6 +1,0 @@
-fields.buffers.core.ArrayBuffer.reshape
-=======================================
-
-.. currentmodule:: fields.buffers.core
-
-.. automethod:: ArrayBuffer.reshape

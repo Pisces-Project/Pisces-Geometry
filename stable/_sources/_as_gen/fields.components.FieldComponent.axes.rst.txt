@@ -1,6 +1,0 @@
-fields.components.FieldComponent.axes
-=====================================
-
-.. currentmodule:: fields.components
-
-.. autoproperty:: FieldComponent.axes

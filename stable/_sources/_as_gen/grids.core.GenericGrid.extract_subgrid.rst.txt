@@ -1,6 +1,0 @@
-grids.core.GenericGrid.extract\_subgrid
-=======================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.extract_subgrid

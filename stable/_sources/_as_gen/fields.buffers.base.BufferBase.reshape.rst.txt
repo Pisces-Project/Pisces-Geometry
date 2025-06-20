@@ -1,6 +1,0 @@
-fields.buffers.base.BufferBase.reshape
-======================================
-
-.. currentmodule:: fields.buffers.base
-
-.. automethod:: BufferBase.reshape

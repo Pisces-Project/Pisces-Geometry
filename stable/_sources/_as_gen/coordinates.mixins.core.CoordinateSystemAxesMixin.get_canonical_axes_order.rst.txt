@@ -1,6 +1,0 @@
-coordinates.mixins.core.CoordinateSystemAxesMixin.get\_canonical\_axes\_order
-=============================================================================
-
-.. currentmodule:: coordinates.mixins.core
-
-.. automethod:: CoordinateSystemAxesMixin.get_canonical_axes_order

@@ -1,6 +1,0 @@
-fields.base.DenseField.determine\_op\_dependence
-================================================
-
-.. currentmodule:: fields.base
-
-.. automethod:: DenseField.determine_op_dependence

@@ -1,6 +1,0 @@
-fields.buffers.core.UnytArrayBuffer.full
-========================================
-
-.. currentmodule:: fields.buffers.core
-
-.. automethod:: UnytArrayBuffer.full

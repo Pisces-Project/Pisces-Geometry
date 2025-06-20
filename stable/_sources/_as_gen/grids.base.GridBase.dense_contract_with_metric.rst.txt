@@ -1,6 +1,0 @@
-grids.base.GridBase.dense\_contract\_with\_metric
-=================================================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.dense_contract_with_metric

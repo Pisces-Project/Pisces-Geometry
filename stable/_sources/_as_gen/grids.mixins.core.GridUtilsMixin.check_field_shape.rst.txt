@@ -1,6 +1,0 @@
-grids.mixins.core.GridUtilsMixin.check\_field\_shape
-====================================================
-
-.. currentmodule:: grids.mixins.core
-
-.. automethod:: GridUtilsMixin.check_field_shape

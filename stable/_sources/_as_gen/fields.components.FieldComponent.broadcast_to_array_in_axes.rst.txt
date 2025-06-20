@@ -1,6 +1,0 @@
-fields.components.FieldComponent.broadcast\_to\_array\_in\_axes
-===============================================================
-
-.. currentmodule:: fields.components
-
-.. automethod:: FieldComponent.broadcast_to_array_in_axes

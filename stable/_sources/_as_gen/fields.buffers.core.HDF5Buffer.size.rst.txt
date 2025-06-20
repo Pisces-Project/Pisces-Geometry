@@ -1,6 +1,0 @@
-fields.buffers.core.HDF5Buffer.size
-===================================
-
-.. currentmodule:: fields.buffers.core
-
-.. autoproperty:: HDF5Buffer.size

@@ -1,6 +1,0 @@
-fields.components.FieldComponent.broadcast\_buffer\_to\_axes
-============================================================
-
-.. currentmodule:: fields.components
-
-.. automethod:: FieldComponent.broadcast_buffer_to_axes

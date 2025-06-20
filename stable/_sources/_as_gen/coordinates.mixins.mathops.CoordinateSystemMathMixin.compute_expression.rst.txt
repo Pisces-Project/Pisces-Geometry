@@ -1,6 +1,0 @@
-coordinates.mixins.mathops.CoordinateSystemMathMixin.compute\_expression
-========================================================================
-
-.. currentmodule:: coordinates.mixins.mathops
-
-.. automethod:: CoordinateSystemMathMixin.compute_expression

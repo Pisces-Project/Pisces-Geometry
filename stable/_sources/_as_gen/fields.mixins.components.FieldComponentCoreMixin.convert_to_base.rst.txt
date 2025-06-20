@@ -1,6 +1,0 @@
-fields.mixins.components.FieldComponentCoreMixin.convert\_to\_base
-==================================================================
-
-.. currentmodule:: fields.mixins.components
-
-.. automethod:: FieldComponentCoreMixin.convert_to_base

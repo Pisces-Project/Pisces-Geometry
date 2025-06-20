@@ -1,6 +1,0 @@
-grids.core.GenericGrid.determine\_domain\_shape
-===============================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.determine_domain_shape

@@ -1,6 +1,0 @@
-grids.core.UniformGrid.ndim
-===========================
-
-.. currentmodule:: grids.core
-
-.. autoproperty:: UniformGrid.ndim

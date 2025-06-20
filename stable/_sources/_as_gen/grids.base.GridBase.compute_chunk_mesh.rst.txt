@@ -1,6 +1,0 @@
-grids.base.GridBase.compute\_chunk\_mesh
-========================================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.compute_chunk_mesh

@@ -1,6 +1,0 @@
-coordinates.core.CurvilinearCoordinateSystem.has\_class\_expression
-===================================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: CurvilinearCoordinateSystem.has_class_expression

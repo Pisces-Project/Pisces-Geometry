@@ -1,6 +1,0 @@
-fields.buffers.core.ArrayBuffer.broadcast\_to
-=============================================
-
-.. currentmodule:: fields.buffers.core
-
-.. automethod:: ArrayBuffer.broadcast_to

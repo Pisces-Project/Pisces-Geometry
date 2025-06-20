@@ -1,6 +1,0 @@
-grids.mixins.core.GridUtilsMixin.standardize\_axes
-==================================================
-
-.. currentmodule:: grids.mixins.core
-
-.. automethod:: GridUtilsMixin.standardize_axes

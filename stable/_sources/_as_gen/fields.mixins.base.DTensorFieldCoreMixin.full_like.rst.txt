@@ -1,6 +1,0 @@
-fields.mixins.base.DTensorFieldCoreMixin.full\_like
-===================================================
-
-.. currentmodule:: fields.mixins.base
-
-.. automethod:: DTensorFieldCoreMixin.full_like

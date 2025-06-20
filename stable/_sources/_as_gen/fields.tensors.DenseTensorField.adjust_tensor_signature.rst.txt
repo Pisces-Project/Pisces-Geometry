@@ -1,6 +1,0 @@
-fields.tensors.DenseTensorField.adjust\_tensor\_signature
-=========================================================
-
-.. currentmodule:: fields.tensors
-
-.. automethod:: DenseTensorField.adjust_tensor_signature

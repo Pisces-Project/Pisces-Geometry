@@ -1,6 +1,0 @@
-grids.mixins.chunking.GridChunkingMixin.get\_chunk\_bbox
-========================================================
-
-.. currentmodule:: grids.mixins.chunking
-
-.. automethod:: GridChunkingMixin.get_chunk_bbox

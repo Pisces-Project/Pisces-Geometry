@@ -1,6 +1,0 @@
-grids.base.GridBase.get\_chunk\_shape
-=====================================
-
-.. currentmodule:: grids.base
-
-.. automethod:: GridBase.get_chunk_shape

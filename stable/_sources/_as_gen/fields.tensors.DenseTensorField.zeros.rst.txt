@@ -1,6 +1,0 @@
-fields.tensors.DenseTensorField.zeros
-=====================================
-
-.. currentmodule:: fields.tensors
-
-.. automethod:: DenseTensorField.zeros

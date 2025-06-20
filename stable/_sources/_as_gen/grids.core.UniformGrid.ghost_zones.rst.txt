@@ -1,6 +1,0 @@
-grids.core.UniformGrid.ghost\_zones
-===================================
-
-.. currentmodule:: grids.core
-
-.. autoproperty:: UniformGrid.ghost_zones

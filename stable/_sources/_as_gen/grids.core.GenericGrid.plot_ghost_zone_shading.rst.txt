@@ -1,6 +1,0 @@
-grids.core.GenericGrid.plot\_ghost\_zone\_shading
-=================================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: GenericGrid.plot_ghost_zone_shading

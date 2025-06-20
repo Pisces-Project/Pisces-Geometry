@@ -1,6 +1,0 @@
-fields.base.DenseField.components
-=================================
-
-.. currentmodule:: fields.base
-
-.. autoproperty:: DenseField.components

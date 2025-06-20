@@ -1,6 +1,0 @@
-fields.buffers.core.ArrayBuffer.convert\_to\_base
-=================================================
-
-.. currentmodule:: fields.buffers.core
-
-.. automethod:: ArrayBuffer.convert_to_base

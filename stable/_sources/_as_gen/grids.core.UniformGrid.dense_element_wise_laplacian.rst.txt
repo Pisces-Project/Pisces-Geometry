@@ -1,6 +1,0 @@
-grids.core.UniformGrid.dense\_element\_wise\_laplacian
-======================================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: UniformGrid.dense_element_wise_laplacian

@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.CartesianCoordinateSystem2D.metric\_tensor
-==========================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. autoproperty:: CartesianCoordinateSystem2D.metric_tensor

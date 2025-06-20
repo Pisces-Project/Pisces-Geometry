@@ -1,6 +1,0 @@
-coordinates.core.OrthogonalCoordinateSystem.get\_numeric\_expression
-====================================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: OrthogonalCoordinateSystem.get_numeric_expression

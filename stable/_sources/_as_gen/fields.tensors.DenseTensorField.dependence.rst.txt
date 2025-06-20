@@ -1,6 +1,0 @@
-fields.tensors.DenseTensorField.dependence
-==========================================
-
-.. currentmodule:: fields.tensors
-
-.. autoproperty:: DenseTensorField.dependence

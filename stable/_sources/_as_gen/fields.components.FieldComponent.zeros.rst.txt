@@ -1,6 +1,0 @@
-fields.components.FieldComponent.zeros
-======================================
-
-.. currentmodule:: fields.components
-
-.. automethod:: FieldComponent.zeros

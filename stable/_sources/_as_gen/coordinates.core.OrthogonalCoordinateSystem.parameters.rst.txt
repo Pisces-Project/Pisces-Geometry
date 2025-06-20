@@ -1,6 +1,0 @@
-coordinates.core.OrthogonalCoordinateSystem.parameters
-======================================================
-
-.. currentmodule:: coordinates.core
-
-.. autoproperty:: OrthogonalCoordinateSystem.parameters

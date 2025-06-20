@@ -1,6 +1,0 @@
-coordinates.coordinate\_systems.ConicCoordinateSystem.get\_indices\_from\_mask
-==============================================================================
-
-.. currentmodule:: coordinates.coordinate_systems
-
-.. automethod:: ConicCoordinateSystem.get_indices_from_mask

@@ -1,6 +1,0 @@
-fields.base.DenseField.element\_wise\_laplacian
-===============================================
-
-.. currentmodule:: fields.base
-
-.. automethod:: DenseField.element_wise_laplacian

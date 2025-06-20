@@ -1,6 +1,0 @@
-coordinates.core.OrthogonalCoordinateSystem.requires\_expression
-================================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: OrthogonalCoordinateSystem.requires_expression

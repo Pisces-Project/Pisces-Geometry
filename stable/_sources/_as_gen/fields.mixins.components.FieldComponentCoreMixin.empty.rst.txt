@@ -1,6 +1,0 @@
-fields.mixins.components.FieldComponentCoreMixin.empty
-======================================================
-
-.. currentmodule:: fields.mixins.components
-
-.. automethod:: FieldComponentCoreMixin.empty

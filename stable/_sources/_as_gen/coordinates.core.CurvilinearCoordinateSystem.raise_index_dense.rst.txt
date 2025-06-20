@@ -1,6 +1,0 @@
-coordinates.core.CurvilinearCoordinateSystem.raise\_index\_dense
-================================================================
-
-.. currentmodule:: coordinates.core
-
-.. automethod:: CurvilinearCoordinateSystem.raise_index_dense

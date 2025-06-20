@@ -1,6 +1,0 @@
-fields.components.FieldComponent.shape
-======================================
-
-.. currentmodule:: fields.components
-
-.. autoproperty:: FieldComponent.shape

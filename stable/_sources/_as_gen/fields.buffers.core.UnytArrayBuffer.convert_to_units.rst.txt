@@ -1,6 +1,0 @@
-fields.buffers.core.UnytArrayBuffer.convert\_to\_units
-======================================================
-
-.. currentmodule:: fields.buffers.core
-
-.. automethod:: UnytArrayBuffer.convert_to_units

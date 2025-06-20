@@ -1,6 +1,0 @@
-fields.base.DenseField.coordinate\_system
-=========================================
-
-.. currentmodule:: fields.base
-
-.. autoproperty:: DenseField.coordinate_system

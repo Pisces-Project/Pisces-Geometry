@@ -1,6 +1,0 @@
-grids.core.UniformGrid.dense\_contravariant\_gradient
-=====================================================
-
-.. currentmodule:: grids.core
-
-.. automethod:: UniformGrid.dense_contravariant_gradient

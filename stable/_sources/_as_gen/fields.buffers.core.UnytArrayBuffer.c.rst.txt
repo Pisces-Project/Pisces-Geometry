@@ -1,6 +1,0 @@
-fields.buffers.core.UnytArrayBuffer.c
-=====================================
-
-.. currentmodule:: fields.buffers.core
-
-.. autoproperty:: UnytArrayBuffer.c
