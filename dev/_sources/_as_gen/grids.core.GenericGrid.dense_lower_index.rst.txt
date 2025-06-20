@@ -1,0 +1,6 @@
+grids.core.GenericGrid.dense\_lower\_index
+==========================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: GenericGrid.dense_lower_index

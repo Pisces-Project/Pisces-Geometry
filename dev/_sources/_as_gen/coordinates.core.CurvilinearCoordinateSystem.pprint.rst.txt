@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.pprint
+===================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: CurvilinearCoordinateSystem.pprint

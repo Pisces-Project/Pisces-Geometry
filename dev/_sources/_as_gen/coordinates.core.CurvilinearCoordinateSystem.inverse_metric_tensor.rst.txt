@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.inverse\_metric\_tensor
+====================================================================
+
+.. currentmodule:: coordinates.core
+
+.. autoproperty:: CurvilinearCoordinateSystem.inverse_metric_tensor

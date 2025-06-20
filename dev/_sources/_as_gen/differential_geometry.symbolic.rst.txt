@@ -1,0 +1,44 @@
+differential_geometry.symbolic
+==============================
+
+.. automodule:: differential_geometry.symbolic
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+
+   
+      adjust_tensor_signature
+      compute_Dterm
+      compute_Lterm
+      compute_divergence
+      compute_gradient
+      compute_laplacian
+      compute_metric_density
+      compute_tensor_gradient
+      compute_tensor_laplacian
+      invert_metric
+      lower_index
+      raise_index
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   

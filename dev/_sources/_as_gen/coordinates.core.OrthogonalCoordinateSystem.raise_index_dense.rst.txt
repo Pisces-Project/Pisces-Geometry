@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.raise\_index\_dense
+===============================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.raise_index_dense

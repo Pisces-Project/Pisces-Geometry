@@ -1,0 +1,83 @@
+
+
+.. _sphx_glr_auto_examples_b_grids:
+
+:orphan:
+
+Core Modules: Grids
+===================
+
+This gallery highlights examples built around the :mod:`grids` module, which provides the structured backbone
+for numerical field representation and finite-difference computation in PyMetric.
+
+The :mod:`grids` module offers a powerful API for constructing regular, scaled, and fully generic
+structured grids—each integrated with coordinate system metadata and axis-aware utilities.
+These examples demonstrate how to:
+
+- Create uniform and non-uniform spatial grids tied to coordinate systems,
+- Extract coordinate arrays and physical units,
+- Use ghost zones, chunking, and broadcasting,
+- Apply field operations like partial derivatives and interpolation.
+
+Whether you're building a finite-difference solver or managing multi-axis tensor data,
+these examples provide practical insight into leveraging PyMetric’s spatial grid machinery.
+
+.. hint::
+
+    For detailed user documentation, see :ref:`grids`.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Compute gradients in a Cartesian coordinate system on a non-uniform grid with higher resolution near the origin.">
+
+.. only:: html
+
+  .. image:: /auto_examples/b_grids/images/thumb/sphx_glr_plot_nonuniform_grid_grad_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_b_grids_plot_nonuniform_grid_grad.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Cartesian Gradient (Non-Uniform)</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Compute the Laplacian of a field using the grid interface.">
+
+.. only:: html
+
+  .. image:: /auto_examples/b_grids/images/thumb/sphx_glr_plot_grid_laplacian_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_b_grids_plot_grid_laplacian.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Grid Laplacian</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/b_grids/plot_nonuniform_grid_grad
+   /auto_examples/b_grids/plot_grid_laplacian
+

@@ -1,0 +1,6 @@
+grids.core.UniformGrid.compute\_chunk\_mesh
+===========================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: UniformGrid.compute_chunk_mesh

@@ -1,0 +1,6 @@
+fields.buffers.core.HDF5Buffer.shape
+====================================
+
+.. currentmodule:: fields.buffers.core
+
+.. autoproperty:: HDF5Buffer.shape

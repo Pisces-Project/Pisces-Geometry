@@ -1,0 +1,6 @@
+differential\_geometry.general\_ops.dense\_element\_wise\_partial\_derivatives
+==============================================================================
+
+.. currentmodule:: differential_geometry.general_ops
+
+.. autofunction:: dense_element_wise_partial_derivatives

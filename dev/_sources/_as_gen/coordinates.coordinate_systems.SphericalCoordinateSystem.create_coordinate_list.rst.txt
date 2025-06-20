@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.SphericalCoordinateSystem.create\_coordinate\_list
+==================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: SphericalCoordinateSystem.create_coordinate_list

@@ -1,0 +1,6 @@
+grids.base.GridBase.axes\_units
+===============================
+
+.. currentmodule:: grids.base
+
+.. autoproperty:: GridBase.axes_units

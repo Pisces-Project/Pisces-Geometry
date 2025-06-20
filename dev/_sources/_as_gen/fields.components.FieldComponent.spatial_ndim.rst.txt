@@ -1,0 +1,6 @@
+fields.components.FieldComponent.spatial\_ndim
+==============================================
+
+.. currentmodule:: fields.components
+
+.. autoproperty:: FieldComponent.spatial_ndim

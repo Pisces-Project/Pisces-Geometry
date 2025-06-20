@@ -1,0 +1,6 @@
+fields.mixins.dense\_mathops.DenseTensorFieldDMOMixin.vector\_divergence
+========================================================================
+
+.. currentmodule:: fields.mixins.dense_mathops
+
+.. automethod:: DenseTensorFieldDMOMixin.vector_divergence

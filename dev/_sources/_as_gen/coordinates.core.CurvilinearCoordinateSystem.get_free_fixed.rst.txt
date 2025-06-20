@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.get\_free\_fixed
+=============================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: CurvilinearCoordinateSystem.get_free_fixed

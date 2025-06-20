@@ -1,0 +1,6 @@
+fields.buffers.core.ArrayBuffer.empty\_like
+===========================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: ArrayBuffer.empty_like

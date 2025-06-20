@@ -1,0 +1,6 @@
+fields.mixins.base.DTensorFieldCoreMixin.zeros\_like
+====================================================
+
+.. currentmodule:: fields.mixins.base
+
+.. automethod:: DTensorFieldCoreMixin.zeros_like

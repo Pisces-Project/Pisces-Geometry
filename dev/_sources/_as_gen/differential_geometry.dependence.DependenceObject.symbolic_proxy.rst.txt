@@ -1,0 +1,6 @@
+differential\_geometry.dependence.DependenceObject.symbolic\_proxy
+==================================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. autoproperty:: DependenceObject.symbolic_proxy

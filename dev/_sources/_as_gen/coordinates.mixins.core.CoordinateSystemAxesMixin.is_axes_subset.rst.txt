@@ -1,0 +1,6 @@
+coordinates.mixins.core.CoordinateSystemAxesMixin.is\_axes\_subset
+==================================================================
+
+.. currentmodule:: coordinates.mixins.core
+
+.. automethod:: CoordinateSystemAxesMixin.is_axes_subset

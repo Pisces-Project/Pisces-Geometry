@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.\_\_init\_\_
+==================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: PolarCoordinateSystem.__init__

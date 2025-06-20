@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.resolve\_axes
+===================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: PolarCoordinateSystem.resolve_axes

@@ -1,0 +1,1276 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Geometric Grids: General Info &#8212; PyMetric  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/grids/overview';</script>
+    <link rel="icon" href="../../_static/pm_favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Geometric Grids: Custom Grid Classes" href="build_custom_grids.html" />
+    <link rel="prev" title="Coordinate Systems: Building Custom Coordinate Systems" href="../coordinates/building_coordinate_systems.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">PyMetric  documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_quickstart/index.html">
+    PyMetric Quickstart Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    PyMetric User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api_base.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_quickstart/index.html">
+    PyMetric Quickstart Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    PyMetric User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api_base.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../theory/coordinate_theory.html">Curvilinear Coordinate Systems</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../coordinates/overview.html">Coordinate Systems: General Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coordinates/building_coordinate_systems.html">Coordinate Systems: Building Custom Coordinate Systems</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Geometric Grids: General Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build_custom_grids.html">Geometric Grids: Custom Grid Classes</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fields/overview.html">Fields: Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fields/numpy.html">Fields: NumPy Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fields/buffers.html">Fields: Data Buffers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fields/components.html">Fields: Field Components</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../differential_geometry/overview.html">Differential Geometry: Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential_geometry/dependence.html">Symbolic Tensor Dependence API</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../coordinates/dev.html">Coordinate Systems: Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Geometric Grids: Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fields/dev.html">Fields: Developers</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">PyMetric User Guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Geometric Grids: General Info</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="geometric-grids-general-info">
+<span id="grids"></span><h1>Geometric Grids: General Info<a class="headerlink" href="#geometric-grids-general-info" title="Link to this heading">#</a></h1>
+<p>Geometric grids in PyMetric form the spatial backbone for all data fields and computations. A grid is a combination
+of a <strong>generic grid structure</strong> and a <strong>coordinate system</strong> (<a class="reference internal" href="../../_as_gen/coordinates.html#module-coordinates" title="coordinates"><code class="xref py py-mod docutils literal notranslate"><span class="pre">coordinates</span></code></a>). This design allows users to precisely map data to physical
+space, manage boundary conditions with ghost zones, and leverage efficient chunked operations on large domains.</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#overview" id="id1">Overview</a></p>
+<ul>
+<li><p><a class="reference internal" href="#types-of-grids" id="id2">Types of Grids</a></p></li>
+<li><p><a class="reference internal" href="#properties-of-fields" id="id3">Properties of Fields</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#constructing-grids" id="id4">Constructing Grids</a></p>
+<ul>
+<li><p><a class="reference internal" href="#basic-construction" id="id5">Basic Construction</a></p></li>
+<li><p><a class="reference internal" href="#setting-up-chunking" id="id6">Setting up Chunking</a></p></li>
+<li><p><a class="reference internal" href="#cell-centered-vs-vertex-centered-grids" id="id7">Cell Centered vs. Vertex Centered Grids</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#using-pymetric-grids" id="id8">Using PyMetric Grids</a></p>
+<ul>
+<li><p><a class="reference internal" href="#extracting-coordinates" id="id9">Extracting Coordinates</a></p></li>
+<li><p><a class="reference internal" href="#performing-operations-on-coordinates" id="id10">Performing Operations On Coordinates</a></p></li>
+<li><p><a class="reference internal" href="#differential-geometry" id="id11">Differential Geometry</a></p></li>
+<li><p><a class="reference internal" href="#interpolation" id="id12">Interpolation</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#units-and-unit-systems" id="id13">Units and Unit Systems</a></p>
+<ul>
+<li><p><a class="reference internal" href="#why-this-matters" id="id14">Why This Matters</a></p></li>
+<li><p><a class="reference internal" href="#accessing-units" id="id15">Accessing Units</a></p></li>
+<li><p><a class="reference internal" href="#setting-units" id="id16">Setting Units</a></p></li>
+<li><p><a class="reference internal" href="#best-practices" id="id17">Best Practices</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="overview">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">Overview</a><a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>The <a class="reference internal" href="../../_as_gen/grids.html#module-grids" title="grids"><code class="xref py py-mod docutils literal notranslate"><span class="pre">grids</span></code></a> module provides the spatial infrastructure for all field-based computations
+in PyMetric. Grids define how a physical domain is discretized into a structured layout of
+points or cells and enable consistent mappings between coordinate systems,
+numerical data, and differential operations.</p>
+<p>At its core, a grid consists of two key components:</p>
+<ol class="arabic simple">
+<li><p>A grid structure (e.g., <a class="reference internal" href="../../_as_gen/grids.core.UniformGrid.html#grids.core.UniformGrid" title="grids.core.UniformGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">UniformGrid</span></code></a>, <a class="reference internal" href="../../_as_gen/grids.core.GenericGrid.html#grids.core.GenericGrid" title="grids.core.GenericGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericGrid</span></code></a>) that
+determines how grid points are arranged and accessed.</p></li>
+<li><p>A coordinate system (see <a class="reference internal" href="../../_as_gen/coordinates.html#module-coordinates" title="coordinates"><code class="xref py py-mod docutils literal notranslate"><span class="pre">coordinates</span></code></a>) that maps grid indices to physical
+space and provides metric-aware geometry for differential operations.</p></li>
+</ol>
+<p>This separation of concerns enables highly flexible and extensible representations of space,
+from simple Cartesian domains to complex curvilinear coordinates or non-uniform meshes.
+Regardless of grid type, PyMetric provides a unified interface for spatial indexing,
+coordinate retrieval, chunked operations, and grid-aware interpolation.</p>
+<p>All grid types inherit from the abstract <a class="reference internal" href="../../_as_gen/grids.base.GridBase.html#grids.base.GridBase" title="grids.base.GridBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridBase</span></code></a>,
+which defines the standard API for all grid operations. This ensures that your code can
+remain backend-agnostic while still taking full advantage of specialized behaviors from subclasses.</p>
+<section id="types-of-grids">
+<h3><a class="toc-backref" href="#id2" role="doc-backlink">Types of Grids</a><a class="headerlink" href="#types-of-grids" title="Link to this heading">#</a></h3>
+<p>PyMetric supports multiple grid classes that implement the same abstract
+interface (<a class="reference internal" href="../../_as_gen/grids.base.GridBase.html#grids.base.GridBase" title="grids.base.GridBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridBase</span></code></a>) but differ in how they discretize
+space. The two primary grid types currently available are:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../_as_gen/grids.core.GenericGrid.html#grids.core.GenericGrid" title="grids.core.GenericGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericGrid</span></code></a> — supports arbitrarily spaced coordinates (non-uniform grids).</p></li>
+<li><p><a class="reference internal" href="../../_as_gen/grids.core.UniformGrid.html#grids.core.UniformGrid" title="grids.core.UniformGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">UniformGrid</span></code></a> — optimized for domains with regularly spaced grid points.</p></li>
+</ul>
+<p>Each is suited to different application needs, and their underlying data
+representations reflect trade-offs between flexibility and efficiency.</p>
+<p class="rubric"><a class="reference internal" href="../../_as_gen/grids.core.GenericGrid.html#grids.core.GenericGrid" title="grids.core.GenericGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericGrid</span></code></a></p>
+<p>The <a class="reference internal" href="../../_as_gen/grids.core.GenericGrid.html#grids.core.GenericGrid" title="grids.core.GenericGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericGrid</span></code></a> is the most flexible grid structure
+in PyMetric. It allows you to define each axis by providing a 1D
+NumPy array of monotonically increasing coordinates. This makes it well-suited for:</p>
+<ul class="simple">
+<li><p>Grids with <strong>non-uniform resolution</strong>, such as stretched meshes or log-scaled axes.</p></li>
+<li><p>Domains with <strong>arbitrary point placement</strong>, such as observational grids or outputs from external simulations.</p></li>
+<li><p>Any scenario where grid control or fidelity is more important than performance or simplicity.</p></li>
+</ul>
+<p>Internally, a <a class="reference internal" href="../../_as_gen/grids.core.GenericGrid.html#grids.core.GenericGrid" title="grids.core.GenericGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericGrid</span></code></a> stores the full coordinate arrays for each axis.
+This gives the user full control over spatial discretization at the cost of
+slightly higher memory and computational overhead.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you need to represent complex geometries or use
+different resolutions in different parts of the domain, this is the grid to use.</p>
+</div>
+<p class="rubric"><a class="reference internal" href="../../_as_gen/grids.core.UniformGrid.html#grids.core.UniformGrid" title="grids.core.UniformGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">UniformGrid</span></code></a></p>
+<p>The <a class="reference internal" href="../../_as_gen/grids.core.UniformGrid.html#grids.core.UniformGrid" title="grids.core.UniformGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">UniformGrid</span></code></a> is designed for simplicity and performance.
+It represents a regular, Cartesian-like mesh defined by:</p>
+<ul class="simple">
+<li><p>A <strong>bounding box</strong> — specifying the physical limits of the domain.</p></li>
+<li><p>A <strong>domain shape</strong> — the number of points along each axis.</p></li>
+</ul>
+<p>From these two pieces of information, the grid infers coordinate spacing
+and generates points on-the-fly when needed. This design avoids storing
+full coordinate arrays, making <a class="reference internal" href="../../_as_gen/grids.core.UniformGrid.html#grids.core.UniformGrid" title="grids.core.UniformGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">UniformGrid</span></code></a>:</p>
+<ul class="simple">
+<li><p><strong>Very memory efficient</strong>, especially for large domains.</p></li>
+<li><p>Ideal for <strong>stencil-based operations</strong>, finite-difference solvers, and image-like data.</p></li>
+<li><p>Easy to use when a <strong>rectangular, uniformly spaced</strong> domain is sufficient.</p></li>
+</ul>
+<p>If you do not need adaptive resolution or nonuniform axes, <a class="reference internal" href="../../_as_gen/grids.core.UniformGrid.html#grids.core.UniformGrid" title="grids.core.UniformGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">UniformGrid</span></code></a> is typically the best starting point.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Both grid types integrate seamlessly with the field and buffer systems in PyMetric.
+You can switch between grid types as needed depending on the demands of your problem.</p>
+</div>
+</section>
+<section id="properties-of-fields">
+<h3><a class="toc-backref" href="#id3" role="doc-backlink">Properties of Fields</a><a class="headerlink" href="#properties-of-fields" title="Link to this heading">#</a></h3>
+<a class="reference internal image-reference" href="../../_images/grid_structure_diagram.png"><img alt="../../_images/grid_structure_diagram.png" class="align-center" src="../../_images/grid_structure_diagram.png" style="height: 500px;" />
+</a>
+<p>Every grid in PyMetric exposes a consistent set of spatial properties that
+describe its structure, extent, and boundary behavior. These properties are
+critical for understanding how data maps onto the grid and how operations
+like interpolation, differentiation, and boundary handling behave.</p>
+<section id="the-bounding-box-and-domain-dimensions">
+<h4>The Bounding Box and Domain Dimensions<a class="headerlink" href="#the-bounding-box-and-domain-dimensions" title="Link to this heading">#</a></h4>
+<p>The two most critical properties of any grid are its <strong>domain dimensions</strong> and its
+<strong>bounding box</strong>. The <strong>domain dimension</strong> of a grid is the <em>number of cells along each axis</em>
+of the grid. Each grid class implements this as <a class="reference internal" href="../../_as_gen/grids.base.GridBase.dd.html#grids.base.GridBase.dd" title="grids.base.GridBase.dd"><code class="xref py py-attr docutils literal notranslate"><span class="pre">dd</span></code></a>.</p>
+<p>The <strong>bounding box</strong> determines the physical boundary of the grid and is specified by
+the position of the “bottom right” and “top left” corners of the domain. You can
+access the bounding box of a grid using <a class="reference internal" href="../../_as_gen/grids.base.GridBase.bbox.html#grids.base.GridBase.bbox" title="grids.base.GridBase.bbox"><code class="xref py py-attr docutils literal notranslate"><span class="pre">bbox</span></code></a></p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>For a uniform grid, the bounding box and the domain dimension uniquely
+determine the size of each cell.</p>
+</div>
+</section>
+<section id="ghost-regions">
+<h4>Ghost Regions<a class="headerlink" href="#ghost-regions" title="Link to this heading">#</a></h4>
+<p>Ghost regions are auxiliary buffer zones that wrap the physical domain of the grid.
+These zones are used to support numerical operations that require access to neighboring cells, such as:</p>
+<ul class="simple">
+<li><p>Finite difference and finite volume stencils.</p></li>
+<li><p>Boundary condition enforcement.</p></li>
+<li><p>Interpolation and smoothing operations near edges.</p></li>
+</ul>
+<p>In PyMetric, ghost zones are optional and explicitly configurable.
+When enabled, they expand the grid with additional cells on both the
+lower and upper sides of each axis. This creates a distinction between:</p>
+<ul class="simple">
+<li><p>The <strong>active domain</strong>: the region over which computations and physical data are defined.</p></li>
+<li><p>The <strong>global domain</strong>: the active domain plus ghost zones.</p></li>
+</ul>
+<p>Ghost zones are defined via the attribute <a class="reference internal" href="../../_as_gen/grids.base.GridBase.ghost_zones.html#grids.base.GridBase.ghost_zones" title="grids.base.GridBase.ghost_zones"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ghost_zones</span></code></a>,
+which is a <code class="docutils literal notranslate"><span class="pre">(2,</span> <span class="pre">ndim)</span></code> array indicating how many ghost cells to place on each side of each axis.
+The full shape of the grid, including ghosts, is given by <a class="reference internal" href="../../_as_gen/grids.base.GridBase.gdd.html#grids.base.GridBase.gdd" title="grids.base.GridBase.gdd"><code class="xref py py-attr docutils literal notranslate"><span class="pre">gdd</span></code></a> (ghost domain dimensions).
+Likewise, the physical extent including ghosts is described by <a class="reference internal" href="../../_as_gen/grids.base.GridBase.gbbox.html#grids.base.GridBase.gbbox" title="grids.base.GridBase.gbbox"><code class="xref py py-attr docutils literal notranslate"><span class="pre">gbbox</span></code></a> (ghost bbox).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ghost zones do not contribute to the grid’s bounding box <a class="reference internal" href="../../_as_gen/grids.base.GridBase.bbox.html#grids.base.GridBase.bbox" title="grids.base.GridBase.bbox"><code class="xref py py-attr docutils literal notranslate"><span class="pre">bbox</span></code></a>, which remains tied to the physical (active) region.
+The <a class="reference internal" href="../../_as_gen/grids.base.GridBase.bbox.html#grids.base.GridBase.bbox" title="grids.base.GridBase.bbox"><code class="xref py py-attr docutils literal notranslate"><span class="pre">bbox</span></code></a> is <strong>always a subset</strong> of the <a class="reference internal" href="../../_as_gen/grids.base.GridBase.gbbox.html#grids.base.GridBase.gbbox" title="grids.base.GridBase.gbbox"><code class="xref py py-attr docutils literal notranslate"><span class="pre">gbbox</span></code></a>.</p>
+</div>
+<p>How ghost zones are implemented depends on the grid type:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+UniformGrid</label><div class="sd-tab-content docutils">
+<p>For <a class="reference internal" href="../../_as_gen/grids.core.UniformGrid.html#grids.core.UniformGrid" title="grids.core.UniformGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">UniformGrid</span></code></a>, ghost zones are <strong>injected around</strong> the physical domain.
+These ghost cells are positioned consistently with the internal spacing of the grid, extending
+outward beyond the bounding box. This is ideal for regular Cartesian grids used in PDE solvers
+or image processing.</p>
+<ul class="simple">
+<li><p>The spacing and coordinate system are used to assign coordinates to ghost points.</p></li>
+<li><p>Ghost cells lie <em>outside</em> the physical domain in real space.</p></li>
+<li><p>The global domain expands in all directions accordingly.</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">UniformGrid</span><span class="p">(</span><span class="n">csys</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">ghost_zones</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">gdd</span><span class="p">)</span>   <span class="c1"># Includes ghost cells</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">dd</span><span class="p">)</span>    <span class="c1"># Physical domain only</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">gbbox</span><span class="p">)</span> <span class="c1"># Physical bounding box plus ghost extension</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+GenericGrid</label><div class="sd-tab-content docutils">
+<p>For <a class="reference internal" href="../../_as_gen/grids.core.GenericGrid.html#grids.core.GenericGrid" title="grids.core.GenericGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericGrid</span></code></a>, ghost zones are <strong>cut from the user-provided coordinate arrays</strong>.
+In this model, you must supply coordinate arrays that are longer than the intended active domain
+to accommodate the ghost cells explicitly. This is done because a generic grid has no way of “intuiting”
+where to place the ghost cells without explicit instruction.</p>
+<ul class="simple">
+<li><p>The coordinate arrays must contain values for both physical and ghost regions.</p></li>
+<li><p>No extrapolation or spacing assumptions are made — control remains fully with the user.</p></li>
+<li><p>The outer slices of the array are treated as ghost zones, and the core forms the physical domain.</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Suppose x has 10 points: 2 ghost on each end, 6 active</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">GenericGrid</span><span class="p">(</span><span class="n">csys</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">ghost_zones</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">dd</span><span class="p">)</span>    <span class="c1"># 6</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">gdd</span><span class="p">)</span>   <span class="c1"># 10</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="constructing-grids">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Constructing Grids</a><a class="headerlink" href="#constructing-grids" title="Link to this heading">#</a></h2>
+<p>Each subclass of <a class="reference internal" href="../../_as_gen/grids.base.GridBase.html#grids.base.GridBase" title="grids.base.GridBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">grids.base.GridBase</span></code></a> has different syntax for creation, reflecting
+the different behaviors and required information of different grid types. In general, a grid
+requires a <strong>coordinate system</strong> (from <a class="reference internal" href="../../_as_gen/coordinates.html#module-coordinates" title="coordinates"><code class="xref py py-mod docutils literal notranslate"><span class="pre">coordinates</span></code></a>) and then some specification of the grid
+positions in that coordinate system.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>ALL</strong> grids span all of the axes of their coordinate system. In the <a class="reference internal" href="../../_as_gen/fields.html#module-fields" title="fields"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fields</span></code></a> module,
+data can exist along only a particular axis slice of the grid, but the grid itself must provide
+discretization for every dimension.</p>
+</div>
+<section id="basic-construction">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">Basic Construction</a><a class="headerlink" href="#basic-construction" title="Link to this heading">#</a></h3>
+<p>In the tabs below, we’ll explain the convention for creating grids for each of the standard
+grid types:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+UniformGrid</label><div class="sd-tab-content docutils">
+<p>A <a class="reference internal" href="../../_as_gen/grids.core.UniformGrid.html#grids.core.UniformGrid" title="grids.core.UniformGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">UniformGrid</span></code></a> is defined by:</p>
+<ul class="simple">
+<li><p>A coordinate system instance (e.g., Cartesian, Cylindrical)</p></li>
+<li><p>A bounding box (lower and upper physical edges)</p></li>
+<li><p>The number of grid <strong>points</strong> (cells) along each axis</p></li>
+</ul>
+<p>The coordinates are computed <strong>on-the-fly</strong>, and the grid requires only the bounding box and resolution.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.coordinates</span><span class="w"> </span><span class="kn">import</span> <span class="n">CartesianCoordinateSystem2D</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.grids</span><span class="w"> </span><span class="kn">import</span> <span class="n">UniformGrid</span>
+
+<span class="n">csys</span> <span class="o">=</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">()</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]]</span>  <span class="c1"># [lower_bounds, upper_bounds]</span>
+<span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>              <span class="c1"># number of cells per axis</span>
+
+<span class="n">grid</span> <span class="o">=</span> <span class="n">UniformGrid</span><span class="p">(</span>
+    <span class="n">csys</span><span class="p">,</span>
+    <span class="n">bbox</span><span class="p">,</span>
+    <span class="n">shape</span><span class="p">,</span>
+    <span class="n">ghost_zones</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>  <span class="c1"># 2 ghost zones on each side</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ghost zones are <strong>added outside</strong> the physical bounding box for a <code class="xref py py-class docutils literal notranslate"><span class="pre">UniformGrid</span></code>.
+That is, the physical domain remains exactly as specified in <cite>bbox</cite>, and ghost zones expand
+the buffer beyond the domain.</p>
+</div>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+GenericGrid</label><div class="sd-tab-content docutils">
+<p>A <a class="reference internal" href="../../_as_gen/grids.core.GenericGrid.html#grids.core.GenericGrid" title="grids.core.GenericGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericGrid</span></code></a> is defined by:</p>
+<ul class="simple">
+<li><p>A coordinate system</p></li>
+<li><p>Explicit coordinate <strong>arrays</strong> (1D arrays per axis)</p></li>
+</ul>
+<p>These arrays represent either the <strong>cell centers</strong> or <strong>grid vertices</strong>, depending on the <cite>center</cite> argument.
+If <cite>center=’vertex’</cite>, no bounding box is needed. If <cite>center=’cell’</cite>, the <cite>bbox</cite> must be provided to define the edges.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.coordinates</span><span class="w"> </span><span class="kn">import</span> <span class="n">CartesianCoordinateSystem2D</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.grids</span><span class="w"> </span><span class="kn">import</span> <span class="n">GenericGrid</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">csys</span> <span class="o">=</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+
+<span class="n">grid</span> <span class="o">=</span> <span class="n">GenericGrid</span><span class="p">(</span>
+    <span class="n">csys</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span>
+    <span class="n">center</span><span class="o">=</span><span class="s1">&#39;cell&#39;</span><span class="p">,</span>
+    <span class="n">bbox</span><span class="o">=</span><span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]],</span>
+    <span class="n">ghost_zones</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For <a class="reference internal" href="../../_as_gen/grids.core.GenericGrid.html#grids.core.GenericGrid" title="grids.core.GenericGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericGrid</span></code></a>, ghost zones are <strong>cut from within</strong> the provided coordinate arrays.
+The bounding box of the physical domain is <strong>shrunk inward</strong>, and the coordinate values at the edges
+are interpreted as the full ghost-inclusive domain.</p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>If your coordinates represent <strong>vertex points</strong>, set <code class="docutils literal notranslate"><span class="pre">center='vertex'</span></code> and omit the bounding box.
+The grid will automatically derive the physical domain by slicing off ghost zones at the edges.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="setting-up-chunking">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Setting up Chunking</a><a class="headerlink" href="#setting-up-chunking" title="Link to this heading">#</a></h3>
+<p>Chunking is an optional feature that divides the grid into regularly sized subdomains, or “chunks”.
+This is useful for:</p>
+<ul class="simple">
+<li><p>Memory-efficient block processing</p></li>
+<li><p>Parallelization across chunks</p></li>
+<li><p>Defining update stencils and halo operations in localized regions</p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Chunking is always based on the <strong>active domain</strong> (excluding ghost zones). Each chunk
+must evenly divide the number of <strong>active grid cells</strong> along each axis.</p>
+</div>
+<p>To enable chunking, specify the <code class="docutils literal notranslate"><span class="pre">chunk_size</span></code> keyword when constructing the grid:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.coordinates</span><span class="w"> </span><span class="kn">import</span> <span class="n">CartesianCoordinateSystem2D</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.grids</span><span class="w"> </span><span class="kn">import</span> <span class="n">UniformGrid</span>
+
+<span class="n">csys</span> <span class="o">=</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">()</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>  <span class="c1"># active grid shape (no ghosts)</span>
+
+<span class="n">grid</span> <span class="o">=</span> <span class="n">UniformGrid</span><span class="p">(</span>
+    <span class="n">csys</span><span class="p">,</span>
+    <span class="n">bbox</span><span class="p">,</span>
+    <span class="n">shape</span><span class="p">,</span>
+    <span class="n">chunk_size</span><span class="o">=</span><span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span>        <span class="c1"># splits into 4x4 chunks</span>
+    <span class="n">ghost_zones</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Chunking does <strong>not</strong> affect the physical layout or coordinate values. It only partitions
+the grid into internal subregions for computational and data management purposes.</p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>You can inspect chunking-related attributes using:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../_as_gen/grids.base.GridBase.chunking.html#grids.base.GridBase.chunking" title="grids.base.GridBase.chunking"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chunking</span></code></a> → <cite>True</cite> or <cite>False</cite></p></li>
+<li><p><a class="reference internal" href="../../_as_gen/grids.base.GridBase.chunk_size.html#grids.base.GridBase.chunk_size" title="grids.base.GridBase.chunk_size"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chunk_size</span></code></a> → shape of each chunk (e.g., <cite>[25, 25]</cite>)</p></li>
+<li><p><a class="reference internal" href="../../_as_gen/grids.base.GridBase.cdd.html#grids.base.GridBase.cdd" title="grids.base.GridBase.cdd"><code class="xref py py-attr docutils literal notranslate"><span class="pre">cdd</span></code></a> → number of chunks per axis (chunk domain dimensions)</p></li>
+</ul>
+</div>
+</section>
+<section id="cell-centered-vs-vertex-centered-grids">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Cell Centered vs. Vertex Centered Grids</a><a class="headerlink" href="#cell-centered-vs-vertex-centered-grids" title="Link to this heading">#</a></h3>
+<p>All grids in PyMetric may be constructed in one of two centering modes:</p>
+<ul class="simple">
+<li><p><strong>Cell-Centered</strong> (<cite>center=’cell’</cite>):</p>
+<ul>
+<li><p>Coordinates represent the center of each computational cell.</p></li>
+<li><p>The number of coordinates equals the number of <em>cells</em>.</p></li>
+<li><p>Requires a bounding box (<cite>bbox</cite>) to define the outer physical edges.</p></li>
+<li><p>Common in finite-volume or control-volume methods.</p></li>
+</ul>
+</li>
+<li><p><strong>Vertex-Centered</strong> (<cite>center=’vertex’</cite>):</p>
+<ul>
+<li><p>Coordinates represent the edges or vertices between cells.</p></li>
+<li><p>The number of coordinates is one more than the number of cells.</p></li>
+<li><p>No bounding box is required; it is inferred from the vertex values.</p></li>
+<li><p>Useful for spectral, finite-difference, or interpolation-heavy use cases.</p></li>
+</ul>
+</li>
+</ul>
+<p>You select the centering mode at construction using the <code class="docutils literal notranslate"><span class="pre">center=</span></code> keyword (default is <cite>‘vertex’</cite>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">GenericGrid</span><span class="p">(</span>
+    <span class="n">csys</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span>
+    <span class="n">center</span><span class="o">=</span><span class="s1">&#39;vertex&#39;</span><span class="p">,</span>   <span class="c1"># or &#39;cell&#39;</span>
+    <span class="n">ghost_zones</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>The attribute <a class="reference internal" href="../../_as_gen/grids.base.GridBase.centering.html#grids.base.GridBase.centering" title="grids.base.GridBase.centering"><code class="xref py py-meth docutils literal notranslate"><span class="pre">centering()</span></code></a> reflects whether the grid is cell- or vertex-centered.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>The grid shape reported by <a class="reference internal" href="../../_as_gen/grids.base.GridBase.dd.html#grids.base.GridBase.dd" title="grids.base.GridBase.dd"><code class="xref py py-meth docutils literal notranslate"><span class="pre">dd()</span></code></a> refers to the number of <strong>active cells</strong>, regardless of centering.</p></li>
+<li><p>In vertex-centered grids, the coordinate arrays will have length <code class="docutils literal notranslate"><span class="pre">dd</span> <span class="pre">+</span> <span class="pre">1</span></code>.</p></li>
+<li><p>In cell-centered grids, the coordinate arrays will match <a class="reference internal" href="../../_as_gen/grids.base.GridBase.dd.html#grids.base.GridBase.dd" title="grids.base.GridBase.dd"><code class="xref py py-meth docutils literal notranslate"><span class="pre">dd()</span></code></a>.</p></li>
+</ul>
+</div>
+<p>Understanding the centering convention is critical for aligning data, especially when computing
+differential operators or interpolating between grid-based quantities.</p>
+</section>
+</section>
+<section id="using-pymetric-grids">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Using PyMetric Grids</a><a class="headerlink" href="#using-pymetric-grids" title="Link to this heading">#</a></h2>
+<p>In the previous section, the classes of <a class="reference internal" href="../../_as_gen/grids.html#module-grids" title="grids"><code class="xref py py-mod docutils literal notranslate"><span class="pre">grids</span></code></a> were introduced and
+the details of creating them were covered. In this section, we’ll look at some
+of the capabilities of PyMetric grids.</p>
+<p>In general, the most important function of PyMetric grids is to provide a backend
+for the higher level classes of <a class="reference internal" href="../../_as_gen/fields.html#module-fields" title="fields"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fields</span></code></a>; however, these grids are often of
+use on their own.</p>
+<section id="extracting-coordinates">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Extracting Coordinates</a><a class="headerlink" href="#extracting-coordinates" title="Link to this heading">#</a></h3>
+<p>Once a grid has been constructed, PyMetric provides a consistent and flexible API
+for retrieving spatial coordinate values from the grid. Generically, 2 representations
+for coordinates are supported:</p>
+<ul class="simple">
+<li><p><strong>coordinates</strong>: When a method refers to generating “coordinates,” this generally refers
+to producing a sequence of 1D arrays containing coordinate points along each axis of
+the grid.</p></li>
+<li><p><strong>meshes</strong>: When a method refers to a “mesh,” this generally to producing a sequence of ND arrays
+containing a full coordinate meshgrid for each axis. This is similar to <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.meshgrid.html#numpy.meshgrid" title="(in NumPy v2.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.meshgrid()</span></code></a>.</p></li>
+</ul>
+<p>In addition, coordinates can be extracted from both the full domain of the grid
+and from particular chunks. PyMetric also allows users to fine tune the behavior of these
+procedures to include (or exclude) ghost zones, support uniform “halos” around a particular
+region, and various others.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Coordinate extraction always follows <strong>logical axis order</strong> as defined by the coordinate system,
+not NumPy memory layout. For Cartesian 2D, this is typically:</p>
+<ul class="simple">
+<li><p><cite>x</cite> → axis 0</p></li>
+<li><p><cite>y</cite> → axis 1</p></li>
+</ul>
+<p>This means that <a class="reference internal" href="../../_as_gen/grids.base.GridBase.compute_domain_coords.html#grids.base.GridBase.compute_domain_coords" title="grids.base.GridBase.compute_domain_coords"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute_domain_coords()</span></code></a> returns <cite>(x, y)</cite>, where <cite>x.shape = (nx,)</cite> and <cite>y.shape = (ny,)</cite>.</p>
+<p>When plotting, transpose field data if needed for alignment:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<section id="coordinates-on-the-full-grid">
+<h4>Coordinates on the Full Grid<a class="headerlink" href="#coordinates-on-the-full-grid" title="Link to this heading">#</a></h4>
+<p>To start, let’s look at extracting the coordinates for the entire domain of
+a grid. This is accomplished using the <a class="reference internal" href="../../_as_gen/grids.base.GridBase.compute_domain_coords.html#grids.base.GridBase.compute_domain_coords" title="grids.base.GridBase.compute_domain_coords"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute_domain_coords()</span></code></a> and <a class="reference internal" href="../../_as_gen/grids.base.GridBase.compute_domain_mesh.html#grids.base.GridBase.compute_domain_mesh" title="grids.base.GridBase.compute_domain_mesh"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute_domain_mesh()</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.coordinates</span><span class="w"> </span><span class="kn">import</span> <span class="n">CartesianCoordinateSystem2D</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymetric.grids</span><span class="w"> </span><span class="kn">import</span> <span class="n">UniformGrid</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">csys</span> <span class="o">=</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">()</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]]</span>  <span class="c1"># [lower_bounds, upper_bounds]</span>
+<span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>  <span class="c1"># number of cells per axis</span>
+
+<span class="n">grid</span> <span class="o">=</span> <span class="n">UniformGrid</span><span class="p">(</span>
+    <span class="n">csys</span><span class="p">,</span>
+    <span class="n">bbox</span><span class="p">,</span>
+    <span class="n">shape</span><span class="p">,</span>
+    <span class="n">ghost_zones</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>  <span class="c1"># 2 ghost zones on each side</span>
+<span class="p">)</span>
+
+<span class="n">X</span><span class="p">,</span><span class="n">Y</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">compute_domain_mesh</span><span class="p">()</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">Y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">R</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>(<a class="reference download internal" download="" href="../../_downloads/a33dff4a18128ef0313aa90eb92633df/overview-1.py"><code class="xref download docutils literal notranslate"><span class="pre">Source</span> <span class="pre">code</span></code></a>, <a class="reference download internal" download="" href="../../_downloads/75e93c3521369c6543d6d0e8e22facf5/overview-1.png"><code class="xref download docutils literal notranslate"><span class="pre">png</span></code></a>, <a class="reference download internal" download="" href="../../_downloads/ddcd6a82da242c273e3387ada8c04cf7/overview-1.hires.png"><code class="xref download docutils literal notranslate"><span class="pre">hires.png</span></code></a>, <a class="reference download internal" download="" href="../../_downloads/593f8a2983fd8791f5cbb8ed511e0f44/overview-1.pdf"><code class="xref download docutils literal notranslate"><span class="pre">pdf</span></code></a>)</p>
+<figure class="align-default">
+<img alt="../../_images/overview-11.png" class="plot-directive" src="../../_images/overview-11.png" />
+</figure>
+<p>For most general operations, these methods provide the easiest access point for performing
+a computation on a grid.</p>
+</section>
+<section id="coordinates-on-chunks">
+<h4>Coordinates on Chunks<a class="headerlink" href="#coordinates-on-chunks" title="Link to this heading">#</a></h4>
+<p>In chunked grids, you often want to extract coordinate arrays specific to a single chunk
+(or a subset of chunks). This enables efficient block-wise computation, boundary-localized
+operations, and tiled memory access patterns for large datasets.</p>
+<p>To extract coordinates for a given chunk, use:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../_as_gen/grids.base.GridBase.compute_chunk_coords.html#grids.base.GridBase.compute_chunk_coords" title="grids.base.GridBase.compute_chunk_coords"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute_chunk_coords()</span></code></a> — returns 1D coordinate arrays</p></li>
+<li><p><a class="reference internal" href="../../_as_gen/grids.base.GridBase.compute_chunk_mesh.html#grids.base.GridBase.compute_chunk_mesh" title="grids.base.GridBase.compute_chunk_mesh"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute_chunk_mesh()</span></code></a> — returns full meshgrid coordinates</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">coords</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">compute_chunk_coords</span><span class="p">(</span>
+    <span class="n">chunks</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>              <span class="c1"># the chunk index (i.e. 2nd chunk along axis 0, 3rd along axis 1)</span>
+    <span class="n">include_ghosts</span><span class="o">=</span><span class="kc">True</span>         <span class="c1"># include ghost cells around the chunk</span>
+<span class="p">)</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">compute_chunk_mesh</span><span class="p">(</span>
+    <span class="n">chunks</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="n">include_ghosts</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>You can also specify halo offsets, which add additional cells around each chunk beyond ghost zones:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">coords</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">compute_chunk_coords</span><span class="p">(</span>
+    <span class="n">chunks</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">halo_offsets</span><span class="o">=</span><span class="mi">1</span>              <span class="c1"># one extra cell on each side (after ghost padding)</span>
+<span class="p">)</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">compute_chunk_mesh</span><span class="p">(</span>
+    <span class="n">chunks</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">halo_offsets</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Returned coordinate arrays are always aligned to the global domain, and are consistent with
+the buffer layout returned from chunk-level accessors (like <a class="reference internal" href="../../_as_gen/grids.base.GridBase.empty_like_chunks.html#grids.base.GridBase.empty_like_chunks" title="grids.base.GridBase.empty_like_chunks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">empty_like_chunks()</span></code></a>).</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When computing coordinates for a chunk:</p>
+<ul class="simple">
+<li><p>The chunk region is interpreted in <strong>global index space</strong> (including ghost zones).</p></li>
+<li><p>Ghost and halo padding are applied <em>after</em> determining the base chunk bounds.</p></li>
+<li><p>If the grid is vertex-centered, one extra index is added to include trailing vertices.</p></li>
+</ul>
+<p>These default behaviors can be modified with specific kwargs passed to the relevant methods.
+See API documentation for more.</p>
+</div>
+</section>
+</section>
+<section id="performing-operations-on-coordinates">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Performing Operations On Coordinates</a><a class="headerlink" href="#performing-operations-on-coordinates" title="Link to this heading">#</a></h3>
+<p>In most workflows, the best approach for working with grid coordinates is to extract them
+via the mesh or coordinate generation functions as described above. There are a few utilities which
+have built in support which we will summarize here.</p>
+<p>The first of these is computing functions over the grid. This is performed using the <a class="reference internal" href="../../_as_gen/grids.base.GridBase.compute_function_on_grid.html#grids.base.GridBase.compute_function_on_grid" title="grids.base.GridBase.compute_function_on_grid"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute_function_on_grid()</span></code></a>
+with the following syntax:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pymetric</span><span class="w"> </span><span class="kn">import</span> <span class="n">UniformGrid</span><span class="p">,</span> <span class="n">CartesianCoordinateSystem2D</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">cs</span> <span class="o">=</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">()</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">dd</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10000</span><span class="p">,</span><span class="mi">10000</span><span class="p">]</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">UniformGrid</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">dd</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">center</span><span class="o">=</span><span class="s1">&#39;cell&#39;</span><span class="p">)</span>
+
+<span class="n">func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">compute_function_on_grid</span><span class="p">(</span><span class="n">func</span><span class="p">,</span><span class="n">in_chunks</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For more advanced computations over the grid, it usually suffices to simply extract the coordinates; however,
+users may also take advantage of methods like <code class="xref py py-meth docutils literal notranslate"><span class="pre">A.iter_chunk_coords()</span></code> to perform memory intensive operations in
+chunks. See the chunking section below for more details.</p>
+</section>
+<section id="differential-geometry">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Differential Geometry</a><a class="headerlink" href="#differential-geometry" title="Link to this heading">#</a></h3>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>For low-level details and reference implementations, see <a class="reference internal" href="../../_as_gen/differential_geometry.html#module-differential_geometry" title="differential_geometry"><code class="xref py py-mod docutils literal notranslate"><span class="pre">differential_geometry</span></code></a>.</p>
+</div>
+<p>Grids in PyMetric support direct computation of differential geometric operations, including
+gradients, divergences, and Laplacians, on structured domains. These methods build upon
+PyMetric’s coordinate-aware differential geometry engine and are designed to work
+seamlessly with both full-domain and chunked workflows.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Differential geometry in PyMetric is organized into three layers of abstraction:</p>
+<ul class="simple">
+<li><p><strong>Low-level operations</strong> (<a class="reference internal" href="../../_as_gen/differential_geometry.html#module-differential_geometry" title="differential_geometry"><code class="xref py py-mod docutils literal notranslate"><span class="pre">differential_geometry</span></code></a>): Direct numerical methods requiring manual specification of coordinate arrays, metric tensors, and transformation terms.</p></li>
+<li><p><strong>Grid-level operations</strong> (<a class="reference internal" href="../../_as_gen/grids.html#module-grids" title="grids"><code class="xref py py-mod docutils literal notranslate"><span class="pre">grids</span></code></a>): High-level APIs that automatically compute coordinate-dependent terms using the grid’s geometry and coordinate system.</p></li>
+<li><p><strong>Field-level operations</strong> (<a class="reference internal" href="../../_as_gen/fields.html#module-fields" title="fields"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fields</span></code></a>): Fully automated routines that handle axis alignment, symbolic dependence tracking, and term inference for derived fields.</p></li>
+</ul>
+</div>
+<p>As the intermediate layer, grids are ideal when you want more control than fields provide but without manually constructing all geometric data.</p>
+<section id="setting-up-differential-computations">
+<h4>Setting Up Differential Computations<a class="headerlink" href="#setting-up-differential-computations" title="Link to this heading">#</a></h4>
+<p>To perform a differential operation at the grid level, you generally need to provide the following:</p>
+<ol class="arabic">
+<li><p><strong>A field</strong> (<cite>field</cite>) — The data array on which the differential operation will be performed.
+This can be any NumPy-like array (does not need to be a <cite>Field</cite> object). You must also specify the axes
+of the grid that the field spans using the <cite>field_axes</cite> argument.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><cite>field_axes</cite> is a list of logical axis names (e.g., <cite>[“x”, “y”]</cite>) that describe how the
+field maps onto the grid’s coordinate system. The axes must be consistent with the grid’s coordinate system.</p>
+</div>
+</li>
+<li><p><strong>An output axis specification</strong> (<cite>output_axes</cite>) — A list of axes that the result of the operation will span.
+In general, this should be a <strong>superset</strong> of <cite>field_axes</cite>. This accounts for the fact that many geometric
+operations (e.g., gradients) increase tensor rank or introduce new directional components.</p>
+<p>For example, computing the gradient of a scalar field with <cite>field_axes=[“x”, “y”]</cite> might yield
+an output with <cite>output_axes=[“x”, “y”, “r”]</cite>, where <cite>“r”</cite> indexes the coordinate directions.</p>
+</li>
+</ol>
+<p>Most differential methods also support the following optional keyword arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">in_chunks</span></code> (bool): Whether to compute the result one chunk at a time, useful for large domains.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">edge_order</span></code> (int): Numerical stencil order used for computing finite differences (usually 1 or 2).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pbar</span></code> (bool): Whether to show a progress bar when chunking is enabled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">out</span></code> (array, optional): Pre-allocated output array to store the result.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">output_element_shape</span></code> (tuple, optional): The shape of the tensor component at each grid point.</p></li>
+</ul>
+<p>These options allow fine-tuned control over memory usage, numerical accuracy, and parallelization behavior.
+See the method-level documentation for more details on inputs and behavior. A full list of supported operations
+is provided below in this section. As an example, the gradient in cartesian coordinates might look like</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pymetric</span><span class="w"> </span><span class="kn">import</span> <span class="n">UniformGrid</span><span class="p">,</span> <span class="n">CartesianCoordinateSystem2D</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Build the coordinate system</span>
+<span class="c1"># and the grid.</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="n">CartesianCoordinateSystem2D</span><span class="p">()</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="p">[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">dd</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1000</span><span class="p">]</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">UniformGrid</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">dd</span><span class="p">,</span>
+                   <span class="n">chunk_size</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+                   <span class="n">center</span><span class="o">=</span><span class="s1">&#39;cell&#39;</span><span class="p">)</span>
+
+<span class="c1"># Generate the function Z(X,Y).</span>
+<span class="n">func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">compute_function_on_grid</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+
+<span class="c1"># Compute the covariant gradient.</span>
+<span class="n">gradZ</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">dense_covariant_gradient</span><span class="p">(</span><span class="n">Z</span><span class="p">,[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">])</span>
+
+<span class="c1"># Plot the x and y components.</span>
+<span class="n">fig</span><span class="p">,</span><span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span><span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;inferno&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">gradZ</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;inferno&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">gradZ</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;inferno&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>(<a class="reference download internal" download="" href="../../_downloads/90a06bcb7ed4d67ce07582462304b667/overview-2.py"><code class="xref download docutils literal notranslate"><span class="pre">Source</span> <span class="pre">code</span></code></a>, <a class="reference download internal" download="" href="../../_downloads/9838e046b28139406330120f86341198/overview-2.png"><code class="xref download docutils literal notranslate"><span class="pre">png</span></code></a>, <a class="reference download internal" download="" href="../../_downloads/0c86f77ead7e84a919feec5900c25a8d/overview-2.hires.png"><code class="xref download docutils literal notranslate"><span class="pre">hires.png</span></code></a>, <a class="reference download internal" download="" href="../../_downloads/0f7c540e9e793332d24cf34892a1d6e0/overview-2.pdf"><code class="xref download docutils literal notranslate"><span class="pre">pdf</span></code></a>)</p>
+<figure class="align-default">
+<img alt="../../_images/overview-2.png" class="plot-directive" src="../../_images/overview-2.png" />
+</figure>
+</section>
+</section>
+<section id="interpolation">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Interpolation</a><a class="headerlink" href="#interpolation" title="Link to this heading">#</a></h3>
+<p>Grids in PyMetric provide built-in support for fast, local interpolation over either the full domain
+or individual chunks. This is useful for evaluating continuous functions from discrete field data,
+implementing semi-Lagrangian schemes, sampling initial conditions, or querying solution values at arbitrary coordinates.</p>
+<p>Interpolation in PyMetric is powered by SciPy’s <code class="xref py py-class docutils literal notranslate"><span class="pre">scipy.interpolate.RegularGridInterpolator</span></code>, wrapped
+in a grid-aware API that handles coordinate extraction and axis alignment automatically.</p>
+<p>To build an interpolator over the entire active domain of the grid, use <a class="reference internal" href="../../_as_gen/grids.base.GridBase.construct_domain_interpolator.html#grids.base.GridBase.construct_domain_interpolator" title="grids.base.GridBase.construct_domain_interpolator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">construct_domain_interpolator()</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">interpolator</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">construct_domain_interpolator</span><span class="p">(</span>
+    <span class="n">field</span><span class="p">,</span>                <span class="c1"># array shaped according to field_axes</span>
+    <span class="n">field_axes</span><span class="p">,</span>           <span class="c1"># e.g., [&quot;x&quot;, &quot;y&quot;]</span>
+    <span class="n">method</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span>      <span class="c1"># or &quot;nearest&quot;</span>
+    <span class="n">bounds_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">fill_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>This returns a callable object that can be used like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Evaluate at a batch of (x, y) points</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">]])</span>
+<span class="n">values</span> <span class="o">=</span> <span class="n">interpolator</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <cite>field_axes</cite> argument must match the ordering of dimensions in <cite>field</cite>, and those axes must align
+with the grid’s coordinate system.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The interpolator operates in physical coordinates (e.g., meters, centimeters) — not index space.
+You must provide real-space locations for evaluation.</p>
+</div>
+<p>To create an interpolator for a specific region of the grid (a “chunk”), use <a class="reference internal" href="../../_as_gen/grids.base.GridBase.construct_chunk_interpolator.html#grids.base.GridBase.construct_chunk_interpolator" title="grids.base.GridBase.construct_chunk_interpolator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">construct_chunk_interpolator()</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">interpolator</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">construct_chunk_interpolator</span><span class="p">(</span>
+    <span class="n">field_chunk</span><span class="p">,</span>            <span class="c1"># array sliced to match the chunk</span>
+    <span class="n">field_axes</span><span class="p">,</span>             <span class="c1"># e.g., [&quot;x&quot;, &quot;y&quot;]</span>
+    <span class="n">chunks</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>          <span class="c1"># chunk index along each axis</span>
+    <span class="n">include_ghosts</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="c1"># include ghost zones if needed</span>
+    <span class="n">halo_offsets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>    <span class="c1"># optional halo padding</span>
+    <span class="n">method</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>This is ideal for distributed, tiled, or stencil-based algorithms that operate on chunked regions
+of the domain. The interpolation region automatically accounts for ghost zones and halos.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>The <cite>field_chunk</cite> must already be sliced to match the shape of the specified chunk region,
+including any ghost or halo padding. Use <a class="reference internal" href="../../_as_gen/grids.base.GridBase.compute_chunk_slice.html#grids.base.GridBase.compute_chunk_slice" title="grids.base.GridBase.compute_chunk_slice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute_chunk_slice()</span></code></a>
+and <cite>field[chunk_slice]</cite> to extract it.</p>
+</div>
+</section>
+</section>
+<section id="units-and-unit-systems">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">Units and Unit Systems</a><a class="headerlink" href="#units-and-unit-systems" title="Link to this heading">#</a></h2>
+<p>PyMetric grids support <em>unit-aware metadata</em> for spatial dimensions, allowing users to attach
+physical units (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;cm&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;rad&quot;</span></code>) to each coordinate axis of a grid. This metadata is used
+to define a consistent internal <strong>unit system</strong>, which is available for inspection and integration
+into downstream operations, such as:</p>
+<ul class="simple">
+<li><p>Unit-aware field creation or evaluation</p></li>
+<li><p>Differential operator scaling</p></li>
+<li><p>Serialization and I/O</p></li>
+<li><p>Visualization annotations</p></li>
+</ul>
+<p>However, <strong>PyMetric does not enforce unit conversion or operate directly with `unyt` arrays</strong> inside the grid
+infrastructure itself. All numerical operations on grids are performed using plain NumPy arrays, with
+units treated as optional metadata.</p>
+<section id="why-this-matters">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">Why This Matters</a><a class="headerlink" href="#why-this-matters" title="Link to this heading">#</a></h3>
+<p>This design provides a clean separation between <strong>physical interpretation</strong> and <strong>computational logic</strong>.
+It ensures that PyMetric grids remain:</p>
+<ul class="simple">
+<li><p><strong>Lightweight and efficient</strong>: Coordinates are stored and manipulated as raw NumPy arrays without the overhead
+of unit-tagged computation.</p></li>
+<li><p><strong>Flexible</strong>: Users can choose whether to operate in raw or unit-aware workflows without performance penalties.</p></li>
+<li><p><strong>Explicit and transparent</strong>: Units are always available to the user but are not silently applied in operations
+unless explicitly handled at a higher level (e.g., in <a class="reference internal" href="../../_as_gen/fields.html#module-fields" title="fields"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fields</span></code></a>).</p></li>
+</ul>
+<p>This allows PyMetric grids to work seamlessly with performance-critical applications (e.g., solvers, data ingestion,
+visualization) while still supporting scientific correctness when units are needed.</p>
+</section>
+<section id="accessing-units">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Accessing Units</a><a class="headerlink" href="#accessing-units" title="Link to this heading">#</a></h3>
+<p>Each grid maintains two unit-related properties:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../_as_gen/grids.base.GridBase.unit_system.html#grids.base.GridBase.unit_system" title="grids.base.GridBase.unit_system"><code class="xref py py-attr docutils literal notranslate"><span class="pre">unit_system</span></code></a> — a <cite>unyt.UnitSystem</cite> object defining base units (length, mass, time, etc.)</p></li>
+<li><p><a class="reference internal" href="../../_as_gen/grids.base.GridBase.axes_units.html#grids.base.GridBase.axes_units" title="grids.base.GridBase.axes_units"><code class="xref py py-attr docutils literal notranslate"><span class="pre">axes_units</span></code></a> — a list of <cite>unyt.Unit</cite> objects representing the unit of each coordinate axis</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span><span class="o">.</span><span class="n">unit_system</span>
+<span class="c1"># → UnitSystem(name=&#39;_grid_units&#39;, length_unit=cm, time_unit=s, mass_unit=g, angle_unit=rad, ...)</span>
+
+<span class="n">grid</span><span class="o">.</span><span class="n">axes_units</span>
+<span class="c1"># → [unyt.cm, unyt.cm]  (for a 2D Cartesian grid with length units in cm)</span>
+</pre></div>
+</div>
+</section>
+<section id="setting-units">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">Setting Units</a><a class="headerlink" href="#setting-units" title="Link to this heading">#</a></h3>
+<p>You can provide custom units when constructing a grid:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">UniformGrid</span><span class="p">(</span>
+    <span class="n">coordinate_system</span><span class="o">=</span><span class="n">cs</span><span class="p">,</span>
+    <span class="n">bbox</span><span class="o">=</span><span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]],</span>
+    <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
+    <span class="n">units</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="s2">&quot;m&quot;</span><span class="p">}</span>  <span class="c1"># Use meters instead of the default cm</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Supported base unit types are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">length</span></code> (e.g., “m”, “cm”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time</span></code> (e.g., “s”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mass</span></code> (e.g., “kg”, “g”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">angle</span></code> (e.g., “rad”, “deg”)</p></li>
+</ul>
+<p>These units are used to interpret physical dimensions in the coordinate system and are embedded
+in serialization metadata (e.g., HDF5 files).</p>
+</section>
+<section id="best-practices">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Best Practices</a><a class="headerlink" href="#best-practices" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Use units when <strong>sharing grids</strong>, saving to disk, or interoperating with unit-aware fields.</p></li>
+<li><p>Omit units when <strong>maximum performance</strong> is desired and you’re operating within a consistent internal convention.</p></li>
+<li><p>Prefer fields (<a class="reference internal" href="../../_as_gen/fields.html#module-fields" title="fields"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fields</span></code></a>) for operations that require strict unit propagation.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Units are <strong>not applied automatically</strong> in grid-level numerical methods (e.g., gradients or interpolators).
+Ensure consistency in your workflows if you perform manual scaling or interpret raw coordinate values.</p>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../coordinates/building_coordinate_systems.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Coordinate Systems: Building Custom Coordinate Systems</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="build_custom_grids.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Geometric Grids: Custom Grid Classes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-grids">Types of Grids</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-fields">Properties of Fields</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bounding-box-and-domain-dimensions">The Bounding Box and Domain Dimensions</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ghost-regions">Ghost Regions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constructing-grids">Constructing Grids</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-construction">Basic Construction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-chunking">Setting up Chunking</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-centered-vs-vertex-centered-grids">Cell Centered vs. Vertex Centered Grids</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-pymetric-grids">Using PyMetric Grids</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-coordinates">Extracting Coordinates</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinates-on-the-full-grid">Coordinates on the Full Grid</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinates-on-chunks">Coordinates on Chunks</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performing-operations-on-coordinates">Performing Operations On Coordinates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#differential-geometry">Differential Geometry</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-differential-computations">Setting Up Differential Computations</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolation">Interpolation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#units-and-unit-systems">Units and Unit Systems</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-matters">Why This Matters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-units">Accessing Units</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-units">Setting Units</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best Practices</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/reference/grids/overview.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Eliza Diggins.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.raise\_index
+============================================
+
+.. currentmodule:: fields.tensors
+
+.. automethod:: DenseTensorField.raise_index

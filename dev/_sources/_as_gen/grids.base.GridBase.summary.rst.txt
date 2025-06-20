@@ -1,0 +1,6 @@
+grids.base.GridBase.summary
+===========================
+
+.. currentmodule:: grids.base
+
+.. automethod:: GridBase.summary

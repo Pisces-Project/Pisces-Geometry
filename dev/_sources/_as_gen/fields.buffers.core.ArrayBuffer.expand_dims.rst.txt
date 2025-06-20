@@ -1,0 +1,6 @@
+fields.buffers.core.ArrayBuffer.expand\_dims
+============================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: ArrayBuffer.expand_dims

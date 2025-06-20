@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.pprint
+==================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.pprint

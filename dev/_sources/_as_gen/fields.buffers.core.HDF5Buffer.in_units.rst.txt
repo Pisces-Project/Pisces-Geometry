@@ -1,0 +1,6 @@
+fields.buffers.core.HDF5Buffer.in\_units
+========================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: HDF5Buffer.in_units

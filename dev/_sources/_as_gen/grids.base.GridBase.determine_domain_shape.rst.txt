@@ -1,0 +1,6 @@
+grids.base.GridBase.determine\_domain\_shape
+============================================
+
+.. currentmodule:: grids.base
+
+.. automethod:: GridBase.determine_domain_shape

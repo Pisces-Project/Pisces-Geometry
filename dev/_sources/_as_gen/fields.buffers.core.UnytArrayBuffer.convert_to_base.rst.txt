@@ -1,0 +1,6 @@
+fields.buffers.core.UnytArrayBuffer.convert\_to\_base
+=====================================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: UnytArrayBuffer.convert_to_base

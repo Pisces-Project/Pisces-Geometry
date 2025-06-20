@@ -1,0 +1,6 @@
+differential\_geometry.symbolic.raise\_index
+============================================
+
+.. currentmodule:: differential_geometry.symbolic
+
+.. autofunction:: raise_index

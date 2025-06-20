@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.PolarCoordinateSystem.get\_axes\_units
+======================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. automethod:: PolarCoordinateSystem.get_axes_units

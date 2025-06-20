@@ -1,0 +1,6 @@
+grids.mixins.core.GridPlotMixin.plot\_chunk\_lines
+==================================================
+
+.. currentmodule:: grids.mixins.core
+
+.. automethod:: GridPlotMixin.plot_chunk_lines

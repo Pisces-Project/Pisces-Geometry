@@ -1,0 +1,6 @@
+differential\_geometry.dependence.DenseDependenceObject.from\_symbolic\_proxy
+=============================================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. automethod:: DenseDependenceObject.from_symbolic_proxy

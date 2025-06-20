@@ -1,0 +1,6 @@
+grids.base.GridBase.extract\_subgrid
+====================================
+
+.. currentmodule:: grids.base
+
+.. automethod:: GridBase.extract_subgrid

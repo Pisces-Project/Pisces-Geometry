@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.is\_axis
+====================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.is_axis

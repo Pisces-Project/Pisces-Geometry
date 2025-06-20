@@ -1,0 +1,6 @@
+fields.buffers.core.ArrayBuffer.copy
+====================================
+
+.. currentmodule:: fields.buffers.core
+
+.. automethod:: ArrayBuffer.copy

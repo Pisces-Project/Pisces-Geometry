@@ -1,0 +1,6 @@
+coordinates.base.DEFAULT\_COORDINATE\_REGISTRY
+==============================================
+
+.. currentmodule:: coordinates.base
+
+.. autodata:: DEFAULT_COORDINATE_REGISTRY

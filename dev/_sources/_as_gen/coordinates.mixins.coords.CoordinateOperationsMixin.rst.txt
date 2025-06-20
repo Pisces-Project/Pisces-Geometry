@@ -1,0 +1,25 @@
+CoordinateOperationsMixin
+===================================================
+
+.. currentmodule:: coordinates.mixins.coords
+
+.. autoclass:: coordinates.mixins.coords.CoordinateOperationsMixin
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~CoordinateOperationsMixin.__init__
+      ~CoordinateOperationsMixin.coordinate_meshgrid
+      ~CoordinateOperationsMixin.create_coordinate_list
+   
+   
+
+   
+   
+   

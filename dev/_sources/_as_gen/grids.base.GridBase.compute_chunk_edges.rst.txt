@@ -1,0 +1,6 @@
+grids.base.GridBase.compute\_chunk\_edges
+=========================================
+
+.. currentmodule:: grids.base
+
+.. automethod:: GridBase.compute_chunk_edges

@@ -1,0 +1,6 @@
+coordinates.coordinate\_systems.OblateHomoeoidalCoordinateSystem.inverse\_metric\_tensor\_symbol
+================================================================================================
+
+.. currentmodule:: coordinates.coordinate_systems
+
+.. autoproperty:: OblateHomoeoidalCoordinateSystem.inverse_metric_tensor_symbol

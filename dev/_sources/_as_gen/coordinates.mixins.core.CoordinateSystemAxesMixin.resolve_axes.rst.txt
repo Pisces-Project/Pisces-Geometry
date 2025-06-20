@@ -1,0 +1,6 @@
+coordinates.mixins.core.CoordinateSystemAxesMixin.resolve\_axes
+===============================================================
+
+.. currentmodule:: coordinates.mixins.core
+
+.. automethod:: CoordinateSystemAxesMixin.resolve_axes

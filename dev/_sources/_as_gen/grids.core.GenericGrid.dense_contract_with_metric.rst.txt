@@ -1,0 +1,6 @@
+grids.core.GenericGrid.dense\_contract\_with\_metric
+====================================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: GenericGrid.dense_contract_with_metric

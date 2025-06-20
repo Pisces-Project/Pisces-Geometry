@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.is\_axes\_superset
+==============================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: OrthogonalCoordinateSystem.is_axes_superset

@@ -1,0 +1,6 @@
+grids.core.UniformGrid.plot\_ghost\_zone\_shading
+=================================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: UniformGrid.plot_ghost_zone_shading

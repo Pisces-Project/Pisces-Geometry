@@ -1,0 +1,6 @@
+coordinates.core.OrthogonalCoordinateSystem.axes
+================================================
+
+.. currentmodule:: coordinates.core
+
+.. autoproperty:: OrthogonalCoordinateSystem.axes

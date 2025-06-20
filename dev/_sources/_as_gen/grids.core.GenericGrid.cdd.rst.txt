@@ -1,0 +1,6 @@
+grids.core.GenericGrid.cdd
+==========================
+
+.. currentmodule:: grids.core
+
+.. autoproperty:: GenericGrid.cdd

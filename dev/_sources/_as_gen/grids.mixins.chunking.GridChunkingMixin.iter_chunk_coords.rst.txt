@@ -1,0 +1,6 @@
+grids.mixins.chunking.GridChunkingMixin.iter\_chunk\_coords
+===========================================================
+
+.. currentmodule:: grids.mixins.chunking
+
+.. automethod:: GridChunkingMixin.iter_chunk_coords

@@ -1,0 +1,6 @@
+grids.core.GenericGrid.dense\_adjust\_tensor\_signature
+=======================================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: GenericGrid.dense_adjust_tensor_signature

@@ -1,0 +1,6 @@
+fields.components.FieldComponent.spatial\_size
+==============================================
+
+.. currentmodule:: fields.components
+
+.. autoproperty:: FieldComponent.spatial_size

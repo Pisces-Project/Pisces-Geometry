@@ -1,0 +1,106 @@
+GridBase
+===================
+
+.. currentmodule:: grids.base
+
+.. autoclass:: grids.base.GridBase
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~GridBase.__init__
+      ~GridBase.broadcast_array_to_axes
+      ~GridBase.broadcast_arrays_to_axes
+      ~GridBase.broadcast_shape_to_axes
+      ~GridBase.broadcast_shapes_to_axes
+      ~GridBase.check_field_shape
+      ~GridBase.compute_chunk_centers
+      ~GridBase.compute_chunk_coords
+      ~GridBase.compute_chunk_edges
+      ~GridBase.compute_chunk_mesh
+      ~GridBase.compute_chunk_slice
+      ~GridBase.compute_coords_from_index
+      ~GridBase.compute_coords_from_slices
+      ~GridBase.compute_domain_centers
+      ~GridBase.compute_domain_coords
+      ~GridBase.compute_domain_edges
+      ~GridBase.compute_domain_mesh
+      ~GridBase.compute_domain_slice
+      ~GridBase.compute_function_on_grid
+      ~GridBase.compute_mesh_from_slices
+      ~GridBase.construct_chunk_interpolator
+      ~GridBase.construct_domain_interpolator
+      ~GridBase.dense_adjust_tensor_signature
+      ~GridBase.dense_contract_with_metric
+      ~GridBase.dense_contravariant_gradient
+      ~GridBase.dense_covariant_gradient
+      ~GridBase.dense_element_wise_laplacian
+      ~GridBase.dense_element_wise_partial_derivatives
+      ~GridBase.dense_gradient
+      ~GridBase.dense_lower_index
+      ~GridBase.dense_raise_index
+      ~GridBase.dense_scalar_laplacian
+      ~GridBase.dense_vector_divergence
+      ~GridBase.dense_vector_divergence_contravariant
+      ~GridBase.dense_vector_divergence_covariant
+      ~GridBase.determine_domain_shape
+      ~GridBase.empty
+      ~GridBase.empty_like_chunks
+      ~GridBase.extract_subgrid
+      ~GridBase.from_hdf5
+      ~GridBase.full
+      ~GridBase.full_like_chunks
+      ~GridBase.get_chunk_bbox
+      ~GridBase.get_chunk_shape
+      ~GridBase.iter_chunk_coords
+      ~GridBase.iter_chunk_indices
+      ~GridBase.iter_chunk_slices
+      ~GridBase.ones
+      ~GridBase.ones_like_chunks
+      ~GridBase.plot_chunk_lines
+      ~GridBase.plot_ghost_zone_shading
+      ~GridBase.plot_grid_lines
+      ~GridBase.show
+      ~GridBase.standardize_axes
+      ~GridBase.summary
+      ~GridBase.tile_array_to_axes
+      ~GridBase.to_hdf5
+      ~GridBase.zeros
+      ~GridBase.zeros_like_chunks
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+   
+      ~GridBase.axes
+      ~GridBase.axes_units
+      ~GridBase.bbox
+      ~GridBase.cdd
+      ~GridBase.centering
+      ~GridBase.chunk_size
+      ~GridBase.chunking
+      ~GridBase.coordinate_system
+      ~GridBase.dd
+      ~GridBase.fill_values
+      ~GridBase.gbbox
+      ~GridBase.gdd
+      ~GridBase.ghost_zones
+      ~GridBase.ncells
+      ~GridBase.ndim
+      ~GridBase.nvertices
+      ~GridBase.shape
+      ~GridBase.unit_system
+   
+   

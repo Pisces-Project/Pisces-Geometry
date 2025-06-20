@@ -1,0 +1,6 @@
+coordinates.mixins.mathops.CoordinateSystemMathMixin.raise\_index\_dense
+========================================================================
+
+.. currentmodule:: coordinates.mixins.mathops
+
+.. automethod:: CoordinateSystemMathMixin.raise_index_dense

@@ -1,0 +1,43 @@
+differential_geometry.dense_ops
+===============================
+
+.. automodule:: differential_geometry.dense_ops
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+
+   
+      dense_gradient
+      dense_gradient_contravariant_diag
+      dense_gradient_contravariant_full
+      dense_gradient_covariant
+      dense_scalar_laplacian
+      dense_scalar_laplacian_diag
+      dense_scalar_laplacian_full
+      dense_vector_divergence
+      dense_vector_divergence_contravariant
+      dense_vector_divergence_covariant_diag
+      dense_vector_divergence_covariant_full
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   

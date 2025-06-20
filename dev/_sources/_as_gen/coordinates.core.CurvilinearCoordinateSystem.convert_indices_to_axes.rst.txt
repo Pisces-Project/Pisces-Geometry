@@ -1,0 +1,6 @@
+coordinates.core.CurvilinearCoordinateSystem.convert\_indices\_to\_axes
+=======================================================================
+
+.. currentmodule:: coordinates.core
+
+.. automethod:: CurvilinearCoordinateSystem.convert_indices_to_axes

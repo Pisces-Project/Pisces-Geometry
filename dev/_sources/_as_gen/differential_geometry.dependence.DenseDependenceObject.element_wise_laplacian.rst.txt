@@ -1,0 +1,6 @@
+differential\_geometry.dependence.DenseDependenceObject.element\_wise\_laplacian
+================================================================================
+
+.. currentmodule:: differential_geometry.dependence
+
+.. automethod:: DenseDependenceObject.element_wise_laplacian

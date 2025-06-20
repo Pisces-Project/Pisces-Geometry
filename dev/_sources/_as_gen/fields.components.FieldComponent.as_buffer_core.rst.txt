@@ -1,0 +1,6 @@
+fields.components.FieldComponent.as\_buffer\_core
+=================================================
+
+.. currentmodule:: fields.components
+
+.. automethod:: FieldComponent.as_buffer_core

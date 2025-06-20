@@ -1,0 +1,6 @@
+grids.core.UniformGrid.broadcast\_array\_to\_axes
+=================================================
+
+.. currentmodule:: grids.core
+
+.. automethod:: UniformGrid.broadcast_array_to_axes

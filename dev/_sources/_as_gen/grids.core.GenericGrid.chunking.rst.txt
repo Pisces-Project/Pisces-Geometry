@@ -1,0 +1,6 @@
+grids.core.GenericGrid.chunking
+===============================
+
+.. currentmodule:: grids.core
+
+.. autoproperty:: GenericGrid.chunking

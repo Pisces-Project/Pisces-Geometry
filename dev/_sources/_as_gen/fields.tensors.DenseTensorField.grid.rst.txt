@@ -1,0 +1,6 @@
+fields.tensors.DenseTensorField.grid
+====================================
+
+.. currentmodule:: fields.tensors
+
+.. autoproperty:: DenseTensorField.grid

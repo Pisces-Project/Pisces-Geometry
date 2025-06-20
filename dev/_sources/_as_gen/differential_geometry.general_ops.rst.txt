@@ -1,0 +1,34 @@
+differential_geometry.general_ops
+=================================
+
+.. automodule:: differential_geometry.general_ops
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :recursive:
+
+   
+      dense_element_wise_laplacian
+      dense_element_wise_partial_derivatives
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
