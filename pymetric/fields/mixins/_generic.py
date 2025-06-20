@@ -134,3 +134,15 @@ class NumpyArithmeticMixin:
 
     def __irshift__(self, other):
         return np.right_shift(self, other, out=self)
+
+    def __lt__(self, other):
+        return np.less(self, other)
+
+    def __le__(self, other):
+        return np.less_equal(self, other)
+
+    def __gt__(self, other):
+        return np.greater(self, other)
+
+    def __ge__(self, other):
+        return np.greater_equal(self, other)

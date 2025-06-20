@@ -150,25 +150,255 @@ defining geometric operations like gradients, divergences, and Laplacians in cur
 Vectors, Tensors, and Beyond
 ----------------------------
 
-- What is a field on the coordinate system? What is a tensor
-  as a map from the dual and tangent spaces, etc.
+In curvilinear geometry, every object of physical interest—scalars, vectors, forms, and higher-order tensors—can be described
+as a field defined over the coordinate domain. That is, a **field** assigns a mathematical object to every point in space,
+with the object transforming in a specific way under changes of coordinates.
+
+At the core of this structure are **vectors** and **covectors**.
+
+Covectors: Linear Maps on Vectors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A **covector** (also called a **dual vector** or **1-form**) is a linear map from the tangent space to the real numbers:
+
+.. math::
+
+   \omega : T_p \mathbb{R}^N \to \mathbb{R}
+
+That is, given a tangent vector :math:`\mathbf{v} \in T_p \mathbb{R}^N`, the covector returns a scalar :math:`\omega(\mathbf{v})`.
+
+In a coordinate basis :math:`\{ \mathbf{e}_\mu \}`, there exists a corresponding dual basis :math:`\{ \mathbf{e}^\mu \}` such that:
+
+.. math::
+
+   \mathbf{e}^\mu(\mathbf{e}_\nu) = \delta^\mu_\nu
+
+Any covector :math:`\omega` can thus be written in terms of its components:
+
+.. math::
+
+   \omega = \omega_\mu \, \mathbf{e}^\mu
+
+The index on :math:`\omega_\mu` is **lowered**, reflecting its membership in the cotangent space.
+
+Tensors as Multilinear Maps
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A **tensor** is a multilinear map that accepts vectors and covectors as arguments and returns a real number:
+
+.. math::
+
+   T : \underbrace{T_p^\star \mathbb{R}^N \times \cdots \times T_p^\star \mathbb{R}^N}_{k \text{ times}} \times
+       \underbrace{T_p \mathbb{R}^N \times \cdots \times T_p \mathbb{R}^N}_{\ell \text{ times}} \to \mathbb{R}
+
+We say such a tensor is of **type (k, ℓ)**, with:
+
+- :math:`k` **contravariant** (vector) slots
+- :math:`\ell` **covariant** (covector) slots
+
+In a coordinate basis, this tensor can be expressed via its components as:
+
+.. math::
+
+   T = T^{\mu_1 \dots \mu_k}_{\nu_1 \dots \nu_\ell} \; \mathbf{e}_{\mu_1} \otimes \cdots \otimes \mathbf{e}_{\mu_k}
+                                     \otimes \mathbf{e}^{\nu_1} \otimes \cdots \otimes \mathbf{e}^{\nu_\ell}
+
+Here, the **tensor product** :math:`\otimes` constructs a new basis for the space of multilinear maps. The indices on the
+components encode their variance: **upper indices** for contravariant directions (vectors), and **lower indices** for
+covariant directions (covectors).
+
+Tensor Fields in PyMetric
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In PyMetric, most objects are internally represented as a **tensor field**. This means that at each point in space, the
+object carries both:
+
+- A **tensor type** (its signature), defined by its number of covariant and contravariant indices
+- A **buffer of values** that vary over the coordinate domain
+
+For example:
+
+- A scalar field has type (0, 0) and stores a single value at each point.
+- A vector field has type (1, 0) and stores components along basis vectors.
+- A (0, 2) field is a covariant rank-2 tensor—e.g., the metric tensor :math:`g_{\mu\nu}`.
+
+The full power of PyMetric lies in its ability to operate on these tensor fields **with awareness of their structure**,
+ensuring that mathematical operations like differentiation, contraction, or index permutation obey the correct transformation
+rules.
+
+.. note::
+
+   The type signature of a tensor field in PyMetric determines how it interacts with coordinate changes, differential
+   operators, and other tensors. Internally, this signature is used to validate operations and enforce geometric consistency.
+
+From Geometry to Computation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As we transition to the next section, it's important to recognize that **the behavior of operations like gradient,
+divergence, or Laplacian depends intimately on the type and structure of the tensor field** being operated on.
+
+The distinction between scalar fields, vector fields, and general tensors is not just semantic—it determines how the field
+transforms, how derivatives are taken, and how integrals are computed in curved spaces.
+
+In the next section, we'll explore how calculus adapts to curvilinear coordinates, and how PyMetric ensures correctness
+when working with complex geometries and tensorial data.
+
 
 
 Calculations in Curvilinear Coordinates
 ---------------------------------------
 
-- Why does calculus differ between coordinate systems?
-- What coordinate agnostic operations matter in physics?
+Differential calculus in curvilinear coordinates differs fundamentally from the Cartesian case because the **basis vectors
+vary with position**. As a result, derivatives must account not only for the variation of the components of a field,
+but also for the variation of the basis vectors themselves.
+
+In Cartesian coordinates, the gradient of a scalar is simply the vector of partial derivatives, and divergence is the
+sum of partial derivatives. But in curvilinear coordinates, these operations must be **modified by the local geometry**,
+captured by the **metric tensor** and its derivatives.
+
+.. note::
+
+   All differential operations in PyMetric—gradient, divergence, Laplacian, and curl—are computed with explicit awareness of the metric
+   and coordinate basis. They are implemented using standardized methods in the :mod:`~pisces_geometry.differential_geometry.dense_ops`
+   module and dispatched through `grid` and `field` methods.
+
+Coordinate-Invariant Foundations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Despite coordinate dependence in expressions, **physical quantities remain coordinate invariant**. Key operations that retain this
+invariance include:
+
+- **Inner products**, lengths, and angles via the metric tensor.
+- **Covariant derivatives** that account for basis vector variation.
+- **Geometric integrals** (flux, volume, work) with proper metric volume elements.
+
+These operations are built into the PyMetric tensor infrastructure and obey transformation laws derived from the field
+type (e.g., `(1,0)` vector, `(0,2)` metric).
 
 Displacements, Areas, and Volumes
-''''''''''''''''''''''''''''''''''
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Define the volume, area, and line infinitesmals.
+The building blocks of calculus in curved coordinates are the infinitesimal geometric quantities:
+
+**Line Element**:
+The squared differential displacement is given by the metric:
+
+.. math::
+
+   ds^2 = g_{\mu\nu} \, dq^\mu dq^\nu
+
+
+**Area Element**:
+For a surface spanned by two coordinate directions :math:`q^\mu` and :math:`q^\nu`, the differential area is:
+
+.. math::
+
+   dA^{\mu\nu} = \left| \mathbf{e}_\mu \times \mathbf{e}_\nu \right| \, dq^\mu dq^\nu
+
+
+**Volume Element**:
+In :math:`n` dimensions, the infinitesimal volume element is:
+
+.. math::
+
+   dV = \sqrt{\det g} \; dq^1 dq^2 \dots dq^n
+
+
+This ensures that integrals over scalar or tensor fields account for geometric distortion.
 
 Basic Operations
-''''''''''''''''
+~~~~~~~~~~~~~~~~
 
-- Gradient
-- Divergence
-- Curl
-- Laplacian
+Gradient
+^^^^^^^^
+
+The gradient of a scalar field :math:`\phi` is the covariant vector:
+
+.. math::
+
+   \nabla \phi = \frac{\partial \phi}{\partial q^\mu} \, \mathbf{e}^\mu
+
+In PyMetric:
+
+.. code-block:: python
+
+   phi = DenseTensorField(...)
+   grad_phi = phi.gradient()
+
+This automatically dispatches to the correct method based on the grid's metric structure.
+For orthogonal coordinates, it uses precomputed scale factors; otherwise, it uses metric inverse tensors.
+
+Divergence
+^^^^^^^^^^
+
+The divergence of a vector field :math:`V^\mu` in a curvilinear coordinate system is defined as:
+
+.. math::
+
+   \nabla \cdot \mathbf{V} = \frac{1}{\sqrt{g}} \frac{\partial}{\partial q^\mu} \left( \sqrt{g} V^\mu \right)
+
+This form ensures that conservation laws (e.g., for flux or charge) are preserved under general coordinate transformations.
+
+In the Pisces Geometry implementation, this is expressed through a **product rule expansion**:
+
+.. math::
+
+   \nabla \cdot \mathbf{V} = \left( D^\mu + \partial_\mu \right) V^\mu
+
+Here:
+
+- :math:`\partial_\mu` denotes the partial derivative operator.
+- :math:`D^\mu = \frac{1}{\sqrt{g}} \frac{\partial \sqrt{g}}{\partial q^\mu}` encodes the **volume distortion** induced by the metric determinant.
+
+This expansion allows the divergence to be rewritten as a **first-order operator** acting on the vector components, where :math:`D^\mu` is precomputed from the grid and stored as a buffer field.
+
+In PyMetric, divergence is implemented as:
+
+.. code-block:: python
+
+   V = DenseTensorField(...)
+   div_V = V.divergence()
+
+This method:
+
+- Automatically detects the field's variance signature (e.g., contravariant or covariant).
+- Applies finite differences to compute :math:`\partial_\mu V^\mu`.
+- Adds the precomputed :math:`D^\mu V^\mu` product via broadcasting.
+
+This allows divergence to be computed generically across arbitrary curvilinear systems, including spherical, cylindrical, and user-defined coordinates.
+
+
+Laplacian
+^^^^^^^^^
+
+The Laplacian of a scalar field :math:`\phi` is given by:
+
+.. math::
+
+   \nabla^2 \phi = \frac{1}{\sqrt{g}} \frac{\partial}{\partial q^\mu} \left( \sqrt{g} g^{\mu\nu} \frac{\partial \phi}{\partial q^\nu} \right)
+
+To compute this, PyMetric expands the expression using a product rule in two stages. The expansion introduces two geometric terms:
+
+.. math::
+
+   \nabla^2 \phi = \left( L^{\mu\nu} + D^\mu g^{\mu\nu} + g^{\mu\nu} \partial_\mu \right) \partial_\nu \phi
+
+Where:
+
+- :math:`g^{\mu\nu}` is the **inverse metric tensor**
+- :math:`D^\mu = \frac{1}{\sqrt{g}} \frac{\partial \sqrt{g}}{\partial q^\mu}` as above
+- :math:`L^{\mu\nu} = \frac{\partial g^{\mu\nu}}{\partial q^\mu}` is the **metric variation tensor**, capturing how the inverse metric changes over space
+
+These geometric derivatives (:math:`D^\mu`, :math:`L^{\mu\nu}`) are automatically computed and cached by the grid object.
+
+In PyMetric, this is evaluated via:
+
+.. code-block:: python
+
+   phi = DenseTensorField(...)
+   lap_phi = phi.laplacian
+
+Internally:
+
+- First derivatives :math:`\partial_\nu \phi` are computed using central finite differences.
+- Then, the above expression is evaluated using tensor contractions and broadcasting, with all geometric coefficients precomputed from the grid.

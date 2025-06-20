@@ -31,15 +31,13 @@ It is recommended reading for anyone contributing new grid types or modifying ex
     - Improvements to documentation and test coverage
 
     For instructions on setting up your development environment, building the documentation,
-    and running the test suite, please refer to the :ref:`developer_quickstart`.
+    and running the test suite, please refer to the :ref:`quickstart`.
 
 .. note::
 
     All contributions must follow the internal API and type annotations established in
     :mod:`grids.mixins._typing`, which defines the formal interfaces for grid classes and mixins.
 
-Grids: Overview
-----------------------------
 
 Grids: Overview
 ---------------
