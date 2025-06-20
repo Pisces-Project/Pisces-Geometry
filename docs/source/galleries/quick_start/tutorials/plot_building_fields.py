@@ -6,7 +6,7 @@ This basic tutorial will show how to make fields
 of different sorts in pymetric.
 """
 # %%
-# Fields (e.g. :class:`~fields.base.DenseField` or :class:`~fields.tensor.DenseTensorField`) are the core class of
+# Fields (e.g. :class:`~fields.base.DenseField` or :class:`~fields.tensors.DenseTensorField`) are the core class of
 # pymetric. They are effectively array objects with some knowledge of their underlying geometry and, therefore, are able
 # to perform operations like the divergence, curl, or gradient. In this tutorial, we'll walk through the basic process
 # of creating a field and taking its gradient in a spherical coordinate system.
@@ -87,6 +87,7 @@ IM = interp(R.ravel()).reshape(R.shape)
 
 # sphinx_gallery_thumbnail_number = 2
 plt.pcolormesh(X, Z, IM)
+plt.gca().set_aspect("equal")
 plt.xlabel("X")
 plt.ylabel("Z")
 plt.show()
