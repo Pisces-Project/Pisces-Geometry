@@ -331,7 +331,7 @@ class FieldContainer:
             )
         return method(*args, **kwargs)
 
-    def zeros(self, name: str, *args, ftype: str = "d", **kwargs) -> _FieldType:
+    def zeros(self, name: str, *args, field_type: str = "d", **kwargs) -> _FieldType:
         """
         Create a zero-initialized field and register it in the container.
 
@@ -341,7 +341,7 @@ class FieldContainer:
         .. hint::
 
             For details on the available args and kwargs, see the following
-            depending on `ftype`:
+            depending on `field_type`:
 
             - ``'d'`` for :class:`~fields.base.DenseField`
             - ``'s'`` for :class:`~fields.base.SparseField`.
@@ -353,7 +353,7 @@ class FieldContainer:
             The name under which to store the generated field.
         *args
             Positional arguments passed to the field class's `zeros()` constructor.
-        ftype : str, optional
+        field_type : str, optional
             Field type alias:
 
             - ``'d'`` for :class:`~fields.base.DenseField`
@@ -371,12 +371,12 @@ class FieldContainer:
         TypeError
             If the corresponding field class does not implement a `zeros` method.
         """
-        if ftype not in __field_aliases__:
+        if field_type not in __field_aliases__:
             raise ValueError(
-                f"Invalid field type alias '{ftype}'. Expected one of {list(__field_aliases__.keys())}."
+                f"Invalid field type alias '{field_type}'. Expected one of {list(__field_aliases__.keys())}."
             )
 
-        field_cls = __field_aliases__[ftype]
+        field_cls = __field_aliases__[field_type]
 
         field = self._forward_op_to_field(
             "zeros", field_cls, self.grid, *args, **kwargs
@@ -385,7 +385,7 @@ class FieldContainer:
 
         return field
 
-    def ones(self, name: str, *args, ftype: str = "d", **kwargs) -> _FieldType:
+    def ones(self, name: str, *args, field_type: str = "d", **kwargs) -> _FieldType:
         """
         Create a one-initialized field and register it in the container.
 
@@ -394,7 +394,7 @@ class FieldContainer:
         .. hint::
 
             For details on the available args and kwargs, see the following
-            depending on `ftype`:
+            depending on `field_type`:
 
             - ``'d'`` for :class:`~fields.base.DenseField`
             - ``'s'`` for :class:`~fields.base.SparseField`.
@@ -406,7 +406,7 @@ class FieldContainer:
             The name under which to store the generated field.
         *args
             Positional arguments passed to the field class's `ones()` constructor.
-        ftype : str, optional
+        field_type : str, optional
             Field type alias (default is ``'d'``).
         **kwargs
             Additional keyword arguments.
@@ -416,17 +416,17 @@ class FieldContainer:
         FieldType
             The generated field.
         """
-        if ftype not in __field_aliases__:
+        if field_type not in __field_aliases__:
             raise ValueError(
-                f"Invalid field type alias '{ftype}'. Expected one of {list(__field_aliases__.keys())}."
+                f"Invalid field type alias '{field_type}'. Expected one of {list(__field_aliases__.keys())}."
             )
 
-        field_cls = __field_aliases__[ftype]
+        field_cls = __field_aliases__[field_type]
         field = self._forward_op_to_field("ones", field_cls, self.grid, *args, **kwargs)
         self.add_field(name, field)
         return field
 
-    def empty(self, name: str, *args, ftype: str = "d", **kwargs) -> _FieldType:
+    def empty(self, name: str, *args, field_type: str = "d", **kwargs) -> _FieldType:
         """
         Create an uninitialized field and register it in the container.
 
@@ -435,7 +435,7 @@ class FieldContainer:
         .. hint::
 
             For details on the available args and kwargs, see the following
-            depending on `ftype`:
+            depending on `field_type`:
 
             - ``'d'`` for :class:`~fields.base.DenseField`
             - ``'s'`` for :class:`~fields.base.SparseField`.
@@ -447,7 +447,7 @@ class FieldContainer:
             The name under which to store the generated field.
         *args
             Positional arguments passed to the field class's `empty()` constructor.
-        ftype : str, optional
+        field_type : str, optional
             Field type alias (default is ``'d'``).
         **kwargs
             Additional keyword arguments.
@@ -457,12 +457,12 @@ class FieldContainer:
         FieldType
             The generated field.
         """
-        if ftype not in __field_aliases__:
+        if field_type not in __field_aliases__:
             raise ValueError(
-                f"Invalid field type alias '{ftype}'. Expected one of {list(__field_aliases__.keys())}."
+                f"Invalid field type alias '{field_type}'. Expected one of {list(__field_aliases__.keys())}."
             )
 
-        field_cls = __field_aliases__[ftype]
+        field_cls = __field_aliases__[field_type]
         field = self._forward_op_to_field(
             "empty", field_cls, self.grid, *args, **kwargs
         )
@@ -470,7 +470,7 @@ class FieldContainer:
         return field
 
     def full(
-        self, name: str, fill_value, *args, ftype: str = "d", **kwargs
+        self, name: str, fill_value, *args, field_type: str = "d", **kwargs
     ) -> _FieldType:
         """
         Create a field filled with a specified value and register it in the container.
@@ -480,7 +480,7 @@ class FieldContainer:
         .. hint::
 
             For details on the available args and kwargs, see the following
-            depending on `ftype`:
+            depending on `field_type`:
 
             - ``'d'`` for :class:`~fields.base.DenseField`
             - ``'s'`` for :class:`~fields.base.SparseField`.
@@ -494,7 +494,7 @@ class FieldContainer:
             The value to fill the field with.
         *args
             Additional positional arguments passed to the `full()` constructor.
-        ftype : str, optional
+        field_type : str, optional
             Field type alias (default is ``'d'``).
         **kwargs
             Additional keyword arguments.
@@ -504,12 +504,12 @@ class FieldContainer:
         FieldType
             The generated field.
         """
-        if ftype not in __field_aliases__:
+        if field_type not in __field_aliases__:
             raise ValueError(
-                f"Invalid field type alias '{ftype}'. Expected one of {list(__field_aliases__.keys())}."
+                f"Invalid field type alias '{field_type}'. Expected one of {list(__field_aliases__.keys())}."
             )
 
-        field_cls = __field_aliases__[ftype]
+        field_cls = __field_aliases__[field_type]
         field = self._forward_op_to_field(
             "full", field_cls, self.grid, fill_value, *args, **kwargs
         )
@@ -517,7 +517,7 @@ class FieldContainer:
         return field
 
     def ones_like(
-        self, name: str, reference: _FieldType, ftype: str = "d", **kwargs
+        self, name: str, reference: _FieldType, field_type: str = "d", **kwargs
     ) -> _FieldType:
         """
         Create a one-initialized field with the same shape and metadata as `reference`.
@@ -528,7 +528,7 @@ class FieldContainer:
             Name to assign to the generated field.
         reference : FieldType
             The field to match shape and structure with.
-        ftype : str, optional
+        field_type : str, optional
             Field type alias (default is ``'d'``).
         **kwargs
             Additional keyword arguments passed to the `ones_like()` constructor.
@@ -538,18 +538,18 @@ class FieldContainer:
         FieldType
             The generated field.
         """
-        if ftype not in __field_aliases__:
+        if field_type not in __field_aliases__:
             raise ValueError(
-                f"Invalid field type alias '{ftype}'. Expected one of {list(__field_aliases__.keys())}."
+                f"Invalid field type alias '{field_type}'. Expected one of {list(__field_aliases__.keys())}."
             )
 
-        field_cls = __field_aliases__[ftype]
+        field_cls = __field_aliases__[field_type]
         field = self._forward_op_to_field("ones_like", field_cls, reference, **kwargs)
         self.add_field(name, field)
         return field
 
     def zeros_like(
-        self, name: str, reference: _FieldType, ftype: str = "d", **kwargs
+        self, name: str, reference: _FieldType, field_type: str = "d", **kwargs
     ) -> _FieldType:
         """
         Create a zero-initialized field with the same shape and metadata as `reference`.
@@ -560,7 +560,7 @@ class FieldContainer:
             Name to assign to the generated field.
         reference : FieldType
             The field to match shape and structure with.
-        ftype : str, optional
+        field_type : str, optional
             Field type alias (default is ``'d'``).
         **kwargs
             Additional keyword arguments passed to the `zeros_like()` constructor.
@@ -570,18 +570,18 @@ class FieldContainer:
         FieldType
             The generated field.
         """
-        if ftype not in __field_aliases__:
+        if field_type not in __field_aliases__:
             raise ValueError(
-                f"Invalid field type alias '{ftype}'. Expected one of {list(__field_aliases__.keys())}."
+                f"Invalid field type alias '{field_type}'. Expected one of {list(__field_aliases__.keys())}."
             )
 
-        field_cls = __field_aliases__[ftype]
+        field_cls = __field_aliases__[field_type]
         field = self._forward_op_to_field("zeros_like", field_cls, reference, **kwargs)
         self.add_field(name, field)
         return field
 
     def empty_like(
-        self, name: str, reference: _FieldType, ftype: str = "d", **kwargs
+        self, name: str, reference: _FieldType, field_type: str = "d", **kwargs
     ) -> _FieldType:
         """
         Create an uninitialized field with the same shape and metadata as `reference`.
@@ -592,7 +592,7 @@ class FieldContainer:
             Name to assign to the generated field.
         reference : FieldType
             The field to match shape and structure with.
-        ftype : str, optional
+        field_type : str, optional
             Field type alias (default is ``'d'``).
         **kwargs
             Additional keyword arguments passed to the `empty_like()` constructor.
@@ -602,18 +602,23 @@ class FieldContainer:
         FieldType
             The generated field.
         """
-        if ftype not in __field_aliases__:
+        if field_type not in __field_aliases__:
             raise ValueError(
-                f"Invalid field type alias '{ftype}'. Expected one of {list(__field_aliases__.keys())}."
+                f"Invalid field type alias '{field_type}'. Expected one of {list(__field_aliases__.keys())}."
             )
 
-        field_cls = __field_aliases__[ftype]
+        field_cls = __field_aliases__[field_type]
         field = self._forward_op_to_field("empty_like", field_cls, reference, **kwargs)
         self.add_field(name, field)
         return field
 
     def full_like(
-        self, name: str, reference: _FieldType, fill_value, ftype: str = "d", **kwargs
+        self,
+        name: str,
+        reference: _FieldType,
+        fill_value,
+        field_type: str = "d",
+        **kwargs,
     ) -> _FieldType:
         """
         Create a field filled with a specified value and structured like `reference`.
@@ -626,7 +631,7 @@ class FieldContainer:
             The field to match shape and structure with.
         fill_value : scalar
             The value to fill the field with.
-        ftype : str, optional
+        field_type : str, optional
             Field type alias (default is ``'d'``).
         **kwargs
             Additional keyword arguments passed to the `full_like()` constructor.
@@ -636,19 +641,21 @@ class FieldContainer:
         FieldType
             The generated field.
         """
-        if ftype not in __field_aliases__:
+        if field_type not in __field_aliases__:
             raise ValueError(
-                f"Invalid field type alias '{ftype}'. Expected one of {list(__field_aliases__.keys())}."
+                f"Invalid field type alias '{field_type}'. Expected one of {list(__field_aliases__.keys())}."
             )
 
-        field_cls = __field_aliases__[ftype]
+        field_cls = __field_aliases__[field_type]
         field = self._forward_op_to_field(
             "full_like", field_cls, reference, fill_value, **kwargs
         )
         self.add_field(name, field)
         return field
 
-    def from_array(self, name: str, array, ftype: str = "d", **kwargs) -> _FieldType:
+    def from_array(
+        self, name: str, array, field_type: str = "d", **kwargs
+    ) -> _FieldType:
         """
         Create a field from an existing array and register it in the container.
 
@@ -665,7 +672,7 @@ class FieldContainer:
             The name under which to store the generated field.
         array : array-like
             Input array to wrap as a field.
-        ftype : str, optional
+        field_type : str, optional
             Field type alias (default is ``'d'``).
         **kwargs
             Additional keyword arguments passed to the field class's `from_array()` method.
@@ -678,23 +685,25 @@ class FieldContainer:
         Raises
         ------
         ValueError
-            If the provided `ftype` is not recognized.
+            If the provided `field_type` is not recognized.
         TypeError
             If the field class does not support `from_array`.
         """
-        if ftype not in __field_aliases__:
+        if field_type not in __field_aliases__:
             raise ValueError(
-                f"Invalid field type alias '{ftype}'. Expected one of {list(__field_aliases__.keys())}."
+                f"Invalid field type alias '{field_type}'. Expected one of {list(__field_aliases__.keys())}."
             )
 
-        field_cls = __field_aliases__[ftype]
+        field_cls = __field_aliases__[field_type]
         field = self._forward_op_to_field(
             "from_array", field_cls, self.grid, array, **kwargs
         )
         self.add_field(name, field)
         return field
 
-    def from_function(self, name: str, func, ftype: str = "d", **kwargs) -> _FieldType:
+    def from_function(
+        self, name: str, func, field_type: str = "d", **kwargs
+    ) -> _FieldType:
         """
         Create a field by evaluating a function on the container's grid and register it.
 
@@ -712,7 +721,7 @@ class FieldContainer:
         func : callable
             Function to evaluate across the grid. Must be compatible with the expected
             signature for the field type.
-        ftype : str, optional
+        field_type : str, optional
             Field type alias (default is ``'d'``).
         **kwargs
             Additional keyword arguments passed to the field class's `from_function()` method.
@@ -725,16 +734,16 @@ class FieldContainer:
         Raises
         ------
         ValueError
-            If the provided `ftype` is not recognized.
+            If the provided `field_type` is not recognized.
         TypeError
             If the field class does not support `from_function`.
         """
-        if ftype not in __field_aliases__:
+        if field_type not in __field_aliases__:
             raise ValueError(
-                f"Invalid field type alias '{ftype}'. Expected one of {list(__field_aliases__.keys())}."
+                f"Invalid field type alias '{field_type}'. Expected one of {list(__field_aliases__.keys())}."
             )
 
-        field_cls = __field_aliases__[ftype]
+        field_cls = __field_aliases__[field_type]
         field = self._forward_op_to_field(
             "from_function", field_cls, self.grid, func, **kwargs
         )
